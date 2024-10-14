@@ -1,0 +1,117 @@
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2vh;
+    background-color: var(--main-bg-color);
+    font-weight: bold;
+    width: 100%;
+    box-sizing: border-box;
+    min-width: 360px;
+    max-width: 1280px;
+}
+
+.logo button {
+    background: none;
+    border: none;
+    font-size: 2.2vh;
+    cursor: pointer;
+    color: var(--main-text-color);
+    display: flex;
+    align-items: center; 
+}
+
+.logo img {
+    padding-right: 1vh;
+    height: 5vh;
+}
+
+.navbar ul {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar li {
+    margin-left: 2vh;
+}
+
+.navbar button {
+    background: none;
+    border: none;
+    font-size: 2vh;
+    cursor: pointer;
+    padding-left: 1.5vh;
+    transition: color 0.3s ease, filter 0.3s ease;
+    color: var(--main-text-color);
+    display: flex;
+    align-items: center; 
+}
+
+.navbar button img {
+    height: 2.5vh;
+    margin-right: 0.5vh;
+    transition: filter 0.3s ease;
+}
+
+.navbar button:hover {
+    color: var(--accent-color);
+}
+
+.menuIcon {
+    display: none;
+}
+
+/* 반응형 */
+@media screen and (max-width: 767px) {
+    .menuIcon {
+        display: block;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .menuIcon img {
+        height: 4vh;
+        transition: transform 0.3s ease;
+    }
+
+    .navbar {
+        position: absolute;
+        top: 8vh;
+        right: 0;
+        background-color: var(--main-bg-color);
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar ul {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 0;
+    }
+
+    .navbar ul li {
+        width: 100%;
+        text-align: center;
+        margin: 1.5vh 0;
+    }
+
+    .navbar.active {
+        max-height: 50vh; 
+    }
+
+    .menuIcon.open img {
+        transform: rotate(90deg); 
+    }
+
+    .navbar.active + .menuIcon img {
+        transform: rotate(180deg);
+    }
+}
