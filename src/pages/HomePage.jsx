@@ -1,11 +1,15 @@
-import styles from './Home.module.css'
+import React from "react";
+import Wrapper from "@commons/Wrapper";
+import MainSection from "@components/home/main/MainSection";
+import IntroSection from "@components/home/intro/IntroSection";
+import ActivitySection from "@components/home/activity/ActivitySection";
 
 export default function HomePage() {
     return (
         <Wrapper>
-            <div className={styles.menubar}>
-                <p>hello</p>
-            </div>
+            <MainSection/>
+            <IntroSection/>
+            <ActivitySection/>
         </Wrapper>
     )
 }

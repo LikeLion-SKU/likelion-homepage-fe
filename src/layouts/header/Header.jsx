@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import styles from './Header.module.css';
 import logo from "@svgs/logo.svg";
 import login from "@svgs/login.svg";
@@ -13,17 +14,19 @@ const Header = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
+    const navigate = useNavigate();
+
     return (
         <div className={styles.wrapper}>
-            <div className={styles.logo}>
-                <button><img src={logo} alt="Logo" />멋쟁이사자처럼</button>
+            <div className={styles.logo} onClick={() => navigate('/')}>
+                <button><img src={logo} alt="Logo"/>멋쟁이사자처럼</button>
             </div>
-            <nav className={`${styles.navbar} ${isMenuOpen ? styles.active : ""}`}>
+            <nav className={`${styles.navbar} ${isMenuOpen ? styles.active : "null"}`}>
                 <ul>
-                    <li><button>알아보기</button></li>
-                    <li><button>프로젝트</button></li>
-                    <li><button>지원하기</button></li>
-                    <li><button>로그인</button></li>
+                    <li><button onClick={() => navigate('about')}>알아보기</button></li>
+                    <li><button onClick={() => navigate('project')}>프로젝트</button></li>
+                    <li><button onClick={() => navigate('recruit')}>지원하기</button></li>
+                    <li><button onClick={() => navigate('login')}>로그인</button></li>
                 </ul>
             </nav>
             <button className={styles.menuIcon} onClick={toggleMenu}>

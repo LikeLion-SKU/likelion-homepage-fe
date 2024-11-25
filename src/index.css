@@ -2,9 +2,11 @@
 
 
 :root {
-    --main-bg-color: #FFFFFF;
+    --main-bg-color: #FBFBFB;
     --main-text-color: #1C1B1A;
-    --accent-color: #66924B;
+    --accent-color: #66924B; 
+    --grey-color: #9F9C98;
+    --lightgrey-color: #F5F5F7;
 }
 
 /* Reset CSS */
@@ -29,6 +31,10 @@ time, mark, audio, video, button {
     vertical-align: baseline;
     font-family: "Pretendard Variable";
 
+}
+
+html {
+    font-size: 10px;
 }
 
 /* HTML5 display-role reset for older browsers */
