@@ -1,0 +1,29 @@
+/* div */
+.center {
+    text-align: center;
+    height: 70vh;
+}
+
+.horizontal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+
+/* text */
+.title {
+    color: var(--main-text-color);
+    font-size: 3.2rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+}
+
+.medium16 {
+    color: var(--main-text-color);
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin-bottom: 3rem;
+    line-height: 3rem;
+}

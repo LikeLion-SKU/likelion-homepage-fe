@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2vh;
+    padding: 1vh;
     background-color: var(--main-bg-color);
     font-weight: bold;
     width: 100%;
@@ -31,6 +31,7 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
+    margin-top: 2vh;
 }
 
 .navbar li {
