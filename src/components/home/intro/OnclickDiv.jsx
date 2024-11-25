@@ -1,18 +1,21 @@
 import React from "react";
 import styles from "./OnclickDiv.module.css"
+import { useNavigate } from "react-router-dom";
 import link from "@svgs/link.svg"
 
-function OnclickDiv(props) {
+function OnclickDiv({children}) {
     return(
         <>
-            {props.children}
+            {children}
         </>
     )
 }
 
 function Members() {
+    const navigate = useNavigate();
+
     return(
-        <div className={styles.div}>
+        <div className={styles.div} onClick={() => navigate('about')}>
             <div className={styles.titleDiv}>
                 <span className={styles.bold16}>MEMBERS</span>
                 <span className={styles.bold28}>명예의 전당</span>
@@ -23,8 +26,10 @@ function Members() {
 }
 
 function Recruit() {
+    const navigate = useNavigate();
+
     return(
-        <div className={styles.div}>
+        <div className={styles.div} onClick={() => navigate('recruit')}>
             <div className={styles.titleDiv}>
                 <span className={styles.bold16}>RECRUIT</span>
                 <span className={styles.bold28}>멋사 지원하기</span>

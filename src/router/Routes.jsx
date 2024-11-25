@@ -14,7 +14,7 @@ const Routes = () => {
       <ReactRouters>
         {/* 레이아웃 공통 적용 */}
         <Route path="/" element={<Layout/>}>
-          <Route path="home" element={<HomePage />}/>
+          <Route index={true} element={<HomePage />}/>
           <Route path="about" element={<AboutPage />}/>
           <Route path="project" element={<ProjectPage />}/>
           <Route path="recruit" element={<RecruitPage />}/>

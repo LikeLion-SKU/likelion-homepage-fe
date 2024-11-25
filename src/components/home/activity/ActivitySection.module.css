@@ -7,8 +7,9 @@
 .horizontal {
     display: flex;
     flex-wrap: wrap;
+    max-width: 100rem;
     justify-content: center;
-    gap: 10px;
+    gap: 2rem;
 }
 
 
