@@ -1,0 +1,33 @@
+.card {
+  text-align: center;
+  height: 70vh;
+}
+
+.title {
+  color: var(--main-text-color);
+  font-size: 3.2rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+}
+
+.itemBox {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100rem;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  width: 10vw;
+  height: 10vw;
+  max-width: 20rem;
+  max-height: 20rem;
+  border-radius: 300px;
+  justify-content: center;
+  padding: 5vw;
+  background-color: var(--lightgrey-color);
+  position: relative;
+}
