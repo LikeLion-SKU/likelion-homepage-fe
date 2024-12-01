@@ -5,6 +5,8 @@ import AboutPage from "@pages/AboutPage";
 import ProjectPage from "@pages/ProjectPage";
 import RecruitPage from "@pages/RecruitPage";
 import LoginPage from "@pages/LoginPage";
+import SignupPage from "@pages/SignupPage";
+import WelcomePage from "@pages/WelcomePage";
 import Footer from "@layouts/footer/Footer";
 import Header from "@layouts/header/Header";
 
@@ -19,6 +21,8 @@ const Routes = () => {
           <Route path="project" element={<ProjectPage />}/>
           <Route path="recruit" element={<RecruitPage />}/>
           <Route path="login" element={<LoginPage />}/>
+          <Route path="signup" element={<SignupPage />}/>
+          <Route path="welcome" element={<WelcomePage />}/>
         </Route>
       </ReactRouters>
     );

@@ -1,0 +1,144 @@
+
+.SignupPage_layout{
+    text-align: center;
+    height: 100%;
+    padding-top: 14rem;
+    padding-bottom: 17rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title{
+    color: var(--main-text-color);
+    font-size: 3.6rem;
+    font-weight: 750;
+    margin-bottom: 5rem;
+}
+
+.Signup_input_boxs{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10rem;
+    width: 30%;
+    min-width: 300px;
+}
+
+.Signup_input_box{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 2rem;
+    height: 8rem;
+    width: 100%;
+}
+.Signup_input_box_pw{
+    display: flex;
+    flex-direction: row;
+    background-color: #5A914A;
+}
+
+.Signup_input_box > label{
+    color: var(--main-text-color);
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin: 0.5rem;
+    line-height: 3rem;
+}
+
+.input_box > input{
+    border: 1px solid rgb(172, 172, 172);
+    border-radius: 8px; 
+    width: 100% ;
+    height: 2rem;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    
+}
+.idInput > input{
+    border: 1px solid rgb(172, 172, 172);
+    border-radius: 8px; 
+    width: 100%;
+    height: 2rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    
+}
+input:focus{
+    border-color: #5A914A;
+    outline: none;
+}
+
+input.valid {
+    border-color: #5A914A;
+}
+  
+  
+input.invalid {
+    border-color: red;
+}
+
+
+
+.Signup_progress_box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 110%;
+    margin-top: 4rem;
+}
+
+.SignupBtn{
+    color: #FBFBFB;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    line-height: 3rem;
+    padding: 0.5rem 1rem;
+    
+    width: 100% ;
+    background-color: #5A914A;
+    border-radius: 10px;
+}
+
+
+.error_message{
+    color: red;
+    margin-left: 1rem;
+}
+
+.idInput{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.idInput > p{
+    color: rgb(139, 139, 139);
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+}
+
+.passwordCaution{
+    background-color: rgb(237, 237, 237);
+    border-radius: 0.5rem;
+    padding: 1.5rem 1rem 1.5rem 1.5rem;
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+
+.toLogin{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.tologinBtn{
+    color:#5A914A;
+    background-color: rgba(255, 255, 255, 0);
+    margin-left: 1rem;
+}
+
