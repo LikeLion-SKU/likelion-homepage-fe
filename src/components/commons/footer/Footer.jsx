@@ -1,14 +1,21 @@
-import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import styles from './Footer.module.css';
-import HomePage from '../../pages/HomePage';
 import logo from '@svgs/logo_horizon.svg';
 import instagram from '@svgs/instagram.svg';
 import github from '@svgs/github.svg';
 
 export default function Footer() {
+  const navigate = useNavigate();
   return (
     <div className={styles.wrapper}>
-      <img src={logo} alt="logo" onClick={HomePage} />
+      <img
+        src={logo}
+        alt="logo"
+        onClick={function () {
+          navigate('/');
+        }}
+      />
       <li>
         <a
           href="https://www.instagram.com/likelion_skuniv"

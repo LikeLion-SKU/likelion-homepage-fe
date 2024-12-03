@@ -1,13 +1,10 @@
-import { BrowserRouter } from "react-router-dom";
-import Wrapper from "@commons/Wrapper";
-import Routes from "./router/Routes";
+import { BrowserRouter } from 'react-router-dom';
+import Routes from './router/Routes';
 
 function App() {
   return (
     <BrowserRouter>
-        <Wrapper>
-          <Routes />
-        </Wrapper>
+      <Routes />
     </BrowserRouter>
   );
 }
