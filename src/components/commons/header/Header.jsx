@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Header.module.css';
 import logo from '@svgs/logo.svg';
-import login from '@svgs/login.svg';
 import menuIcon from '@svgs/menu_hamburger.svg';
 import closeIcon from '@svgs/menu_close.svg';
 
