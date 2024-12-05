@@ -1,5 +1,5 @@
 .projectPage {
-    padding: 0rem;
+    padding: 3rem;
   }
   
 .title {
@@ -59,6 +59,12 @@
   min-height: 40rem; /* 프로젝트가 없을 때도 공간 확보 */
 }
 
+@media (max-width: 768px) { /* 화면 가로 크기가 768px 이하일 때 */
+  .grid {
+    grid-template-columns: repeat(2, 1fr); /* 2열로 변경 */
+  }
+}
+
 .card {
   padding: 1rem;
 }
@@ -88,10 +94,13 @@
 
 .tag {
   display: inline-block;
+  height: 1rem;
+  line-height: 1rem; /* 요소 높이와 동일하게 설정 */
   padding: 0.3rem 0.5rem;
   margin-right: 0.5rem;
   border-radius: 16px;
   font-size: 0.9rem;
+  text-align: center; /* 텍스트 중앙 정렬 */
 }
 
 .noProjects {
