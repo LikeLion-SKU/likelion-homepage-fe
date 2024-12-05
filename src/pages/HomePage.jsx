@@ -1,11 +1,13 @@
-import styles from './Home.module.css'
+import MainSection from '@components/home/main/MainSection';
+import IntroSection from '@components/home/intro/IntroSection';
+import { ActivitySection } from '@components/home/activity';
 
 export default function HomePage() {
-    return (
-        <Wrapper>
-            <div className={styles.menubar}>
-                <p>hello</p>
-            </div>
-        </Wrapper>
-    )
+  return (
+    <>
+      <MainSection />
+      <IntroSection />
+      <ActivitySection />
+    </>
+  );
 }

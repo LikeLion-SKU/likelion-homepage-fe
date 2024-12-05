@@ -1,38 +1,25 @@
-import { useEffect } from 'react';
-import {
-  Routes as ReactRouters,
-  Route,
-  useLocation,
-  Outlet,
-} from 'react-router-dom';
+import { Routes as ReactRouters, Route } from 'react-router-dom';
 
 import HomePage from '@pages/HomePage';
-import Footer from '@layouts/Footer';
-import Header from '@layouts/Header';
+import AboutPage from '@pages/AboutPage';
+import ProjectPage from '@pages/ProjectPage';
+import RecruitPage from '@pages/RecruitPage';
+import LoginPage from '@pages/LoginPage';
 import ApplicationForm from '../pages/applicationForm/ApplicationForm';
+import { MainLayout } from '@layouts';
 
-const Routes = () => {
+export default function Routes() {
   return (
     <ReactRouters>
-      {/* 헤더 및 푸터 공통 적용 */}
-      <Route path="/" element={<Layout />}>
-        {/* 그 외 페이지들 */}
-        {/* <Route index element={<HomePage />} /> */}
-
+      {/* 레이아웃 공통 적용 */}
+      <Route path="/" element={<MainLayout />}>
+        <Route index={true} element={<HomePage />} />
+        <Route path="about" element={<AboutPage />} />
+        <Route path="project" element={<ProjectPage />} />
+        <Route path="recruit" element={<RecruitPage />} />
+        <Route path="login" element={<LoginPage />} />
         <Route path="apply" element={<ApplicationForm />} />
       </Route>
     </ReactRouters>
   );
-};
-
-const Layout = () => {
-  return (
-    <>
-      <Header />
-      <Outlet />
-      <Footer />
-    </>
-  );
-};
-
-export default Routes;
+}
