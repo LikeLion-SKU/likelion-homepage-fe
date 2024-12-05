@@ -16,7 +16,7 @@ const Routes = () => {
         <Route path="/" element={<Layout/>}>
           <Route index={true} element={<HomePage />}/>
           <Route path="about" element={<AboutPage />}/>
-          <Route path="project" element={<ProjectPage />}/>
+          <Route path="project/*" element={<ProjectPage />}/>
           <Route path="recruit" element={<RecruitPage />}/>
           <Route path="login" element={<LoginPage />}/>
         </Route>
