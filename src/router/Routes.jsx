@@ -3,7 +3,7 @@ import { Routes as ReactRouters, Route } from 'react-router-dom';
 import HomePage from '@pages/HomePage';
 import AboutPage from '@pages/AboutPage';
 import ProjectPage from '@pages/ProjectPage';
-import RecruitPage from '@pages/RecruitPage';
+import RecruitPage from '@pages/resultPage/CheckResult';
 import LoginPage from '@pages/LoginPage';
 import { MainLayout } from '@layouts';
 
