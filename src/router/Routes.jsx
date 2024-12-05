@@ -5,6 +5,7 @@ import AboutPage from '@pages/AboutPage';
 import ProjectPage from '@pages/ProjectPage';
 import RecruitPage from '@pages/RecruitPage';
 import LoginPage from '@pages/LoginPage';
+import ApplicationForm from '../pages/applicationForm/ApplicationForm';
 import { MainLayout } from '@layouts';
 
 export default function Routes() {
@@ -17,6 +18,7 @@ export default function Routes() {
         <Route path="project" element={<ProjectPage />} />
         <Route path="recruit" element={<RecruitPage />} />
         <Route path="login" element={<LoginPage />} />
+        <Route path="apply" element={<ApplicationForm />} />
       </Route>
     </ReactRouters>
   );
