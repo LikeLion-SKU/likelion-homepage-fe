@@ -1,0 +1,19 @@
+.allContainer{
+    margin-left: 5%;
+    margin-top: 10%;
+    margin-bottom: 20%;
+}
+
+.title{
+    font-size: 36px;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 12%;
+}
+
+.label{
+    font-size: 24px;
+    font-weight: 500;
+    color: #000;
+    margin-bottom: 5%;
+}
