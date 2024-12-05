@@ -1,5 +1,5 @@
 .projectPage {
-    padding: 3rem;
+    padding: 0rem;
   }
   
 .title {
@@ -96,11 +96,26 @@
   display: inline-block;
   height: 1rem;
   line-height: 1rem; /* 요소 높이와 동일하게 설정 */
-  padding: 0.3rem 0.5rem;
+  padding: 0.45rem 0.5rem;
   margin-right: 0.5rem;
   border-radius: 16px;
   font-size: 0.9rem;
   text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+.tag.자체프로젝트 {
+  background-color: #f5e0e9;
+  color: #000;
+}
+
+.tag.아이디어톤 {
+  background-color: #fdecc8;
+  color: #000;
+}
+
+.tag.중앙해커톤 {
+  background-color: #dbeddb;
+  color: #000;
 }
 
 .noProjects {
