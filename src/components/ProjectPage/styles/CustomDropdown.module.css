@@ -1,0 +1,57 @@
+.customDropdown {
+    position: relative;
+    width: 11.7rem;
+    height: 3.2rem;
+    font-size: 1.4rem;
+  }
+  
+  .selectedOption {
+    padding: 0.8rem 1.2rem;
+    border: 1px solid #000;
+    border-radius: 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .selectedOption span {
+    display: inline-block;
+    margin-right: 0.rem; /* 아이콘과 텍스트 간 여백 설정 */
+  }
+  
+  .selectedOption:hover {
+    background: #f9f9f9;
+  }
+
+  .text {
+    flex-grow: 1; /* 텍스트가 가능한 공간을 채움 */
+    text-align: center; /* 텍스트를 가로로 중앙 정렬 */
+  }
+  
+  .arrow {
+    width: 1rem;
+    margin-left: 0.4rem; 
+  }
+  
+  .dropdownList {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 0.5rem;
+    background: white;
+    border: 1px solid #000;
+    border-radius: 15px;
+    list-style: none;
+    padding: 0;
+    z-index: 1;
+  }
+  
+  .dropdownItem {
+    cursor: pointer;
+  }
+  
+  .dropdownItem:first-child {
+    padding-top: 1.5rem; /* 맨 위 항목에만 상단 패딩 추가 */
+  }

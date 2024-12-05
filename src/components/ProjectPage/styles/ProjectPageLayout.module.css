@@ -1,0 +1,127 @@
+.projectPage {
+    padding: 0rem;
+  }
+  
+.title {
+    color: var(--main-text-color);
+    font-size: 5rem; 
+    font-weight: 700;
+    text-align: center; 
+    margin-bottom: 5rem; 
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  position: relative; /* 중앙 정렬을 위한 상대 위치 지정 */
+}
+
+.addButtonImage {
+  position: absolute; /* 중앙 정렬을 위해 절대 위치 */
+  left: 50%; /* 부모의 50% 위치 */
+  transform: translateX(-50%); /* 가로 중앙 정렬 */
+  width: 2.5rem; 
+  height: 2.5rem;
+  cursor: pointer;
+}
+
+.addButtonImage:hover {
+  opacity: 0.8; /* 마우스 오버 시 효과 */
+}
+
+
+.selectBoxContainer {
+  margin-left: auto; /* 드롭다운 박스를 오른쪽으로 밀기 */
+}
+
+.addButton {
+  padding: 0.8rem 1.5rem;
+  font-size: 1.2rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.addButton:hover {
+  background-color: #45a049;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3열 그리드 설정 */
+  gap: 1.5rem;
+  justify-content: center; /* 카드들을 가로로 중앙 정렬 */
+  align-items: center; /* 세로 정렬 */
+  min-height: 40rem; /* 프로젝트가 없을 때도 공간 확보 */
+}
+
+@media (max-width: 768px) { /* 화면 가로 크기가 768px 이하일 때 */
+  .grid {
+    grid-template-columns: repeat(2, 1fr); /* 2열로 변경 */
+  }
+}
+
+.card {
+  padding: 1rem;
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.name {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 1rem 0 0.5rem;
+  color: #333;
+}
+
+.description {
+  font-size: 1.4rem;
+  color: #666;
+  line-height: 1.6;
+}
+
+.tags {
+  margin-top: 0.5rem;
+}
+
+.tag {
+  display: inline-block;
+  height: 1rem;
+  line-height: 1rem; /* 요소 높이와 동일하게 설정 */
+  padding: 0.45rem 0.5rem;
+  margin-right: 0.5rem;
+  border-radius: 16px;
+  font-size: 0.9rem;
+  text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+.tag.자체프로젝트 {
+  background-color: #f5e0e9;
+  color: #000;
+}
+
+.tag.아이디어톤 {
+  background-color: #fdecc8;
+  color: #000;
+}
+
+.tag.중앙해커톤 {
+  background-color: #dbeddb;
+  color: #000;
+}
+
+.noProjects {
+  grid-column: 1 / -1; /* 전체 그리드를 차지 */
+  text-align: center;
+  color: #888;
+  font-size: 1.4rem;
+  margin-top: 2rem;
+}
