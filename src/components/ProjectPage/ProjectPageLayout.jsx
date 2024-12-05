@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./styles/ProjectPageLayout.module.css";
 import CustomDropdown from "./CustomDropdown.jsx";
 import projects from "./ProjectData.jsx";
@@ -6,6 +7,7 @@ import plusbtn from "../../assets/svgs/plusbtn.svg";
 
 const ProjectPageLayout = ({ isAdmin }) => {
   const [selectedTag, setSelectedTag] = useState("전체 프로젝트");
+  const navigate = useNavigate();
 
   const filteredProjects =
     selectedTag === "전체 프로젝트"
@@ -15,6 +17,12 @@ const ProjectPageLayout = ({ isAdmin }) => {
   const handleTagChange = (selectedOption) => {
     setSelectedTag(selectedOption); // 선택된 값을 상태로 업데이트
   };
+
+  const handleCardClick = (projectId) => {
+    const projectTags = projects.find((project) => project.id === projectId)?.tags || [];
+    navigate(`/project/${projectId}`, { state: { tags: projectTags } }); // tags 데이터를 함께 전달
+  };
+  
 
   return (
     <div className={styles.projectPage}>
@@ -38,7 +46,11 @@ const ProjectPageLayout = ({ isAdmin }) => {
       <div className={styles.grid}>
         {filteredProjects.length > 0 ? (
           filteredProjects.map((project) => (
-            <div key={project.id} className={styles.card}>
+            <div
+              key={project.id}
+              className={styles.card}
+              onClick={()=>handleCardClick(project.id)}
+            >
               <img
                 src={project.image}
                 alt={project.title}
@@ -48,10 +60,7 @@ const ProjectPageLayout = ({ isAdmin }) => {
               <p className={styles.description}>{project.description}</p>
               <div className={styles.tags}>
                 {project.tags.map((tag, idx) => (
-                  <span
-                    key={idx}
-                    className={`${styles.tag} ${styles[tag.replace(/\s+/g, "")] || ""}`} /* 공백 제거 */
-                  >
+                  <span key={idx} className={`${styles.tag} ${styles[tag]}`}>
                     {tag}
                   </span>
                 ))}
