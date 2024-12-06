@@ -21,49 +21,49 @@
     flex-direction: column;
     margin-bottom: 10rem;
     width: 30%;
-    min-width: 300px;
+    min-width: 40rem;
 }
 
 .Signup_input_box{
     display: flex;
     flex-direction: column;
     text-align: left;
-    margin-bottom: 2rem;
-    height: 8rem;
+    height: 11rem;
     width: 100%;
 }
-.Signup_input_box_pw{
+
+.label_box{
     display: flex;
     flex-direction: row;
-    background-color: #5A914A;
+    align-items: center;
 }
 
-.Signup_input_box > label{
+.label_box > label{
     color: var(--main-text-color);
     font-size: 1.6rem;
     font-weight: 600;
     margin: 0.5rem;
     line-height: 3rem;
 }
-
-.input_box > input{
-    border: 1px solid rgb(172, 172, 172);
-    border-radius: 8px; 
-    width: 100% ;
-    height: 2rem;
-    padding: 1rem;
-    margin-bottom: 0.5rem;
-    
+.label_box > p{
+    font-size: 1.5rem;
+    color:red;
 }
-.idInput > input{
+
+.input_box{
+    margin-bottom: 1rem;
+}
+
+
+.Input > input{
     border: 1px solid rgb(172, 172, 172);
     border-radius: 8px; 
     width: 100%;
     height: 2rem;
     padding: 1rem;
-    margin-bottom: 1rem;
     
 }
+
 input:focus{
     border-color: #5A914A;
     outline: none;
@@ -79,20 +79,36 @@ input.invalid {
 }
 
 
+.error_message{
+    color: red;
+    margin-left: 1rem;
+}
+
+.ok_message{
+    color: #5A914A;
+    margin-left: 1rem;
+}
+
+
 
 .Signup_progress_box{
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 110%;
-    margin-top: 4rem;
+    width: 100%;
+}
+.Signup_progress_box2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 2rem;
 }
 
 .SignupBtn{
     color: #FBFBFB;
     font-size: 1.2rem;
     font-weight: 500;
-    margin-top: 2rem;
     margin-bottom: 1rem;
     line-height: 3rem;
     padding: 0.5rem 1rem;
@@ -103,17 +119,40 @@ input.invalid {
 }
 
 
-.error_message{
-    color: red;
-    margin-left: 1rem;
+.SignupBtn_Success{
+    color: #FBFBFB;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    line-height: 3rem;
+    padding: 0.5rem 1rem;
+    
+    width: 100% ;
+    background-color: #5A914A;
+    border-radius: 10px;
 }
 
-.idInput{
+.SignupBtn_Yet{
+    color: #e2e2e2;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    line-height: 3rem;
+    padding: 0.5rem 1rem;
+    
+    width: 100% ;
+    background-color: #acacac;
+    border-radius: 10px;
+}
+
+
+
+.Input{
     display: flex;
     flex-direction: row;
     align-items: center;
 }
-.idInput > p{
+.Input > p{
     color: rgb(139, 139, 139);
     font-size: 1.5rem;
     padding: 0.5rem;
@@ -140,5 +179,38 @@ input.invalid {
     color:#5A914A;
     background-color: rgba(255, 255, 255, 0);
     margin-left: 1rem;
+}
+
+
+
+.checkingBtn{
+    font-size: 1rem;
+    font-weight: 300;
+    background-color: var(--main-text-color);
+    padding: 1.5rem 1rem;
+    border-radius: 10px;
+    color: #FBFBFB;
+    margin-left: 1rem;
+    min-width: 8rem;
+}
+
+.time{
+    color: rgb(71, 71, 71);
+    margin-left: 1rem;
+
+}
+
+.Select > select {
+    width: 40%;
+    height: 4rem;
+    border-radius: 10px;
+    padding-left: 1rem;
+}
+
+
+.semester_p{
+    font-size: 3rem;
+    min-width: 5rem;
+    margin-right: 16rem;
 }
 
