@@ -7,7 +7,6 @@
 
 .step {
   width: 33.3%;
-  cursor: pointer;
   height: 103px;
   display: flex;
   align-items: center;
