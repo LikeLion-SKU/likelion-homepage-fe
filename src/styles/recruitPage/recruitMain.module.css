@@ -1,0 +1,80 @@
+.allContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.D_dayContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 5%;
+}
+
+.subText{
+    font-size: 16px;
+    font-weight: 700;
+    color: #AAAAAA;
+    margin-bottom: 0.5%;
+}
+
+.dayText{
+    font-size: 36px;
+    font-weight: 700;
+    color: #FF7710;
+}
+
+.mainText{
+    font-size: 36px;
+    font-weight: 700;
+    color: #1C1B1A;
+    padding: 2.5%;
+}
+
+.lionImg{
+    width: 250px;
+    height: 250px;
+}
+
+.recruitButton{
+    background-color: #FF7710;
+    color: #fff;
+    border-radius: 32px;
+    width: 250px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 3%;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.recruitButton:hover{
+    transform: scale(1.05);
+}
+
+.pageButtonContainer{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 3%;
+    margin-bottom: 5%;
+}
+
+.pageButton{
+    width: 30%;
+    height: 7vw;
+    font-size: 24px;
+    font-weight: 700;
+    background-color: #F5F5F7;
+    color: #1C1B1A;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.pageButton:hover{
+    transform: scale(1.05);
+}
