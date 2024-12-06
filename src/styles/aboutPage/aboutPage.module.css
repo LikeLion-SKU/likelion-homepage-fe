@@ -1,0 +1,74 @@
+.allContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.titleContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title{
+    color: black;
+    font-size: 36px;
+    font-weight: 700;
+    padding: 5%;
+}
+
+.buttonContainer{
+    display: flex;
+    padding: 5%;
+    gap: 2%;
+}
+
+.btn{
+    width: 200px;
+    height: 40px;
+    border-radius: 20px;
+    border: 2px solid black;
+    background-color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover{
+    background-color: rgb(191, 191, 191);
+    transform: scale(1.05);
+}
+
+.chairmanContainer{
+    display: flex;
+    justify-content: center;
+    gap: 5%;
+    margin-bottom: 5%;
+}
+
+.chairman{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mainText{
+    font-size: 23.04px;
+    font-weight: 700;
+    color: black;
+    margin-bottom: 10px;
+}
+
+.managementContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 5%;
+}
+
+.babylionContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 5%;
+}
