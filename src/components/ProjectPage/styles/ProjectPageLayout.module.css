@@ -67,6 +67,12 @@
 
 .card {
   padding: 1rem;
+  cursor: pointer; /* 포인터 커서 추가 */
+  transition: transform 0.2s ease; /* 마우스 오버 시 부드러운 효과 */
+}
+
+.card:hover {
+  transform: scale(1.05); /* 호버 시 약간 확대 효과 (선택 사항) */
 }
 
 .card img {
