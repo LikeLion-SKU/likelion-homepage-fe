@@ -11,15 +11,15 @@ const CustomDropdown = ({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(defaultOption);
 
-  const toggleDropdown = () => {
+  function toggleDropdown() {
     setIsDropdownOpen(!isDropdownOpen);
-  };
+  }
 
-  const handleSelect = (option) => {
+  function handleSelect(option) {
     setSelectedOption(option);
     setIsDropdownOpen(false);
     onSelect(option);
-  };
+  }
 
   return (
     <div className={styles.customDropdown}>
