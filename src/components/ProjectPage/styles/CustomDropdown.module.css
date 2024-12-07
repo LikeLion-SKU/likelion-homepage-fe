@@ -15,13 +15,24 @@
     align-items: center;
   }
 
+  .selectedOption.자체프로젝트 {
+    background-color: #f5e0e9; 
+    border: 1px solid #f5e0e9;
+  }
+  
+  .selectedOption.아이디어톤 {
+    background-color: #fdecc8; 
+    border: 1px solid #fdecc8;
+  }
+  
+  .selectedOption.중앙해커톤 {
+    background-color: #dbeddb; 
+    border: 1px solid #dbeddb;
+  }
+
   .selectedOption span {
     display: inline-block;
     margin-right: 0.rem; /* 아이콘과 텍스트 간 여백 설정 */
-  }
-  
-  .selectedOption:hover {
-    background: #f9f9f9;
   }
 
   .text {
