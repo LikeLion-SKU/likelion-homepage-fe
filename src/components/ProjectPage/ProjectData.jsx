@@ -1,4 +1,3 @@
-// src/components/ProjectPage/ProjectData.jsx
 import projectImage from "../../assets/project_image.jpg";
 
 const projects = Array(9)
@@ -10,12 +9,18 @@ const projects = Array(9)
       "축제 안내 웹페이지입니다. 축제 안내 웹페이지입니다. 축제 안내 웹페이지입니다. 축제 안내 웹페이지입니다. 축제 안내 웹페이지입니다.",
     tags: [
       index % 3 === 0
-        ? "자체 프로젝트"
+        ? "자체프로젝트"
         : index % 3 === 1
         ? "중앙해커톤"
         : "아이디어톤",
     ], // 다양한 태그 설정
     image: projectImage,
+    teamMembers: {
+      pm: ["김땡땡", "이땡땡"],
+      design: ["박땡땡", "박땡땡"],
+      "front-end": ["김땡땡", "이땡땡", "박땡땡", "박땡땡"],
+      "back-end": ["김땡땡", "박땡땡"],
+    }, // 팀 구성 추가
   }));
 
 export default projects;
