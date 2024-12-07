@@ -1,0 +1,35 @@
+.cardContainer {
+    width: 192px;
+    height: 240px;
+    border-radius: 14.4px;
+    background-color: #F5F5F7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.img {
+    width: 150px;
+    height: 150px;
+}
+
+.infoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10%;
+}
+
+.subInfo {
+    font-size: 10px;
+    font-weight: 700;
+    color: #AAAAAA;
+    margin-bottom: 2%;
+}
+
+.name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #000000;
+}

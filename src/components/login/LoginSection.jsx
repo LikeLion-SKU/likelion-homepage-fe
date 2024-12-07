@@ -12,21 +12,24 @@ export default function LoginSection() {
     const apiURL ="http://"; // <== 여기에 api주소 추가
 
     // 로그인 버튼 클릭 시, 유효성 검사부터하고 회원정보 찾기 호출
-    const next = (e) => {
+    function next (e) {
         e.preventDefault();
 
         const validationErrors = validation_login(); //유효성 검사
 
         if (Object.keys(validationErrors).length > 0) { // 에러메세지가 있다면 set해주고 중단
+            console.log("유효성 검사 실패");
             setErrors(validationErrors);
             return;
         }
         else{
+            console.log("유효성 검사 성공");
+            setErrors(validationErrors);
             login(id, password);
         }
     }
 
-    const login = (id, password) => {
+    function login (id, password) {
         //e.preventDefault();
         
         axios.post(`${apiURL}/api/users/login`, {
@@ -34,45 +37,39 @@ export default function LoginSection() {
             password: password
         })
         .then(function (response) { 
-            if(response.data.isSuccess === true){
-                setData(response.data); 
-                console.log(response.data); 
-            
-                let accessToken = response.data.accessToken;
-                let refreshToken = response.data.refreshToken;
-    
-                sessionStorage.setItem("access", accessToken); // 키, 토큰 
-                sessionStorage.setItem("refresh", refreshToken); // ???? 
-                console.log("로그인 성공");
-    
-                navigate("/");
-            }
-            else{
-                console.log(error);
-                console.log("로그인 실패");
-                setErrors(()=> ({...form, password: "로그인을 실패하였습니다."}));
-            }
+            setData(response.data); 
+            console.log(response.data); 
+        
+            let accessToken = response.data.accessToken;
+            let refreshToken = response.data.refreshToken;
+
+            sessionStorage.setItem("access", accessToken); // 키, 토큰 
+            sessionStorage.setItem("refresh", refreshToken); // ???? 
+            console.log("로그인 성공");
+
+            navigate("/");
             
         })
         .catch(function (error) {
-            console.log(error);
             console.log("로그인 실패");
+            setErrors((prevs)=> ({...prevs, login: "로그인을 실패하였습니다."}));
+            console.log(error);
         });
     }
 
 
     // Id, Password 입력받기
-    const onIdHandler = (event) => {
+    function onIdHandler (event) {
         setId(event.currentTarget.value);
     }
-    const onPasswordHandler = (event) => {
+    function onPasswordHandler (event) {
         setPassword(event.currentTarget.value);
     }
 
     
 
     // 로그인 유효성 검사 // 
-    const validation_login = () => {
+    function validation_login () {
         const errors = {};
 
         if(id === ""){
@@ -121,10 +118,11 @@ export default function LoginSection() {
                 </div>
 
                 <div className="Login_progress_box"> 
-                    <button type="button" className="LoginBtn" onClick={next}>로그인</button>
+                    {errors.login && <p className="error_message_false">{errors.login}</p>} 
+                    <button style={{cursor:'pointer'}}  type="button" className="LoginBtn" onClick={next}>로그인</button>
                     <div className="toSignup">
                         <p>계정이 없으신가요?</p>
-                        <button type="submit" className="tosignupBtn"onClick={() => {navigate("/signup")}}>회원가입</button>
+                        <button style={{cursor:'pointer'}}  type="submit" className="tosignupBtn"onClick={() => {navigate("/signup")}}>회원가입</button>
                     </div>
                 </div>
             </div>

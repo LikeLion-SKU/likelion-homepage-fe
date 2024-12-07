@@ -1,5 +1,4 @@
 import React from "react";
-import Wrapper from "@commons/Wrapper";
 import SignupSection1 from "@components//signup/SignupSection1";
 import SignupSection2 from "@components//signup/SignupSection2";
 import { useState } from "react";

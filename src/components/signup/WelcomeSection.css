@@ -2,16 +2,21 @@
 .WelcomePage_layout{
     text-align: center;
     height: 100%;
-    padding-top: 10rem;
-    padding-bottom: 17rem;
+    padding-top: 5rem;
+    padding-bottom: 16vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-width: 70vw;
+}
+
+.welcome_img_box{
+    margin-bottom: 1rem;
 }
 
 .welcomeImg{
-    width: 45rem;
-    margin-bottom: 1rem;
+    max-width: 70vw;
+    width: 40rem;
 }
 
 .welcomePage_message{
@@ -19,11 +24,12 @@
     flex-direction: column;
     align-items: center;
     margin-bottom: 2rem;
+    max-width: 80vw;
 }
 
 .welcomePage_message > p{
     color: var(--main-text-color);
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
     margin-bottom: 1rem;
 }

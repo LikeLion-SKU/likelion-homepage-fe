@@ -1,10 +1,6 @@
 import React from "react";
-import Wrapper from "@commons/Wrapper";
+import { Outlet } from "react-router-dom";
 
 export default function ProjectPage() {
-    return (
-        <Wrapper>
-
-        </Wrapper>
-    )
+  return <Outlet />;
 }

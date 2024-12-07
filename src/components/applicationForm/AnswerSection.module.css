@@ -1,0 +1,35 @@
+.sectionWrapper {
+  padding: 85.5px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 54px 0;
+}
+
+.question {
+  height: 199px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px 0;
+}
+
+.inputWrapper {
+  width: 100%;
+  height: 150px;
+}
+
+.questionName span {
+  font-size: 24px;
+  line-height: 29.05px;
+}
+
+.inputWrapper textarea {
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(159, 156, 152, 1);
+  border-radius: 20px;
+  display: flex;
+  font-size: 20px;
+  line-height: 24px;
+  padding: 20px 2.5%;
+  box-sizing: border-box;
+}
