@@ -22,7 +22,7 @@ export default function SignupSection(props) {
     const navigate = useNavigate();
     const apiURL ="http://" // <== 여기에 api주소 추가
     
-    
+
     // 타이머 관련 함수 //
     useEffect(() =>{
         const timer = setInterval(() => {
@@ -37,9 +37,9 @@ export default function SignupSection(props) {
     }, [form.timing])
 
     useEffect(() =>{
-        console.log("시간 흐르는중... ", count );
         setM(Math.floor(count / 60));
         setS(count%60);
+
         if(count === 0 || count < 0){
             setForm({...form, timing: false});
             setErrors(()=> ({...form, confirmCode: "인증번호 확인 시간이 만료되었습니다. 다시 인증번호를 전송해주세요."}));
@@ -71,7 +71,7 @@ export default function SignupSection(props) {
             email: email
         })
         .then(function (response){
-            console.log("인증번호가 전송 성공!");
+            console.log("인증번호가 전송 성공");
             setConfirms(()=> ({...form, email: "인증번호가 전송되었습니다."}));
             setCount(300);
             setForm({...form, email_valid: true}); 
@@ -79,7 +79,7 @@ export default function SignupSection(props) {
             setErrors(()=> ({...form, email: ""}));
         })
         .catch((error) => {
-            console.log("인증번호 에러");
+            console.log("인증번호 전송 실패");
             setErrors(()=> ({...form, email: "인증번호 보내기를 실패하였습니다."}));
         });
     };
@@ -107,7 +107,7 @@ export default function SignupSection(props) {
             code: confirmCode
         })
         .then(function (response){
-            console.log("인증코드 일치!");
+            console.log("인증코드 일치");
             setConfirms(()=> ({...form, confirmCode: "이메일이 인증되었습니다."}));
             props.setEmailSuccess(true);
             setForm({...form, confirmCode_valid: true});
@@ -216,11 +216,11 @@ export default function SignupSection(props) {
                         {
                         form.confirmCode_valid ?
                         <p className="ok_message">{confirms.confirmCode}</p>
+                        :errors.confirmCode ?
+                        <p className="error_message">{errors.confirmCode}</p>
                         : form.timing ? 
                         <p className="time">입력대기시간 {m}:{s.toString()
                             .padStart(2, '0')}</p>
-                        : errors.email ?
-                        <p className="error_message">{errors.confirmCode}</p>
                         : null
                         }
                         

@@ -15,6 +15,7 @@ export default function LoginSection() {
     function next (e) {
         e.preventDefault();
 
+        console.log("로그인 버튼 클릭");
         const validationErrors = validation_login(); //유효성 검사
 
         if (Object.keys(validationErrors).length > 0) { // 에러메세지가 있다면 set해주고 중단
