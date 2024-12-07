@@ -12,9 +12,15 @@ export const useStore = create((set) => ({
           : stepAnswers
       ),
     })),
-  tep: 1,
+  step: 1,
   setStep: (nextStep) =>
     set(() => ({
       step: nextStep,
+    })),
+
+  track: '',
+  setTrack: (newTrack) =>
+    set(() => ({
+      track: newTrack,
     })),
 }));

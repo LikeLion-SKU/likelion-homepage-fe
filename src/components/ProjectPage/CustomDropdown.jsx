@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import styles from "./styles/CustomDropdown.module.css";
 import arrow_down from "../../assets/svgs/arrow_down.svg";
 
-const CustomDropdown = ({ options, defaultOption, onSelect }) => {
+const CustomDropdown = ({
+  options,
+  defaultOption,
+  onSelect,
+  hideArrow = false,
+}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(defaultOption);
 
@@ -18,9 +23,13 @@ const CustomDropdown = ({ options, defaultOption, onSelect }) => {
 
   return (
     <div className={styles.customDropdown}>
-      <div className={styles.selectedOption} onClick={toggleDropdown}>
+      <div
+        className={styles.selectedOption}
+        data-type={selectedOption !== defaultOption ? selectedOption : null} // 선택된 옵션에 따라 data-type 설정
+        onClick={toggleDropdown}
+      >
         <span className={styles.text}>{selectedOption}</span>
-        <img src={arrow_down} alt="Arrow Down" className={styles.arrow} />
+        {!hideArrow && <img src={arrow_down} alt="Arrow Down" className={styles.arrow} />}
       </div>
       {isDropdownOpen && (
         <ul className={styles.dropdownList}>

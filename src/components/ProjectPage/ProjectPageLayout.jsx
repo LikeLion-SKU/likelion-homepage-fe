@@ -33,11 +33,12 @@ const ProjectPageLayout = ({ isAdmin }) => {
             src={plusbtn}
             alt="Add Project"
             className={styles.addButtonImage}
+            onClick={() => navigate("/project/admin/add")}
           />
         )}
         <div className={styles.selectBoxContainer}>
           <CustomDropdown
-            options={["전체 프로젝트", "중앙해커톤", "아이디어톤", "자체 프로젝트"]}
+            options={["전체 프로젝트", "중앙해커톤", "아이디어톤", "자체프로젝트"]}
             defaultOption="전체 프로젝트"
             onSelect={handleTagChange}
           />
