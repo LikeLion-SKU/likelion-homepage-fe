@@ -1,25 +1,25 @@
 import React, { useState } from "react";
 import CustomDropdown from "./CustomDropdown";
 import styles from "./styles/NewProjectForm.module.css";
-import uploadIcon from "../../assets/svgs/upload_icon.svg"; 
+import uploadIcon from "../../assets/svgs/upload_icon.svg";
 
 const NewProjectForm = () => {
   const [formData, setFormData] = useState({
     category: "",
-    title: "", 
+    title: "",
     image: null,
     imagePreview: null, // 이미지 미리보기 URL
   });
 
-  const handleCategorySelect = (selectedCategory) => {
+  function handleCategorySelect(selectedCategory) {
     setFormData({ ...formData, category: selectedCategory }); // 선택된 카테고리 저장
-  };
+  }
 
-  const handleTitleChange = (event) => {
+  function handleTitleChange(event) {
     setFormData({ ...formData, title: event.target.value });
-  };
+  }
 
-  const handleImageUpload = (event) => {
+  function handleImageUpload(event) {
     const file = event.target.files[0];
     if (file) {
       setFormData({
@@ -29,13 +29,12 @@ const NewProjectForm = () => {
       });
       console.log("Uploaded Image:", file);
     }
-  };
+  }
 
   return (
     <div className={styles.formContainer}>
       <h2 className={styles.title}>새로운 프로젝트 등록</h2>
       <form className={styles.form}>
-
         {/* Image Upload Section */}
         <label htmlFor="imageUpload" className={styles.imageUploadContainer}>
           {formData.imagePreview ? (
@@ -62,8 +61,7 @@ const NewProjectForm = () => {
             onChange={handleImageUpload}
           />
         </label>
-        
-        
+
         {/* 제목 입력 */}
         <div className={styles.inputGroup}>
           <input
@@ -85,7 +83,6 @@ const NewProjectForm = () => {
           />
         </div>
         <div className={styles.separator}></div>
-
       </form>
     </div>
   );
