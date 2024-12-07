@@ -1,9 +1,11 @@
+import { useState } from "react";
 import styles from "../../styles/recruitPage/question.module.css";
+import arrowIcon from "../../assets/recruitPage/down.svg";
 
 export default function Question() {
     const qaList = [
         {
-            question: "비전공자도 참여 가능한가요?",
+            question: "비전공자도 참여 능한가요?", 
             answer:
                 "비전공자도 참여 가능합니다.\n멋쟁이사자처럼의 목표는 컴퓨터과학 비전공자들도 프로그래밍 기초 지식을 배워 자신의 웹서비스를 만들 수 있도록 하는 것입니다.",
         },
@@ -44,25 +46,46 @@ export default function Question() {
         },
     ];
 
+    const [openIndexes, setOpenIndexes] = useState([]);
+
+    const toggleAnswer = (index) => {
+        setOpenIndexes((prevState) => {
+            if (prevState.includes(index)) {
+                return prevState.filter((i) => i !== index);
+            } else {
+                return [...prevState, index];
+            }
+        });
+    };
+
     return (
         <div id="questionSection" className={styles.allContainer}>
             <p className={styles.title}>자주 묻는 질문</p>
             <div className={styles.qaContainer}>
                 {qaList.map((qa, index) => (
-                    <div key={index} className={styles.qaItem}>
-                        <div className={styles.question}>
-                            <span>Q</span> {qa.question}
-                        </div>
-                        <div className={styles.answer}>
-                            <span className={styles.answerPrefix}>A</span>
-                            <div className={styles.answerContainer}>
-                                {qa.answer.split("\n").map((line, i) => (
-                                    <p key={i} className={styles.answerLine}>
-                                        {line}
-                                    </p>
-                                ))}
+                    <div key={index} className={styles.qaItem} onClick={() => toggleAnswer(index)}>
+                        <div className={styles.questionContainer}>
+                            <div className={styles.question}>
+                                <span>Q</span> {qa.question}
                             </div>
+                            <img 
+                                src={arrowIcon} 
+                                alt="화살표" 
+                                className={`${styles.arrowIcon} ${openIndexes.includes(index) ? styles.rotated : ""}`}
+                            />
                         </div>
+                        {openIndexes.includes(index) && (
+                            <div className={styles.answer}>
+                                <span className={styles.answerPrefix}>A</span>
+                                <div className={styles.answerContainer}>
+                                    {qa.answer.split("\n").map((line, i) => (
+                                        <p key={i} className={styles.answerLine}>
+                                            {line}
+                                        </p>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
                     </div>
                 ))}
             </div>
