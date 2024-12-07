@@ -1,20 +1,19 @@
 import styles from '@components/applicationForm/QuestionType.module.css';
 import PropTypes from 'prop-types';
 
-export default function QuestionType({ clickStep, setClickStep }) {
+export default function QuestionType({ step }) {
   const steps = ['기본 인적사항', '공통 질문', '파트별 질문'];
 
   return (
     <div className={styles.typeContainer}>
-      {steps.map((step, index) => (
+      {steps.map((item, index) => (
         <div
           key={index}
-          className={`${styles.step} ${clickStep === index + 1 ? styles.active : null}`}
-          onClick={() => setClickStep(index + 1)}
+          className={`${styles.step} ${step === index + 1 ? styles.active : null}`}
         >
           <div className={styles.stepInfo}>
             <span>step {index + 1}</span>
-            <span>{step}</span>
+            <span>{item}</span>
           </div>
         </div>
       ))}
@@ -23,6 +22,6 @@ export default function QuestionType({ clickStep, setClickStep }) {
 }
 
 QuestionType.propTypes = {
-  clickStep: PropTypes.number,
+  step: PropTypes.number,
   setClickStep: PropTypes.func,
 };
