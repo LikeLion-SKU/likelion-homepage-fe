@@ -10,6 +10,9 @@ export default function Chairman() {
                     <button className={styles.btn}>LIKELION 12TH</button>
                     <button className={styles.btn}>LIKELION 13TH</button>
                     <button className={styles.btn}>LIKELION 14TH</button>
+                    <div className={styles.editBtnContainer}>
+                        <button className={styles.editBtn}>편집하기</button>
+                    </div>
                 </div>
             </div>
             <div className={styles.chairmanContainer}>
