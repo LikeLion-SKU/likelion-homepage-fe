@@ -7,8 +7,8 @@ export default function LoginPage() {
     
 
     return (
-        <Wrapper>
+        <>
             <LoginSection />
-        </Wrapper>
+        </>
     )
 }

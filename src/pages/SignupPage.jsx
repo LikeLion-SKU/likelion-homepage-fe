@@ -10,7 +10,7 @@ export default function SignupPage(){
     const [signupSuccess, setSignupSuccess] = useState(false);
 
     return(
-        <Wrapper>
+        <>
             {now == 1 
             ? <SignupSection1 
             now={now} setNow={setNow} 
@@ -21,6 +21,6 @@ export default function SignupPage(){
             emailSuccess={emailSuccess}
             signupSuccess={signupSuccess} setSignupSuccess={setSignupSuccess}
             />}
-        </Wrapper>
+        </>
     )
 }

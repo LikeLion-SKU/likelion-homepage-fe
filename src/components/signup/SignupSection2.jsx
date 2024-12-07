@@ -21,6 +21,7 @@ export default function SignupSection(props) {
     const navigate = useNavigate();
     const apiURL ="http://"; // <== 여기에 api주소 추가
 
+    // 아이디 중복확인 버튼 //
     const idChecking = (e) => {
         e.preventDefault();
         console.log("중복확인 버튼 클릭");
@@ -37,20 +38,13 @@ export default function SignupSection(props) {
         handleDuplicationCheck(form.id);
     }
 
-    // 아이디 중복확인
     const handleDuplicationCheck = (id) => {
         axios.post(`${apiURL}/api/users/login-id-duplicate-check`, {
             loginId: id
         })
         .then(function (response){
-            if(response.data.isDuplicate === true){
-                console.log("중복 안됨 성공!");
-                setForm({...form, id_valid: true});
-            }
-            else{
-                console.log("중복됨.....");
-                setErrors(()=> ({...form, id: "중복되는 아이디 입니다. 다시 정해주세요."}));
-            }
+            console.log("중복 안됨 성공!");
+            setForm({...form, id_valid: true});
         })
         .catch((error) => {
             console.log("중복됨.....");
@@ -58,13 +52,14 @@ export default function SignupSection(props) {
         });
     };
 
+    // 회원가입 버튼 클릭 //
     const next = (e) => {
         e.preventDefault();
         console.log("회원가입 버튼 클릭");
         
         const validationErrors = validation_form();
 
-        if (Object.keys(validationErrors).length > 0) { // 에러메세지가 있다면 set해주고 중단
+        if (Object.keys(validationErrors).length > 0) { 
             setErrors(validationErrors);
             console.log("유효성 검사 실패");
             return;
@@ -87,25 +82,20 @@ export default function SignupSection(props) {
             parts: form.part,
         })
         .then(function (response){
-            if(response.data.isSuccess === true){
-                console.log("회원가입 성공!");
-                setSignupSuccess(true);
-                props.setNow(1);
-                navigate("/welcome");
-            }
-            else{
-                alert("회원가입 실패");
-                setErrors(()=> ({...form, signup: "회원가입이 실패하였습니다."})); // 왜 실패할 수가 있었는지 알려줘야 할지?
-            }
+            console.log("회원가입 성공!");
+            setSignupSuccess(true);
+            props.setNow(1);
+            navigate("/welcome");
         }
         )
         .catch((error) => {
+            setErrors(()=> ({...form, signup: "회원가입이 실패하였습니다."}));
             alert("회원가입 실패" + error);
         });
-    
-    
     };
 
+
+    // 회원가입 유효성 검사 // 
     const inputRegexs = {
         idRegex: /^[a-zA-Z][a-zA-Z0-9]{2,19}$/,
         pwRegex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&+=!])(?!.*\s).{8,}$/,
@@ -113,9 +103,7 @@ export default function SignupSection(props) {
         strudent_numRegex: /^[0-9]{10}$/,
         phoneNumberRegex: /0-9{8,12}/,
     };
-
-
-    // 회원가입 유효성 검사 // 
+    
     const validation_form = () => {
         const errors = {};
 

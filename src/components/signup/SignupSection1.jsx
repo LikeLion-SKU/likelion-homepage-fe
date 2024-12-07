@@ -47,14 +47,14 @@ export default function SignupSection(props) {
 
     
    
-    // 인증번호 전송 버튼 클릭 시, 이메일 적었는지 확인하고, 인증번호 전송 
+    // 인증번호 전송 버튼 클릭 시, 이메일 적었는지 확인하고, 인증번호 전송 //
     const emailsending = (e) => {
         e.preventDefault();
         console.log("인증번호 전송 버튼 클릭");
 
         const validationErrors = validation_form1();
 
-        if (Object.keys(validationErrors).length > 0) { // 에러메세지가 있다면 set해주고 중단
+        if (Object.keys(validationErrors).length > 0) { 
             setErrors(validationErrors);
             console.log("유효성 검사 실패");
             return;
@@ -80,25 +80,23 @@ export default function SignupSection(props) {
         });
     };
 
-    // 인증번호 확인 버튼 클릭 시, 인증번호 적었는지 확인하고, 맞는지 검사
+    // 인증번호 확인 버튼 클릭 시, 인증번호 적었는지 확인하고, 맞는지 검사 //
     const emailChecking = (e) =>{
         e.preventDefault();
         console.log("인증번호 확인 버튼 클릭");
         
         const validationErrors = validation_form2();
 
-        if (Object.keys(validationErrors).length > 0) { // 에러메세지가 있다면 set해주고 중단
+        if (Object.keys(validationErrors).length > 0) { 
             setErrors(validationErrors);
             console.log("유효성 검사 실패");
             return;
         }
         else{
-            // 인증번호 검사 요청 //
             handleverificationCheck(form.email, form.confirmCode);
         }
     }
 
-    // 인증번호 일치하나 확인
     const handleverificationCheck = (email, confirmCode) => {
         axios.post(`${apiURL}/api/email/verify/confirm`, {
             email: email,
@@ -116,7 +114,7 @@ export default function SignupSection(props) {
     };
 
 
-    // 계속 버튼 클릭시, 다음 페이지를 보여줌.
+    // 계속 버튼 클릭시, 다음 페이지를 보여줌 //
     const next = (e) => {
         e.preventDefault();
         console.log("회원가입 계속 버튼 클릭");
@@ -220,12 +218,12 @@ export default function SignupSection(props) {
                         <button type="submit" className="tologinBtn"onClick={() => {navigate("/login")}}>로그인</button>
                     </div>
 
-                    기능 잘 돌아가는지 확인용... 
+                    {/* 기능 잘 돌아가는지 확인용... 
                     <p>vvv 테스트용 버튼 vvv</p>
-                    <button onClick={()=> {setCount(10); setForm({...form, timing: true});}}>-시간 테스트 버튼-</button>
-                    <button onClick={()=> {props.emailSuccess === true ?props.setEmailSuccess(false) :props.setEmailSuccess(true)}}>-버튼 테스트 버튼-</button>
-                    <button onClick={()=> {props.setNow(2);}}>-임시 이동 버튼-</button>
-                   
+                    <button onClick={()=> {setCount(10); setForm({...form, timing: true});}}>-시간 테스트-</button>
+                    <button onClick={()=> {props.emailSuccess === true ?props.setEmailSuccess(false) :props.setEmailSuccess(true)}}>-계속 버튼 테스트-</button>
+                    <button onClick={()=> {props.setNow(2);}}>-임시 이동-</button>
+                    */}
                 </div>
             </div>
         </div>
