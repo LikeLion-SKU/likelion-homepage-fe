@@ -1,9 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
 import './SignupSection.css'
 import {handleIdchecking, handleSignup} from "../../utils/register.js";
+import { handleInputChange } from "../../utils/inputOnChange.js";
 
 export default function SignupSection(props) {
     const [form, setForm] = useState({
@@ -73,8 +73,9 @@ export default function SignupSection(props) {
                             <input 
                             type="text" placeholder="영문, 숫자로 2~18자"
                             name="id"
+                            value={form.id}
                             className={errors.id ? "invalid" : form.id ? "valid" : ""}
-                            onChange={e => setForm({...form, id: e.currentTarget.value, id_valid: false})}
+                            onChange={handleInputChange(setForm)}
                             required
                             ></input> 
                             <button
@@ -103,8 +104,9 @@ export default function SignupSection(props) {
                             <input 
                             type="password" placeholder="최소 8자 이상의 영문, 숫자, 특수문자를 포함"
                             name="password"
+                            value={form.password}
                             className={errors.password ? "invalid" : form.password ? "valid" : ""}
-                            onChange={e => setForm({...form, password: e.currentTarget.value})}
+                            onChange={handleInputChange(setForm)}
                             required
                             ></input> 
                         </div>
@@ -123,9 +125,10 @@ export default function SignupSection(props) {
                         <div className="Input">
                             <input 
                             type="password" placeholder="다시 한번 더 비밀번호 기입"
-                            name="password_vaild"
+                            name="password_valid"
+                            value={form.password_valid}
                             className={errors.password_valid ? "invalid" : form.password_valid ? "valid" : ""}
-                            onChange={e => setForm({...form, password_valid: e.currentTarget.value})}
+                            onChange={handleInputChange(setForm)}
                             required
                             ></input> 
                         </div>
@@ -145,8 +148,9 @@ export default function SignupSection(props) {
                             <input 
                             type="text" placeholder="한글로 입력"
                             name="name"
+                            value={form.name}
                             className={errors.name ? "invalid" : form.name ? "valid" : ""}
-                            onChange={e => setForm({...form, name: e.currentTarget.value})}
+                            onChange={handleInputChange(setForm)}
                             required
                             ></input> 
                         </div>
@@ -166,8 +170,9 @@ export default function SignupSection(props) {
                             <input 
                             type="text" placeholder="본인의 학과/학부"
                             name="department"
+                            value={form.department}
                             className={errors.department ? "invalid" : form.department ? "valid" : ""}
-                            onChange={e => setForm({...form, department: e.currentTarget.value})}
+                            onChange={handleInputChange(setForm)}
                             required
                             ></input> 
                         </div>
@@ -187,8 +192,9 @@ export default function SignupSection(props) {
                             <input 
                             type="text" maxLength={10} placeholder="본인의 학번 10자"
                             name="strudent_num"
+                            value={form.strudent_num}
                             className={errors.strudent_num ? "invalid" : form.strudent_num ? "valid" : ""}
-                            onChange={e => setForm({...form, strudent_num: e.currentTarget.value})}
+                            onChange={handleInputChange(setForm)}
                             required
                             ></input> 
                         </div>
@@ -207,8 +213,9 @@ export default function SignupSection(props) {
                             <input 
                             type="text" placeholder="현재 재학 중인 학기수"
                             name="semester"
+                            value={form.semester}
                             className={errors.semester ? "invalid" : form.semester ? "valid" : ""}
-                            onChange={e => setForm({...form, semester: e.currentTarget.value})}
+                            onChange={handleInputChange(setForm)}
                             ></input> 
                             <p className="semester_p">학기</p>
                         </div>
@@ -228,8 +235,9 @@ export default function SignupSection(props) {
                             <input 
                             type="text" placeholder="'-'빼고 입력"
                             name="phone_num"
+                            value={form.phone_num}
                             className={errors.phone_num ? "invalid" : form.phone_num ? "valid" : ""}
-                            onChange={e => setForm({...form, phone_num: e.currentTarget.value})}
+                            onChange={handleInputChange(setForm)}
                             required
                             ></input> 
                         </div>
@@ -245,7 +253,7 @@ export default function SignupSection(props) {
                    
                     <div className="input_box">
                         <div className="Select">
-                            <select name="part" value={form.part} onChange={e => setForm({...form, part: e.target.value})}>
+                            <select name="part" value={form.part} onChange={handleInputChange(setForm)}>
                                 <option value="">미정</option>
                                 <option value="front">프론트앤드</option>
                                 <option value="back">백앤드</option>

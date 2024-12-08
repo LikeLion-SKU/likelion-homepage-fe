@@ -1,13 +1,15 @@
 import React from "react";
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
 import './LoginSection.css'
 import {handleLogin} from "../../utils/login.js";
+import { handleInputChange } from "../../utils/inputOnChange.js";
 
 export default function LoginSection() {
-    const [id, setId] = useState("");
-    const [password, setPassword] = useState("");
+    const[form, setForm] = useState({
+        id: "",
+        password: "",
+    });
     const [errors, setErrors] = useState({}); 
     const navigate = useNavigate();
 
@@ -15,7 +17,7 @@ export default function LoginSection() {
     function handleLoginClick(event) {
         event.preventDefault();
 
-        const isValid = handleLogin(setErrors, id, password);
+        const isValid = handleLogin(setErrors, form.id, form.password);
         if (isValid) {
             // 유효성 검사를 통과한 경우 로그인 처리
             console.log('```로그인 유효성 검사 성공');
@@ -25,17 +27,6 @@ export default function LoginSection() {
             navigate("/");
         }
     }
-
-
-
-    // Id, Password 입력받기
-    function onIdHandler (event) {
-        setId(event.currentTarget.value);
-    }
-    function onPasswordHandler (event) {
-        setPassword(event.currentTarget.value);
-    }
-
 
     return (
         <div className="LoginPage_layout">
@@ -48,9 +39,10 @@ export default function LoginSection() {
                     <input 
                     type="text" 
                     name="id"
-                    className={errors.id ? "invalid" : id ? "valid" : ""}
+                    value={form.id}
+                    className={errors.id ? "invalid" : form.id ? "valid" : ""}
                     style={{ borderColor: errors.id && 'red' }} 
-                    onChange={onIdHandler} required></input>
+                    onChange={handleInputChange(setForm)} required></input>
                     {errors.id && <p className="error_message">{errors.id}</p>}
                 </div>
                 
@@ -59,9 +51,10 @@ export default function LoginSection() {
                     <input 
                     type="password" 
                     name="password"
-                    className={errors.password ? "invalid" : password ? "valid" : ""}
+                    value={form.password}
+                    className={errors.password ? "invalid" : form.password ? "valid" : ""}
                     style={{ borderColor: errors.id && 'red' }}
-                    onChange={onPasswordHandler} required></input>
+                    onChange={handleInputChange(setForm)} required></input>
                     {errors.password && <p className="error_message">{errors.password}</p>} 
                 </div>
 

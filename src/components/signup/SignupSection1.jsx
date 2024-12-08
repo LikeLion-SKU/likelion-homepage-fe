@@ -2,9 +2,9 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
 import './SignupSection.css'
 import {handleEmailchecking, handleConfirmCodechecking} from "../../utils/register.js";
+import { handleInputChange } from "../../utils/inputOnChange.js";
 
 
 export default function SignupSection(props) {
@@ -110,8 +110,9 @@ export default function SignupSection(props) {
                             <input 
                             type="text" 
                             name="email"
+                            value={form.email}
                             className={ form.email_valid ? "valid" : errors.email? "invalid" : form.email ? "valid" : ""}
-                            onChange={e => setForm({...form, email: e.currentTarget.value})}
+                            onChange={handleInputChange(setForm)}
                             required
                             ></input> 
                             <p> @skuniv.ac.kr </p>
@@ -137,8 +138,9 @@ export default function SignupSection(props) {
                                 <input 
                                 type="text" 
                                 name="confirmCode"
+                                value={form.confirmCode}
                                 className={form.confirmCode_valid ? "valid" : errors.confirmCode ? "invalid" : form.confirmCode ? "valid" : ""}
-                                onChange={e => setForm({...form, confirmCode: e.currentTarget.value})}
+                                onChange={handleInputChange(setForm)}
                                 disabled={!form.timing} 
                                 required
                                 ></input>
@@ -150,8 +152,9 @@ export default function SignupSection(props) {
                                 <input 
                                 type="text" 
                                 name="confirmCode"
+                                value={form.confirmCode}
                                 className={errors.confirmCode ? "invalid" : form.confirmCode ? "valid" : ""}
-                                onChange={e => setForm({...form, confirmCode: e.currentTarget.value})}
+                                onChange={handleInputChange(setForm)}
                                 disabled={true}
                                 ></input>
                                 <button className="checkingBtn_Yet" onClick={handleCheckingClick}>인증번호 확인</button>

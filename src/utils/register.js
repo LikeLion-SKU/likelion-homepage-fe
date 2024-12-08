@@ -7,7 +7,7 @@ const inputRegexs = {
     nameRegex: /^[가-힣]{2,10}$/,
     departRegex: /^[가-힣]+$/,
     student_numRegex: /^[0-9]{10}$/,
-    phoneNumberRegex: /0-9{8,12}/,
+    phoneNumberRegex: /^0-9{8,12}$/,
 };
 
 export function validateInput_idDuplicate(form) {
@@ -161,7 +161,10 @@ export function validateInput_signup(form) {
       if (form.phone_num === '') {
         errors.phone_num = "연락처는 필수 입력 항목입니다.";
         console.log("전번틀");
-      } 
+      } else if (!inputRegexs.phoneNumberRegex.test(form.phone_num)) {
+        errors.phone_num = "연락처는 숫자 8~12자로 입력해야 합니다.";
+        console.log("학번틀");
+      }
 
 
     return errors; 
