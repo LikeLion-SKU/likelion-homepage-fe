@@ -10,7 +10,6 @@ export default function LoginSection() {
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState({}); 
     const navigate = useNavigate();
-    const apiURL ="http://"; // <== 여기에 api주소 추가
 
     // 로그인 버튼 클릭 시, 유효성 검사부터하고 회원정보 찾기 호출
     function handleLoginClick(event) {
@@ -20,37 +19,13 @@ export default function LoginSection() {
         if (isValid) {
             // 유효성 검사를 통과한 경우 로그인 처리
             console.log('```로그인 유효성 검사 성공');
-            login(id, password);
+
+            //login(id, password);
+            console.log("로그인 성공");
+            navigate("/");
         }
     }
 
-    function login (id, password) {
-        //e.preventDefault();
-        
-        axios.post(`${apiURL}/api/users/login`, {
-            loginId: id,
-            password: password
-        })
-        .then(function (response) { 
-            setData(response.data); 
-            console.log(response.data); 
-        
-            let accessToken = response.data.accessToken;
-            let refreshToken = response.data.refreshToken;
-
-            sessionStorage.setItem("access", accessToken); // 키, 토큰 
-            sessionStorage.setItem("refresh", refreshToken); // ???? 
-            console.log("로그인 성공");
-
-            navigate("/");
-            
-        })
-        .catch(function (error) {
-            console.log("로그인 실패");
-            setErrors((prevs)=> ({...prevs, login: "로그인을 실패하였습니다."}));
-            console.log(error);
-        });
-    }
 
 
     // Id, Password 입력받기
@@ -67,7 +42,6 @@ export default function LoginSection() {
             <div className="Login_input_information"> 
                 <p className="title">로그인</p>
             </div>
-
             <div className="Login_input_boxs">
                 <div className="Login_input_box">
                     <label>아이디</label>
@@ -79,7 +53,6 @@ export default function LoginSection() {
                     onChange={onIdHandler} required></input>
                     {errors.id && <p className="error_message">{errors.id}</p>}
                 </div>
-
                 
                 <div className="Login_input_box">  
                     <label>비밀번호</label>
@@ -93,7 +66,6 @@ export default function LoginSection() {
                 </div>
 
                 <div className="Login_progress_box"> 
-                    
                     <button style={{cursor:'pointer'}}  type="button" className="LoginBtn" onClick={handleLoginClick}>로그인</button>
                     <div className="toSignup">
                         <p>계정이 없으신가요?</p>

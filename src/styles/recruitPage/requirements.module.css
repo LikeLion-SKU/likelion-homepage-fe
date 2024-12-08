@@ -17,3 +17,13 @@
     color: #000;
     margin-bottom: 5%;
 }
+
+@media (max-width: 765px) {
+    .label{
+        font-size: 1.6rem;
+    }
+
+    .title{
+        font-size: 2.5rem;
+    }
+}

@@ -2,10 +2,11 @@
 
 
 const inputRegexs = {
-    idRegex: /^[a-zA-Z][a-zA-Z0-9]{2,19}$/,
+    idRegex: /^[a-zA-Z0-9]{2,18}$/,
     pwRegex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&+=!])(?!.*\s).{8,}$/,
     nameRegex: /^[가-힣]{2,10}$/,
-    strudent_numRegex: /^[0-9]{10}$/,
+    departRegex: /^[가-힣]+$/,
+    student_numRegex: /^[0-9]{10}$/,
     phoneNumberRegex: /0-9{8,12}/,
 };
 
@@ -31,9 +32,6 @@ export function validateInput_idDuplicate(form) {
 
     return errors;  
   }
-
-
-
   export function handleIdchecking(setErrors, form) {
 
     const errors = validateInput_idDuplicate(form);
@@ -44,9 +42,6 @@ export function validateInput_idDuplicate(form) {
     }
     return true;  
   }
-
-
-
 
   export function validateInput_email(form) {
 
@@ -66,9 +61,6 @@ export function validateInput_idDuplicate(form) {
     } 
     return errors;  
   }
-
-  
-
   export function handleEmailchecking(setErrors, form) {
 
     const errors = validateInput_email(form);
@@ -78,7 +70,6 @@ export function validateInput_idDuplicate(form) {
     }
     return true;  
   }
-
 
   export function validateInput_confirmCode(form) {
     let errors = {
@@ -97,9 +88,6 @@ export function validateInput_idDuplicate(form) {
     } 
     return errors; 
   }
-
-  
-
   export function handleConfirmCodechecking(setErrors, form) {
 
     const errors = validateInput_confirmCode(form);
@@ -110,8 +98,6 @@ export function validateInput_idDuplicate(form) {
     }
     return true;  
   }
-
-
 
 
 
@@ -145,7 +131,7 @@ export function validateInput_signup(form) {
 
     if (form.password_valid === '') {
         errors.password_valid = "비밀번호 확인은 필수 입력 항목입니다.";
-      } else if (password_valid !== form.password) {
+      } else if (form.password_valid !== form.password) {
         errors.password_valid = "비밀번호와 다릅니다.";
         console.log("비번확인틀");
       }
@@ -160,11 +146,14 @@ export function validateInput_signup(form) {
       if (form.department === '') {
         errors.department = "학과는 필수 입력 항목입니다.";
         console.log("학과틀");
-      } 
+      } else if (!inputRegexs.departRegex.test(form.department)) {
+        errors.department = "이름은 한글로 입력해야 합니다.";
+        console.log("이름틀");
+      }
 
       if (form.strudent_num === '') {
         errors.strudent_num = "학번은 필수 입력 항목입니다.";
-      } else if (!inputRegexs.strudent_numRegex.test(form.strudent_num)) {
+      } else if (!inputRegexs.student_numRegex.test(form.strudent_num)) {
         errors.strudent_num = "학번은 숫자 10자로 입력해야 합니다.";
         console.log("학번틀");
       }
@@ -177,7 +166,7 @@ export function validateInput_signup(form) {
 
     return errors; 
   }
-  
+
   export function handleSignup(setErrors, form) {
 
     const errors = validateInput_signup(form);

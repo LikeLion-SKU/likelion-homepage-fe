@@ -1,28 +1,75 @@
-.allContainer{
+@media (max-width: 1300px) {
+    .managementCardGrid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+    
+    .cardGrid {
+        grid-template-columns: repeat(5, 1fr) !important;
+    }
+}
+
+@media (max-width: 1100px) {
+    .managementCardGrid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    .cardGrid {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+}
+
+@media (max-width: 880px) {
+    .managementCardGrid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    .cardGrid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+
+@media (max-width: 650px) {
+    .managementCardGrid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    .cardGrid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .btn {
+        font-size: 14px !important;
+        font-weight: 700;
+    }
+}
+
+.allContainer {
     display: flex;
     flex-direction: column;
 }
 
-.titleContainer{
+.titleContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.title{
+.title {
     color: black;
     font-size: 36px;
     font-weight: 700;
     padding: 5%;
 }
 
-.buttonContainer{
+.buttonContainer {
     display: flex;
     padding: 5%;
     gap: 2%;
+    justify-content: center;
+    width: 80%;
 }
 
-.btn{
+.btn {
     width: 200px;
     height: 40px;
     border-radius: 20px;
@@ -34,41 +81,66 @@
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.btn:hover{
+.btn:hover {
     background-color: rgb(191, 191, 191);
     transform: scale(1.05);
 }
 
-.chairmanContainer{
+.chairmanContainer {
     display: flex;
     justify-content: center;
-    gap: 5%;
+    gap: 2%;
     margin-bottom: 5%;
 }
 
-.chairman{
+.chairmanCardGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.chairman {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.mainText{
+.mainText {
     font-size: 23.04px;
     font-weight: 700;
     color: black;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    margin-top: 10px;
 }
 
-.managementContainer{
+.managementContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-bottom: 5%;
 }
 
-.babylionContainer{
+.babylionContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-bottom: 5%;
+}
+
+.managementCardGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardGrid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 3rem;
+    justify-content: center;
+    align-items: center;
 }

@@ -1,16 +1,19 @@
 import styles from "../../styles/aboutPage/card.module.css";
-import profileImage from "../../assets/svgs/ex.svg";
+import DefaultImage from "../../assets/aboutPage/ghost.svg";
 
-export default function Card() {
-    return(
-        <>
-            <div className={styles.cardContainer}>
-                <img src={profileImage} alt="프로필 이미지" className={styles.img} />
-                <div className={styles.infoContainer}>
-                    <p className={styles.subInfo}>컴퓨터 공학과 22학번</p>
-                    <p className={styles.name}>김땡땡</p>
-                </div>
+export default function Card({ profileImage, department, name }) {
+
+    return (
+        <div className={styles.cardContainer}>
+            <img 
+                src={profileImage || DefaultImage} 
+                alt={`${name} 프로필`} 
+                className={styles.img} 
+            />
+            <div className={styles.infoContainer}>
+                <p className={styles.subInfo}>{department}</p>
+                <p className={styles.name}>{name}</p>
             </div>
-        </>
-    )
+        </div>
+    );
 }

@@ -1,10 +1,16 @@
 .pageWrapper {
-  width: 83.3%;
-  margin: 0 auto;
-  margin-top: 73px;
+  width: 100%;
+  padding: 73px 8.35%;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+@media screen and (max-width: 767px) {
+  .pageWrapper {
+    padding: 73px 7%;
+  }
 }
 
 /* HeaderSection */

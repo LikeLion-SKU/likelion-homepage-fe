@@ -21,7 +21,6 @@ export default function SignupSection(props) {
     const [errors, setErrors] = useState({}); 
     const [confirms, setConfirms] = useState({});
     const navigate = useNavigate();
-    const apiURL ="http://" // <== 여기에 api주소 추가
     
 
     // 타이머 관련 함수 //
@@ -55,28 +54,15 @@ export default function SignupSection(props) {
         const isValid = handleEmailchecking(setErrors, form);
         if (isValid) {
             console.log('```이메일 유효성 성공');
-            handleVerificationSend(form.email);
+
+            // handleVerificationSend(form.email);
+            setConfirms(()=> ({...form, email: "인증번호가 전송되었습니다."}));
+            setCount(10); // 300=5분
+            setForm({...form, email_valid: true, timing: true}); 
+            setErrors(()=> ({...form, email: ""}));
         }
     }
     
-    function handleVerificationSend (email) {
-        axios.post(`${apiURL}/api/email/verify/request`, {
-            email: email
-        })
-        .then(function (response){
-            console.log("인증번호가 전송 성공");
-            setConfirms(()=> ({...form, email: "인증번호가 전송되었습니다."}));
-            setCount(300);
-            setForm({...form, email_valid: true, timing: true}); 
-            //setForm({...form, timing: true});
-            setErrors(()=> ({...form, email: ""}));
-        })
-        .catch((error) => {
-            console.log("인증번호 전송 실패");
-            setErrors(()=> ({...form, email: "인증번호 보내기를 실패하였습니다."}));
-        });
-    };
-
 
     // 인증번호 확인 //
     function handleCheckingClick(event) {
@@ -85,30 +71,15 @@ export default function SignupSection(props) {
         const isValid = handleConfirmCodechecking(setErrors, form);
         if (isValid) {
             console.log('```인증번호 유효성 성공');
-            handleVerificationCheck(form.email, form.confirmCode);
-        }
-    }
 
-
-    function handleVerificationCheck (email, confirmCode) {
-        axios.post(`${apiURL}/api/email/verify/confirm`, {
-            email: email,
-            code: confirmCode
-        })
-        .then(function (response){
-            console.log("인증코드 일치");
-            setConfirms(()=> ({...form, confirmCode: "이메일이 인증되었습니다."}));
+            // handleVerificationCheck(form.email, form.confirmCode);
+            setConfirms((prev)=> ({...prev, confirmCode: "이메일이 인증되었습니다."}));
             props.setEmailSuccess(true);
             setForm({...form, confirmCode_valid: true});
             setErrors(()=> ({...form, confirmCode: ""}));
-        })
-        .catch((error) => {
-            console.log("인증번호 불일치");
-            setErrors(()=> ({...form, confirmCode: "잘못된 인증번호입니다."}));
-        });
-    };
+        }
+    }
 
-    
 
     // 계속 버튼 클릭시, 다음 페이지를 보여줌 //
     function next (e) {
@@ -139,7 +110,7 @@ export default function SignupSection(props) {
                             <input 
                             type="text" 
                             name="email"
-                            className={ errors.email? "invalid" : form.email ? "valid" : ""}
+                            className={ form.email_valid ? "valid" : errors.email? "invalid" : form.email ? "valid" : ""}
                             onChange={e => setForm({...form, email: e.currentTarget.value})}
                             required
                             ></input> 
@@ -161,18 +132,19 @@ export default function SignupSection(props) {
                     <div className="input_box">
                         <div className="Input">
                             {form.email_valid
-                            ? 
+                            ? // 이메일 인증되었다면
                             <>
                                 <input 
                                 type="text" 
                                 name="confirmCode"
-                                className={errors.confirmCode ? "invalid" : form.confirmCode ? "valid" : ""}
+                                className={form.confirmCode_valid ? "valid" : errors.confirmCode ? "invalid" : form.confirmCode ? "valid" : ""}
                                 onChange={e => setForm({...form, confirmCode: e.currentTarget.value})}
+                                disabled={!form.timing} 
                                 required
                                 ></input>
-                                <button style={{cursor:'pointer'}}  className="checkingBtn" onClick={emailChecking}>인증번호 확인</button>
+                                <button style={{cursor:'pointer'}}  className="checkingBtn" onClick={handleCheckingClick}>인증번호 확인</button>
                             </>
-                            : 
+                            :  // 이메일 인증 안됐으면
                             <div style={{visibility:'hidden'}}>
                                 ?
                                 <input 
@@ -180,7 +152,7 @@ export default function SignupSection(props) {
                                 name="confirmCode"
                                 className={errors.confirmCode ? "invalid" : form.confirmCode ? "valid" : ""}
                                 onChange={e => setForm({...form, confirmCode: e.currentTarget.value})}
-                                disabled
+                                disabled={true}
                                 ></input>
                                 <button className="checkingBtn_Yet" onClick={handleCheckingClick}>인증번호 확인</button>
                             </div>
