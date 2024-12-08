@@ -241,7 +241,7 @@ export default function SignupSection(props) {
                         <button style={{cursor:'pointer'}}  type="submit" className="tologinBtn"onClick={() => {navigate("/login")}}>로그인</button>
                     </div>
 
-                    {/* 기능 잘 돌아가는지 확인용
+                    기능 잘 돌아가는지 확인용
                     <p>vvv 테스트용 버튼 vvv</p> 
                     <button style={{cursor:'pointer'}}  onClick={()=> {setCount(10); setErrors(()=> ({...form, email: ""})); setConfirms(()=> ({...form, email: "이메일이 인증되었습니다."})); setForm({...form, email_valid: true});}}>-확인창 테스트-</button>
                     <button style={{cursor:'pointer'}}  onClick={()=> {setCount(10); setForm({...form, timing: true});}}>-시간 테스트-</button>
@@ -249,7 +249,7 @@ export default function SignupSection(props) {
                     <button style={{cursor:'pointer'}}  onClick={()=> {props.setNow(2);}}>-다음 회원가입 페이지로 임시 이동-</button>
                     /
                     <button style={{cursor:'pointer'}}  onClick={()=> {navigate("/welcome");}}>-회원가입 완료 페이지로 이동-</button>
-                     */}
+                    
                 </div>
             </div>
         </div>

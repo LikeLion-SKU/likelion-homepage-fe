@@ -8,7 +8,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 70vw;
+    width: 100%;
 }
 
 .Login_input_information{
@@ -26,6 +26,7 @@
     margin-bottom: 10rem;
     width: 90vw;
     max-width: 40rem;
+    min-width: 400px;
 }
 
 .Login_input_box{
@@ -86,6 +87,7 @@ input.invalid {
     flex-direction: row;
     align-items: center;
     width: 100%;
+    
 }
 .id_input > p{
     color: rgb(139, 139, 139);

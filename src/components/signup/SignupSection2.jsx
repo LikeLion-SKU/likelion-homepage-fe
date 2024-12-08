@@ -371,6 +371,10 @@ export default function SignupSection(props) {
                         <p>이미 계정이 있으신가요?</p>
                         <button style={{cursor:'pointer'}}  type="submit" className="tologinBtn"onClick={() => {navigate("/login")}}>로그인</button>
                     </div>
+                    
+                    <p>vvv테스트vvv</p>
+                    <button style={{cursor:'pointer'}}  onClick={(e) => {setErrors(()=> ({...form, signup: "회원가입 실패"}))}}>-회원가입 실패 테스트-</button>
+                
                 </div>
             </div>
         </div>
