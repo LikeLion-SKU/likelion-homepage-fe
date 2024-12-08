@@ -1,0 +1,130 @@
+
+.LoginPage_layout{
+    text-align: center;
+    height: 100%;
+    padding-top: 14rem;
+    padding-bottom: 3vh;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 70vw;
+}
+
+.Login_input_information{
+    margin-bottom: 4rem;
+}
+.title{
+    color: var(--main-text-color);
+    font-size: 3.6rem;
+    font-weight: 750;
+}
+
+.Login_input_boxs{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10rem;
+    width: 90vw;
+    max-width: 40rem;
+}
+
+.Login_input_box{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 2rem;
+    height: 8rem;
+}
+
+.Login_input_box > label{
+    color: var(--main-text-color);
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin: 0.5rem;
+    line-height: 3rem;
+}
+
+input{
+    border: 1px solid rgb(172, 172, 172);
+    border-radius: 8px; 
+    width: 95%;
+    
+    height: 2rem;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+input:focus{
+    border-color: #5A914A;
+    outline: none;
+}
+input.valid {
+    border-color: #5A914A;
+}
+  
+input.invalid {
+    border-color: red;
+}
+
+.error_message{
+    color: red;
+    margin-left: 1rem;
+}
+
+.error_message_false{
+    color: red;
+    font-weight: 600;
+    background-color: rgb(255, 214, 214);
+    border: 2px solid rgb(255, 173, 173);
+    border-radius: 10px;
+    padding: 1rem;
+    width: 90%;
+}
+
+.id_input{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+.id_input > p{
+    color: rgb(139, 139, 139);
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+}
+
+.Login_progress_box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.LoginBtn{
+    color: #FBFBFB;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    line-height: 3rem;
+    padding: 0.5rem 1rem;
+
+    width: 100%;
+    background-color: #5A914A;
+    border-radius: 10px;
+}
+.toSignup{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+}
+
+.tosignupBtn{
+    color:#5A914A;
+    background-color: rgba(255, 255, 255, 0);
+    margin-left: 1rem;
+}
