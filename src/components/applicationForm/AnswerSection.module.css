@@ -29,7 +29,7 @@
 
 .questionName span {
   font-size: 1.6rem;
-  line-height: 29.05px;
+  line-height: 2.905rem;
 }
 
 .inputWrapper textarea {
@@ -38,8 +38,8 @@
   border: 1px solid rgba(159, 156, 152, 1);
   border-radius: 20px;
   display: flex;
-  font-size: 20px;
-  line-height: 24px;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
   padding: 20px 2.5%;
   box-sizing: border-box;
 }
@@ -51,15 +51,37 @@
   justify-content: space-between;
 
   button {
+    cursor: pointer;
     width: 16.67%;
     aspect-ratio: 10/3;
-    font-size: 1.25vw;
+    font-size: 1.6rem;
     border-radius: inherit;
     font-weight: 600;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 }
 
 .submitBtn {
   background-color: rgba(255, 119, 16, 1);
   color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .buttonWrapper button {
+    width: 100px;
+  }
+
+  .sectionWrapper {
+    padding: 0;
+  }
 }

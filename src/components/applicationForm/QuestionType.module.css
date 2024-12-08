@@ -30,11 +30,21 @@
 }
 
 .stepInfo span:first-child {
-  font-size: 16px;
+  font-size: 1.6rem;
   line-height: 19.36px;
 }
 
 .stepInfo span:last-child {
-  font-size: 24px;
+  font-size: 2.2rem;
   line-height: 29.05px;
+}
+
+@media screen and (max-width: 767px) {
+  .step {
+    height: 60px;
+  }
+
+  .typeContainer {
+    padding: 0;
+  }
 }
