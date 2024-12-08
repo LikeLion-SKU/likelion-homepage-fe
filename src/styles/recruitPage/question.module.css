@@ -71,3 +71,17 @@
 .rotated {
     transform: rotate(180deg);
 }
+
+@media (max-width: 765px) {
+    .title{
+        font-size: 2.5rem;
+    }
+
+    .questionContainer{
+        font-size: 1.6rem;
+    }
+
+    .answer{
+        font-size: 1.4rem;
+    }
+}
