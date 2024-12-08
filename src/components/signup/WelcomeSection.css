@@ -1,0 +1,55 @@
+
+.WelcomePage_layout{
+    text-align: center;
+    height: 100%;
+    padding-top: 5rem;
+    padding-bottom: 16vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 70vw;
+}
+
+.welcome_img_box{
+    margin-bottom: 1rem;
+}
+
+.welcomeImg{
+    max-width: 70vw;
+    width: 40rem;
+}
+
+.welcomePage_message{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+    max-width: 80vw;
+}
+
+.welcomePage_message > p{
+    color: var(--main-text-color);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+.welcomePage_message > p.userName {
+    font-size: 3.2rem;
+    margin-bottom: 2rem;
+}
+
+.welcomePage_Btn > button{
+    color: #FBFBFB;
+    font-size: 2rem;
+    font-weight: 500;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    line-height: 3rem;
+    padding: 1rem 6rem;
+
+    
+    background-color: #5A914A;
+    border-radius: 10px;
+}
+
+
