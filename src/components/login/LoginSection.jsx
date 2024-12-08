@@ -3,6 +3,7 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import './LoginSection.css'
+import {handleLogin} from "../../utils/login.js";
 
 export default function LoginSection() {
     const [id, setId] = useState("");
@@ -12,20 +13,13 @@ export default function LoginSection() {
     const apiURL ="http://"; // <== 여기에 api주소 추가
 
     // 로그인 버튼 클릭 시, 유효성 검사부터하고 회원정보 찾기 호출
-    function next (e) {
-        e.preventDefault();
+    function handleLoginClick(event) {
+        event.preventDefault();
 
-        console.log("로그인 버튼 클릭");
-        const validationErrors = validation_login(); //유효성 검사
-
-        if (Object.keys(validationErrors).length > 0) { // 에러메세지가 있다면 set해주고 중단
-            console.log("유효성 검사 실패");
-            setErrors(validationErrors);
-            return;
-        }
-        else{
-            console.log("유효성 검사 성공");
-            setErrors(validationErrors);
+        const isValid = handleLogin(setErrors, id, password);
+        if (isValid) {
+            // 유효성 검사를 통과한 경우 로그인 처리
+            console.log('```로그인 유효성 검사 성공');
             login(id, password);
         }
     }
@@ -67,23 +61,6 @@ export default function LoginSection() {
         setPassword(event.currentTarget.value);
     }
 
-    
-
-    // 로그인 유효성 검사 // 
-    function validation_login () {
-        const errors = {};
-
-        if(id === ""){
-            errors.id = "아이디를 입력해주세요.";
-        }
-        else if(password === ""){
-            errors.password = "비밀번호를 입력해주세요.";
-        }
-
-        return errors;
-    }
-
-
 
     return (
         <div className="LoginPage_layout">
@@ -94,17 +71,13 @@ export default function LoginSection() {
             <div className="Login_input_boxs">
                 <div className="Login_input_box">
                     <label>아이디</label>
-                    <div className="id_box">
-                        <div className="id_input">
-                            <input 
-                            type="text" 
-                            className={errors.id ? "invalid" : id ? "valid" : ""}
-                            style={errors.id && {borderColor:"red"}}  
-                            onChange={onIdHandler} required></input>
-                        </div>
+                    <input 
+                    type="text" 
+                    name="id"
+                    className={errors.id ? "invalid" : id ? "valid" : ""}
+                    style={{ borderColor: errors.id && 'red' }} 
+                    onChange={onIdHandler} required></input>
                     {errors.id && <p className="error_message">{errors.id}</p>}
-                    </div>
-                    
                 </div>
 
                 
@@ -112,19 +85,21 @@ export default function LoginSection() {
                     <label>비밀번호</label>
                     <input 
                     type="password" 
+                    name="password"
                     className={errors.password ? "invalid" : password ? "valid" : ""}
-                    style={errors.password && {borderColor:"red"}} 
+                    style={{ borderColor: errors.id && 'red' }}
                     onChange={onPasswordHandler} required></input>
                     {errors.password && <p className="error_message">{errors.password}</p>} 
                 </div>
 
                 <div className="Login_progress_box"> 
-                    {errors.login && <p className="error_message_false">{errors.login}</p>} 
-                    <button style={{cursor:'pointer'}}  type="button" className="LoginBtn" onClick={next}>로그인</button>
+                    
+                    <button style={{cursor:'pointer'}}  type="button" className="LoginBtn" onClick={handleLoginClick}>로그인</button>
                     <div className="toSignup">
                         <p>계정이 없으신가요?</p>
                         <button style={{cursor:'pointer'}}  type="submit" className="tosignupBtn"onClick={() => {navigate("/signup")}}>회원가입</button>
                     </div>
+                    {errors.login && <p className="error_message_false">{errors.login}</p>} 
                 </div>
             </div>
         </div>

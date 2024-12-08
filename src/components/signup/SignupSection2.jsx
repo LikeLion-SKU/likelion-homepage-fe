@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import './SignupSection.css'
+import {handleIdchecking, handleSignup} from "../../utils/register.js";
 
 export default function SignupSection(props) {
     const [form, setForm] = useState({
@@ -20,97 +21,16 @@ export default function SignupSection(props) {
     const [errors, setErrors] = useState({}); 
     const navigate = useNavigate();
     const apiURL ="http://"; // <== 여기에 api주소 추가
-
-
-    // 회원가입 유효성 검사 // 
-    const inputRegexs = {
-        idRegex: /^[a-zA-Z][a-zA-Z0-9]{2,19}$/,
-        pwRegex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&+=!])(?!.*\s).{8,}$/,
-        nameRegex: /^[가-힣]{2,10}$/,
-        strudent_numRegex: /^[0-9]{10}$/,
-        phoneNumberRegex: /0-9{8,12}/,
-    };
-
-    // 아이디 중복 검사용
-    function validation_form_id () {
-        const errors = {};
-
-        if(form.id === ""){
-            errors.id = "아이디는 필수 입력 항목입니다.";
-        }
-        else if(!inputRegexs.idRegex.test(form.id)){
-            errors.id = "아이디는 영문, 숫자로 2~18자여야 합니다.";
-        }
-        return errors;
-    }
     
-    // 회원가입용
-    function validation_form () {
-        const errors = {};
+    // 아이디 중복 체크 //
+    function handleDuplicateClick(event) {
+        event.preventDefault();
 
-        if(form.id === ""){
-            errors.id = "아이디는 필수 입력 항목입니다.";
-        }
-        else if(!inputRegexs.idRegex.test(form.id)){
-            errors.id = "아이디는 영문, 숫자로 2~18자여야 합니다.";
-        }
-        else if(form.id_valid === false){
-            errors.id = "아이디 중복확인을 해야 합니다.";
-        }
-        else if(form.password === ""){
-            errors.password = "비밀번호는 필수 입력 항목입니다.";
-        }
-        else if(!inputRegexs.pwRegex.test(form.password)){
-            errors.password = "비밀번호는 최소 8자 이상의 영문, 숫자, 특수문자를 포함해야 합니다.";
-        }
-        else if(form.password_valid === ""){
-            errors.password_valid = "비밀번호 확인은 필수 입력 항목입니다.";
-        }
-        else if(form.password_valid !== form.password){
-            errors.password_valid = "비밀번호와 다릅니다.";
-        }
-        else if(form.name === ""){
-            errors.name = "이름은 필수 입력 항목입니다.";
-        }
-        else if(!inputRegexs.nameRegex.test(form.name)){
-            errors.name = "이름은 한글로 입력해야 합니다.";
-        }
-        else if(form.department === ""){
-            errors.department = "학과는 필수 입력 항목입니다.";
-        }
-        else if(form.strudent_num === ""){
-            errors.strudent_num = "학번은 필수 입력 항목입니다.";
-        }
-        else if(!inputRegexs.strudent_numRegex.test(form.strudent_num)){
-            errors.strudent_num = "학번은 숫자 10자로 입력해야 합니다.";
-        }
-        else if(form.phone_num === ""){
-            errors.phone_num = "연락처는 필수 입력 항목입니다.";
-        }
-        else if(!inputRegexs.nameRegex.test(form.phone_num)){
-            errors.phone_num = "연락처는 숫자로 입력해야 합니다.";
-        }
-
-        return errors;
-    }
-
-
-    // 아이디 중복확인 버튼 //
-    function idChecking (e) {
-        e.preventDefault();
-        console.log("중복확인 버튼 클릭");
-
-        const validationErrors = validation_form_id();
-
-        if (Object.keys(validationErrors).length > 0) { 
-            setErrors(validationErrors);
-            console.log("유효성 검사 실패");
-            return;
-        }
-        else{
+        const isValid = handleIdchecking(setErrors, form);
+        if (isValid) {
+            console.log('```id 유효성 성공');
             handleDuplicationCheck(form.id);
         }
-        
     }
 
     function handleDuplicationCheck (id) {
@@ -127,19 +47,14 @@ export default function SignupSection(props) {
         });
     };
 
-    // 회원가입 버튼 클릭 //
-    function next (e) {
-        e.preventDefault();
-        console.log("회원가입 버튼 클릭");
-        
-        const validationErrors = validation_form();
 
-        if (Object.keys(validationErrors).length > 0) { 
-            setErrors(validationErrors);
-            console.log("유효성 검사 실패");
-            return;
-        }
-        else{
+    // 회원가입 버튼 클릭 //
+    function handleSignupClick(event) {
+        event.preventDefault();
+
+        const isValid = handleSignup(setErrors, form);
+        if (isValid && form.id_valid) {
+            console.log('```회원가입 유효성 성공');
             handleSubmit(form);
         }
     }
@@ -169,6 +84,8 @@ export default function SignupSection(props) {
         });
     };
 
+
+
     return (
         <div className="SignupPage_layout">
             <div name="Signup_input_information">
@@ -185,6 +102,7 @@ export default function SignupSection(props) {
                         <div className="Input">
                             <input 
                             type="text" placeholder="영문, 숫자로 2~18자"
+                            name="id"
                             className={errors.id ? "invalid" : form.id ? "valid" : ""}
                             onChange={e => setForm({...form, id: e.currentTarget.value})}
                             required
@@ -192,7 +110,7 @@ export default function SignupSection(props) {
                             <button
                              style={{cursor:'pointer'}} 
                             className="checkingBtn" 
-                            onClick={idChecking}>중복확인</button>
+                            onClick={handleDuplicateClick}>중복확인</button>
                         </div>
                         {errors.id 
                         ? <p className="error_message">{errors.id}</p> 
@@ -214,6 +132,7 @@ export default function SignupSection(props) {
                         <div className="Input">
                             <input 
                             type="password" placeholder="최소 8자 이상의 영문, 숫자, 특수문자를 포함"
+                            name="password"
                             className={errors.password ? "invalid" : form.password ? "valid" : ""}
                             onChange={e => setForm({...form, password: e.currentTarget.value})}
                             required
@@ -234,6 +153,7 @@ export default function SignupSection(props) {
                         <div className="Input">
                             <input 
                             type="password" placeholder="다시 한번 더 비밀번호 기입"
+                            name="password_vaild"
                             className={errors.password_valid ? "invalid" : form.password_valid ? "valid" : ""}
                             onChange={e => setForm({...form, password_valid: e.currentTarget.value})}
                             required
@@ -254,6 +174,7 @@ export default function SignupSection(props) {
                         <div className="Input">
                             <input 
                             type="text" placeholder="한글로 입력"
+                            name="name"
                             className={errors.name ? "invalid" : form.name ? "valid" : ""}
                             onChange={e => setForm({...form, name: e.currentTarget.value})}
                             required
@@ -274,6 +195,7 @@ export default function SignupSection(props) {
                         <div className="Input">
                             <input 
                             type="text" placeholder="본인의 학과/학부"
+                            name="department"
                             className={errors.department ? "invalid" : form.department ? "valid" : ""}
                             onChange={e => setForm({...form, department: e.currentTarget.value})}
                             required
@@ -294,6 +216,7 @@ export default function SignupSection(props) {
                         <div className="Input">
                             <input 
                             type="text" maxLength={10} placeholder="본인의 학번 10자"
+                            name="strudent_num"
                             className={errors.strudent_num ? "invalid" : form.strudent_num ? "valid" : ""}
                             onChange={e => setForm({...form, strudent_num: e.currentTarget.value})}
                             required
@@ -313,6 +236,7 @@ export default function SignupSection(props) {
                         <div className="Input">
                             <input 
                             type="text" placeholder="현재 재학 중인 학기수"
+                            name="semester"
                             className={errors.semester ? "invalid" : form.semester ? "valid" : ""}
                             onChange={e => setForm({...form, semester: e.currentTarget.value})}
                             ></input> 
@@ -333,6 +257,7 @@ export default function SignupSection(props) {
                         <div className="Input">
                             <input 
                             type="text" placeholder="'-'빼고 입력"
+                            name="phone_num"
                             className={errors.phone_num ? "invalid" : form.phone_num ? "valid" : ""}
                             onChange={e => setForm({...form, phone_num: e.currentTarget.value})}
                             required
@@ -350,7 +275,7 @@ export default function SignupSection(props) {
                    
                     <div className="input_box">
                         <div className="Select">
-                            <select defaultValue="">
+                            <select defaultValue="" name="part">
                                 <option value="">미정</option>
                                 <option value="front">프론트앤드</option>
                                 <option value="back">백앤드</option>
@@ -364,9 +289,9 @@ export default function SignupSection(props) {
 
 
                 <div className="Signup_progress_box2">
-                    {errors.signup && <p className="error_message_false">{errors.signup}</p>}
                     
-                    <button style={{cursor:'pointer'}}  className="SignupBtn" onClick={next}>회원가입</button>
+                    
+                    <button style={{cursor:'pointer'}}  className="SignupBtn" onClick={handleSignupClick}>회원가입</button>
                     <div className="toLogin">
                         <p>이미 계정이 있으신가요?</p>
                         <button style={{cursor:'pointer'}}  type="submit" className="tologinBtn"onClick={() => {navigate("/login")}}>로그인</button>
@@ -374,7 +299,8 @@ export default function SignupSection(props) {
                     
                     <p>vvv테스트vvv</p>
                     <button style={{cursor:'pointer'}}  onClick={(e) => {setErrors(()=> ({...form, signup: "회원가입 실패"}))}}>-회원가입 실패 테스트-</button>
-                
+                    
+                    {errors.signup && <p className="error_message_false">{errors.signup}</p>}
                 </div>
             </div>
         </div>
