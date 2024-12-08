@@ -3,15 +3,10 @@ import Card from "./Card";
 import profileImage from "../../assets/svgs/ex.svg";
 
 export default function Chairman() {
-
-    const chairmanMember1 = [
-        { name: "김회장", department: "컴퓨터 공학과 22학번", profileImage },
+    const chairmanMembers = [
+        { name: "김회장", department: "컴퓨터 공학과 22학번", profileImage, role: "회장" },
+        { name: "이부회장", department: "컴퓨터 공학과 21학번", profileImage, role: "부회장" },
     ];
-
-    const chairmanMember2 = [
-        { name: "이부회장", department: "컴퓨터 공학과 21학번", profileImage },
-    ];
-    
 
     return (
         <div className={styles.allContainer}>
@@ -24,23 +19,19 @@ export default function Chairman() {
                 </div>
             </div>
             <div className={styles.chairmanContainer}>
-                <div className={styles.chairman}>
-                    <q className={styles.mainText}>회장</q>
-                    <Card
-                        name={chairmanMember1[0].name}
-                        department={chairmanMember1[0].department}
-                        profileImage={chairmanMember1[0].profileImage}
-                    />
-                </div>
-                <div className={styles.chairman}>
-                    <q className={styles.mainText}>부회장</q>
-                    <Card
-                        name={chairmanMember2[0].name}
-                        department={chairmanMember2[0].department}
-                        profileImage={chairmanMember2[0].profileImage}
-                    />
+                <div className={styles.chairmanCardGrid}>
+                    {chairmanMembers.map((member, index) => (
+                        <div key={index} className={styles.chairman}>
+                            <q className={styles.mainText}>{member.role}</q>
+                            <Card
+                                name={member.name}
+                                department={member.department}
+                                profileImage={member.profileImage}
+                            />
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
-    )
+    );
 }

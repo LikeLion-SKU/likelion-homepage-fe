@@ -1,6 +1,6 @@
 .cardContainer {
-    width: 192px;
-    height: 240px;
+    width: 100%;
+    padding: 10% 5%;
     border-radius: 14.4px;
     background-color: #F5F5F7;
     display: flex;
