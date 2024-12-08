@@ -1,0 +1,119 @@
+.pageWrapper {
+  padding: 0 3.13%;
+  margin-bottom: 50px;
+}
+
+.header {
+  width: 100%;
+  height: 29px;
+  margin-bottom: 24px;
+  margin-top: 86px;
+
+  header {
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 2.905rem;
+  }
+}
+
+.navbar {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 50px;
+
+  button {
+    border: 1px solid rgba(0, 0, 0, 1);
+    font-size: 1.6rem;
+    line-height: 1.936rem;
+    font-weight: 700;
+    padding: 10px 23px;
+    width: 16.67%;
+    aspect-ratio: 5/1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 1);
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.showApplyWrapper {
+  width: 100%;
+  height: 916px;
+  background-color: rgba(245, 245, 247, 1);
+  padding: 36px 33px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+
+.tableHeader {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  span {
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 25px 0;
+    width: 20%;
+    height: 80px;
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
+}
+
+.tableBody {
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 1);
+  height: 615px;
+  overflow-y: auto;
+}
+
+.applicant {
+  height: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > * {
+    width: 20%;
+    justify-content: center;
+    padding: 22px 0;
+    display: flex;
+    justify-content: center;
+    font-size: 1.6rem;
+    line-height: 1.936rem;
+    font-weight: 500;
+  }
+
+  .btnWrapper {
+    button {
+      cursor: pointer;
+      background-color: black;
+      color: white;
+      padding: 10px 30px;
+      box-sizing: border-box;
+      height: 40px;
+      border-radius: 20px;
+      width: 80%;
+      transition: transform 0.2s ease;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+}
