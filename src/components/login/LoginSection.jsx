@@ -13,7 +13,7 @@ export default function LoginSection() {
     const [errors, setErrors] = useState({}); 
     const navigate = useNavigate();
 
-    // 로그인 버튼 클릭 시, 유효성 검사부터하고 회원정보 찾기 호출
+    // 로그인 버튼 클릭 //
     function handleLoginClick(event) {
         event.preventDefault();
 

@@ -47,7 +47,7 @@ export default function SignupSection(props) {
     }, [count])
 
 
-    // 인증번호 전송 //
+    // 인증번호 전송 버튼 클릭 //
     function handleSendingClick(event) {
         event.preventDefault();
 
@@ -61,7 +61,7 @@ export default function SignupSection(props) {
     }
     
 
-    // 인증번호 확인 //
+    // 인증번호 확인 버튼 클릭 //
     function handleCheckingClick(event) {
         event.preventDefault();
 
@@ -70,12 +70,12 @@ export default function SignupSection(props) {
             setConfirms((prev)=> ({...prev, confirmCode: "이메일이 인증되었습니다."}));
             props.setEmailSuccess(true);
             setForm({...form, confirmCode_valid: true});
-            setErrors(()=> ({...form, confirmCode: ""}));
+            setErrors({...form, confirmCode: ""});
         }
     }
 
 
-    // 계속 버튼 클릭시, 다음 페이지를 보여줌 //
+    // 계속 버튼 클릭 //
     function next (e) {
         e.preventDefault();
         

@@ -8,7 +8,7 @@ const inputRegexs = {
     nameRegex: /^[가-힣]{2,10}$/,
     departRegex: /^[가-힣]+$/,
     student_numRegex: /^[0-9]{10}$/,
-    phoneNumberRegex: /^0-9{8,12}$/,
+    phoneNumberRegex: /^[0-9]{8,12}$/,
 };
 
 // 아이디 중복 검사 버튼 클릭시
@@ -104,6 +104,7 @@ export function validateInput_idDuplicate(form) {
 export function validateInput_signup(form) {
     let errors = {
         id: '',
+        id_valid: '',
         password: '',
         password_valid: '',
         name: '',
@@ -117,6 +118,10 @@ export function validateInput_signup(form) {
       errors.id = "아이디는 필수 입력 항목입니다.";
     } else if (!inputRegexs.idRegex.test(form.id)) {
       errors.id = "아이디는 영문, 숫자로 2~18자여야 합니다.";
+    }
+    else if(!form.id_valid){
+      errors.id = "아이디 중복 검사는 필수 입니다.";
+      
     }
   
     if (form.password === '') {
@@ -162,7 +167,7 @@ export function validateInput_signup(form) {
 
     const errors = validateInput_signup(form);
     setErrors(errors);
-    if (errors.id || errors.password || errors.password_valid ||  errors.name || 
+    if (errors.id  || errors.password || errors.password_valid ||  errors.name || 
         errors.department || errors.strudent_num || errors.phone_num ) {
       return false; 
     }

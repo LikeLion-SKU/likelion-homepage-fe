@@ -22,7 +22,7 @@ export default function SignupSection(props) {
     const navigate = useNavigate();
     
 
-    // 아이디 중복 체크 //
+    // 아이디 중복 체크 버튼 클릭 //
     function handleDuplicateClick(event) {
         event.preventDefault();
 
@@ -36,7 +36,7 @@ export default function SignupSection(props) {
     // 회원가입 버튼 클릭 //
     function handleSignupClick(event) {
         event.preventDefault();
-
+        
         const isValid = handleSignup(setErrors, form);
         if (isValid && form.id_valid) {
             props.setSignupSuccess(true);

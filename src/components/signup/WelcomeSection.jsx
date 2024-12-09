@@ -8,7 +8,12 @@ export default function WelcomeSection() {
     const [name, setName] = useState("김유저");
     const navigate = useNavigate();
 
-    // 유저 이름 받아오기 // 
+    // 홈으로 버튼 클릭 //
+    function toHomeClick (e) {
+        e.preventDefault();
+        
+        navigate("/"); // 2번째 페이지 보여줌.
+    }
 
     return (
         <div className="WelcomePage_layout">
@@ -21,7 +26,7 @@ export default function WelcomeSection() {
                 <p>가입을 환영합니다!</p>
             </div>
             <div className="welcomePage_Btn">
-                <button style={{cursor:'pointer'}} onClick={()=>{navigate("/")}}>홈으로</button>
+                <button style={{cursor:'pointer'}} onClick={toHomeClick}>홈으로</button>
                 
             </div>
         </div>
