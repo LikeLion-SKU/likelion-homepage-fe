@@ -1,0 +1,28 @@
+.parallax {
+  overflow: hidden;
+  letter-spacing: -2px;
+  line-height: 0.8;
+  margin: 0;
+  white-space: nowrap;
+  display: flex;
+  flex-wrap: nowrap;
+  color: var(--main-bg-color);
+  font-family: "Plaster", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.parallax .scroller {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 9.6rem;
+  display: flex;
+  white-space: nowrap;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.scroller span {
+  display: block;
+  margin-right: 30px;
+}

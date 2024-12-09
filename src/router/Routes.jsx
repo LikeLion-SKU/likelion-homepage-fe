@@ -6,6 +6,7 @@ import ProjectPage from "@pages/ProjectPage";
 import RecruitPage from "@pages/RecruitPage";
 import LoginPage from "@pages/LoginPage";
 import SignupPage from "@pages/SignupPage";
+import MyPage from '@pages/MyPage';
 import WelcomePage from "@pages/WelcomePage";
 import ApplicationForm from '../pages/applicationForm/ApplicationForm';
 import ProjectPageLayout from '../components/ProjectPage/ProjectPageLayout';
@@ -34,6 +35,8 @@ export default function Routes() {
         <Route path="signup" element={<SignupPage />}/>
         <Route path="welcome" element={<WelcomePage />}/>
         <Route path="apply" element={<ApplicationForm />} />
+        <Route path="mypage" element={<MyPage />} />
+
       </Route>
     </ReactRouters>
   );
