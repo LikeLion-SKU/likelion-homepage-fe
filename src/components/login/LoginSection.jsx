@@ -19,11 +19,6 @@ export default function LoginSection() {
 
         const isValid = handleLogin(setErrors, form.id, form.password);
         if (isValid) {
-            // 유효성 검사를 통과한 경우 로그인 처리
-            console.log('```로그인 유효성 검사 성공');
-
-            //login(id, password);
-            console.log("로그인 성공");
             navigate("/");
         }
     }
@@ -45,7 +40,6 @@ export default function LoginSection() {
                     onChange={handleInputChange(setForm)} required></input>
                     {errors.id && <p className="error_message">{errors.id}</p>}
                 </div>
-                
                 <div className="Login_input_box">  
                     <label>비밀번호</label>
                     <input 
@@ -57,7 +51,6 @@ export default function LoginSection() {
                     onChange={handleInputChange(setForm)} required></input>
                     {errors.password && <p className="error_message">{errors.password}</p>} 
                 </div>
-
                 <div className="Login_progress_box"> 
                     <button style={{cursor:'pointer'}}  type="button" className="LoginBtn" onClick={handleLoginClick}>로그인</button>
                     <div className="toSignup">
