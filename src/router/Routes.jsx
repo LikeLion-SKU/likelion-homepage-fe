@@ -8,7 +8,7 @@ import LoginPage from '@pages/LoginPage';
 import ApplicationForm from '../pages/applicationForm/ApplicationForm';
 import ProjectPageLayout from '../components/ProjectPage/ProjectPageLayout';
 import ProjectDetail from '../components/ProjectPage/ProjectDetail';
-import NewProjectForm from '../components/ProjectPage/NewProjectFrom';
+import NewProjectForm from '../components/ProjectPage/NewProjectForm';
 import EditProjectForm from '../components/ProjectPage/EditProjectForm';
 import { MainLayout } from '@layouts';
 
@@ -22,7 +22,7 @@ export default function Routes() {
         <Route path="project" element={<ProjectPage />}>
           <Route index element={<ProjectPageLayout isAdmin={false} />} /> {/* 사용자 모드 */}
           <Route path="admin" element={<ProjectPageLayout isAdmin={true} />} /> {/* 관리자 모드 */}
-          <Route path="admin/project" element={<NewProjectForm />} />
+          <Route path="admin/add" element={<NewProjectForm />} />
           <Route path="admin/edit" element={<EditProjectForm />} /> {/* 수정 페이지 */}
           <Route path=":projectId" element={<ProjectDetail />} /> {/* 프로젝트 상세 페이지 */}
         </Route>
