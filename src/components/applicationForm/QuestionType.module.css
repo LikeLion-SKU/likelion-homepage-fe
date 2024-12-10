@@ -1,13 +1,15 @@
 .typeContainer {
   height: 136px;
-  width: 100%;
+  width: 60.61%;
+  margin: 0 auto;
+  min-width: 500px;
   display: flex;
   padding-top: 32.5px;
 }
 
 .step {
   width: 33.3%;
-  height: 103px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,11 +42,9 @@
 }
 
 @media screen and (max-width: 767px) {
-  .step {
-    height: 60px;
-  }
-
   .typeContainer {
     padding: 0;
+    width: 100%;
+    min-width: auto;
   }
 }
