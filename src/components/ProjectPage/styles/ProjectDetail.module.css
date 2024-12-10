@@ -59,6 +59,7 @@
   display: flex;
   justify-content: space-between; /* description과 teamBox를 양쪽으로 배치 */
   align-items: flex-start; /* 위쪽 정렬 */
+  flex-wrap: nowrap; /* 기본적으로 한 줄로 유지 */
 }
 
 .description {
@@ -112,9 +113,73 @@
   text-align: center;
 }
 
-/* 반응형 설정 */
 @media (max-width: 768px) {
+  .contentContainer {
+    flex-direction: column; /* 세로 배치 */
+    align-items: left; 
+  }
+
+  .description {
+    margin: 1rem 0; /* 상하 간격 조정 */
+    align-items: left; 
+  }
+
+  .teamBox {
+    max-width: 50%; 
+    font-size: 1.3rem;
+    padding: 0.5rem;
+    margin: 1rem 0;
+  }
+
   .memberRow {
-    grid-template-columns: repeat(1, 1fr); /* 화면이 좁아지면 한 줄로 배치 */
+    gap: 0.5rem; /* 간격 축소 */
+  }
+}
+
+@media (max-width: 480px) {
+  .contentContainer {
+    flex-direction: column; 
+    align-items: flex-start; 
+    width: 100%;
+  }
+
+  .title {
+    font-size: 2.2rem; 
+    margin: 2rem 0 1.5rem;
+  }
+
+  .tag {
+    width: auto; /* 너비 자동 조정 */
+    font-size: 1rem; 
+    padding: 0.5rem 0.8rem; 
+  }
+  
+  .description {
+    margin: 1rem 0; 
+    font-size: 1.2rem; 
+    line-height: 2rem;
+  }
+
+  .teamBox {
+    max-width: 70%;
+    font-size: 1.2rem; 
+    align-self: flex-start; /* 왼쪽 정렬 */
+  }
+
+  .teamRole {
+    padding: 0.5rem 0; 
+  }
+
+  .role {
+    font-size: 1rem; 
+    margin: 0 1rem; 
+  }
+
+  .memberRow {
+    gap: 0.5rem; 
+  }
+
+  .member {
+    font-size: 1rem; 
   }
 }
