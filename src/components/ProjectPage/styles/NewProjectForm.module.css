@@ -1,29 +1,24 @@
-/* Form Container */
 .formContainer {
     padding: 2rem;
+    box-sizing: border-box;
   }
   
-  /* Title Section */
   .title {
-    text-align: left;
-    font-size: 2.4rem;
+    font-size: 3rem; 
     font-weight: bold;
-    margin-bottom: 3rem;
+    margin: 3rem 0 2rem 0.5rem;
   }
   
-  /* Input Group */
   .inputGroup {
     margin-bottom: 2rem;
   }
   
-/* Image Upload Section */
 .imageUploadContainer {
-    width: 100%;
-    max-width: 100%; /* 화면 크기에 맞춰 컨테이너 확장 */
-    margin: 0 auto;
+    max-width: 100%;
+    margin: 0 ;
     aspect-ratio: 16 / 9; /* 반응형 비율 (16:9) */
     background-color: #f5f5f7;
-    border-radius: 1.25rem; /* 20px equivalent */
+    border-radius: 20px; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -41,10 +36,10 @@
 
 /* 미리보기 이미지 */
 .imagePreview {
-    width: 100%; /* 컨테이너 너비를 꽉 채움 */
-    height: 100%; /* 컨테이너 높이를 꽉 채움 */
+    width: 100%; 
+    height: 100%; 
     object-fit: cover; /* 이미지 비율을 유지하면서 컨테이너 크기에 맞춤 */
-    border-radius: 20px; /* 둥근 모서리 */
+    border-radius: 20px; 
   }
   
   .imageUploadIcon {
@@ -72,17 +67,20 @@
     }
   }
 
-  /* 제목 입력 필드 */
 .titleInput {
     width: 100%;
-    margin: 5rem 0 1rem 0;
+    margin-top: 2rem;
+    font-family: Inter;
     font-size: 3.5rem;
     font-weight: 600;
-    color: #a9a9a9; /* 기본 색상 */
-    border: none; /* 테두리 없음 */
+    color: #a9a9a9; 
+    border: none; 
     outline: none; /* 포커스 시 기본 스타일 제거 */
-    background: transparent; /* 배경 투명 */
-    text-align: left; /* 텍스트 왼쪽 정렬 */
+    background: transparent; 
+    text-align: left; 
+    resize: none; 
+    padding: 1rem; /* 텍스트 내부 여백 */
+    box-sizing: border-box; /* 패딩 포함한 전체 크기 계산 */
   }
   
   .titleInput:focus {
@@ -99,4 +97,72 @@
     background-color: #dadada; 
     margin: 1.5rem 0; 
   }
-  
+
+  .contentContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }  
+
+.detailInput {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 1rem;
+  font-family: Inter;
+  line-height: 3rem;
+  font-size: 2rem;
+  font-weight: 500;
+  color: #a9a9a9; 
+  border: none; 
+  outline: none; /* 포커스 시 기본 스타일 제거 */
+  background: transparent; 
+  text-align: left; 
+  resize: none; 
+  padding: 1rem; /* 텍스트 내부 여백 */
+  box-sizing: border-box; /* 패딩 포함한 전체 크기 계산 */
+}
+
+.detailInput:focus {
+  color: #1c1b1a; /* 입력 시 색상 변경 */
+}
+
+.detailInput:not(:placeholder-shown) {
+  color: #1c1b1a; /* 값이 입력된 경우 색상 변경 */
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.submitButton {
+  padding: 1rem 2rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: white;
+  background-color: #FF7710; 
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .contentContainer {
+    flex-direction: column; /* 세로 배치 */
+    align-items: left; 
+  }
+}
+
+@media (max-width: 480px) {
+  .contentContainer {
+    flex-direction: column; 
+    align-items: flex-start; 
+    width: 100%;
+  }
+
+  .title {
+    font-size: 2.2rem; 
+    margin: 2rem 0 1.5rem;
+  }
+}
