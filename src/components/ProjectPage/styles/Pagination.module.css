@@ -1,0 +1,31 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    gap: 0.5rem;
+  }
+  
+  .paginationButton {
+    background-color: transparent;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--main-text-color);
+  }
+  
+  .paginationButton:hover {
+    transform: scale(1.05); /* 호버 시 약간 확대 효과 */
+  }
+  
+  .paginationButton:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  
+  .activePage {
+    background-color: black;
+    color: white;
+  }
+  
