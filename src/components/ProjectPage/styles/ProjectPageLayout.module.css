@@ -1,13 +1,14 @@
 .projectPage {
-    padding: 0rem;
+    padding: 1rem;
   }
   
 .title {
     color: var(--main-text-color);
-    font-size: 5rem; 
+    font-size: 3.6rem;
+    margin-top : 5vh;    
     font-weight: 700;
     text-align: center; 
-    margin-bottom: 5rem; 
+    line-height: 1.6rem;
 }
 
 .controls {
@@ -31,7 +32,6 @@
   opacity: 0.8; /* 마우스 오버 시 효과 */
 }
 
-
 .selectBoxContainer {
   margin-left: auto; /* 드롭다운 박스를 오른쪽으로 밀기 */
 }
@@ -48,6 +48,10 @@
 
 .addButton:hover {
   background-color: #45a049;
+}
+
+.selectBoxContainer {
+  padding: 3rem 1.5rem 0 0;
 }
 
 .grid {
@@ -71,14 +75,20 @@
   transition: transform 0.2s ease; /* 마우스 오버 시 부드러운 효과 */
 }
 
-.card:hover {
-  transform: scale(1.05); /* 호버 시 약간 확대 효과 (선택 사항) */
-}
-
 .card img {
   width: 100%;
   height: auto;
   border-radius: 8px;
+}
+
+@media (max-width: 420px) { 
+  .name {
+    font-size: 1.3rem;
+  }
+
+  .description {
+    font-size: 1.2rem;
+  }
 }
 
 .name {
@@ -91,10 +101,19 @@
 .description {
   font-size: 1.4rem;
   color: #666;
-  line-height: 1.6;
+  line-height: 1.6rem;
+}
+
+.cardFooter {
+  display: flex; /* 가로 정렬 */
+  justify-content: space-between; /* 양 끝 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+  margin-top: 1rem; /* 상단 여백 */
+  margin-bottom: 1rem;
 }
 
 .tags {
+  display: flex; /* 태그들을 가로로 배치 */
   margin-top: 0.5rem;
 }
 
@@ -103,10 +122,9 @@
   height: 1rem;
   line-height: 1rem; /* 요소 높이와 동일하게 설정 */
   padding: 0.45rem 0.5rem;
-  margin-right: 0.5rem;
   border-radius: 16px;
   font-size: 0.9rem;
-  text-align: center; /* 텍스트 중앙 정렬 */
+  text-align: center;
 }
 
 .tag.자체프로젝트 {
@@ -122,6 +140,52 @@
 .tag.중앙해커톤 {
   background-color: #dbeddb;
   color: #000;
+}
+
+.menuContainer {
+  position: relative; /* 부모 컨테이너 기준으로 menu 위치 조정 */
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.menuButton {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 9rem;
+  text-align: center;
+  background-color: white;
+  border: 1px solid #000;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.menu button {
+  display: flex; /* 플렉스 박스를 사용하여 중앙 정렬 */
+  justify-content: center; 
+  align-items: center; /* 세로 중앙 정렬 */
+  width: 100%;
+  padding: 0.5rem 1rem;
+  background: none;
+  border: none;
+  border-radius: 15px;
+  text-align: left;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.menu button:hover {
+  color: var(--accent-color);
 }
 
 .noProjects {
