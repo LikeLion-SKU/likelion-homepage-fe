@@ -1,6 +1,7 @@
 .headerContainer {
   height: 121px;
-  width: 100%;
+  width: 60.51%;
+  min-width: 500px;
   display: flex;
   align-items: end;
   justify-content: space-between;
@@ -41,5 +42,7 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+    min-width: auto;
+    width: 100%;
   }
 }

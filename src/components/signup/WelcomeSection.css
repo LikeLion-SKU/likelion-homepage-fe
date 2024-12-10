@@ -28,7 +28,7 @@
 }
 
 .welcomePage_message > p{
-    color: var(--main-text-color);
+    color: var(--black-44-color);
     font-size: 2rem;
     font-weight: 700;
     margin-bottom: 1rem;
@@ -39,7 +39,7 @@
 }
 
 .welcomePage_Btn > button{
-    color: #FBFBFB;
+    color: var(--main-bg-color);
     font-size: 2rem;
     font-weight: 500;
     margin-top: 2rem;
@@ -48,7 +48,7 @@
     padding: 1rem 6rem;
 
     
-    background-color: #5A914A;
+    background-color: var(--accent-color);
     border-radius: 10px;
 }
 

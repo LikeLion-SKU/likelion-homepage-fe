@@ -3,6 +3,7 @@
     text-align: center;
     height: 100%;
     margin-top: 5vh;
+    margin-bottom: 3vh;
     padding-bottom: 3vh;
     
     display: flex;
@@ -11,9 +12,6 @@
     width: 100%;
 }
 
-.Login_input_information{
-    margin-bottom: 4rem;
-}
 .title{
     color: var(--main-text-color);
     font-size: 3.6rem;
@@ -23,6 +21,7 @@
 .Login_input_boxs{
     display: flex;
     flex-direction: column;
+    margin-top: 7rem;
     margin-bottom: 10rem;
     width: 90vw;
     max-width: 40rem;
@@ -46,7 +45,7 @@
 }
 
 input{
-    border: 1px solid rgb(172, 172, 172);
+    border: 1px solid var(--grey-da-color);
     border-radius: 8px; 
     width: 95%;
     
@@ -56,11 +55,11 @@ input{
 }
 
 input:focus{
-    border-color: #5A914A;
+    border-color: var(--accent-color);
     outline: none;
 }
 input.valid {
-    border-color: #5A914A;
+    border-color: var(--accent-color);
 }
   
 input.invalid {
@@ -70,6 +69,7 @@ input.invalid {
 .error_message{
     color: red;
     margin-left: 1rem;
+    font-size: 1.2rem;
 }
 
 .error_message_false{
@@ -82,20 +82,8 @@ input.invalid {
     width: 90%;
 }
 
-.id_input{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-    
-}
-.id_input > p{
-    color: rgb(139, 139, 139);
-    font-size: 1.5rem;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    margin-left: 1rem;
-}
+
+
 
 .Login_progress_box{
     display: flex;
@@ -106,16 +94,16 @@ input.invalid {
 }
 
 .LoginBtn{
-    color: #FBFBFB;
-    font-size: 1.2rem;
-    font-weight: 500;
+    color: var(--main-bg-color);
+    font-size: 1.5rem;
+    font-weight: 400;
     margin-top: 2rem;
     margin-bottom: 1rem;
     line-height: 3rem;
     padding: 0.5rem 1rem;
 
     width: 100%;
-    background-color: #5A914A;
+    background-color: var(--accent-color);
     border-radius: 10px;
 }
 .toSignup{
@@ -125,14 +113,14 @@ input.invalid {
 }
 
 .toSignup > p{
-    font-size: 1.3rem;
+    font-size: 1.4rem;
 }
 .toSignup > button{
-    font-size: 1.3rem;
+    font-size: 1.4rem;
 }
 
 .tosignupBtn{
-    color:#5A914A;
+    color:var(--accent-color);
     background-color: rgba(255, 255, 255, 0);
     margin-left: 1rem;
 }

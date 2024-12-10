@@ -3,8 +3,11 @@
 :root {
   --main-bg-color: #fbfbfb;
   --main-text-color: #1c1b1a;
-  --accent-color: #66924b;
-  --grey-color: #9f9c98;
+  --accent-color: #64A772;
+  --black-44-color: #444444;
+  --grey-a9-color: #A9A9A9;
+  --grey-da-color: #dadada;
+  --grey-e5-color: #e5e5e5;
   --lightgrey-color: #f5f5f7;
 }
 

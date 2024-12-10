@@ -53,6 +53,7 @@ export default function SignupSection(props) {
 
         const isValid = handleEmailchecking(setErrors, form);
         if (isValid) {
+            // 인증번호 전송 성공시
             setConfirms({...form, email: "인증번호가 전송되었습니다."});
             setCount(300); // 5분
             setForm({...form, email_valid: true, timing: true}); 
@@ -67,6 +68,7 @@ export default function SignupSection(props) {
 
         const isValid = handleConfirmCodechecking(setErrors, form);
         if (isValid) {
+            // 인증번호 확인 성공시 
             setConfirms((prev)=> ({...prev, confirmCode: "이메일이 인증되었습니다."}));
             props.setEmailSuccess(true);
             setForm({...form, confirmCode_valid: true});

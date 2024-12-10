@@ -28,7 +28,7 @@ export default function SignupSection(props) {
 
         const isValid = handleIdchecking(setErrors, form, errors);
         if (isValid) {
-            setForm({...form, id_valid: true});
+            setForm({...form, id_valid: true}); 
         }
     }
 
@@ -42,6 +42,8 @@ export default function SignupSection(props) {
             if(form.semester === ""){
                 setForm({...form, semester: 0});
             }
+            // setErrors({...form, signup: "회원가입에 실패 하였습니다"}) // 회원가입 실패시
+            // 회원가입 성공시 
             props.setSignupSuccess(true);
             props.setNow(1);
             navigate("/welcome");
@@ -62,7 +64,7 @@ export default function SignupSection(props) {
                     <div className="input_box">
                         <div className="Input">
                             <input 
-                            type="text" placeholder="영문, 숫자로 2~18자"
+                            type="text" placeholder="영문, 숫자로 2-18자"
                             name="id"
                             value={form.id}
                             className={errors.id ? "invalid" : form.id ? "valid" : ""}
@@ -109,7 +111,7 @@ export default function SignupSection(props) {
                     <div className="input_box">
                         <div className="Input">
                             <input 
-                            type="password" placeholder="다시 한번 더 비밀번호 기입"
+                            type="password" placeholder="비밀번호 확인"
                             name="password_valid"
                             value={form.password_valid}
                             className={errors.password_valid ? "invalid" : form.password_valid ? "valid" : ""}
@@ -128,7 +130,7 @@ export default function SignupSection(props) {
                     <div className="input_box">
                         <div className="Input">
                             <input 
-                            type="text" placeholder="한글로 입력"
+                            type="text" placeholder="한글로 2-10자"
                             name="name"
                             value={form.name}
                             className={errors.name ? "invalid" : form.name ? "valid" : ""}
@@ -147,7 +149,7 @@ export default function SignupSection(props) {
                     <div className="input_box">
                         <div className="Input">
                             <input 
-                            type="text" placeholder="본인의 학과/학부 입력"
+                            type="text" placeholder="본인의 학과/학부"
                             name="department"
                             value={form.department}
                             className={errors.department ? "invalid" : form.department ? "valid" : ""}
@@ -166,7 +168,7 @@ export default function SignupSection(props) {
                     <div className="input_box">
                         <div className="Input">
                             <input 
-                            type="text" maxLength={10} placeholder="본인의 학번 10자 기입"
+                            type="text" maxLength={10} placeholder="본인의 학번 10자"
                             name="strudent_num"
                             value={form.strudent_num}
                             className={errors.strudent_num ? "invalid" : form.strudent_num ? "valid" : ""}
@@ -185,7 +187,7 @@ export default function SignupSection(props) {
                     <div className="input_box">
                         <div className="Input">
                             <input 
-                            type="text" placeholder="'-'빼고 입력"
+                            type="text" placeholder="'-'빼고 숫자로"
                             name="phone_num"
                             value={form.phone_num}
                             className={errors.phone_num ? "invalid" : form.phone_num ? "valid" : ""}
@@ -222,7 +224,7 @@ export default function SignupSection(props) {
                     </div>
                     <div className="input_box">
                         <div className="Select">
-                            <select name="part" value={form.part} onChange={handleInputChange(setForm)}>
+                            <select name="part" className="selection" value={form.part} onChange={handleInputChange(setForm)}>
                                 <option value="">선택</option>
                                 <option value="front">프론트앤드</option>
                                 <option value="back">백앤드</option>

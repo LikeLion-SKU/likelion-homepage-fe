@@ -1,19 +1,9 @@
-/* div */
-.center {
-    text-align: center;
-    height: 100%;
-    padding-bottom: 15rem;
+.lionImg {
+    max-width: 25rem;
+    width: 30vw;
+    margin: 3vh;
 }
 
-.horizontal {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-}
-
-
-/* text */
 .title {
     color: var(--main-text-color);
     font-size: 3.2rem;

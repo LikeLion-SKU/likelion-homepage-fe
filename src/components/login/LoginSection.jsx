@@ -20,7 +20,8 @@ export default function LoginSection() {
 
         const isValid = handleLogin(setErrors, form.id, form.password);
         if (isValid) {
-            navigate("/");
+            // setErrors({...form, login: "일치하는 회원 정보가 없습니다"}) // 로그인 실패시 
+            navigate("/"); // 로그인 성공시
         }
     }
 

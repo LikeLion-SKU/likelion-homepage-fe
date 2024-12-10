@@ -35,7 +35,7 @@ export default function AnswerSection({ step }) {
             options={options}
             value={track}
             onChange={setTrack}
-            placeholder="트랙을 선택해주세요"
+            placeholder="선택해주세요"
           />
         </div>
       )}
@@ -44,9 +44,15 @@ export default function AnswerSection({ step }) {
           <div className={styles.questionName}>
             <span>{question}</span>
           </div>
-          <div className={styles.inputWrapper}>
-            <textarea placeholder="답변을 입력해주세요" />
-          </div>
+          {step !== 1 ? (
+            <div className={styles.inputWrapper}>
+              <textarea placeholder="답변을 입력해주세요" />
+            </div>
+          ) : (
+            <div className={styles.userInfo}>
+              <span>김예찬</span>
+            </div>
+          )}
         </div>
       ))}
       <div className={styles.buttonWrapper}>
