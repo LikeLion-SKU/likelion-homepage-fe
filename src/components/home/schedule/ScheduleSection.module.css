@@ -1,0 +1,12 @@
+.scheduleImg {
+  max-width: 70rem;
+  width: 80vw;
+  margin: 3vh;
+}
+
+.title {
+  color: var(--main-text-color);
+  font-size: 3.2rem;
+  font-weight: 700;
+  margin-bottom: 7rem;
+}

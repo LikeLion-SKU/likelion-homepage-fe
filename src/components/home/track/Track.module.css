@@ -1,0 +1,39 @@
+.section {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  max-width: 100rem;
+  gap: 4rem; 
+  margin: 0 2rem;
+}
+
+@media (max-width: 767px) { 
+  .section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 5vh;
+}
+
+.trackImg {
+  width: 15vh;
+  height: 15vh;
+  margin-bottom: 2rem;
+}
+
+.trackName {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.trackContent {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--black-44-color);
+  line-height: 2.5rem;
+}
