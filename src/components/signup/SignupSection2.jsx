@@ -14,7 +14,7 @@ export default function SignupSection(props) {
         name: "",
         department: "",
         strudent_num: "",
-        semester: 0,
+        semester: "",
         phone_num: "",
         part: "",
     });
@@ -26,7 +26,7 @@ export default function SignupSection(props) {
     function handleDuplicateClick(event) {
         event.preventDefault();
 
-        const isValid = handleIdchecking(setErrors, form);
+        const isValid = handleIdchecking(setErrors, form, errors);
         if (isValid) {
             setForm({...form, id_valid: true});
         }
@@ -36,15 +36,17 @@ export default function SignupSection(props) {
     // 회원가입 버튼 클릭 //
     function handleSignupClick(event) {
         event.preventDefault();
-        
+
         const isValid = handleSignup(setErrors, form);
         if (isValid && form.id_valid) {
+            if(form.semester === ""){
+                setForm({...form, semester: 0});
+            }
             props.setSignupSuccess(true);
             props.setNow(1);
             navigate("/welcome");
         }
     }
-    
 
     return (
         <div className="SignupPage_layout">
@@ -139,13 +141,13 @@ export default function SignupSection(props) {
                 </div>
                 <div className="Signup_input_box">
                     <div className="label_box">
-                        <label>학과</label>
+                        <label>학과/학부</label>
                         <p>*</p>
                     </div>
                     <div className="input_box">
                         <div className="Input">
                             <input 
-                            type="text" placeholder="본인의 학과/학부"
+                            type="text" placeholder="본인의 학과/학부 입력"
                             name="department"
                             value={form.department}
                             className={errors.department ? "invalid" : form.department ? "valid" : ""}
@@ -164,7 +166,7 @@ export default function SignupSection(props) {
                     <div className="input_box">
                         <div className="Input">
                             <input 
-                            type="text" maxLength={10} placeholder="본인의 학번 10자"
+                            type="text" maxLength={10} placeholder="본인의 학번 10자 기입"
                             name="strudent_num"
                             value={form.strudent_num}
                             className={errors.strudent_num ? "invalid" : form.strudent_num ? "valid" : ""}
@@ -173,24 +175,6 @@ export default function SignupSection(props) {
                             ></input> 
                         </div>
                         {errors.strudent_num && <p className="error_message">{errors.strudent_num}</p>}
-                    </div>
-                </div>
-                <div className="Signup_input_box">
-                    <div className="label_box">
-                        <label>기수</label>
-                    </div>
-                    <div className="input_box">
-                        <div className="Input">
-                            <input 
-                            type="text" placeholder="현재 재학 중인 학기수"
-                            name="semester"
-                            value={form.semester}
-                            className={errors.semester ? "invalid" : form.semester ? "valid" : ""}
-                            onChange={handleInputChange(setForm)}
-                            ></input> 
-                            <p className="semester_p">학기</p>
-                        </div>
-                        {errors.semester && <p className="error_message">{errors.semester}</p>}
                     </div>
                 </div>
                 <div className="Signup_input_box">
@@ -212,6 +196,26 @@ export default function SignupSection(props) {
                         {errors.phone_num && <p className="error_message">{errors.phone_num}</p>}
                     </div>
                 </div>
+
+                <p className="line">! 아래는 멋쟁이사자처럼 동아리에 이미 가입된 부원들만 입력해주세요</p>
+                <div className="Signup_input_box">
+                    <div className="label_box">
+                        <label>기수</label>
+                    </div>
+                    <div className="input_box">
+                        <div className="Input">
+                            <input 
+                            type="text" placeholder="기수를 적어주세요"
+                            name="semester"
+                            value={form.semester}
+                            className={errors.semester ? "invalid" : form.semester ? "valid" : ""}
+                            onChange={handleInputChange(setForm)}
+                            ></input> 
+                        </div>
+                        {errors.semester && <p className="error_message">{errors.semester}</p>}
+                    </div>
+                </div>
+                
                 <div className="Signup_input_box">
                     <div className="label_box">
                         <label>파트</label>
@@ -219,7 +223,7 @@ export default function SignupSection(props) {
                     <div className="input_box">
                         <div className="Select">
                             <select name="part" value={form.part} onChange={handleInputChange(setForm)}>
-                                <option value="">미정</option>
+                                <option value="">선택</option>
                                 <option value="front">프론트앤드</option>
                                 <option value="back">백앤드</option>
                                 <option value="PM/design">기획/디자인</option>

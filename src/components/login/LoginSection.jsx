@@ -7,8 +7,8 @@ import { handleInputChange } from "../../utils/inputOnChange.js";
 
 export default function LoginSection() {
     const[form, setForm] = useState({
-        id: "",
-        password: "",
+        id: '',
+        password: '',
     });
     const [errors, setErrors] = useState({}); 
     const navigate = useNavigate();
@@ -16,6 +16,7 @@ export default function LoginSection() {
     // 로그인 버튼 클릭 //
     function handleLoginClick(event) {
         event.preventDefault();
+        setErrors({id: '', password: ''});
 
         const isValid = handleLogin(setErrors, form.id, form.password);
         if (isValid) {
@@ -35,7 +36,7 @@ export default function LoginSection() {
                     type="text" 
                     name="id"
                     value={form.id}
-                    className={errors.id ? "invalid" : form.id ? "valid" : ""}
+                    className={form.id ? "valid" : errors.id ? "invalid"  : ""}
                     style={{ borderColor: errors.id && 'red' }} 
                     onChange={handleInputChange(setForm)} required></input>
                     {errors.id && <p className="error_message">{errors.id}</p>}
@@ -46,8 +47,8 @@ export default function LoginSection() {
                     type="password" 
                     name="password"
                     value={form.password}
-                    className={errors.password ? "invalid" : form.password ? "valid" : ""}
-                    style={{ borderColor: errors.id && 'red' }}
+                    className={form.password ? "valid" : errors.password ? "invalid" :  ""}
+                    style={{ borderColor: errors.password && 'red' }}
                     onChange={handleInputChange(setForm)} required></input>
                     {errors.password && <p className="error_message">{errors.password}</p>} 
                 </div>

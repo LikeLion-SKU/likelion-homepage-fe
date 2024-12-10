@@ -12,30 +12,24 @@ const inputRegexs = {
 };
 
 // 아이디 중복 검사 버튼 클릭시
-export function validateInput_idDuplicate(form) {
-    let errors = {
-        id: '',
-        password: '',
-        password_valid: '',
-        name: '',
-        department: '',
-        semester: '',
-        phone_num: '',
-        part: '',
-    };
+export function validateInput_idDuplicate(form, es) {
+    let errors = { ...es };
+    errors.id = '';
   
     if (form.id === '') {
       errors.id = "아이디는 필수 입력 항목입니다.";
+      console.log("1");
     } else if (!inputRegexs.idRegex.test(form.id)) {
       errors.id = "아이디는 영문, 숫자로 2~18자여야 합니다.";
+      console.log("2");
     }
     return errors;  
   }
 
-  export function handleIdchecking(setErrors, form) {
-    const errors = validateInput_idDuplicate(form);
+  export function handleIdchecking(setErrors, form, es) {
+    const errors = validateInput_idDuplicate(form, es);
     setErrors(errors);
-    if (errors.id ) {
+    if (errors.id) {
       return false;
     }
     return true;  

@@ -42,7 +42,7 @@ export default function SignupSection(props) {
 
         if(count === 0 || count < 0){
             setForm({...form, timing: false});
-            setErrors(()=> ({...form, confirmCode: "인증번호 확인 시간이 만료되었습니다. 다시 인증번호를 전송해주세요."}));
+            setErrors({...form, confirmCode: "인증번호 확인 시간이 만료되었습니다. 다시 인증번호를 전송해주세요."});
         }
     }, [count])
 
@@ -53,10 +53,10 @@ export default function SignupSection(props) {
 
         const isValid = handleEmailchecking(setErrors, form);
         if (isValid) {
-            setConfirms(()=> ({...form, email: "인증번호가 전송되었습니다."}));
-            setCount(10); // 300=5분
+            setConfirms({...form, email: "인증번호가 전송되었습니다."});
+            setCount(300); // 5분
             setForm({...form, email_valid: true, timing: true}); 
-            setErrors(()=> ({...form, email: ""}));
+            setErrors({...form, email: ""});
         }
     }
     
@@ -78,7 +78,6 @@ export default function SignupSection(props) {
     // 계속 버튼 클릭 //
     function next (e) {
         e.preventDefault();
-        
         props.setNow(2); // 2번째 페이지 보여줌.
     }
 
