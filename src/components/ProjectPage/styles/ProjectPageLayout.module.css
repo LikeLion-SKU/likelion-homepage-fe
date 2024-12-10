@@ -6,6 +6,7 @@
     color: var(--main-text-color);
     font-size: 3.6rem;
     margin-top : 5vh;    
+    margin-bottom: 3.5rem; 
     font-weight: 700;
     text-align: center; 
     line-height: 1.6rem;
@@ -17,12 +18,14 @@
   align-items: center;
   margin-bottom: 1.5rem;
   position: relative; /* 중앙 정렬을 위한 상대 위치 지정 */
+  height: 3rem; 
 }
 
 .addButtonImage {
   position: absolute; /* 중앙 정렬을 위해 절대 위치 */
   left: 50%; /* 부모의 50% 위치 */
-  transform: translateX(-50%); /* 가로 중앙 정렬 */
+  top: 50%; /* 부모의 세로 50% 위치 */
+  transform: translate(-50%, -50%); /* 가로 및 세로 중앙 정렬 */
   width: 2.5rem; 
   height: 2.5rem;
   cursor: pointer;
@@ -34,24 +37,11 @@
 
 .selectBoxContainer {
   margin-left: auto; /* 드롭다운 박스를 오른쪽으로 밀기 */
-}
-
-.addButton {
-  padding: 0.8rem 1.5rem;
-  font-size: 1.2rem;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.addButton:hover {
-  background-color: #45a049;
-}
-
-.selectBoxContainer {
-  padding: 3rem 1.5rem 0 0;
+  padding-right: 1rem; /* 오른쪽 여백 */
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%); /* 세로 중앙 정렬 */
 }
 
 .grid {
