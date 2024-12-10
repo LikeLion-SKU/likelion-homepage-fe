@@ -1,16 +1,14 @@
 .headerContainer {
-  height: 121px;
   width: 60.51%;
   min-width: 500px;
   display: flex;
-  align-items: end;
+  align-items: center;
   justify-content: space-between;
   font-weight: 700;
 }
 
 .header {
   font-size: 3.6rem;
-  line-height: 58.09px;
 }
 
 .buttonWrapper {
