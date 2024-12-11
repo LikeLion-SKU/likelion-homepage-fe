@@ -41,7 +41,7 @@ export default function SignupSection(props) {
         setS(count % 60);
 
         if(count === 0 || count < 0){
-            setForm({...form, timing: false});
+            setForm({...form, timing: false, confirmCode: ""});
             setErrors({...form, confirmCode: "인증번호 확인 시간이 만료되었습니다. 다시 인증번호를 전송해주세요."});
         }
     }, [count])
@@ -150,11 +150,11 @@ export default function SignupSection(props) {
                         {
                         form.confirmCode_valid ?
                         <p className="ok_message">{confirms.confirmCode}</p>
-                        :errors.confirmCode ?
-                        <p className="error_message">{errors.confirmCode}</p>
                         : form.timing ? 
                         <p className="time">입력대기시간 {m}:{s.toString()
                             .padStart(2, '0')}</p>
+                        :errors.confirmCode ?
+                        <p className="error_message">{errors.confirmCode}</p>
                         : null
                         }
                     </div>

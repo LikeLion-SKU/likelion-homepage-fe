@@ -3,8 +3,8 @@
 
 // 유효성 검사 정규식
 const inputRegexs = {
-    idRegex: /^[a-zA-Z0-9]{2,18}$/,
-    pwRegex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&+=!])(?!.*\s).{8,}$/,
+    idRegex: /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z0-9]{2,18}$/,
+    pwRegex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?!.*\s).{8,}$/,
     nameRegex: /^[가-힣]{2,10}$/,
     departRegex: /^[가-힣]+$/,
     student_numRegex: /^[0-9]{10}$/,
@@ -18,10 +18,8 @@ export function validateInput_idDuplicate(form, es) {
   
     if (form.id === '') {
       errors.id = "아이디는 필수 입력 항목입니다.";
-      console.log("1");
     } else if (!inputRegexs.idRegex.test(form.id)) {
       errors.id = "아이디는 영문, 숫자로 2~18자여야 합니다.";
-      console.log("2");
     }
     return errors;  
   }
