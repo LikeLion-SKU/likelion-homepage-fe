@@ -9,7 +9,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    margin-top: 5%;
+    margin-top: 5vh;
 }
 
 .subText{
@@ -28,7 +28,7 @@
 .mainText{
     font-size: 36px;
     font-weight: 700;
-    color: #1C1B1A;
+    color: var(--main-text-color);
     padding: 2.5%;
 }
 
@@ -69,7 +69,7 @@
     font-size: 24px;
     font-weight: 700;
     background-color: #F5F5F7;
-    color: #1C1B1A;
+    color: var(--main-text-color);
     border-radius: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
@@ -77,6 +77,18 @@
 
 .pageButton:hover{
     transform: scale(1.05);
+}
+
+@media (max-width: 1000px){
+    .pageButton{
+        font-size: 18px;
+        height: 60px;
+    }
+
+    .recruitButton{
+        width: 25%;
+        font-size: 16px;
+    }
 }
 
 @media (max-width: 765px) {
@@ -88,5 +100,35 @@
     .recruitButton{
         width: 30%;
         font-size: 16px;
+    }
+}
+
+@media (max-width: 600px ) {
+    .subText{
+        font-size: 1.4rem;
+    }
+    
+    .dayText{
+        font-size: 3rem;
+    }
+    
+    .mainText{
+        font-size: 3rem;
+    }
+
+    .lionImg{
+        width: 200px;
+        height: 200px;
+    }
+
+    .pageButton{
+        font-size: 1.6rem;
+        height: 50px;
+    }
+
+    .recruitButton{
+        width: 30%;
+        height: 35px;
+        font-size: 1.4rem;
     }
 }

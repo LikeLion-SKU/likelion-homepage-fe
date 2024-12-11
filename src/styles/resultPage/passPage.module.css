@@ -3,6 +3,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    height: 70vh;
 }
 
 .titleContainer{
@@ -10,18 +11,11 @@
     flex-direction: column;
     align-items: center;
     padding: 5%;
-    margin-top: 3%;
-}
-
-.subTitle{
-    color: #FF7710;
-    font-size: 16px;
-    font-weight: 700;
-    padding: 6%;
+    margin-top: 5%;
 }
 
 .mainTitle{
-    color: #1C1B1A;
+    color: var(--main-text-color);
     font-size: 48px;
     font-weight: 700;
 }
@@ -34,14 +28,86 @@
 }
 
 .content{
-    color:#1C1B1A;
+    color: var(--grey-color);
     font-size: 20px;
     font-weight: 500;
     margin-bottom: 3%;
 }
 
 .spanStyle{
-    color: #FF7710;
+    color: var(--main-text-color);
     font-size: 24px;
     font-weight: 700;
+}
+
+.datePickerContainer {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid var(--grey-color);
+    border-radius: 10px;
+    background-color: var(--main-bg-color);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.dateItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.dateItem:hover {
+    background-color: var(--main-bg-color);
+}
+
+.dateItem.selected {
+    border: 1px solid var(--grey-color);
+    border-radius: 8px;
+    background-color: var(--lightgrey-color);
+}
+
+.date {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.day {
+    font-size: 1rem;
+    color: #777;
+}
+
+@media (max-width: 767px){
+    .mainTitle{
+        font-size: 4rem;
+    }
+
+    .spanStyle{
+        font-size: 2.4rem;
+    }
+
+    .content{
+        font-size: 2rem;
+    }
+
+}
+
+@media (max-width: 600px){
+    .mainTitle{
+        font-size: 3rem;
+    }
+
+    .content{
+        font-size: 1.5rem;
+    }
+
+    .spanStyle{
+        font-size: 2rem;
+    }
 }

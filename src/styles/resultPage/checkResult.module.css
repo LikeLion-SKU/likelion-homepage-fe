@@ -3,6 +3,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    height: 70vh;
 }
 
 .titleContainer{
@@ -10,18 +11,11 @@
     flex-direction: column;
     align-items: center;
     padding: 5%;
-    margin-top: 3%;
-}
-
-.subTitle{
-    color: #FF7710;
-    font-size: 16px;
-    font-weight: 700;
-    padding: 6%;
+    margin-top: 5%;
 }
 
 .mainTitle{
-    color: #1C1B1A;
+    color: var(--main-text-color);
     font-size: 48px;
     font-weight: 700;
 }
@@ -43,23 +37,27 @@
 .inputContainer{
     display: flex;
     align-items: center;
-    gap: 5%;
+    gap: 2%;
     padding: 3%;
+    height: 50px;
+    width: 100%;
+    justify-content: center;
 }
 
 .input{
     border-radius: 10px;
     border-color: #9F9C98;
-    width: 400px;
-    height: 50px;
+    width: 40%;
+    height: 50%;
     margin-left: 3%;
+    margin-bottom: 0;
 }
 
 .checkButton{
-    background-color: #80BC5B;
+    background-color: #444444;
     color: #fff;
-    width: 100px;
-    height: 50px;
+    width: 10%;
+    height: 41.6px;
     font-size: 16px;
     font-weight: 600;
     border-radius: 10px;
@@ -71,3 +69,52 @@
     background-color: #5b9835;
     transform: scale(1.05);
   }
+
+  @media (max-width: 767px){
+    .mainTitle{
+        font-size: 4rem;
+    }
+
+    .content{
+        font-size: 2rem;
+    }
+
+    .checkButton{
+        font-size: 1.6rem;
+        width: 15%;
+    }
+
+    .input{
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 600px){
+    .mainTitle{
+        font-size: 3rem;
+    }
+
+    .content{
+        font-size: 1.5rem;
+    }
+
+    .checkButton{
+        font-size: 1.4rem;
+        width: 15%;
+    }
+
+    .input{
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 500px){
+    .checkButton{
+        font-size: 1.2rem;
+        width: 15%;
+    }
+
+    .input{
+        font-size: 1.2rem;
+    }
+}

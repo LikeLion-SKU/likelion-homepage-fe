@@ -29,13 +29,13 @@ export default function RecruitMain() {
                     className={styles.pageButton}
                     onClick={() => scrollToSection("requirementSection")}
                 >
-                    요구 조건
+                    모집 대상
                 </button>
                 <button 
                     className={styles.pageButton}
                     onClick={() => scrollToSection("questionSection")}
                 >
-                    자주 하는 질문
+                    자주 묻는 질문
                 </button>
             </div>
         </div>
