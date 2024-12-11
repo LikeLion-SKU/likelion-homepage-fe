@@ -1,15 +1,14 @@
 .headerContainer {
-  height: 121px;
-  width: 100%;
+  width: 60.51%;
+  min-width: 500px;
   display: flex;
-  align-items: end;
+  align-items: center;
   justify-content: space-between;
   font-weight: 700;
 }
 
 .header {
-  font-size: 2.81vw;
-  line-height: 58.09px;
+  font-size: 3.6rem;
 }
 
 .buttonWrapper {
@@ -21,11 +20,11 @@
 
 .saveBtn {
   height: 100%;
-  width: 45.5%;
+  width: 80px;
   border-radius: 10px;
   background: rgba(230, 229, 229, 1);
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1.6rem;
 }
 
 .submitBtn {
@@ -34,4 +33,14 @@
   background: rgba(255, 119, 16, 1);
   color: white;
   cursor: pointer;
+}
+
+@media screen and (max-width: 767px) {
+  .headerContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    min-width: auto;
+    width: 100%;
+  }
 }

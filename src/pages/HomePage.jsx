@@ -1,13 +1,15 @@
-import MainSection from '@components/home/main/MainSection';
 import IntroSection from '@components/home/intro/IntroSection';
-import { ActivitySection } from '@components/home/activity';
+import RecruitSection from '@components/home/recruit/RecruitSection';
+import ScheduleSection from '@components/home/schedule/ScheduleSection';
+import TrackSection from '@components/home/track/TrackSection';
 
 export default function HomePage() {
   return (
     <>
-      <MainSection />
+      <RecruitSection />
       <IntroSection />
-      <ActivitySection />
+      <TrackSection />
+      <ScheduleSection />
     </>
   );
 }

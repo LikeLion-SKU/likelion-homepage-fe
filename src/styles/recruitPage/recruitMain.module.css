@@ -41,7 +41,7 @@
     background-color: #FF7710;
     color: #fff;
     border-radius: 32px;
-    width: 250px;
+    width: 20%;
     height: 50px;
     font-size: 20px;
     font-weight: 700;
@@ -77,4 +77,16 @@
 
 .pageButton:hover{
     transform: scale(1.05);
+}
+
+@media (max-width: 765px) {
+    .pageButton{
+        font-size: 18px;
+        height: 60px;
+    }
+
+    .recruitButton{
+        width: 30%;
+        font-size: 16px;
+    }
 }

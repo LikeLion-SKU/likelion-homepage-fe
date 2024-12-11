@@ -1,0 +1,156 @@
+.pageWrapper {
+  padding: 0 3.13%;
+  margin-top: 5vh;
+  margin-bottom: 50px;
+}
+
+.header {
+  width: 100%;
+  height: 29px;
+  margin-bottom: 41px;
+
+  header {
+    text-align: center;
+    font-size: 3.6rem;
+    font-weight: 700;
+    line-height: 2.905rem;
+  }
+}
+
+.navbar {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 50px;
+
+  button {
+    border: 1px solid rgba(0, 0, 0, 1);
+    font-size: 1.6rem;
+    line-height: 1.936rem;
+    font-weight: 700;
+    padding: 10px 23px;
+    width: 16.67%;
+    aspect-ratio: 5/1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 1);
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.showApplyWrapper {
+  width: 100%;
+  height: 716px;
+  background-color: rgba(245, 245, 247, 1);
+  padding: 36px 33px;
+  padding-top: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.tableHeader {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    width: 20%;
+    height: 80px;
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
+}
+
+.tableBody {
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 1);
+  height: 615px;
+  overflow-y: auto;
+}
+
+.applicant {
+  height: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > * {
+    width: 20%;
+    justify-content: center;
+    display: flex;
+    justify-content: center;
+    font-size: 1.6rem;
+    line-height: 1.936rem;
+    font-weight: 500;
+  }
+
+  .btnWrapper {
+    button {
+      cursor: pointer;
+      background-color: black;
+      color: white;
+      padding: 10px 30px;
+      box-sizing: border-box;
+      height: 40px;
+      border-radius: 20px;
+      width: 80%;
+      transition: transform 0.2s ease;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .pageWrapper {
+    padding: 0;
+  }
+
+  .showApplyWrapper {
+    padding: 0;
+    justify-content: flex-start;
+    height: auto;
+  }
+
+  .navbar button {
+    width: 100px;
+  }
+
+  .applicant,
+  .tableHeader {
+    padding: 0 5px;
+    box-sizing: border-box;
+
+    & > *:first-child {
+      width: 10%;
+    }
+
+    & > *:nth-child(2),
+    & > *:nth-child(3) {
+      width: 25%;
+    }
+
+    button {
+      width: 100% !important;
+      font-size: 1rem;
+      padding: 0 !important;
+    }
+  }
+}
