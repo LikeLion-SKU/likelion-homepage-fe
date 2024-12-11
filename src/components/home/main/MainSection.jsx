@@ -1,10 +1,11 @@
 import React from "react";
 import styles from './MainSection.module.css';
+import SectionWrapper from "../commons/SectionWrapper";
 
 export default function MainSection() {
     return (
-        <div className={styles.center}>
-            <p className={styles.title}>메인 일러스트 들어올 자리</p>
+        <div className={styles.div}>
+            
         </div>
     )
 }
