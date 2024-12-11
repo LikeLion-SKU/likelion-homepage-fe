@@ -11,7 +11,8 @@ import WelcomePage from '@pages/WelcomePage';
 import ApplicationForm from '../pages/applicationForm/ApplicationForm';
 import ProjectPageLayout from '../components/ProjectPage/ProjectPageLayout';
 import ProjectDetail from '../components/ProjectPage/ProjectDetail';
-import NewProjectForm from '../components/ProjectPage/NewProjectFrom';
+import NewProjectForm from '../components/ProjectPage/NewProjectForm';
+import EditProjectForm from '../components/ProjectPage/EditProjectForm';
 import ShowApply from '@pages/showApply/ShowApply';
 import { MainLayout } from '@layouts';
 
@@ -23,13 +24,11 @@ export default function Routes() {
         <Route index={true} element={<HomePage />} />
         <Route path="about" element={<AboutPage />} />
         <Route path="project" element={<ProjectPage />}>
-          {/* 사용자 모드 */}
-          <Route index element={<ProjectPageLayout isAdmin={false} />} />
-          {/* 관리자 모드 */}
-          <Route path="admin" element={<ProjectPageLayout isAdmin={true} />} />
+          <Route index element={<ProjectPageLayout isAdmin={false} />} /> {/* 사용자 모드 */}
+          <Route path="admin" element={<ProjectPageLayout isAdmin={true} />} /> {/* 관리자 모드 */}
           <Route path="admin/add" element={<NewProjectForm />} />
-          {/* 프로젝트 상세 페이지 */}
-          <Route path=":projectId" element={<ProjectDetail />} />
+          <Route path="admin/edit" element={<EditProjectForm />} /> {/* 수정 페이지 */}
+          <Route path=":projectId" element={<ProjectDetail />} /> {/* 프로젝트 상세 페이지 */}
         </Route>
         <Route path="recruit" element={<RecruitPage />} />
         <Route path="login" element={<LoginPage />} />
