@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "../../styles/adminAboutPage/registration.module.css";
 
 export default function AddImage({ onImageUpload }) {
