@@ -5,7 +5,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import styles from "./styles/NewProjectForm.module.css";
 import uploadIcon from "../../assets/svgs/upload_icon.svg";
 
-const NewProjectForm = () => {
+function NewProjectForm () {
   const [formData, setFormData] = useState({
     category: "",
     title: "",

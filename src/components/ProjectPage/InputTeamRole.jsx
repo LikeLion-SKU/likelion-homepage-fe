@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./styles/InputTeamRole.module.css";
 import TextareaAutosize from "react-textarea-autosize";
 
-const InputTeamRole = ({ teamMembers, onMemberChange }) => {
+function InputTeamRole ({ teamMembers, onMemberChange }) {
   return (
     <div className={styles.teamBox}>
       {Object.entries(teamMembers).map(([role, value]) => (

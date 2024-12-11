@@ -6,7 +6,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import styles from "./styles/EditProjectForm.module.css";
 import uploadIcon from "../../assets/svgs/upload_icon.svg";
 
-const EditProjectForm = () => {
+function EditProjectForm () {
   const location = useLocation();
   const navigate = useNavigate();
 

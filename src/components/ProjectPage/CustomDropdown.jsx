@@ -2,12 +2,12 @@ import { useState } from "react";
 import styles from "./styles/CustomDropdown.module.css";
 import arrow_down from "../../assets/svgs/arrow_down.svg";
 
-const CustomDropdown = ({
+function CustomDropdown ({
   options,
   defaultOption,
   onSelect,
   hideArrow = false,
-}) => {
+}) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(defaultOption);
 
