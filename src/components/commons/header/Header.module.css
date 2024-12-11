@@ -38,12 +38,12 @@
     margin-left: 2vh;
 }
 
-.navbar button {
+.navbarBtn {
     background: none;
     border: none;
-    font-size: 2vh;
+    font-size: 1.6rem;
     cursor: pointer;
-    padding-left: 1.5vh;
+    padding-right: 1.5vh;
     transition: color 0.3s ease, filter 0.3s ease;
     color: var(--main-text-color);
     display: flex;
@@ -56,12 +56,29 @@
     transition: filter 0.3s ease;
 }
 
-.navbar button:hover {
+.navbarBtn:hover {
     color: var(--accent-color);
 }
 
 .menuIcon {
     display: none;
+}
+
+.loginBtn {
+    display: flex;
+    align-items: center; 
+    font-size: 1.6rem;
+    cursor: pointer;
+    background-color: var(--black-44-color);
+    color: var(--main-bg-color);
+    padding: 0.5rem 1.5rem;
+    border-radius: 2rem;
+    font-weight: 500;
+}
+
+.loginImg {
+    width: 1.8rem;
+    margin-right: 0.8rem;
 }
 
 /* 반응형 */
@@ -80,7 +97,7 @@
 
     .navbar {
         position: absolute;
-        top: 8vh;
+        top: 5vh;
         right: 0;
         background-color: var(--main-bg-color);
         width: 100%;
@@ -89,6 +106,8 @@
         transition: max-height 0.3s ease;
         flex-direction: column;
         align-items: center;
+        padding-bottom: 1rem;
+        border-radius: 0 0 7rem 7rem;
     }
 
     .navbar ul {
