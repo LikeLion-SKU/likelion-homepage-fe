@@ -26,13 +26,13 @@
 .questionContainer {
     font-size: 20px;
     font-weight: 500;
-    color: #444444;
+    color: var(--black-44-color);
     display: flex;
     justify-content: space-between;
 }
 
 .questionContainer span {
-    color: #a9a9a9;
+    color: var(--grey-a9-color);
     font-weight: bold;
     margin-right: 10px;
 }

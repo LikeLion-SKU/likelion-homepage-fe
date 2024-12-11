@@ -68,7 +68,7 @@
     height: 7vw;
     font-size: 24px;
     font-weight: 700;
-    background-color: #F5F5F7;
+    background-color: var(--lightgrey-color);
     color: var(--main-text-color);
     border-radius: 20px;
     cursor: pointer;

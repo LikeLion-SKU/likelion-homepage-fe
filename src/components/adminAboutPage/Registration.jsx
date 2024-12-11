@@ -1,38 +1,47 @@
 import { useState } from "react";
 import styles from "../../styles/adminAboutPage/registration.module.css";
-import AddImg from "../../assets/aminaboutPage/addImg.svg";
+import AddImage from "./AddImage";
 import { FaTrashAlt } from "react-icons/fa";
 
 export default function Registration() {
     const [rows, setRows] = useState([
-        { role: "회장", name: "", department: "", studentId: "", image: "" },
+        { role: "회장", name: "", department: "", studentId: "", image: "", fileName: "" },
     ]);
 
-    // 역할 순서
     const roleOrder = ["회장", "부회장", "운영진", "아기사자"];
 
-    // 정렬 함수
-    const sortRows = (rows) => {
-        return [...rows].sort((a, b) => roleOrder.indexOf(a.role) - roleOrder.indexOf(b.role));
-    };
+    function sortRows(rows) {
+        return [...rows].sort(function (a, b) {
+            return roleOrder.indexOf(a.role) - roleOrder.indexOf(b.role);
+        });
+    }
 
-    // 행 추가
-    const handleAddRow = () => {
-        const updatedRows = [...rows, { role: "아기사자", name: "", department: "", studentId: "", image: "" }];
+    function handleAddRow() {
+        const updatedRows = [
+            ...rows,
+            { role: "아기사자", name: "", department: "", studentId: "", image: "", fileName: "" },
+        ];
         setRows(sortRows(updatedRows));
-    };
+    }
 
-    // 셀 정렬
-    const handleCellChange = (index, field, value) => {
+    function handleCellChange(index, field, value) {
         const updatedRows = [...rows];
         updatedRows[index][field] = value;
         setRows(sortRows(updatedRows));
-    };
+    }
 
-    // 행 삭제
-    const handleDeleteRow = (index) => {
-        setRows(sortRows(rows.filter((_, rowIndex) => rowIndex !== index)));
-    };
+    function handleDeleteRow(index) {
+        setRows(sortRows(rows.filter(function (_, rowIndex) {
+            return rowIndex !== index;
+        })));
+    }
+
+    function handleImageUpload(index, { url, name }) {
+        const updatedRows = [...rows];
+        updatedRows[index].image = url; // 이미지 URL 저장
+        updatedRows[index].fileName = name; // 파일명 저장
+        setRows(updatedRows);
+    }
 
     return (
         <div className={styles.allContainer}>
@@ -44,10 +53,6 @@ export default function Registration() {
                 <div className={styles.generationInputContainer}>
                     <p className={styles.categoryText}>기수</p>
                     <input className={styles.generationInput} type="number" placeholder="기수 입력" />
-                    {/* <div className={styles.upDownButtonContainer}>
-                        <button className={styles.upButton}>▲</button>
-                        <button className={styles.downButton}>▼</button>
-                    </div> */}
                 </div>
 
                 <div className={styles.tableContainer}>
@@ -65,7 +70,6 @@ export default function Registration() {
                         <tbody>
                             {rows.map((row, index) => (
                                 <tr key={index}>
-                                    {/* 역할 */}
                                     <td>
                                         <select
                                             className={styles.tableInput}
@@ -80,7 +84,6 @@ export default function Registration() {
                                         </select>
                                     </td>
 
-                                    {/* 이름 */}
                                     <td>
                                         <input
                                             className={styles.tableInput}
@@ -91,7 +94,6 @@ export default function Registration() {
                                         />
                                     </td>
 
-                                    {/* 학과 */}
                                     <td>
                                         <input
                                             className={styles.tableInput}
@@ -102,7 +104,6 @@ export default function Registration() {
                                         />
                                     </td>
 
-                                    {/* 학번 */}
                                     <td>
                                         <input
                                             className={styles.tableInput}
@@ -113,16 +114,20 @@ export default function Registration() {
                                         />
                                     </td>
 
-                                    {/* 이미지 첨부 */}
                                     <td>
-                                        <span>
-                                            <img src={AddImg} alt="이미지 첨부" /> 이미지 첨부
-                                        </span>
+                                        <div className={styles.container}>
+                                            {row.fileName ? (
+                                                <p>{row.fileName}</p>
+                                            ) : (
+                                                <AddImage onImageUpload={(data) => handleImageUpload(index, data)} />
+                                            )}
+                                        </div>
                                     </td>
 
-                                    {/* 삭제 버튼 */}
-                                    <td onClick={() => handleDeleteRow(index)} className={styles.deleteButton}>
-                                        <FaTrashAlt style={{ color: "red", fontSize: "2rem" }} />
+                                    <td onClick={() => handleDeleteRow(index)} >
+                                        <div className={styles.deleteButtonContainer}>
+                                            <FaTrashAlt style={{ color: "red", fontSize: "2rem" }} />
+                                        </div>
                                     </td>
                                 </tr>
                             ))}

@@ -28,7 +28,7 @@
 }
 
 .content{
-    color:#1C1B1A;
+    color: var(--main-text-color);
     font-size: 20px;
     font-weight: 500;
     margin-bottom: 3%;
@@ -54,7 +54,7 @@
 }
 
 .checkButton{
-    background-color: #444444;
+    background-color: var(--black-44-color);
     color: #fff;
     width: 10%;
     height: 41.6px;
@@ -66,7 +66,7 @@
 }
 
 .checkButton:hover {
-    background-color: #5b9835;
+    background-color: var(--main-text-color);
     transform: scale(1.05);
   }
 

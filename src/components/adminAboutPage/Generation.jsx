@@ -5,14 +5,16 @@ export default function Generation() {
     const [buttons, setButtons] = useState(["LIKELION 12TH", "LIKELION 13TH", "LIKELION 14TH"]);
 
     // 버튼 삭제 핸들러
-    const handleRemove = (index) => {
-        setButtons(buttons.filter((_, i) => i !== index));
-    };
+    function handleRemove(index) {
+        setButtons(buttons.filter(function(_, i) {
+            return i !== index;
+        }));
+    }    
 
     // 버튼 추가 핸들러
-    const handleAdd = () => {
+    function handleAdd() {
         setButtons([...buttons, `LIKELION ${buttons.length + 12}TH`]);
-    };
+    }
 
     return (
         <div className={styles.allContainer}>

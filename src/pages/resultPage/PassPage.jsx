@@ -5,15 +5,15 @@ export default function PassPage() {
     const [selectedDate, setSelectedDate] = useState(null);
 
     const interviewDates = [
-        { date: "2025년 3월 10일", day: "월요일" },
-        { date: "2025년 3월 11일", day: "화요일" },
-        { date: "2025년 3월 12일", day: "수요일" },
-        { date: "2025년 3월 13일", day: "목요일" },
+        { date: "2025년 3월 10일 월요일" },
+        { date: "2025년 3월 11일 화요일" },
+        { date: "2025년 3월 12일 수요일" },
+        { date: "2025년 3월 13일 목요일" },
     ];
 
-    const handleDateClick = (date) => {
+    function handleDateClick(date) {
         setSelectedDate(date);
-    };
+    }    
 
     return (
         <>
@@ -39,7 +39,6 @@ export default function PassPage() {
                                 onClick={() => handleDateClick(item.date)}
                             >
                                 <p className={styles.date}>{item.date}</p>
-                                <p className={styles.day}>{item.day}</p>
                             </div>
                         ))}
                     </div>

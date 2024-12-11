@@ -28,7 +28,7 @@
 }
 
 .content{
-    color: var(--grey-color);
+    color: var(--grey-a9-color);
     font-size: 20px;
     font-weight: 500;
     margin-bottom: 3%;
@@ -43,7 +43,7 @@
 .datePickerContainer {
     margin-top: 20px;
     padding: 10px;
-    border: 1px solid var(--grey-color);
+    border: 1px solid var(--grey-a9-color);
     border-radius: 10px;
     background-color: var(--main-bg-color);
     display: flex;
@@ -67,20 +67,15 @@
 }
 
 .dateItem.selected {
-    border: 1px solid var(--grey-color);
+    border: 1px solid var(--grey-a9-color);
     border-radius: 8px;
     background-color: var(--lightgrey-color);
 }
 
 .date {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #333;
-}
-
-.day {
-    font-size: 1rem;
-    color: #777;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--black-44-color);
 }
 
 @media (max-width: 767px){
