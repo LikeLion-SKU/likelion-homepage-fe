@@ -1,11 +1,11 @@
-.center {
-    margin-top: 10rem;
-    text-align: center;
-    height: 70rem;
+.div {
+    height: 75vh;
+    margin-top: 30rem;
 }
 
 .title {
     color: var(--main-text-color);
     font-size: 3.2rem;
     font-weight: 700;
+    margin-bottom: 3rem;
 }

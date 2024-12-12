@@ -8,6 +8,10 @@ export default function Track({ children }) {
   return <section className={styles.section}>{children}</section>;
 }
 
+function Title() {
+  return <p className={styles.title}>트랙 소개</p>
+}
+
 function Manager() {
   return (
     <div className={styles.card}>
@@ -65,7 +69,7 @@ function Backend() {
 }
 
 
-
+Track.Title = Title;
 Track.Manager = Manager;
 Track.Designer = Designer;
 Track.Frontend = Frontend;

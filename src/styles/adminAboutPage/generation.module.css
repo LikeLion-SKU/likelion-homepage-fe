@@ -1,0 +1,109 @@
+.allContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.titleContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    color: var(--main-text-color);
+    font-size: 36px;
+    font-weight: 700;
+    padding-top: 5vh;
+}
+
+.buttonContainer {
+    display: flex;
+    padding: 5%;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.btnWrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 15%;
+}
+
+.btn {
+    width: 200px;
+    height: 40px;
+    border-radius: 20px;
+    border: 2px solid var(--main-text-color);
+    background-color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: rgb(191, 191, 191);
+    transform: scale(1.05);
+}
+
+.closeIcon {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--main-text-color);
+    cursor: pointer;
+    margin-left: 10%;
+}
+
+.closeIcon:hover {
+    color: red;
+}
+
+.addButtonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--main-text-color);
+    background-color: #fff;
+    font-size: 40px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.addButtonContainer:hover {
+    background-color: rgb(191, 191, 191);
+    transform: scale(1.1);
+}
+
+.addButton {
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -5px;
+}
+
+@media (max-width: 1024px){
+    .btn{
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 650px) {
+    .managementCardGrid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    .cardGrid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .btn {
+        font-size: 1rem;
+        font-weight: 700;
+    }
+}
