@@ -62,7 +62,7 @@ function Backend() {
       <p className={styles.trackContent}>
         눈에 보이지 않는 서버를 담당해요. 
         서비스에 필요한 API를 개발하고 데이터를 관리해요. 
-        이를 위해 Spring라는 자바 라이브러리를 배워요.
+        이를 위해 Spring라는 자바 프레임워크크를 배워요.
       </p>
     </div>
   )
