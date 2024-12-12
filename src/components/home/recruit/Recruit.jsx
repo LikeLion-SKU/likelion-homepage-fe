@@ -87,8 +87,8 @@ function RecruitButton() {
 function RecruitMotion() {
   return (
     <>
-      <ParallaxText baseVelocity={-6}>LIKELION SKU</ParallaxText>
-      <ParallaxText baseVelocity={5}>GROWL TO WORLD</ParallaxText>
+      <ParallaxText baseVelocity={-3}>LIKELION SKU LIKELION SKU</ParallaxText>
+      <ParallaxText baseVelocity={4}>GROWL TO WORLD</ParallaxText>
     </>
   )
 }

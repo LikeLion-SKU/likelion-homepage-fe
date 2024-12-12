@@ -1,7 +1,7 @@
 .section {
   display: grid;
   grid-template-columns: repeat(4, 1fr); 
-  max-width: 100rem;
+  max-width: 200rem;
   gap: 4rem; 
   margin: 0 2rem;
 }
@@ -10,6 +10,13 @@
   .section {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+.title {
+  color: var(--main-text-color);
+  font-size: 3.2rem;
+  font-weight: 700;
+  margin-bottom: 7rem;
 }
 
 .card {
