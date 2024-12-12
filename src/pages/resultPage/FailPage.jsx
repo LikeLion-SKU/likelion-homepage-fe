@@ -5,7 +5,6 @@ export default function FailPage() {
         <>
             <div className={styles.allContainer}>
                 <div className={styles.titleContainer}>
-                    <p className={styles.subTitle}>LIKELION 13TH</p>
                     <p className={styles.mainTitle}>불합격함.</p>
                 </div>
                 <div className={styles.contentContainer}>
