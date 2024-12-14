@@ -1,8 +1,7 @@
 import styles from '@styles/showApplyPage/ShowApply.module.css';
+import Generation from '../../components/adminApply/Generation';
 
 export default function ShowApply() {
-  const years = [12, 13, 14];
-
   const applicants = [
     {
       name: '박태경',
@@ -17,11 +16,7 @@ export default function ShowApply() {
       <div className={styles.header}>
         <header>지원서 전체 보기</header>
       </div>
-      <div className={styles.navbar}>
-        {years.map((year, index) => (
-          <button key={index}>LIKELION SKU {year}TH</button>
-        ))}
-      </div>
+      <Generation />
       <div className={styles.showApplyWrapper}>
         <div className={styles.tableHeader}>
           <span>이름</span>
