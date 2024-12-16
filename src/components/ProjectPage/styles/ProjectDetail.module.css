@@ -76,7 +76,6 @@
   padding: 1rem; /* 패딩 증가 */
   margin: 2rem 1rem; /* 가운데 정렬 */
   background-color: #f5f5f7;
-  font-size: 1.5rem;
   box-sizing: border-box;
 }
 
@@ -87,10 +86,11 @@
 }
 
 .role {
+  font-size: 1.5rem;
   font-weight: 500;
   color: #1c1b1a;
   width: 8rem;
-  margin: 0 2rem;
+  margin: 0 2.5rem;
   line-height: 2rem;
   flex-shrink: 0;
 }
@@ -109,6 +109,7 @@
 }
 
 .member {
+  font-size: 1.2rem;
   word-wrap: break-word;
   text-align: center;
 }
@@ -117,18 +118,6 @@
   .contentContainer {
     flex-direction: column; /* 세로 배치 */
     align-items: left; 
-  }
-
-  .description {
-    margin: 1rem 0; /* 상하 간격 조정 */
-    align-items: left; 
-  }
-
-  .teamBox {
-    max-width: 50%; 
-    font-size: 1.3rem;
-    padding: 0.5rem;
-    margin: 1rem 0;
   }
 
   .memberRow {
@@ -147,12 +136,6 @@
     font-size: 2.2rem; 
     margin: 2rem 0 1.5rem;
   }
-
-  .tag {
-    width: auto; /* 너비 자동 조정 */
-    font-size: 1rem; 
-    padding: 0.5rem 0.8rem; 
-  }
   
   .description {
     margin: 1rem 0; 
@@ -160,26 +143,7 @@
     line-height: 2rem;
   }
 
-  .teamBox {
-    max-width: 70%;
-    font-size: 1.2rem; 
-    align-self: flex-start; /* 왼쪽 정렬 */
-  }
-
-  .teamRole {
-    padding: 0.5rem 0; 
-  }
-
-  .role {
-    font-size: 1rem; 
-    margin: 0 1rem; 
-  }
-
   .memberRow {
     gap: 0.5rem; 
-  }
-
-  .member {
-    font-size: 1rem; 
   }
 }
