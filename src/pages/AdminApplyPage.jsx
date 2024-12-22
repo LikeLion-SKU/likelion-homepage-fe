@@ -1,7 +1,7 @@
 import styles from '@styles/adminApplyPage/AdminApply.module.css';
 import Generation from '@components/adminApply/Generation';
 
-export default function ShowApply() {
+export default function AdminApplyPage() {
   const applicants = [
     {
       name: '박태경',

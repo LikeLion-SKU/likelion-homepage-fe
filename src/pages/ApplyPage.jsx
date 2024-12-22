@@ -2,7 +2,7 @@ import BodySection from '@components/applicationForm/BodySection';
 import HeaderSection from '@components/applicationForm/HeaderSection';
 import styles from '@styles/applyPage/Apply.module.css';
 
-export default function ApplicationForm() {
+export default function ApplyPage() {
   return (
     <div className={styles.pageWrapper}>
       <HeaderSection />
