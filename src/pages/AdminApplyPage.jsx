@@ -1,5 +1,5 @@
-import styles from '@styles/showApplyPage/ShowApply.module.css';
-import Generation from '../../components/adminApply/Generation';
+import styles from '@styles/adminApplyPage/AdminApply.module.css';
+import Generation from '@components/adminApply/Generation';
 
 export default function ShowApply() {
   const applicants = [
