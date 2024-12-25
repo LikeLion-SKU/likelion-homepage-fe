@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 export default function SignupPage() {
   const [now, setNow] = useState(1);
+  const [email, setEmail] = useState('');
   const [emailSuccess, setEmailSuccess] = useState(false);
   const [signupSuccess, setSignupSuccess] = useState(false);
 
@@ -14,6 +15,7 @@ export default function SignupPage() {
         <SignupSection1
           now={now}
           setNow={setNow}
+          setEmail={setEmail}
           emailSuccess={emailSuccess}
           setEmailSuccess={setEmailSuccess}
         />
@@ -21,6 +23,7 @@ export default function SignupPage() {
         <SignupSection2
           now={now}
           setNow={setNow}
+          email={email}
           emailSuccess={emailSuccess}
           signupSuccess={signupSuccess}
           setSignupSuccess={setSignupSuccess}

@@ -1,12 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SignupSection.module.css';
 import { handleIdchecking, handleSignup } from '../../utils/register.js';
 import { handleInputChange } from '../../utils/inputOnChange.js';
+import { APIService } from '../../api/axios.js';
 
-export default function SignupSection(props) {
+export default function SignupSection({ email, setSignupSuccess, setNow }) {
+  const fullEmail = `${email}@skuniv.ac.kr`;
+
   const [form, setForm] = useState({
-    id: '',
+    id: fullEmail,
     id_valid: false,
     password: '',
     password_valid: '',
@@ -20,14 +23,34 @@ export default function SignupSection(props) {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
-  // 아이디 중복 체크 버튼 클릭 //
+  // email이 변경될 때마다 form의 id 업데이트
+  useEffect(() => {
+    setForm((prev) => ({ ...prev, id: `${email}@skuniv.ac.kr` }));
+  }, [email]);
+
+  // 이메일 중복 체크 버튼 클릭 //
   function handleDuplicateClick(event) {
     event.preventDefault();
 
-    const isValid = handleIdchecking(setErrors, form, errors);
-    if (isValid) {
-      setForm({ ...form, id_valid: true });
-    }
+    // 이메일 형식 체크는 이미 이전 단계에서 완료되었으므로 생략
+    const checkEmailDuplicate = async () => {
+      try {
+        const response = await APIService.public.post(import.meta.env.VITE_APP_USER_ID_DUPLICATE_CHECK, {
+          email: form.id,
+        });
+        // 이미 가입되어있는 이메일 일 경우
+        if (response.duplicate) {
+          setErrors({ ...errors, id: '이미 가입된 이메일입니다.' });
+          return;
+        }
+        setForm({ ...form, id_valid: true });
+        setErrors({ ...errors, id: '' });
+      } catch (error) {
+        setErrors({ ...errors, id: '이메일 중복 확인 중 오류가 발생했습니다.' });
+      }
+    };
+
+    checkEmailDuplicate();
   }
 
   // 회원가입 버튼 클릭 //
@@ -36,14 +59,36 @@ export default function SignupSection(props) {
 
     const isValid = handleSignup(setErrors, form);
     if (isValid && form.id_valid) {
-      if (form.semester === '') {
-        setForm({ ...form, semester: 0 });
-      }
-      // setErrors({...form, signup: "회원가입에 실패 하였습니다"}) // 회원가입 실패시
-      // 회원가입 성공시
-      props.setSignupSuccess(true);
-      props.setNow(1);
-      navigate('/welcome');
+      const signUp = async () => {
+        try {
+          const requestData = {
+            loginId: form.id,
+            password: form.password,
+            userName: form.name,
+            department: form.department,
+            studentId: form.strudent_num,
+            semester: form.semester === '' ? 0 : Number(form.semester),
+            phoneNumber: form.phone_num,
+            parts: form.part,
+          };
+
+          const response = await APIService.public.post(import.meta.env.VITE_APP_SIGN_UP, requestData);
+
+          if (response.success) {
+            setSignupSuccess(true);
+            setNow(1);
+            navigate('/welcome');
+          } else {
+            setErrors({ ...errors, signup: '회원가입에 실패하였습니다.' });
+          }
+        } catch (error) {
+          setErrors({ ...errors, signup: '회원가입 중 서버 오류가 발생했습니다. 나중에 다시 시도해주세요' });
+        }
+      };
+
+      signUp();
+    } else if (!form.id_valid) {
+      setErrors({ ...errors, id: '이메일 중복 확인이 필요합니다.' });
     }
   }
 
@@ -62,11 +107,10 @@ export default function SignupSection(props) {
             <div className={styles.Input}>
               <input
                 type='text'
-                placeholder='영문, 숫자로 2-18자'
                 name='id'
                 value={form.id}
-                className={errors.id ? 'invalid' : form.id ? 'valid' : ''}
-                onChange={handleInputChange(setForm)}
+                className={`${errors.id ? 'invalid' : form.id ? 'valid' : ''} cursor-not-allowed bg-gray-100`}
+                readOnly
                 required
               ></input>
               <button
@@ -93,7 +137,7 @@ export default function SignupSection(props) {
             <div className={styles.Input}>
               <input
                 type='password'
-                placeholder='최소 8자 이상의 영문, 숫자, 특수문자를 포함'
+                placeholder='최소 4자 이상의 영문, 숫자, 특수문자를 포함'
                 name='password'
                 value={form.password}
                 className={errors.password ? 'invalid' : form.password ? 'valid' : ''}

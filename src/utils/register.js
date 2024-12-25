@@ -1,12 +1,13 @@
 // 회원가입 유효성 검사
 // 유효성 검사 정규식
 const inputRegexs = {
-  idRegex: /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z0-9]{2,18}$/,
-  pwRegex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?!.*\s).{8,}$/,
+  idRegex: /^[a-zA-Z0-9._-]+@skuniv\.ac\.kr$/,
+  pwRegex: /^(?=.*\d)(?=.*[a-z])(?=.*[@#$%^&+=!])(?!.*\s).{4,}$/,
   nameRegex: /^[가-힣]{2,10}$/,
   departRegex: /^[가-힣]+$/,
   student_numRegex: /^[0-9]{10}$/,
   phoneNumberRegex: /^[0-9]{8,12}$/,
+  emailRegex: /^[a-zA-Z0-9._-]+$/,
 };
 
 // 아이디 중복 검사 버튼 클릭시
@@ -16,7 +17,7 @@ export function validateInput_idDuplicate(form, es) {
   if (form.id === '') {
     errors.id = '아이디는 필수 입력 항목입니다.';
   } else if (!inputRegexs.idRegex.test(form.id)) {
-    errors.id = '아이디는 영문, 숫자로 2~18자여야 합니다.';
+    errors.id = '아이디는 영문, 숫자로 2~100자여야 합니다.';
   }
   return errors;
 }
@@ -33,6 +34,8 @@ export function handleIdchecking(setErrors, form, es) {
 // 인증번호 전송 버튼 클릭시
 export function validateInput_email(form) {
   let errors = {
+    email: '',
+    confirmCode: '',
     id: '',
     password: '',
     password_valid: '',
@@ -46,7 +49,7 @@ export function validateInput_email(form) {
   if (form.email === '') {
     errors.email = '이메일은 필수 입력 항목입니다.';
   } else if (!inputRegexs.emailRegex.test(form.email)) {
-    errors.email = '올바른 서경대학교 이메일 형식이 아닙니다.';
+    errors.email = '올바른 이메일 형식이 아닙니다.';
   }
   return errors;
 }
@@ -112,7 +115,7 @@ export function validateInput_signup(form) {
   if (form.id === '') {
     errors.id = '아이디는 필수 입력 항목입니다.';
   } else if (!inputRegexs.idRegex.test(form.id)) {
-    errors.id = '아이디는 영문, 숫자로 2~18자여야 합니다.';
+    errors.id = '올바른 서경대학교 이메일 형식이 아닙니다.';
   } else if (!form.id_valid) {
     errors.id = '아이디 중복 검사는 필수 입니다.';
   }
@@ -120,7 +123,7 @@ export function validateInput_signup(form) {
   if (form.password === '') {
     errors.password = '비밀번호는 필수 입력 항목입니다.';
   } else if (!inputRegexs.pwRegex.test(form.password)) {
-    errors.password = '비밀번호는 최소 8자 이상의 영문, 숫자, 특수문자를 포함해야 합니다.';
+    errors.password = '비밀번호는 최소 4자 이상의 영문, 숫자, 특수문자를 포함해야 합니다.';
   }
 
   if (form.password_valid === '') {

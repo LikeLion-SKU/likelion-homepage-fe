@@ -2,7 +2,13 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SignupSection.module.css';
-import { handleEmailchecking, handleConfirmCodechecking } from '../../utils/register.js';
+import {
+  validateInput_email,
+  validateInput_confirmCode,
+  handleEmailchecking,
+  handleConfirmCodechecking,
+} from '../../utils/register.js';
+import { APIService } from '../../api/axios.js';
 import { handleInputChange } from '../../utils/inputOnChange.js';
 
 export default function SignupSection(props) {
@@ -16,7 +22,18 @@ export default function SignupSection(props) {
   const [m, setM] = useState();
   const [s, setS] = useState();
   const [count, setCount] = useState();
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({
+    id: '',
+    password: '',
+    password_valid: '',
+    name: '',
+    department: '',
+    semester: '',
+    phone_num: '',
+    part: '',
+    email: '',
+    confirmCode: '',
+  });
   const [confirms, setConfirms] = useState({});
   const navigate = useNavigate();
 
@@ -47,39 +64,94 @@ export default function SignupSection(props) {
   }, [count]);
 
   // 인증번호 전송 버튼 클릭 //
-  function handleSendingClick(event) {
+  const handleSendingClick = async (event) => {
     event.preventDefault();
-
     const isValid = handleEmailchecking(setErrors, form);
+
     if (isValid) {
-      // 인증번호 전송 성공시
-      setConfirms({ ...form, email: '인증번호가 전송되었습니다.' });
-      setCount(300); // 5분
-      setForm({ ...form, email_valid: true, timing: true });
-      setErrors({ ...form, email: '' });
+      try {
+        // 이메일에 도메인을 붙여서 전송
+        const fullEmail = `${form.email}@skuniv.ac.kr`;
+        // 이메일 인증번호 전송 API 호출
+        const response = await APIService.public.post(import.meta.env.VITE_APP_AUTH_EMAIL_SEND, { email: fullEmail });
+
+        // 인증번호 이메일일 전송 성공시
+        setConfirms({ ...form, email: '인증번호가 전송되었습니다.' });
+        setCount(300); // 5분
+        setForm({ ...form, email_valid: true, timing: true });
+      } catch (error) {
+        //에러처리
+        setErrors((prev) => ({
+          ...prev,
+          email: error.response?.data?.message || '인증번호 전송에 실패했습니다.',
+        }));
+      }
     }
-  }
+  };
 
   // 인증번호 확인 버튼 클릭 //
-  function handleCheckingClick(event) {
+  const handleCheckingClick = async (event) => {
     event.preventDefault();
 
     const isValid = handleConfirmCodechecking(setErrors, form);
-    if (isValid) {
-      // 인증번호 확인 성공시
-      setConfirms((prev) => ({
+    if (!isValid) return;
+
+    try {
+      const fullEmail = `${form.email}@skuniv.ac.kr`;
+
+      const requestData = {
+        email: fullEmail,
+        code: String(form.confirmCode),
+      };
+
+      const response = await APIService.public.post(import.meta.env.VITE_APP_AUTH_EMAIL_VERIFY, requestData);
+
+      // verified가 false인 경우도 처리
+      if (response.verified === true) {
+        setConfirms((prev) => ({
+          ...prev,
+          confirmCode: response.message || '이메일이 인증되었습니다.',
+        }));
+
+        props.setEmailSuccess(true);
+        setForm((prev) => ({
+          ...prev,
+          confirmCode_valid: true,
+        }));
+      } else {
+        // 인증번호가 틀린 경우 (verified가 false인 경우)
+        setErrors((prev) => {
+          const newErrors = {
+            ...prev,
+            confirmCode: '잘못된 인증번호입니다. 다시 입력해주세요',
+          };
+          return newErrors;
+        });
+
+        // form의 confirmCode_valid 상태도 false로 설정
+        setForm((prev) => ({
+          ...prev,
+          confirmCode_valid: false,
+        }));
+      }
+    } catch (error) {
+      // 서버 응답 자체가 실패한 경우
+      setErrors((prev) => ({
         ...prev,
-        confirmCode: '이메일이 인증되었습니다.',
+        confirmCode: '서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
       }));
-      props.setEmailSuccess(true);
-      setForm({ ...form, confirmCode_valid: true });
-      setErrors({ ...form, confirmCode: '' });
+
+      setForm((prev) => ({
+        ...prev,
+        confirmCode_valid: false,
+      }));
     }
-  }
+  };
 
   // 계속 버튼 클릭 //
   function next(e) {
     e.preventDefault();
+    props.setEmail(form.email); // 이메일 값을 상위 컴포넌트로 전달
     props.setNow(2); // 2번째 페이지 보여줌.
   }
 
@@ -172,12 +244,12 @@ export default function SignupSection(props) {
             </div>
             {form.confirmCode_valid ? (
               <p className={styles.ok_message}>{confirms.confirmCode}</p>
+            ) : errors.confirmCode ? (
+              <p className={styles.error_message}>{errors.confirmCode}</p>
             ) : form.timing ? (
               <p className={styles.time}>
                 입력대기시간 {m}:{s.toString().padStart(2, '0')}
               </p>
-            ) : errors.confirmCode ? (
-              <p className={styles.error_message}>{errors.confirmCode}</p>
             ) : null}
           </div>
         </div>
