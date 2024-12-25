@@ -1,0 +1,157 @@
+.editFormContainer {
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.title {
+  font-size: 3rem; 
+  font-weight: bold;
+  margin: 3rem 0 2rem 0.5rem;
+}
+
+/* 미리보기 이미지 스타일 */
+.imageUploadContainer {
+  max-width: 100%;
+  margin: 0 ;
+  aspect-ratio: 16 / 9; /* 반응형 비율 (16:9) */
+  background-color: #f5f5f7;
+  border-radius: 20px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; /* 세로 방향 정렬 */
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 0.25rem dashed #ccc; /* 2px equivalent */
+  overflow: hidden; /* 자식 요소가 컨테이너 밖으로 나가지 않도록 설정 */
+}
+
+.imageUploadContainer:hover {
+  border-color: #888;
+}
+
+.imagePreview {
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; /* 이미지 비율을 유지하면서 컨테이너 크기에 맞춤 */
+  border-radius: 20px; 
+}
+
+.inputGroup {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.titleInput {
+  width: 100%;
+  margin-top: 2rem;
+  font-family: Inter;
+  font-size: 3.5rem;
+  font-weight: 600;
+  color: #a9a9a9; 
+  border: none; 
+  outline: none; /* 포커스 시 기본 스타일 제거 */
+  background: transparent; 
+  text-align: left; 
+  resize: none; 
+  padding: 1rem; /* 텍스트 내부 여백 */
+  box-sizing: border-box; /* 패딩 포함한 전체 크기 계산 */
+}
+  
+.titleInput:focus {
+  color: #1c1b1a; /* 입력 시 색상 변경 */
+}
+  
+.titleInput:not(:placeholder-shown) {
+  color: #1c1b1a; /* 값이 입력된 경우 색상 변경 */
+}
+
+.separator {
+  width: 100%;
+  height: 1px;
+  background-color: #dadada; 
+  margin: 1.5rem 0; 
+}
+
+.contentContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  align-items: flex-start;
+} 
+
+.detailInput {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 1rem;
+  font-family: Inter;
+  line-height: 3rem;
+  font-size: 2rem;
+  font-weight: 500;
+  color: #a9a9a9; /* 기본 색상 */
+  border: none; /* 테두리 없음 */
+  outline: none; /* 포커스 시 기본 스타일 제거 */
+  background: transparent; /* 배경 투명 */
+  text-align: left; 
+  resize: none; /* 사용자가 크기를 조절하지 못하도록 설정 */
+  padding: 1rem; /* 텍스트 내부 여백 */
+  box-sizing: border-box; /* 패딩 포함한 전체 크기 계산 */
+  }
+  
+.detailInput:focus {
+  color: #1c1b1a; /* 입력 시 색상 변경 */
+}
+  
+.detailInput:not(:placeholder-shown) {
+  color: #1c1b1a; /* 값이 입력된 경우 색상 변경 */
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.submitButton {
+  padding: 1rem 2rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: white;
+  background-color: #FF7710; 
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .contentContainer {
+    flex-direction: column; /* 세로 배치 */
+    align-items: left; 
+  }
+}
+
+@media (max-width: 480px) {
+  .contentContainer {
+    flex-direction: column; 
+    align-items: flex-start; 
+    width: 100%;
+  }
+  .inputGroup {
+    width: 100%; 
+    max-width: none; /* 부모 컨테이너의 최대 너비 제한 해제 */
+    margin-bottom: 2rem;
+    box-sizing: border-box; /* 패딩 포함한 전체 크기 계산 */  
+  }
+  .titleInput {
+    font-size: 2rem; /* 글자 크기 축소 */
+    line-height: 2rem;
+    word-wrap: break-word; /* 줄바꿈 강제 */
+    white-space: normal; /* 줄바꿈 허용 */
+    overflow-wrap: break-word; /* 줄바꿈 강제 */
+  }
+  .detailInput {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+}

@@ -30,22 +30,18 @@ function ProjectDetail() {
       <div className={styles.contentContainer}>
         <p className={styles.description}>{project.description}</p>
         <div className={styles.teamBox}>
-          {Object.entries(project.teamMembers).map(function ([role, members]) {
-            return (
-              <div key={role} className={styles.teamRole}>
-                <span className={styles.role}>{role}</span>
-                <div className={styles.memberRow}>
-                  {members.map(function (member, idx) {
-                    return (
-                      <span key={idx} className={styles.member}>
-                        {member}
-                      </span>
-                    );
-                  })}
-                </div>
-              </div>
-            );
-          })}
+        {Object.entries(project.teamMembers).map(([role, members]) => (
+          <div key={role} className={styles.teamRole}>
+            <span className={styles.role}>{role}</span>
+            <div className={styles.memberRow}>
+              {members.split(" ").map((member, idx) => ( // 문자열을 배열로 변환
+                <span key={idx} className={styles.member}>
+                  {member}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
         </div>
       </div>
     </div>

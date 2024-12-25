@@ -10,9 +10,10 @@ export default function IntroSection() {
             <p className={styles.title}>서경대학교 멋쟁이사자처럼</p>
             <img className={styles.lionImg} src={lionimg} alt="lionimg" />
             <p className={styles.medium16}>
-                안녕하세요 <b>서경대학교 멋쟁이사자처럼</b>입니다. <br/> 
-                내 아이디어를 내 손으로 만들고 싶은 모든 서경대 학생분들을 환영합니다. <br/>
-                여기에서 2줄 정도 더 쓰면 될 듯
+                안녕하세요 <span className={styles.bold}>서경대학교 멋쟁이사자처럼</span>입니다. <br/> 
+                서경대 멋쟁이사자처럼은 다양한 전공의 학생들로 이루어진 IT 서비스 제작 동아리입니다. <br/>
+                기획, 디자인, 프론트엔드, 백엔드 총 4개의 트랙으로 구성되어 있으며 <br/>
+                여러 프로젝트를 통해 협업 능력과 실전 경험을 얻을 수 있습니다.
                 </p>
         </SectionWrapper>
     )

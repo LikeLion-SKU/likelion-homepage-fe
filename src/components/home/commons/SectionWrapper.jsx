@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './sectionwrapper.module.css';
+import styles from './SectionWrapper.module.css';
 
 function SectionWrapper({ children }) {
   return (

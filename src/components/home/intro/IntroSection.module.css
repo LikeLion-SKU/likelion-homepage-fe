@@ -18,3 +18,7 @@
     margin-bottom: 3rem;
     line-height: 3rem;
 }
+
+.bold {
+    font-weight: 700;
+}

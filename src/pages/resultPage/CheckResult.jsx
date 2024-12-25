@@ -5,7 +5,6 @@ export default function CheckResult() {
         <>
         <div className={styles.allContainer}>
             <div className={styles.titleContainer}>
-                <p className={styles.subTitle}>LIKELION 13TH</p>
                 <p className={styles.mainTitle}>지원 결과 확인하기</p>
             </div>
             <div className={styles.contentContainer}>

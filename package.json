@@ -11,14 +11,17 @@
   },
   "dependencies": {
     "axios": "^1.7.9",
+    "framer-motion": "^11.13.3",
     "motion": "^11.13.1",
     "react": "^18.3.1",
     "react-cookie": "^7.2.2",
     "react-dom": "^18.3.1",
+    "react-hook-form": "^7.54.2",
+    "react-icons": "^5.4.0",
     "react-router-dom": "^6.26.2",
     "react-select": "^5.8.3",
-    "styled-components": "^6.1.13",
-    "styled-reset": "^4.5.2",
+    "react-textarea-autosize": "^8.5.6",
+    "yup": "^1.6.1",
     "zustand": "^5.0.0"
   },
   "devDependencies": {
@@ -27,6 +30,8 @@
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
     "eslint": "^9.9.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",

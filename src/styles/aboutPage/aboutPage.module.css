@@ -55,10 +55,11 @@
 }
 
 .title {
-    color: black;
+    color: var(--main-text-color);
     font-size: 36px;
     font-weight: 700;
-    padding: 5%;
+    margin-top: 5vh;
+    margin-bottom: 5%;
 }
 
 .buttonContainer {
@@ -73,8 +74,9 @@
     width: 200px;
     height: 40px;
     border-radius: 20px;
-    border: 2px solid black;
+    border: 2px solid var(--main-text-color);
     background-color: #fff;
+    color: var(--main-text-color);
     font-size: 16px;
     font-weight: 700;
     cursor: pointer;
@@ -110,7 +112,7 @@
 .mainText {
     font-size: 23.04px;
     font-weight: 700;
-    color: black;
+    color: var(--main-text-color);
     margin-bottom: 20px;
     margin-top: 10px;
 }
@@ -143,4 +145,22 @@
     gap: 3rem;
     justify-content: center;
     align-items: center;
+}
+
+@media (max-width: 500px){
+    .chairmanContainer{
+        margin-top: 5%;
+    }
+
+    .managementContainer{
+        margin-top: 5%;
+    }
+
+    .babylionContainer{
+        margin-top: 5%;
+    }
+
+    .title{
+        font-size: 3.5rem;
+    }
 }

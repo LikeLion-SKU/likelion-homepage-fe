@@ -1,6 +1,7 @@
 .pageWrapper {
   width: 100%;
-  padding: 73px 8.35%;
+  padding: 0 8.35%;
+  margin: 5vh 0;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;

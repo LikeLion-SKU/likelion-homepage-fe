@@ -1,0 +1,50 @@
+.teamBox {
+    width: 100%;
+    max-width: 25rem;
+    border-radius: 30px;
+    padding: 1rem; /* 패딩 증가 */
+    margin: 2rem 1rem; /* 가운데 정렬 */
+    background-color: #F5F5F7;
+    font-size: 1.5rem;
+    box-sizing: border-box;
+  }
+  
+  .teamRole {
+    padding: 1rem 0;
+    display: flex;
+    align-items: center; /* 수평 정렬 */
+}
+  
+  .role {
+    font-weight: 500;
+    color: #1c1b1a;
+    width: 8rem;
+    margin: 0 1rem;
+    line-height: 2rem;
+    flex-shrink: 0;
+  }
+  
+  .memberInput {
+    width: 100%;
+    font-family: Inter;
+    font-size: 1.2rem;
+    font-weight: 500;
+    line-height: 2.5rem;
+    color: #a9a9a9; 
+    border: none; 
+    outline: none; /* 포커스 시 기본 스타일 제거 */
+    background: transparent; 
+    text-align: left; 
+    resize: none; 
+    padding: 0.5rem; /* 텍스트 내부 여백 */
+    box-sizing: border-box; /* 패딩 포함한 전체 크기 계산 */
+  }
+  
+  .memberInput:focus {
+    color: #1c1b1a; /* 입력 시 색상 변경 */
+  }
+  
+  .memberInput:not(:placeholder-shown) {
+    color: #1c1b1a; /* 값이 입력된 경우 색상 변경 */
+  }
+  

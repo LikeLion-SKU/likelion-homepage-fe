@@ -8,7 +8,7 @@ import {
   useVelocity,
   useAnimationFrame,
 } from "framer-motion";
-import styles from "./ParallaxText.module.css"; // 수정된 스타일 파일 import
+import styles from "./ParallaxText.module.css"; 
 
 function wrap(min, max, value) {
   const range = max - min;

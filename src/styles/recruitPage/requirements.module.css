@@ -7,14 +7,14 @@
 .title{
     font-size: 36px;
     font-weight: 700;
-    color: #000;
+    color: var(--main-text-color);
     margin-bottom: 12%;
 }
 
 .label{
     font-size: 24px;
     font-weight: 500;
-    color: #000;
+    color: var(--main-text-color);
     margin-bottom: 5%;
 }
 

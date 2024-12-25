@@ -15,12 +15,13 @@ const projects = Array(9)
         : "아이디어톤",
     ], // 다양한 태그 설정
     image: projectImage,
-    teamMembers: {
-      pm: ["김땡땡", "이땡땡"],
-      design: ["박땡땡", "박땡땡"],
-      "front-end": ["김땡땡", "이땡땡", "박땡땡", "박땡땡"],
-      "back-end": ["김땡땡", "박땡땡"],
-    }, // 팀 구성 추가
+    teamMembers: 
+    {
+      pm: "김땡땡 이땡땡",
+      design: "박땡땡 박땡땡",
+      "front-end": "김땡땡 이땡땡 박땡땡 박땡땡 박땡땡",
+      "back-end": "김땡땡 박땡땡 박땡땡"
+    },    
   }));
 
 export default projects;

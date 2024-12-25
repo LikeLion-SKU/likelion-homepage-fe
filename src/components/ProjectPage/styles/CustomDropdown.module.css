@@ -15,21 +15,6 @@
     align-items: center;
   }
 
-  .selectedOption.자체프로젝트 {
-    background-color: #f5e0e9; 
-    border: 1px solid #f5e0e9;
-  }
-  
-  .selectedOption.아이디어톤 {
-    background-color: #fdecc8; 
-    border: 1px solid #fdecc8;
-  }
-  
-  .selectedOption.중앙해커톤 {
-    background-color: #dbeddb; 
-    border: 1px solid #dbeddb;
-  }
-
   .selectedOption span {
     display: inline-block;
     margin-right: 0.rem; /* 아이콘과 텍스트 간 여백 설정 */
@@ -65,4 +50,22 @@
   
   .dropdownItem:first-child {
     padding-top: 1.5rem; /* 맨 위 항목에만 상단 패딩 추가 */
+  }
+
+  .greenBackground {
+    background-color: #dbeddb;
+    border-color: #dbeddb;
+    border-radius: 15px;
+  }
+  
+  .yellowBackground {
+    background-color: #fdecc8;
+    border-color: #fdecc8;
+    border-radius: 15px;
+  }
+  
+  .pinkBackground {
+    background-color: #f5e0e9;
+    border-color: #f5e0e9;
+    border-radius: 15px;
   }
