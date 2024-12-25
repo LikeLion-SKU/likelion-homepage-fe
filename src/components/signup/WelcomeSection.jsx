@@ -1,11 +1,12 @@
 import React from 'react';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import './WelcomeSection.css';
 import logo from '@svgs/logo.svg';
 
 export default function WelcomeSection() {
-  const [name, setName] = useState('김유저');
+  const [searchParams] = useSearchParams();
+  // 파라미터에서 name 읽기
+  const name = searchParams.get('name') || 'GUEST';
   const navigate = useNavigate();
 
   // 홈으로 버튼 클릭 //

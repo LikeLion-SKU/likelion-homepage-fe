@@ -77,7 +77,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
           if (response.success) {
             setSignupSuccess(true);
             setNow(1);
-            navigate('/welcome');
+            navigate('/welcome?name=${form.name}');
           } else {
             setErrors({ ...errors, signup: '회원가입에 실패하였습니다.' });
           }
