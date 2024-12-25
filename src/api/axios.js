@@ -89,7 +89,7 @@ privateApi.interceptors.request.use(
   (error) => {
     // 요청 전 에러 발생 시 에러 반환
     return Promise.reject(error);
-  }
+  },
 );
 
 /**
@@ -136,7 +136,7 @@ privateApi.interceptors.response.use(
     }
     // 다른 에러의 경우 그대로 에러 반환
     return Promise.reject(error);
-  }
+  },
 );
 
 /**
