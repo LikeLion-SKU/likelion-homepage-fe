@@ -2,10 +2,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SignupSection.module.css';
-import {
-  handleEmailchecking,
-  handleConfirmCodechecking,
-} from '../../utils/register.js';
+import { handleEmailchecking, handleConfirmCodechecking } from '../../utils/register.js';
 import { handleInputChange } from '../../utils/inputOnChange.js';
 
 export default function SignupSection(props) {
@@ -44,8 +41,7 @@ export default function SignupSection(props) {
       setForm({ ...form, timing: false, confirmCode: '' });
       setErrors({
         ...form,
-        confirmCode:
-          '인증번호 확인 시간이 만료되었습니다. 다시 인증번호를 전송해주세요.',
+        confirmCode: '인증번호 확인 시간이 만료되었습니다. 다시 인증번호를 전송해주세요.',
       });
     }
   }, [count]);
@@ -101,18 +97,10 @@ export default function SignupSection(props) {
           <div className={styles.input_box}>
             <div className={styles.Input}>
               <input
-                type="text"
-                name="email"
+                type='text'
+                name='email'
                 value={form.email}
-                className={
-                  form.email_valid
-                    ? 'valid'
-                    : errors.email
-                      ? 'invalid'
-                      : form.email
-                        ? 'valid'
-                        : ''
-                }
+                className={form.email_valid ? 'valid' : errors.email ? 'invalid' : form.email ? 'valid' : ''}
                 onChange={handleInputChange(setForm)}
                 required
               ></input>
@@ -138,8 +126,8 @@ export default function SignupSection(props) {
               {form.email_valid ? (
                 <>
                   <input
-                    type="text"
-                    name="confirmCode"
+                    type='text'
+                    name='confirmCode'
                     value={form.confirmCode}
                     className={
                       form.confirmCode_valid
@@ -166,16 +154,10 @@ export default function SignupSection(props) {
                 <div style={{ visibility: 'hidden' }}>
                   ?
                   <input
-                    type="text"
-                    name="confirmCode"
+                    type='text'
+                    name='confirmCode'
                     value={form.confirmCode}
-                    className={
-                      errors.confirmCode
-                        ? 'invalid'
-                        : form.confirmCode
-                          ? 'valid'
-                          : ''
-                    }
+                    className={errors.confirmCode ? 'invalid' : form.confirmCode ? 'valid' : ''}
                     onChange={handleInputChange(setForm)}
                     disabled={true}
                   ></input>
@@ -199,7 +181,10 @@ export default function SignupSection(props) {
             ) : null}
           </div>
         </div>
-        <div name="Signup_progress_box" className={styles.Signup_progress_box}>
+        <div
+          name='Signup_progress_box'
+          className={styles.Signup_progress_box}
+        >
           {props.emailSuccess === true ? (
             <button
               style={{ cursor: 'pointer' }}
@@ -215,7 +200,7 @@ export default function SignupSection(props) {
             <p>이미 계정이 있으신가요?</p>
             <button
               style={{ cursor: 'pointer' }}
-              type="submit"
+              type='submit'
               className={styles.tologinBtn}
               onClick={() => {
                 navigate('/login');
