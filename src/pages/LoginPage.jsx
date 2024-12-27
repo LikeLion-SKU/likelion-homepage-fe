@@ -1,10 +1,10 @@
-import React from 'react';
-import LoginSection from '@components/login/LoginSection';
+import LoginFormContainer from '@/components/login/LoginFormContainer';
+import LoginForm from '@/components/login/LoginForm';
 
 export default function LoginPage() {
   return (
-    <>
-      <LoginSection />
-    </>
+    <LoginFormContainer>
+      <LoginForm />
+    </LoginFormContainer>
   );
 }

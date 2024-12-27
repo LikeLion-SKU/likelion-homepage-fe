@@ -9,6 +9,7 @@
 
 .login-form__title {
   color: var(--main-text-color);
+  margin-bottom: 3vh;
   font-size: 3.6rem;
   font-weight: 750;
 }
