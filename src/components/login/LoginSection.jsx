@@ -27,9 +27,7 @@ export default function LoginSection() {
 
     return (
         <div className="LoginPage_layout">
-            <div className="Login_input_information"> 
-                <p className="title">로그인</p>
-            </div>
+            <p className="title">로그인</p>
             <div className="Login_input_boxs">
                 <div className="Login_input_box">
                     <label>아이디</label>
