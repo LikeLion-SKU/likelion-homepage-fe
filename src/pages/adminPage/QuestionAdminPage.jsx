@@ -15,10 +15,30 @@ function QuestionCard({ question, onUpdate, onDelete, onEdit, editingQuestion, s
   const isEditing = editingQuestion?.id === question.id;
   const [editedContent, setEditedContent] = useState(question.content);
   const [editedOrder, setEditedOrder] = useState(question.orderNumber);
+  const [editedType, setEditedType] = useState(question.type);
 
   return isEditing ? (
     <div className='editing-card'>
       <div className='editing-form'>
+        <div className='form-group'>
+          <label>
+            질문 유형:
+            <select
+              value={editedType}
+              onChange={(e) => setEditedType(e.target.value)}
+              className='select-input'
+            >
+              {Object.entries(QuestionTypes).map(([key, value]) => (
+                <option
+                  key={key}
+                  value={key}
+                >
+                  {value}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
         <div className='form-group'>
           <label>
             질문 내용:
@@ -42,7 +62,14 @@ function QuestionCard({ question, onUpdate, onDelete, onEdit, editingQuestion, s
         <div className='button-group'>
           <button
             className='button button-primary'
-            onClick={() => onUpdate({ ...question, content: editedContent, orderNumber: editedOrder })}
+            onClick={() =>
+              onUpdate({
+                ...question,
+                type: editedType,
+                content: editedContent,
+                orderNumber: editedOrder,
+              })
+            }
           >
             저장
           </button>
@@ -59,6 +86,7 @@ function QuestionCard({ question, onUpdate, onDelete, onEdit, editingQuestion, s
     <div className='question-card'>
       <div className='order-number'>순서: {question.orderNumber}</div>
       <div className='content'>{question.content}</div>
+      <div className='type'>유형: {QuestionTypes[question.type]}</div>
       <div className='button-group'>
         <button
           className='button button-primary'

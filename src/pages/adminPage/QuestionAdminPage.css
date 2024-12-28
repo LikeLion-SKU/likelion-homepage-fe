@@ -136,7 +136,13 @@
 }
 
 .question-card .content {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
+}
+
+.question-card .type {
+  margin-bottom: 10px;
+  color: #666;
+  font-style: italic;
 }
 
 .editing-card {
@@ -147,7 +153,8 @@
   background-color: #f8f9fa;
 }
 
-.editing-form input {
+.editing-form input,
+.editing-form select {
   width: 100%;
   padding: 8px;
   border: 1px solid #ddd;
@@ -157,6 +164,11 @@
 
 .editing-form input[type='number'] {
   width: 100px;
+}
+
+.select-input {
+  background-color: white;
+  cursor: pointer;
 }
 
 .no-questions {
