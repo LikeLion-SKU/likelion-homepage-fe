@@ -15,6 +15,7 @@ import NewProjectForm from '../components/ProjectPage/NewProjectForm';
 import EditProjectForm from '../components/ProjectPage/EditProjectForm';
 import AdminApply from '@pages/AdminApplyPage';
 import { MainLayout } from '@layouts';
+import ApiTestPage from '@/pages/ApiTestPage';
 
 export default function Routes() {
   return (
@@ -44,6 +45,7 @@ export default function Routes() {
         <Route path="apply" element={<Apply />} />
         <Route path="admin/apply" element={<AdminApply />} />
         <Route path="mypage" element={<MyPage />} />
+        <Route path="apitest" element={<ApiTestPage />} />
       </Route>
     </ReactRouters>
   );
