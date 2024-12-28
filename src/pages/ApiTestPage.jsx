@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 
 const BASE_URL = import.meta.env.VITE_APP_API_URL;
 
-const ApiTestPage = () => {
+function ApiTestPage() {
   const [results, setResults] = useState(null);
   const [searchName, setSearchName] = useState('');
   const [semester, setSemester] = useState('');
@@ -208,19 +208,20 @@ const ApiTestPage = () => {
       </section>
 
       {/* 에러 메시지 표시 */}
-      {error && <div className='bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4'>{error}</div>}
-
+      {error ? (
+        <div className='bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4'>{error}</div>
+      ) : null}
       {/* 결과 표시 */}
-      {results && (
+      {results ? (
         <div className='mt-8 p-4 bg-white rounded-lg shadow'>
           <h3 className='text-lg font-semibold mb-4'>결과</h3>
           <pre className='bg-gray-100 p-4 rounded overflow-auto max-h-96 text-sm'>
             {JSON.stringify(results, null, 2)}
           </pre>
         </div>
-      )}
+      ) : null}
     </div>
   );
-};
+}
 
 export default ApiTestPage;
