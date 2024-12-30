@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import styles from './Recruit.module.css';
 import ParallaxText from './ParallaxText/ParallaxText';
-import arrow from "@images/homepage/arrow.png"
+import arrow from "@images/homepage/arrow.webp"
 
 export default function Recruit({ children }) {
   return <section className={styles.section}>{children}</section>;
