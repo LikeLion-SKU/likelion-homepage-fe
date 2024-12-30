@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./IntroSection.module.css"
 import SectionWrapper from "../commons/SectionWrapper";
-import lionimg from "@images/homepage/lion.png"
+import lionimg from "@images/homepage/lion.webp"
 
 export default function IntroSection() {
 
