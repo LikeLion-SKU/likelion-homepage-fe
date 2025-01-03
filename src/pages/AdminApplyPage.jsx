@@ -1,4 +1,4 @@
-import styles from '@styles/adminApplyPage/AdminApply.module.css';
+import styles from './AdminApply.module.css';
 import Generation from '@components/adminApply/Generation';
 
 export default function AdminApplyPage() {
@@ -27,7 +27,10 @@ export default function AdminApplyPage() {
         </div>
         <div className={styles.tableBody}>
           {applicants.map((applicant) => (
-            <div className={styles.applicant} key={applicant.id}>
+            <div
+              className={styles.applicant}
+              key={applicant.id}
+            >
               <span>{applicant.name}</span>
               <span>{applicant.department}</span>
               <span>{applicant.id}</span>

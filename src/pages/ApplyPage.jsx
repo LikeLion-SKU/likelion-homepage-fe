@@ -1,6 +1,6 @@
 import BodySection from '@components/applicationForm/BodySection';
 import HeaderSection from '@components/applicationForm/HeaderSection';
-import styles from '@styles/applyPage/Apply.module.css';
+import styles from './Apply.module.css';
 
 export default function ApplyPage() {
   return (

@@ -1,8 +1,8 @@
 import styles from './Track.module.css';
-import pmImg from "@images/homepage/pmImg.png";
-import designerImg from "@images/homepage/designerImg.png"
-import frontImg from "@images/homepage/frontImg.png";
-import backImg from "@images/homepage/backImg.png";
+import pmImg from "@images/homepage/pmImg.webp";
+import designerImg from "@images/homepage/designerImg.webp"
+import frontImg from "@images/homepage/frontImg.webp";
+import backImg from "@images/homepage/backImg.webp";
 
 export default function Track({ children }) {
   return <section className={styles.section}>{children}</section>;
