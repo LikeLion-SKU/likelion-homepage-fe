@@ -22,10 +22,13 @@ export const style = {
     color: 'black',
     justifyContent: 'center',
     backgroundColor: state.isSelected
-      ? 'rgba(215, 215, 223, 1)'
+      ? 'rgba(245, 245, 247, 1)' // 선택된 요소의 배경색 고정
       : state.isFocused
-        ? '#e5e5e5e2'
-        : 'rgba(245, 245, 247, 1)',
+        ? '#e5e5e5' // 포커스된 경우
+        : 'rgba(245, 245, 247, 1)', // 기본 배경색
+    ':hover': {
+      backgroundColor: '#e5e5e5', // Hover 시 색상
+    },
   }),
   indicatorSeparator: (provided) => ({
     ...provided,

@@ -37,9 +37,6 @@
 
 @media screen and (max-width: 767px) {
   .headerContainer {
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
     min-width: auto;
     width: 100%;
   }
