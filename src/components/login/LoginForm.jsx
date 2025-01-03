@@ -6,6 +6,8 @@ import { loginSchema } from '@/constants/validationSchema';
 
 import classNames from 'classnames/bind';
 import styles from './LoginForm.module.css';
+//import { useNavigate } from 'react-router-dom'; //
+//import { APIService } from '../../api/axios.js'; //
 
 const cn = classNames.bind(styles);
 
@@ -18,6 +20,7 @@ export default function LoginForm() {
   } = useForm({
     resolver: yupResolver(loginSchema),
   });
+  //const navigate = useNavigate();
 
   /**
    * 유저 데이터를 서버에 전송하는 함수
@@ -29,6 +32,26 @@ export default function LoginForm() {
   async function onSubmit(userData) {
     // console.log() 삭제 후 로직 작성
     console.log(userData);
+
+    // try {
+    //   const requestData = {
+    //     loginId: userData.loginId,
+    //     password: userData.password,
+    //   };
+
+    //   const response = await APIService.public.post(import.meta.env.VITE_APP_AUTH_EMAIL_SEND, requestData);
+    //   // 토큰 저장
+    //   sessionStorage.setItem('access', response.data.accessToken);
+    //   localStorage.setItem('access', response.data.accessToken);
+    //   // 홈화면으로 이동
+    //   navigate('/');
+    // } catch (error) {
+    //   // 로그인 실패 시 어디에 출력해야하지?
+    //   setErrors((prev) => ({
+    //     ...prev,
+    //     password: 'ID 또는 비밀번호가 잘못 되었습니다. 정확히 입력해주세요.',
+    //   }));
+    // }
   }
 
   return (
