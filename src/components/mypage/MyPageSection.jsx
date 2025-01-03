@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./MyPageSection.module.css";
-import heartLion from "@images/heartLion.png";
 
 export default function MyPageSection() {
   const [username, setUsername] = useState("");
@@ -22,20 +21,22 @@ export default function MyPageSection() {
 
   return (
     <div className={styles.section}>
-      <p className={styles.title}>마이페이지</p>
-      <img className={styles.lionImg} src={heartLion} alt="Heart Lion" />
-      <p className={styles.text}>
-        안녕하세요 <strong>{username}</strong>님
-      </p>
-      <button
-        className={styles.button}
-        onClick={() => navigate("/application")}
-      >
-        내 지원서 보러가기
-      </button>
-      <button className={styles.button} onClick={handleLogout}>
-        로그아웃
-      </button>
+      <p className={styles.title}>
+      {username}ㅇㅇㅇ님 <br/>
+      안녕하세요 </p>
+      <p className={styles.text}>test1234@skuniv.ac.kr</p>
+      <div className={styles.btndiv}>
+        <button
+          className={styles.button}
+          onClick={() => navigate("/application")}>
+          내 지원서 보러가기
+        </button>
+        <button 
+          className={styles.button} 
+          onClick={handleLogout}>
+          로그아웃
+        </button>
+      </div>
     </div>
   );
 }

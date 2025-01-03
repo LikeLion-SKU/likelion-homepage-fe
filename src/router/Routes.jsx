@@ -11,8 +11,10 @@ import MyPage from '@pages/MyPage';
 import WelcomePage from '@pages/WelcomePage';
 import Apply from '@pages/ApplyPage';
 import ApiTestPage from '@/pages/ApiTestPage';
-import QuestionAdminPage from '@/pages/adminPage/QuestionAdminPage';
+import AdminPage from '@/pages/AdminPage';
+import QuestionAdminPage from '@/pages/adminPage1/QuestionAdminPage';
 import AdminApply from '@pages/AdminApplyPage';
+import CreateApplyPage from '@/pages/CreateApplyPage';
 
 // Components
 import ProjectPageLayout from '../components/ProjectPage/ProjectPageLayout';
@@ -36,6 +38,7 @@ export default function Routes() {
         <Route path="welcome" element={<WelcomePage />} />
         <Route path="project" element={<ProjectPage />} />
 
+
         {/* Project Routes */}
         <Route path="project">
           <Route index element={<ProjectPageLayout isAdmin={false} />} />
@@ -53,8 +56,13 @@ export default function Routes() {
 
         {/* Admin Routes */}
         <Route path="admin">
-          <Route path="apply" element={<AdminApply />} />
+          <Route index element={<AdminPage />} />
+          {/* 지원서 생성하기 */}
+          <Route path="create" element={<CreateApplyPage />} />
           <Route path="questions" element={<QuestionAdminPage />} />
+          {/* 지원서 모아보기 */}
+          <Route path="apply" element={<AdminApply />} />
+        
         </Route>
 
         {/* User Routes */}

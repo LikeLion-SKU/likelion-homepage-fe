@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
 import styles from './Footer.module.css';
@@ -6,15 +7,24 @@ import instagram from '@svgs/instagram.svg';
 import github from '@svgs/github.svg';
 
 export default function Footer() {
+  const [clickCount, setClickCount] = useState(0);
   const navigate = useNavigate();
+
+  function handleClick() {
+    setClickCount((prevCount) => prevCount + 1);
+
+    if (clickCount + 1 === 3) {
+      navigate("/admin");
+    }
+  };
+
+
   return (
     <div className={styles.wrapper}>
       <img
         src={logo}
         alt="logo"
-        onClick={function () {
-          navigate('/');
-        }}
+        onClick={handleClick}
       />
       <li>
         <a
