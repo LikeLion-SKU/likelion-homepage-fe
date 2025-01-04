@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, createContext, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './HeaderBar.module.css';
 import logo from '@assets/commons/logo.webp';
@@ -6,27 +6,23 @@ import login from '@assets/header/login.webp';
 import menuIcon from '@assets/header/menu_hamburger.webp';
 import closeIcon from '@assets/header/menu_close.webp';
 
+const HeaderBarContext = createContext();
+
 export default function HeaderBar({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-  };
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <section className={styles.section}>
-      {React.Children.map(children, (child) => {
-        if (!React.isValidElement(child)) return child;
-        return React.cloneElement(child, { isMenuOpen, toggleMenu, closeMenu });
-      })}
-    </section>
+    <div className={styles.section}>
+      <HeaderBarContext.Provider value={{ isMenuOpen, toggleMenu, closeMenu }}>{children}</HeaderBarContext.Provider>
+    </div>
   );
 }
 
-function Logo({ closeMenu }) {
+function Logo() {
   const navigate = useNavigate();
+  const { closeMenu } = useContext(HeaderBarContext);
 
   return (
     <button
@@ -47,21 +43,19 @@ function Logo({ closeMenu }) {
   );
 }
 
-function Navbar({ children, isMenuOpen, closeMenu }) {
+function Navbar({ children }) {
+  const { isMenuOpen } = useContext(HeaderBarContext);
+
   return (
     <nav className={`${styles.navbar} ${isMenuOpen ? styles.active : ''}`}>
-      <ul>
-        {React.Children.map(children, (child) => {
-          if (!React.isValidElement(child)) return child;
-          return React.cloneElement(child, { closeMenu });
-        })}
-      </ul>
+      <ul>{children}</ul>
     </nav>
   );
 }
 
-function NavItem({ label, path, closeMenu }) {
+function NavItem({ label, path }) {
   const navigate = useNavigate();
+  const { closeMenu } = useContext(HeaderBarContext);
 
   return (
     <li>
@@ -78,9 +72,10 @@ function NavItem({ label, path, closeMenu }) {
   );
 }
 
-function Login({ closeMenu }) {
+function Login() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
+  const { closeMenu } = useContext(HeaderBarContext);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -127,7 +122,8 @@ function Login({ closeMenu }) {
   );
 }
 
-function MenuIcon({ isMenuOpen, toggleMenu }) {
+function MenuIcon() {
+  const { isMenuOpen, toggleMenu } = useContext(HeaderBarContext);
   return (
     <button
       className={styles.menuIcon}
