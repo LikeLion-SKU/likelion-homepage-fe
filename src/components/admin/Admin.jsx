@@ -30,7 +30,7 @@ function AdminButton({ label, path }) {
   
   return (
     <button
-      className={styles.button}
+      className={styles.itembox__button}
       onClick={() => navigate(path)}>
       {label}
     </button>

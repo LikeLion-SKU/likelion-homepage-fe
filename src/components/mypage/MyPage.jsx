@@ -38,7 +38,7 @@ function MyPageApply() {
 
   return (
     <button
-      className={styles.button}
+      className={styles.itembox__button}
       onClick={() => navigate("/application")}>
       내 지원서 보러가기
     </button>
@@ -56,7 +56,7 @@ function MyPageLogout() {
 
   return (
     <button
-      className={styles.button}
+      className={styles.itembox__button}
       onClick={handleLogout}>
       로그아웃
     </button>
