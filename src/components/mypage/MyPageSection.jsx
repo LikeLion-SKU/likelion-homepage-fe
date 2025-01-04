@@ -1,7 +1,6 @@
-import MyPage from "./MyPage";
+import MyPage from './MyPage';
 
 export default function MyPageSection() {
-
   return (
     <MyPage>
       <MyPage.Title />

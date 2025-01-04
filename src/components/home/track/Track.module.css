@@ -1,12 +1,12 @@
 .section {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); 
+  grid-template-columns: repeat(4, 1fr);
   max-width: 200rem;
-  gap: 4rem; 
+  gap: 4rem;
   margin: 0 2rem;
 }
 
-@media (max-width: 767px) { 
+@media (max-width: 767px) {
   .section {
     grid-template-columns: repeat(2, 1fr);
   }

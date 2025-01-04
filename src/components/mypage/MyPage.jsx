@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './MyPage.module.css';
 
 export default function MyPage({ children }) {
@@ -7,26 +7,24 @@ export default function MyPage({ children }) {
 }
 
 function MyPageTitle() {
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState('');
 
   useEffect(() => {
-    const storedUsername = localStorage.getItem("username");
+    const storedUsername = localStorage.getItem('username');
     if (storedUsername) {
       setUsername(storedUsername);
     }
   }, []);
-  
   return (
     <p className={styles.title}>
-      {username}ㅇㅇㅇ님 <br/>
-      안녕하세요 </p>
-  )
+      {username}ㅇㅇㅇ님 <br />
+      안녕하세요{' '}
+    </p>
+  );
 }
 
 function MyPageText() {
-  return (
-    <p className={styles.text}>test1234@skuniv.ac.kr</p>
-  )
+  return <p className={styles.text}>test1234@skuniv.ac.kr</p>;
 }
 
 function MyPageItemBox({ children }) {
@@ -39,28 +37,31 @@ function MyPageApply() {
   return (
     <button
       className={styles.itembox__button}
-      onClick={() => navigate("/application")}>
+      onClick={() => navigate('/application')}
+    >
       내 지원서 보러가기
     </button>
-  )
+  );
 }
 
 function MyPageLogout() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("username");
-    navigate("/");
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    navigate('/');
   };
 
   return (
     <button
       className={styles.itembox__button}
-      onClick={handleLogout}>
+      onClick={handleLogout}
+    >
+      {' '}
       로그아웃
     </button>
-  )
+  );
 }
 
 MyPage.Title = MyPageTitle;

@@ -43,11 +43,6 @@ export default function Routes() {
         <Route path="project">
           <Route index element={<ProjectPageLayout isAdmin={false} />} />
           <Route path=":projectId" element={<ProjectDetail />} />
-          <Route path="admin">
-            <Route index element={<ProjectPageLayout isAdmin={true} />} />
-            <Route path="add" element={<NewProjectForm />} />
-            <Route path="edit" element={<EditProjectForm />} />
-          </Route>
         </Route>
 
         {/* Application Routes */}
@@ -62,7 +57,13 @@ export default function Routes() {
           <Route path="questions" element={<QuestionAdminPage />} />
           {/* 지원서 모아보기 */}
           <Route path="apply" element={<AdminApply />} />
-        
+          {/* 프로젝트 편집하기 */}
+          <Route path="project">
+            <Route index element={<ProjectPageLayout isAdmin={true} />} />
+            <Route path="add" element={<NewProjectForm />} />
+            <Route path="edit" element={<EditProjectForm />} />
+          </Route>
+          {/* 멋사인 편집하기 */}
         </Route>
 
         {/* User Routes */}

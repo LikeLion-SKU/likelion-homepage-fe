@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from "./HeaderBar.module.css";
-import logo from '@svgs/logo.svg';
-import login from "@svgs/login.svg";
-import menuIcon from '@svgs/menu_hamburger.svg';
-import closeIcon from '@svgs/menu_close.svg';
+import styles from './HeaderBar.module.css';
+import logo from '@assets/commons/logo.webp';
+import login from '@assets/header/login.webp';
+import menuIcon from '@assets/header/menu_hamburger.webp';
+import closeIcon from '@assets/header/menu_close.webp';
 
 export default function HeaderBar({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,7 +17,7 @@ export default function HeaderBar({ children }) {
 
   return (
     <section className={styles.section}>
-      {React.Children.map(children, child => {
+      {React.Children.map(children, (child) => {
         if (!React.isValidElement(child)) return child;
         return React.cloneElement(child, { isMenuOpen, toggleMenu, closeMenu });
       })}
@@ -27,11 +27,22 @@ export default function HeaderBar({ children }) {
 
 function Logo({ closeMenu }) {
   const navigate = useNavigate();
-  
+
   return (
-    <button className={styles.logo} onClick={() => { navigate('/'); closeMenu(); }}>
-      <img src={logo} alt="Logo" />
-      멋쟁이사자처럼
+    <button
+      className={styles.logoBtn}
+      onClick={() => {
+        navigate('/');
+        closeMenu();
+      }}
+    >
+      <div className={styles.logoBtn__imgbox}>
+        <img
+          src={logo}
+          alt='Logo'
+        />
+      </div>
+      <p>멋쟁이사자처럼</p>
     </button>
   );
 }
@@ -40,7 +51,7 @@ function Navbar({ children, isMenuOpen, closeMenu }) {
   return (
     <nav className={`${styles.navbar} ${isMenuOpen ? styles.active : ''}`}>
       <ul>
-        {React.Children.map(children, child => {
+        {React.Children.map(children, (child) => {
           if (!React.isValidElement(child)) return child;
           return React.cloneElement(child, { closeMenu });
         })}
@@ -54,7 +65,13 @@ function NavItem({ label, path, closeMenu }) {
 
   return (
     <li>
-      <button className={styles.navbarBtn} onClick={() => { navigate(path); closeMenu(); }}>
+      <button
+        className={styles.navbarBtn}
+        onClick={() => {
+          navigate(path);
+          closeMenu();
+        }}
+      >
         {label}
       </button>
     </li>
@@ -62,7 +79,7 @@ function NavItem({ label, path, closeMenu }) {
 }
 
 function Login({ closeMenu }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -75,18 +92,35 @@ function Login({ closeMenu }) {
       {isLoggedIn ? (
         <button
           className={styles.loginBtn}
-          onClick={() => { navigate('mypage'); closeMenu(); }}
+          onClick={() => {
+            navigate('mypage');
+            closeMenu();
+          }}
         >
-          <img className={styles.loginImg} src={login} alt="마이페이지" />
-          마이페이지
+          <div className={styles.loginBtn__imgbox}>
+            <img
+              src={login}
+              alt='마이페이지'
+            />
+          </div>
+
+          <p>마이페이지</p>
         </button>
       ) : (
         <button
           className={styles.loginBtn}
-          onClick={() => { navigate('login'); closeMenu(); }}
+          onClick={() => {
+            navigate('login');
+            closeMenu();
+          }}
         >
-          <img className={styles.loginImg} src={login} alt="로그인" />
-          로그인
+          <div className={styles.loginBtn__imgbox}>
+            <img
+              src={login}
+              alt='로그인'
+            />
+          </div>
+          <p>로그인</p>
         </button>
       )}
     </li>
@@ -95,8 +129,14 @@ function Login({ closeMenu }) {
 
 function MenuIcon({ isMenuOpen, toggleMenu }) {
   return (
-    <button className={styles.menuIcon} onClick={toggleMenu}>
-      <img src={isMenuOpen ? closeIcon : menuIcon} alt="Menu" />
+    <button
+      className={styles.menuIcon}
+      onClick={toggleMenu}
+    >
+      <img
+        src={isMenuOpen ? closeIcon : menuIcon}
+        alt='Menu'
+      />
     </button>
   );
 }

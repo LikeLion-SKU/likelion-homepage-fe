@@ -29,7 +29,7 @@
   font-weight: 700;
   color: var(--main-bg-color);
   margin-top: 5vh;
-  display: flex; 
+  display: flex;
   justify-content: center;
   gap: 7vh;
 }
@@ -39,7 +39,7 @@
   font-weight: 800;
   color: var(--main-bg-color);
   margin-top: 2vh;
-  display: flex; 
+  display: flex;
   justify-content: center;
   gap: 2.5vh;
 }
