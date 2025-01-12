@@ -12,4 +12,16 @@ export const useStore = create((set) => ({
     set(() => ({
       track: newTrack,
     })),
+
+  answers: [],
+  setAnswers: (newAnswers) =>
+    set(() => ({
+      answers: newAnswers,
+    })),
+
+  questions: [],
+  setQuestions: (newQuestions) =>
+    set(() => ({
+      questions: newQuestions,
+    })),
 }));
