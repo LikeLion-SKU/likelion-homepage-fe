@@ -1,24 +1,24 @@
 .lionImg {
-    max-width: 25rem;
-    width: 30vw;
-    margin: 3vh;
+  max-width: 25rem;
+  width: 30vw;
+  margin: 3vh;
 }
 
 .title {
-    color: var(--main-text-color);
-    font-size: 3.2rem;
-    font-weight: 700;
-    margin-bottom: 3rem;
+  color: var(--main-text-color);
+  font-size: 3.2rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
 }
 
 .medium16 {
-    color: var(--main-text-color);
-    font-size: 1.6rem;
-    font-weight: 500;
-    margin-bottom: 3rem;
-    line-height: 3rem;
+  color: var(--main-text-color);
+  font-size: 1.6rem;
+  font-weight: 500;
+  margin-bottom: 3rem;
+  line-height: 3rem;
 }
 
 .bold {
-    font-weight: 700;
+  font-weight: 700;
 }

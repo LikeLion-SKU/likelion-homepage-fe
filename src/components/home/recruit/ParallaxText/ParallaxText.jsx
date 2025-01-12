@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef } from 'react';
 import {
   motion,
   useScroll,
@@ -7,8 +7,8 @@ import {
   useMotionValue,
   useVelocity,
   useAnimationFrame,
-} from "framer-motion";
-import styles from "./ParallaxText.module.css"; 
+} from 'framer-motion';
+import styles from './ParallaxText.module.css';
 
 function wrap(min, max, value) {
   const range = max - min;
@@ -44,8 +44,15 @@ function ParallaxText({ children, baseVelocity = 100 }) {
   });
 
   return (
-    <div className={styles.parallax}> {/* 클래스 이름 수정 */}
-      <motion.div className={styles.scroller} style={{ x }}> {/* 클래스 이름 수정 */}
+    <div className={styles.parallax}>
+      {' '}
+      {/* 클래스 이름 수정 */}
+      <motion.div
+        className={styles.scroller}
+        style={{ x }}
+      >
+        {' '}
+        {/* 클래스 이름 수정 */}
         <span>{children} </span>
         <span>{children} </span>
         <span>{children} </span>

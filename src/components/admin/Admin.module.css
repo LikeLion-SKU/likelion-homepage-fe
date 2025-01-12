@@ -1,36 +1,36 @@
 .section {
   display: flex;
+  max-width: 40rem;
   flex-direction: column; 
-  align-items: center; 
   margin: 0 auto; 
   padding: 2rem;
-  text-align: center;
   height: 70vh; 
 }
 
 .title {
+  padding-top: 5vh;
   font-size: 3.6rem;
   font-weight: 700;
   margin-top: 5vh;
-}
-
-.lionImg {
-  margin-top: 5vh;
-  width: 20vh;
+  line-height: 5rem;
 }
 
 .text {
   font-size: 1.8rem;
   font-weight: 500;
-  padding: 3rem;
+  margin-top: 1vh;
+  color: var(--grey-a9-color);
 }
 
-.button {
+.itembox {
+  margin-top: 5vh
+}
+
+.itembox__button {
   max-width: 40rem;
   width: 90vw;
   text-align: center;
-  color: var(--main-bg-color);
-  background-color: var(--black-44-color);
+  background-color: var(--lightgrey-color);
   font-size: 1.6rem;
   font-weight: 700;
   border-radius: 1rem;
