@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { formSubmit, tempSubmit } from '@api/applyAPI';
 
-export const useCheckApproach = (step, track) => {
+export function useCheckApproach(step, track) {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -11,13 +11,13 @@ export const useCheckApproach = (step, track) => {
       navigate('/apply?step=1', { replace: true });
     }
   }, [step, track, navigate]);
-};
+}
 
-export const areAllQuestionsAnswered = (questions, answers) => {
+export function areAllQuestionsAnswered(questions, answers) {
   return questions.every((_, index) => answers[index] && answers[index].trim() !== '');
-};
+}
 
-export const handleAnswerChange = (index, value, MAX_LENGTH, answers, charCounts, setAnswers, setCharCounts) => {
+export function handleAnswerChange(index, value, MAX_LENGTH, answers, charCounts, setAnswers, setCharCounts) {
   if (value.length > MAX_LENGTH) return;
 
   const updatedAnswers = [...answers];
@@ -27,7 +27,7 @@ export const handleAnswerChange = (index, value, MAX_LENGTH, answers, charCounts
   const updatedCharCounts = [...charCounts];
   updatedCharCounts[index] = value.length;
   setCharCounts(updatedCharCounts);
-};
+}
 
 export const handleSubmit = async (track, questions, answers, navigate) => {
   if (!areAllQuestionsAnswered(questions, answers)) {
@@ -40,7 +40,7 @@ export const handleSubmit = async (track, questions, answers, navigate) => {
   window.scrollTo(0, 0);
 };
 
-export const handleNextPage = async (step, track, questions, answers, setAnswers, navigate) => {
+export async function handleNextPage(step, track, questions, answers, setAnswers, navigate) {
   if (step === 2 && !track) {
     alert('지원하실 트랙을 선택해주세요.');
     return;
@@ -55,12 +55,12 @@ export const handleNextPage = async (step, track, questions, answers, setAnswers
   setAnswers([]);
   navigate(`/apply?step=${step + 1}`);
   window.scrollTo(0, 0);
-};
+}
 
-export const handleTmpRes = async (answers, answersId, trackType) => {
+export async function handleTmpRes(answers, answersId, trackType) {
   if (!trackType) {
     await tempSubmit('NONE', answersId, answers);
   } else await tempSubmit(trackType, answersId, answers);
 
   alert('임시저장이 완료되었습니다.');
-};
+}

@@ -2,7 +2,7 @@ import { APIService } from '@api/axios';
 import { options } from '@constants/applicationForm/formConstants';
 import { useEffect } from 'react';
 
-export const useGetQuestions = (type, track, setQuestions, setUserInfo, setAnswers, setCharCounts, setTrack) => {
+export function useGetQuestions(type, track, setQuestions, setUserInfo, setAnswers, setCharCounts, setTrack) {
   let fetchType;
   if (type === 1) {
     fetchType = null; // fetchType을 명시적으로 null로 설정
@@ -17,7 +17,7 @@ export const useGetQuestions = (type, track, setQuestions, setUserInfo, setAnswe
       setQuestions(['이름', '학과', '학번', '전화번호', '이메일']);
     }
 
-    const fetchQuestions = async () => {
+    async function fetchQuestions() {
       try {
         const baseUrl = import.meta.env.VITE_APP_POST_ANSWER + '/my-submit-time';
         const didApply = await APIService.private.get(baseUrl);
@@ -73,13 +73,13 @@ export const useGetQuestions = (type, track, setQuestions, setUserInfo, setAnswe
         alert('서버에 오류가 발생했습니다.');
         window.location.href = '/';
       }
-    };
+    }
 
     fetchQuestions();
   }, [fetchType, setAnswers, setCharCounts, setQuestions, setTrack, setUserInfo]);
-};
+}
 
-export const tempSubmit = async (trackType, questions, answers) => {
+export async function tempSubmit(trackType, questions, answers) {
   const answer = questions.map((item, index) => ({
     questionId: item.id,
     content: answers[index],
@@ -95,9 +95,9 @@ export const tempSubmit = async (trackType, questions, answers) => {
     alert(error);
     return null;
   }
-};
+}
 
-export const formSubmit = async (trackType, questions, answers) => {
+export async function formSubmit(trackType, questions, answers) {
   const answer = questions.map((item, index) => ({
     questionId: item.id,
     content: answers[index],
@@ -113,4 +113,4 @@ export const formSubmit = async (trackType, questions, answers) => {
     alert(error);
     return null;
   }
-};
+}
