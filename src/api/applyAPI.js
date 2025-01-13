@@ -2,7 +2,7 @@ import { APIService } from '@api/axios';
 import { options } from '@constants/applicationForm/formConstants';
 import { useEffect } from 'react';
 
-export function useGetQuestions(type, track, setQuestions, setUserInfo, setAnswers, setCharCounts, setTrack) {
+export function useGetQuestions(type, track, setQuestions, setUserInfo, setAnswers, setCharCounts, setTrack, navigate) {
   let fetchType;
   if (type === 1) {
     fetchType = null; // fetchType을 명시적으로 null로 설정
@@ -18,16 +18,20 @@ export function useGetQuestions(type, track, setQuestions, setUserInfo, setAnswe
     }
 
     async function fetchQuestions() {
-      try {
-        const baseUrl = import.meta.env.VITE_APP_POST_ANSWER + '/my-submit-time';
-        const didApply = await APIService.private.get(baseUrl);
-        if (didApply.createdAt) {
-          alert('이미 지원 완료되었습니다.');
-          window.location.href = '/';
-        }
-      } catch {
-        alert('서버에 오류가 발생했습니다.');
-        window.location.href = '/';
+      const check = await checkDidApply();
+      if (!check) {
+        navigate('/error', {
+          state: {
+            msg: '이미 응답한 페이지입니다.',
+            msg2: '지원해주셔서 감사합니다.',
+            msg3: '설문지는 한번만 작성할 수 있습니다.',
+            msg4: '함께 활동하기를 기대하겠습니다.',
+            btnMsg: '내 지원서 보러가기',
+            url: '/',
+          },
+        });
+      } else if (check === 'error') {
+        navigate('/error');
       }
       try {
         if (fetchType) {
@@ -70,13 +74,14 @@ export function useGetQuestions(type, track, setQuestions, setUserInfo, setAnswe
         }
       } catch (error) {
         console.error(error);
-        alert('서버에 오류가 발생했습니다.');
-        window.location.href = '/';
+        navigate('/error');
       }
     }
 
     fetchQuestions();
-  }, [fetchType, setAnswers, setCharCounts, setQuestions, setTrack, setUserInfo]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [type, track]);
 }
 
 export async function tempSubmit(trackType, questions, answers) {
@@ -112,5 +117,15 @@ export async function formSubmit(trackType, questions, answers) {
     console.log(error);
     alert(error);
     return null;
+  }
+}
+
+export async function checkDidApply() {
+  try {
+    const baseUrl = import.meta.env.VITE_APP_POST_ANSWER + '/my-submit-time';
+    const didApply = await APIService.private.get(baseUrl);
+    return didApply.createdAt ? false : 'apply';
+  } catch {
+    return 'error';
   }
 }

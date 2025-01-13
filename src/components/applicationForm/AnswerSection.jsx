@@ -17,7 +17,7 @@ export default function AnswerSection({ step }) {
 
   useCheckApproach(step, track); // 잘못된 사용자 접근 방지
   // 질문 데이터 및 임시저장 데이터 가져오기
-  useGetQuestions(step, track, setQuestions, setUserInfo, setAnswers, setCharCounts, setTrack);
+  useGetQuestions(step, track, setQuestions, setUserInfo, setAnswers, setCharCounts, setTrack, navigate);
 
   if (![1, 2, 3].includes(step)) {
     return null;
