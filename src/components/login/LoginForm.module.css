@@ -11,6 +11,7 @@
   margin-bottom: 3vh;
   font-size: 3.6rem;
   font-weight: 750;
+  margin-bottom: 7rem;
 }
 
 .login-form__inputbox {
@@ -51,6 +52,20 @@
   border-color: var(--accent-color);
 }
 
+.login-form__inputSection{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.login-form__emailDomain{
+  margin-left: 1.5rem;
+  color: var(--grey-a9-color);
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
 .login-form__result-message--error {
   color: red;
   margin-left: 1rem;
@@ -72,7 +87,7 @@
   color: var(--main-bg-color);
   font-size: 1.5rem;
   font-weight: 400;
-  margin-top: 2rem;
+  margin-top: 3rem;
   margin-bottom: 1rem;
   line-height: 3rem;
   padding: 0.5rem 1rem;

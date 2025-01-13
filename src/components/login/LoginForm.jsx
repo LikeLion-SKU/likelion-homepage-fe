@@ -68,18 +68,21 @@ export default function LoginForm() {
             className={styles['login-form__label']}
             htmlFor='loginId'
           >
-            아이디
+            이메일
           </label>
-          <input
-            className={cn(
-              'login-form__input',
-              errors.loginId?.message ? 'login-form__input--invalid' : null,
-              watch('loginId') && 'login-form__input--valid',
-            )}
-            type='text'
-            name='loginId'
-            {...register('loginId')}
-          />
+          <div className={styles['login-form__inputSection']}>
+            <input
+              className={cn(
+                'login-form__input',
+                errors.loginId?.message ? 'login-form__input--invalid' : null,
+                watch('loginId') && 'login-form__input--valid',
+              )}
+              type='text'
+              id='loginId'
+              {...register('loginId')}
+            />
+            <p className={styles['login-form__emailDomain']}>@skuniv.ac.kr</p>
+          </div>
           {errors.loginId?.message ? (
             <p className={styles['login-form__result-message--error']}>{errors.loginId.message}</p>
           ) : null}
@@ -99,7 +102,7 @@ export default function LoginForm() {
               watch('password') && 'login-form__input--valid',
             )}
             type='password'
-            name='password'
+            id='password'
             {...register('password')}
           />
           {errors.password?.message ? (
