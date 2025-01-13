@@ -63,11 +63,7 @@
 }
 
 .buttonContainer {
-    display: flex;
-    padding: 5%;
-    gap: 2%;
-    justify-content: center;
-    width: 80%;
+    width: 100%;
 }
 
 .btn {

@@ -1,6 +1,7 @@
 import styles from "./aboutPage.module.css";
 import Card from "./Card";
 import profileImage from "@/assets/svgs/ex.svg";
+import Button from "@/components/adminApply/Generation";
 
 export default function Chairman() {
     const chairmanMembers = [
@@ -13,9 +14,7 @@ export default function Chairman() {
             <div className={styles.titleContainer}>
                 <p className={styles.title}>멋사인</p>
                 <div className={styles.buttonContainer}>
-                    <button className={styles.btn}>LIKELION 12TH</button>
-                    <button className={styles.btn}>LIKELION 13TH</button>
-                    <button className={styles.btn}>LIKELION 14TH</button>
+                    <Button />
                 </div>
             </div>
             <div className={styles.chairmanContainer}>

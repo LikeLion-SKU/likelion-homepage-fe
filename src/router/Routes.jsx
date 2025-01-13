@@ -15,6 +15,7 @@ import AdminPage from '@/pages/AdminPage';
 import QuestionAdminPage from '@/pages/adminPage1/QuestionAdminPage';
 import AdminApply from '@pages/AdminApplyPage';
 import CreateApplyPage from '@/pages/CreateApplyPage';
+import AdminAbout from '@/pages/AdminAboutPage';
 
 // Components
 import ProjectPageLayout from '../components/ProjectPage/ProjectPageLayout';
@@ -64,6 +65,7 @@ export default function Routes() {
             <Route path="edit" element={<EditProjectForm />} />
           </Route>
           {/* 멋사인 편집하기 */}
+          <Route path="about" element={<AdminAbout />} />
         </Route>
 
         {/* User Routes */}
