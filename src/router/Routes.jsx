@@ -21,10 +21,11 @@ import ProjectPageLayout from '../components/ProjectPage/ProjectPageLayout';
 import ProjectDetail from '../components/ProjectPage/ProjectDetail';
 import NewProjectForm from '../components/ProjectPage/NewProjectForm';
 import EditProjectForm from '../components/ProjectPage/EditProjectForm';
-import Error from '@components/commons/error/Error';
+import { Error } from '@components/commons';
 
 // Layouts
 import { MainLayout } from '@layouts';
+
 
 
 
