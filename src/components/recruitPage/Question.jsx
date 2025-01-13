@@ -1,23 +1,23 @@
 import { useState } from "react";
-import styles from "../../styles/recruitPage/question.module.css";
-import arrowIcon from "../../assets/recruitPage/down.svg";
+import styles from "./question.module.css";
+import arrowIcon from "@/assets/recruitPage/down.svg";
 
 export default function Question() {
     const qaList = [
         {
-            question: "비전공자도 참여 능한가요?", 
+            question: "비전공자도 참여 가능한가요?", 
             answer:
-                "비전공자도 참여 가능합니다.\n멋쟁이사자처럼의 목표는 컴퓨터과학 비전공자들도 프로그래밍 기초 지식을 배워 자신의 웹서비스를 만들 수 있도록 하는 것입니다.",
+                "비전공자도 참여 가능합니다! \n멋쟁이사자처럼은 컴퓨터과학 비전공자들도 프로그래밍 기초 지식을 배워 자신만의 웹서비스를 만들어 이를 통해 꿈을 실현하는 것을 목표로하는 코딩 연합 동아리입니다.",
         },
         {
             question: "정기 세션은 언제 이루어지나요?",
             answer:
-                "사설마다 조금씩 차이가 있지만 정기 세션은 매주 월요일 18시부터 2~3시간가량 오프라인으로 진행됩니다.\n시간표 구성 시 참고해주세요.",
+                "사설마다 조금씩 차이가 있지만 정기 세션은 매주 월요일 18시 30분부터 2~3시간가량 오프라인으로 진행됩니다.\n시간표 구성 시 참고해주세요.",
         },
         {
             question: "누가 참여할 수 있나요?",
             answer:
-                "1학년 도입 과목부터 졸업생까지 참여할 준비가 되어있는 사전과제 제출 및 동아리에 열정이 많은 누구나 참여 가능합니다.",
+                "1년 동안 진행되는 세션 및 해커톤 등의 행사에 성실하게 참여할 준비가 되어있는 서경대학교 재학생 및 휴학생이라면 누구나 환영합니다.",
         },
         {
             question: "나이 제한이 있나요?",
@@ -42,7 +42,7 @@ export default function Question() {
         {
             question: "합격 이후 다른 트랙으로 이동할 수 있나요?",
             answer:
-                "합격 이후 트랙 간 멤버 조정은 없습니다.\n이 점 참고해서 지원 트랙 선택해주세요.",
+                "합격 이후 트랙 간 멤버 조정은 없습니다.\n이 점 참고해서 지원 트랙 지원해주세요.",
         },
     ];
 

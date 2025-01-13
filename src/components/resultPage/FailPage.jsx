@@ -1,4 +1,4 @@
-import styles from "../../styles/resultPage/failPage.module.css";
+import styles from "./failPage.module.css";
 
 export default function FailPage() {
     return (

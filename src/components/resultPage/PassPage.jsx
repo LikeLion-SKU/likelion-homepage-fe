@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "../../styles/resultPage/passPage.module.css";
+import styles from "./passPage.module.css";
 
 export default function PassPage() {
     const [selectedDate, setSelectedDate] = useState(null);
