@@ -1,7 +1,6 @@
 .login-form {
   display: flex;
   flex-direction: column;
-  /* margin-top: 7rem; */
   width: 90vw;
   max-width: 40rem;
   min-width: 300px;
@@ -56,6 +55,17 @@
   color: red;
   margin-left: 1rem;
   font-size: 1.2rem;
+}
+
+.login-form__falseBox{
+  border: 1px solid red;
+  border-radius: 10px;
+  background-color: rgb(255, 212, 212);
+  padding: 2rem;
+  margin-top: 5rem;
+  color: red;
+  font-size: 1.5rem;
+  font-weight: 300;
 }
 
 .button {

@@ -1,0 +1,162 @@
+.signup2-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    display: flex;
+    flex-direction: column;
+    /* margin-top: 7rem; */
+    width: 90vw;
+    max-width: 40rem;
+    min-width: 300px;
+}
+
+.signup2-form__title {
+    color: var(--main-text-color);
+    margin-bottom: 3vh;
+    font-size: 3.6rem;
+    font-weight: 750;
+  }
+
+  .signup2-form__inputbox {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 2rem;
+    height: 8rem;
+  }
+
+.signup2-form__labelsection{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+}
+
+.signup2-form__label {
+  color: var(--main-text-color);
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin: 0.5rem;
+  line-height: 3rem;
+}
+
+.signup2-form__requireMark{
+  color: red;
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin: 0.5rem;
+  margin-bottom: 0.3rem;
+  line-height: 3rem;
+}
+
+.signup2-form__inputsection{
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+}
+
+.signup2-form__input {
+  border: 1px solid var(--grey-da-color);
+  border-radius: 8px;
+  width: 95%;
+  height: 2rem;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.signup2-form__input:focus {
+  border-color: var(--accent-color);
+  outline: none;
+}
+
+.signup2-form__input--invalid {
+  border-color: red;
+}
+
+.signup2-form__input--valid {
+  border-color: var(--accent-color);
+}
+
+.signup2-form__inputbutton{
+  font-size: 1.1rem;
+  font-weight: 300;
+  background-color: var(--main-text-color);
+  padding: 1.5rem 1rem;
+  border-radius: 10px;
+  color: var(--main-bg-color);
+  margin-left: 1rem;
+  min-width: 8rem;
+}
+
+.signup2-form__result-message--error {
+  color: red;
+  margin-left: 1rem;
+  font-size: 1.2rem;
+}
+
+.signup2-form__memberbox{
+  margin-top: 5rem;
+  margin-bottom: 1rem;
+  background-color: var(--grey-da-color);
+  padding: 1.5rem 1rem;
+  border-radius: 5px;
+}
+
+.signup2-form__member{
+  color: var(--main-text-color);
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.signup2-form__partSelect{
+  width: 40%;
+  height: 4rem;
+  border: 1px solid var(--grey-da-color);
+  border-radius: 10px;
+  padding-left: 1rem;
+}
+
+.signup2-form__partOption {
+  /* 선택 창 디자인 */
+}
+
+.signup2-form__falseBox{
+  margin-top: 2rem;
+  background-color: rgba(255, 214, 214, 0.8);
+  border: 2px solid rgb(255, 191, 191, 0.8);
+  border-radius: 10px;
+  padding: 1rem;
+  width: 90%;
+}
+
+.signup2-form__false-message{
+    color: rgb(253, 109, 109, 0.9);
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.button {
+  color: var(--main-bg-color);
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  line-height: 3rem;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  background-color: var(--accent-color);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.button--submitting {
+  background-color: rgb(100, 167, 115, 0.8);
+}
+
+
+
+
+
+
+
+
