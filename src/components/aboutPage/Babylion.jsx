@@ -1,6 +1,6 @@
-import styles from "../../styles/aboutPage/aboutPage.module.css";
+import styles from "./aboutPage.module.css";
 import Card from "./Card";
-import profileImage from "../../assets/svgs/ex.svg";
+import profileImage from "@/assets/svgs/ex.svg";
 export default function Babylion() {
     const babyLionMembers = [
         { name: "아기사자1", department: "소프트웨어학과 23학번", profileImage },

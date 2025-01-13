@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "../../styles/adminAboutPage/registration.module.css";
+import styles from "./registration.module.css";
 
 export default function AddImage({ onImageUpload }) {
     const [fileName, setFileName] = useState("");

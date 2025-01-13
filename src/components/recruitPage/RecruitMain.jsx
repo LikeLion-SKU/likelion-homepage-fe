@@ -1,5 +1,5 @@
-import LionImage from "../../assets/recruitPage/lionImg.svg";
-import styles from "../../styles/recruitPage/recruitMain.module.css";
+import LionImage from "@/assets/recruitPage/lionImg.svg";
+import styles from "./recruitMain.module.css";
 
 export default function RecruitMain() {
     const scrollToSection = (sectionId) => {

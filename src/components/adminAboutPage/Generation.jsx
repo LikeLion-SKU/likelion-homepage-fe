@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "../../styles/adminAboutPage/generation.module.css";
+import styles from "./generation.module.css";
 
 export default function Generation() {
     const [buttons, setButtons] = useState(["LIKELION 12TH", "LIKELION 13TH", "LIKELION 14TH"]);
