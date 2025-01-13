@@ -42,13 +42,18 @@ export default function LoginForm() {
         };
 
         const response = await APIService.public.post(import.meta.env.VITE_APP_LOGIN, requestData);
-        // 토큰 저장
-        localStorage.setItem('access', response.accessToken);
-        localStorage.setItem('refresh', response.refreshToken);
-        setLoginFalse(false);
 
-        // 홈화면으로 이동
-        navigate('/');
+        if (response.success === true) {
+          // 토큰 저장
+          localStorage.setItem('token', response.accessToken);
+          localStorage.setItem('refreshToken', response.refreshToken);
+          setLoginFalse(false);
+
+          // 홈화면으로 이동
+          navigate('/');
+        } else {
+          setLoginFalse(true);
+        }
       } catch (error) {
         setLoginFalse(true);
       }
