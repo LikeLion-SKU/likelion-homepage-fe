@@ -1,0 +1,39 @@
+.section {
+  display: flex;
+  max-width: 40rem;
+  flex-direction: column; 
+  margin: 0 auto; 
+  padding: 2rem;
+  height: 70vh; 
+}
+
+.title {
+  padding-top: 5vh;
+  font-size: 3.6rem;
+  font-weight: 700;
+  margin-top: 5vh;
+  line-height: 5rem;
+}
+
+.text {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-top: 1vh;
+  color: var(--grey-a9-color);
+}
+
+.itembox {
+  margin-top: 5vh
+}
+
+.itembox__button {
+  max-width: 40rem;
+  width: 90vw;
+  text-align: center;
+  background-color: var(--lightgrey-color);
+  font-size: 1.6rem;
+  font-weight: 700;
+  border-radius: 1rem;
+  padding: 2rem 6rem;
+  margin-top: 1.5rem;
+}

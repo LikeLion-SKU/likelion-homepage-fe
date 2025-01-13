@@ -1,4 +1,4 @@
-import styles from "../../styles/recruitPage/schedule.module.css";
+import styles from "./schedule.module.css";
 
 export default function Schedule() {
     const steps = [

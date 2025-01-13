@@ -1,7 +1,6 @@
-import React from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import './WelcomeSection.css';
-import logo from '@svgs/logo.svg';
+import logo from '@assets/commons/logo.webp';
 
 export default function WelcomeSection() {
   const [searchParams] = useSearchParams();

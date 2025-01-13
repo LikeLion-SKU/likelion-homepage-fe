@@ -1,4 +1,4 @@
-import styles from "../../styles/resultPage/checkResult.module.css";
+import styles from "./checkResult.module.css";
 
 export default function CheckResult() {
     return (

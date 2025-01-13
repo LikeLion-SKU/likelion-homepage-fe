@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "../../styles/adminAboutPage/registration.module.css";
+import styles from "./registration.module.css";
 import AddImage from "./AddImage";
 import { FaTrashAlt } from "react-icons/fa";
 

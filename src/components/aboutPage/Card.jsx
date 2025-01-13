@@ -1,5 +1,5 @@
-import styles from "../../styles/aboutPage/card.module.css";
-import DefaultImage from "../../assets/aboutPage/ghost.svg";
+import styles from "./card.module.css";
+import DefaultImage from "@/assets/aboutPage/ghost.svg";
 
 export default function Card({ profileImage, department, name }) {
 

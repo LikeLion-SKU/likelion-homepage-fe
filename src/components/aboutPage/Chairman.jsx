@@ -1,6 +1,6 @@
-import styles from "../../styles/aboutPage/aboutPage.module.css";
+import styles from "./aboutPage.module.css";
 import Card from "./Card";
-import profileImage from "../../assets/svgs/ex.svg";
+import profileImage from "@/assets/svgs/ex.svg";
 
 export default function Chairman() {
     const chairmanMembers = [
