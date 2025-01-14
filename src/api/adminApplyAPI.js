@@ -8,9 +8,8 @@ export function useGetApplicants(setApplicants) {
         const baseUrl = import.meta.env.VITE_APP_POST_ANSWER;
         const res = await APIService.private.get(`${baseUrl}/semester/${14}`);
         setApplicants(res);
-      } catch (error) {
-        console.error(error);
-        alert('지원자 목록을 받아오는 데 실패했습니다.');
+      } catch {
+        location.href = '/error';
       }
     }
 
@@ -25,8 +24,7 @@ export async function assignPassed(formAnswerId, isPassed) {
       isPassed,
     });
     return res;
-  } catch (error) {
-    console.error(error);
-    alert('변경하는 데 실패했습니다.');
+  } catch {
+    location.href = '/error';
   }
 }
