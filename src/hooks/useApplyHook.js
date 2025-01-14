@@ -9,7 +9,6 @@ export function useCheckApproach(step, track) {
 
   useEffect(() => {
     if (![1, 2, 3].includes(step) || (step === 3 && (track == null || track === ''))) {
-      console.log('잘못된 접근입니다.');
       navigate('/apply?step=1', { replace: true });
     }
   }, [step, track, navigate]);
@@ -104,32 +103,28 @@ export function useGetQuestions(type, track, setQuestions, setUserInfo, setAnswe
           const data = await APIService.private.get(`${baseUrl}/${14}/type/${fetchType}`);
           setQuestions(data);
 
-          try {
-            const baseUrl2 = import.meta.env.VITE_APP_POST_ANSWER;
-            const data2 = await APIService.private.get(`${baseUrl2}/temps/type/${fetchType}`);
-            const tmpAnswer = data2.answers.map((item) => item.content);
-            setAnswers(tmpAnswer);
-            let option = {};
-            switch (data2.trackType) {
-              case 'FRONT_END':
-                option = options[0];
-                break;
-              case 'BACK_END':
-                option = options[1];
-                break;
-              case 'PM':
-                option = options[2];
-                break;
-              case 'DESIGN':
-                option = options[3];
-            }
-            if (data2.trackType !== 'NONE') setTrack(option);
-            if (tmpAnswer.length > 0) {
-              const updatedCharCounts = tmpAnswer.map((answer) => (answer ? answer.length : 0));
-              setCharCounts(updatedCharCounts);
-            }
-          } catch {
-            console.log('임시저장 내용 없음');
+          const baseUrl2 = import.meta.env.VITE_APP_POST_ANSWER;
+          const data2 = await APIService.private.get(`${baseUrl2}/temps/type/${fetchType}`);
+          const tmpAnswer = data2.answers.map((item) => item.content);
+          setAnswers(tmpAnswer);
+          let option = {};
+          switch (data2.trackType) {
+            case 'FRONT_END':
+              option = options[0];
+              break;
+            case 'BACK_END':
+              option = options[1];
+              break;
+            case 'PM':
+              option = options[2];
+              break;
+            case 'DESIGN':
+              option = options[3];
+          }
+          if (data2.trackType !== 'NONE') setTrack(option);
+          if (tmpAnswer.length > 0) {
+            const updatedCharCounts = tmpAnswer.map((answer) => (answer ? answer.length : 0));
+            setCharCounts(updatedCharCounts);
           }
         } else {
           const baseUrl = import.meta.env.VITE_APP_GET_USERINFO;
@@ -137,8 +132,7 @@ export function useGetQuestions(type, track, setQuestions, setUserInfo, setAnswe
           const tmp = [data.userName, data.department, data.studentId, data.phoneNumber, data.loginID];
           setUserInfo(tmp);
         }
-      } catch (error) {
-        console.error(error);
+      } catch {
         navigate('/error');
       }
     }
