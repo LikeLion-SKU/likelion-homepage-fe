@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import CustomDropdown from "./CustomDropdown";
-import InputTeamRole from "./InputTeamRole";
-import TextareaAutosize from "react-textarea-autosize";
-import styles from "./styles/EditProjectForm.module.css";
-import uploadIcon from "../../assets/svgs/upload_icon.svg";
+import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import CustomDropdown from './CustomDropdown';
+import InputTeamRole from './InputTeamRole';
+import TextareaAutosize from 'react-textarea-autosize';
+import styles from '../ProjectPage/EditProjectForm.module.css';
+import uploadIcon from '../../assets/svgs/upload_icon.svg';
 
-function EditProjectForm () {
+function EditProjectForm() {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -18,9 +18,9 @@ function EditProjectForm () {
 
   // 프로젝트 데이터를 초기 값으로 설정
   const [formData, setFormData] = useState({
-    category: project.tags[0] || "",
-    title: project.name || "",
-    detail: project.description || "",
+    category: project.tags[0] || '',
+    title: project.name || '',
+    detail: project.description || '',
     image: null,
     imagePreview: project.image || null, // 기존 이미지 미리보기
     teamMembers: project.teamMembers || {},
@@ -58,86 +58,95 @@ function EditProjectForm () {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log("Edited Project Data:", formData);
+    console.log('Edited Project Data:', formData);
     // 수정된 데이터 저장 로직 추가
-    navigate("/project/admin");
+    navigate('/project/admin');
   }
 
   return (
     <div className={styles.editFormContainer}>
       <h2 className={styles.title}>프로젝트 수정</h2>
-      <form className={styles.form} onSubmit={handleSubmit}>
+      <form
+        className={styles.form}
+        onSubmit={handleSubmit}
+      >
         {/* 이미지 업로드 */}
-        <label htmlFor="imageUpload" className={styles.imageUploadContainer}>
+        <label
+          htmlFor='imageUpload'
+          className={styles.imageUploadContainer}
+        >
           {formData.imagePreview ? (
             <img
               src={formData.imagePreview}
-              alt="Preview"
+              alt='Preview'
               className={styles.imagePreview}
             />
           ) : (
             <>
               <img
                 src={uploadIcon}
-                alt="Upload"
+                alt='Upload'
                 className={styles.imageUploadIcon}
               />
               <span className={styles.imageUploadText}>이미지 업로드</span>
             </>
           )}
           <input
-            type="file"
-            id="imageUpload"
-            accept="image/*"
-            style={{ display: "none" }}
+            type='file'
+            id='imageUpload'
+            accept='image/*'
+            style={{ display: 'none' }}
             onChange={handleImageUpload}
           />
         </label>
 
         {/* 제목 입력 */}
-          <TextareaAutosize
-            className={styles.titleInput}
-            placeholder="제목을 입력해주세요"
-            value={formData.title}
-            onChange={handleTitleChange}
-            rows={1} // 최소 줄 수 설정
-          />
+        <TextareaAutosize
+          className={styles.titleInput}
+          placeholder='제목을 입력해주세요'
+          value={formData.title}
+          onChange={handleTitleChange}
+          rows={1} // 최소 줄 수 설정
+        />
 
         {/* 카테고리 선택 */}
         <div className={styles.inputGroup}>
-            <CustomDropdown
-            options={["중앙해커톤", "아이디어톤", "자체프로젝트"]}
+          <CustomDropdown
+            options={['중앙해커톤', '아이디어톤', '자체프로젝트']}
             defaultOption={formData.category}
             onSelect={handleCategorySelect}
             hideArrow={true}
-            />
+          />
         </div>
         <div className={styles.separator}></div>
 
         <div className={styles.contentContainer}>
-        {/* 상세 설명 */}
-        <TextareaAutosize
-        className={styles.detailInput}
-        placeholder="프로젝트에 대해 설명해주세요"
-        value={formData.detail}
-        onChange={handleDetailChange}
-        />
-        {/* 팀 구성원 입력 */}
-        <InputTeamRole
-          teamMembers={formData.teamMembers}
-          onMemberChange={handleMemberChange}
-        />
+          {/* 상세 설명 */}
+          <TextareaAutosize
+            className={styles.detailInput}
+            placeholder='프로젝트에 대해 설명해주세요'
+            value={formData.detail}
+            onChange={handleDetailChange}
+          />
+          {/* 팀 구성원 입력 */}
+          <InputTeamRole
+            teamMembers={formData.teamMembers}
+            onMemberChange={handleMemberChange}
+          />
         </div>
 
         {/* 버튼 컨테이너 */}
         <div className={styles.buttonContainer}>
-          <button type="submit" className={styles.submitButton}>
+          <button
+            type='submit'
+            className={styles.submitButton}
+          >
             저장하기
           </button>
         </div>
       </form>
     </div>
   );
-};
+}
 
 export default EditProjectForm;
