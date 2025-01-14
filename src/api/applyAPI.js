@@ -11,9 +11,7 @@ export async function tempSubmit(trackType, questions, answers) {
       answers: answer,
     });
     return res;
-  } catch (error) {
-    console.error(error);
-    alert(error);
+  } catch {
     return null;
   }
 }
@@ -29,9 +27,7 @@ export async function formSubmit(trackType, questions, answers) {
       answers: answer,
     });
     return res;
-  } catch (error) {
-    console.log(error);
-    alert(error);
+  } catch {
     return null;
   }
 }
