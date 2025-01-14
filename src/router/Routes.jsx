@@ -21,9 +21,12 @@ import ProjectPageLayout from '../components/ProjectPage/ProjectPageLayout';
 import ProjectDetail from '../components/ProjectPage/ProjectDetail';
 import NewProjectForm from '../components/ProjectPage/NewProjectForm';
 import EditProjectForm from '../components/ProjectPage/EditProjectForm';
+import { Error } from '@components/commons';
 
 // Layouts
 import { MainLayout } from '@layouts';
+
+
 
 
 export default function Routes() {
@@ -71,6 +74,9 @@ export default function Routes() {
 
         {/* Development Routes */}
         <Route path="apitest" element={<ApiTestPage />} />
+
+        {/* Error Routes */}
+        <Route path="error" element={<Error />} />
       </Route>
     </ReactRouters>
   );
