@@ -1,7 +1,6 @@
-import React from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import projects from './ProjectData.jsx';
-import styles from '../ProjectPage/ProjectDetail.module.css';
+import styles from './ProjectDetail.module.css';
 
 function ProjectDetail() {
   const { projectId } = useParams(); // URL 파라미터로부터 projectId 가져오기

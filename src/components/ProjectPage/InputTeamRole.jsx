@@ -1,4 +1,4 @@
-import styles from '../ProjectPage/InputTeamRole.module.css';
+import styles from './InputTeamRole.module.css';
 
 import TextareaAutosize from 'react-textarea-autosize';
 

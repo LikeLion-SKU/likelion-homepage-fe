@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import CustomDropdown from './CustomDropdown';
 import InputTeamRole from './InputTeamRole';
 import TextareaAutosize from 'react-textarea-autosize';
-import styles from '../ProjectPage/EditProjectForm.module.css';
+import styles from './EditProjectForm.module.css';
 import uploadIcon from '../../assets/svgs/upload_icon.svg';
 
 function EditProjectForm() {
@@ -12,19 +12,21 @@ function EditProjectForm() {
 
   // 전달받은 프로젝트 데이터 (ProjectDetail에서 state로 전달)
   const { project } = location.state || {};
-  if (!project) {
-    return <p>프로젝트 데이터를 불러올 수 없습니다.</p>;
-  }
 
   // 프로젝트 데이터를 초기 값으로 설정
   const [formData, setFormData] = useState({
-    category: project.tags[0] || '',
-    title: project.name || '',
-    detail: project.description || '',
+    category: project?.tags[0] || '',
+    title: project?.name || '',
+    detail: project?.description || '',
     image: null,
-    imagePreview: project.image || null, // 기존 이미지 미리보기
-    teamMembers: project.teamMembers || {},
+    imagePreview: project?.image || null, // 기존 이미지 미리보기
+    teamMembers: project?.teamMembers || {},
   });
+
+  // 프로젝트가 없는 경우 별도 처리
+  if (!project) {
+    return <p>프로젝트 데이터를 불러올 수 없습니다.</p>;
+  }
 
   // 핸들러 함수들
   function handleCategorySelect(selectedCategory) {
