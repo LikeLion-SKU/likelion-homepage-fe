@@ -30,13 +30,18 @@
   line-height: 3rem;
 }
 
+.login-form__inputSection{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .login-form__input {
   border: 1px solid var(--grey-da-color);
   border-radius: 8px;
   width: 95%;
   height: 2rem;
   padding: 1rem;
-  margin-bottom: 0.5rem;
 }
 
 .login-form__input:focus {
@@ -52,23 +57,17 @@
   border-color: var(--accent-color);
 }
 
-.login-form__inputSection{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
 .login-form__emailDomain{
   margin-left: 1.5rem;
   color: var(--grey-a9-color);
   font-size: 1.5rem;
   font-weight: 500;
-  margin-bottom: 0.5rem;
 }
 
 .login-form__result-message--error {
   color: red;
   margin-left: 1rem;
+  margin-top: 0.5rem;
   font-size: 1.2rem;
 }
 
