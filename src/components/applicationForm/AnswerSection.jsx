@@ -4,8 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import { useStore } from '@store/useStore';
 import { options, style } from '@constants/applicationForm/formConstants';
-import { handleAnswerChange, handleNextPage, handleSubmit, useCheckApproach } from '@hooks/useApplyHook';
-import { useGetQuestions } from '@api/applyAPI';
+import {
+  handleAnswerChange,
+  handleNextPage,
+  handleSubmit,
+  useCheckApproach,
+  useGetQuestions,
+} from '@hooks/useApplyHook';
 import { useState } from 'react';
 
 export default function AnswerSection({ step }) {
@@ -17,7 +22,7 @@ export default function AnswerSection({ step }) {
 
   useCheckApproach(step, track); // 잘못된 사용자 접근 방지
   // 질문 데이터 및 임시저장 데이터 가져오기
-  useGetQuestions(step, track, setQuestions, setUserInfo, setAnswers, setCharCounts, setTrack);
+  useGetQuestions(step, track, setQuestions, setUserInfo, setAnswers, setCharCounts, setTrack, navigate);
 
   if (![1, 2, 3].includes(step)) {
     return null;
