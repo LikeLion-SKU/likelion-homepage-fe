@@ -7,7 +7,7 @@ import { loginSchema } from '@/constants/validationSchema';
 import classNames from 'classnames/bind';
 import styles from './LoginForm.module.css';
 import { useNavigate } from 'react-router-dom';
-import { APIService } from '../../api/axios.js';
+import { APIService } from '@api/axios';
 import { useState } from 'react';
 
 const cn = classNames.bind(styles);
@@ -54,7 +54,7 @@ export default function LoginForm() {
         } else {
           setLoginFalse(true);
         }
-      } catch (error) {
+      } catch {
         setLoginFalse(true);
       }
     }
