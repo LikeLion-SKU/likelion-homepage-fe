@@ -24,4 +24,13 @@ export const useStore = create((set) => ({
     set(() => ({
       questions: newQuestions,
     })),
+
+  semester: 13,
+  setSemester: (newSemester) =>
+    set(() => ({
+      semester: newSemester,
+    })),
+
+  applicants: [],
+  setApplicants: (newApplicants) => set(() => ({ applicants: newApplicants })),
 }));
