@@ -1,16 +1,12 @@
 import { APIService } from './axios';
 
-export async function assignPassed(formAnswerId, isPassed, setApplicants) {
+export async function assignPassed(formAnswerId, isPassed, setApplicants, semester) {
   try {
     const baseUrl = import.meta.env.VITE_APP_POST_ANSWER + `/${formAnswerId}/passed`;
     await APIService.private.put(baseUrl, {
       isPassed: isPassed.value,
     });
-    setApplicants((prevApplicants) =>
-      prevApplicants.map((applicant) =>
-        applicant.id === formAnswerId ? { ...applicant, isPassed: isPassed.value } : applicant,
-      ),
-    );
+    getApplicants(setApplicants, semester);
   } catch {
     location.href = '/error';
   }

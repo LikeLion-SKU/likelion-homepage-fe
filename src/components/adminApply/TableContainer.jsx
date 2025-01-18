@@ -24,7 +24,7 @@ export default function TableContainer() {
         <span />
       </div>
       <div className={styles.tableBody}>
-        {applicants.length > 0
+        {applicants && applicants.length > 0
           ? applicants.map((applicant) => (
               <div
                 className={styles.applicant}
@@ -38,7 +38,7 @@ export default function TableContainer() {
                   styles={style}
                   options={options}
                   onChange={(value) => {
-                    assignPassed(applicant.id, value, setApplicants);
+                    assignPassed(applicant.id, value, setApplicants, semester);
                   }}
                   value={applicant.isPassed ? options[0] : options[1]}
                   placeholder='선택'
