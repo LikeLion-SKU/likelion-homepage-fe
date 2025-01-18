@@ -21,10 +21,12 @@ import ProjectPageLayout from '../components/ProjectPage/ProjectPageLayout';
 import ProjectDetail from '../components/ProjectPage/ProjectDetail';
 import NewProjectForm from '../components/ProjectPage/NewProjectForm';
 import EditProjectForm from '../components/ProjectPage/EditProjectForm';
+import ViewForm from '@components/adminApply/ViewForm';
 import { Error } from '@components/commons';
 
 // Layouts
 import { MainLayout } from '@layouts';
+
 
 
 
@@ -59,7 +61,10 @@ export default function Routes() {
           <Route path="create" element={<CreateApplyPage />} />
           <Route path="questions" element={<QuestionAdminPage />} />
           {/* 지원서 모아보기 */}
-          <Route path="apply" element={<AdminApply />} />
+          <Route path="apply">
+            <Route index element={<AdminApply/>}/>
+            <Route path=':studentId' element={<ViewForm/>}/>
+          </Route>
           {/* 프로젝트 편집하기 */}
           <Route path="project">
             <Route index element={<ProjectPageLayout isAdmin={true} />} />
