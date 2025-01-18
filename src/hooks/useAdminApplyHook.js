@@ -1,8 +1,8 @@
 import { getApplicants } from '@api/adminApplyAPI';
 import { useEffect } from 'react';
 
-export function useGetApplicants(setApplicants) {
+export function useGetApplicants(setApplicants, semester) {
   useEffect(() => {
-    getApplicants(setApplicants);
-  }, [setApplicants]);
+    getApplicants(setApplicants, semester);
+  }, [setApplicants, semester]);
 }
