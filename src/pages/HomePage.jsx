@@ -8,6 +8,7 @@ import { withBottomUpAnimation } from '@/components/animation';
 const AnimationRecruitSection = withBottomUpAnimation(RecruitSection, {
   position: 'absolute',
   left: 0,
+  top: '8vh',
   width: '100vw',
   height: '100vh',
 });
