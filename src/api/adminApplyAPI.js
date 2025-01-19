@@ -22,11 +22,21 @@ export async function getApplicants(setApplicants, semester) {
   }
 }
 
-export async function getAnswers(studentId, setAnswers) {
+export async function getAnswers(studentId) {
   try {
-    const baseUrl = `${import.meta.env.VITE_APP_POST_ANSWER}/semester/${14}/studentId${studentId}`;
+    const baseUrl = `${import.meta.env.VITE_APP_POST_ANSWER}/semester/${14}/studentId/${studentId}`;
     const res = await APIService.private.get(baseUrl);
-    setAnswers(res);
+    return res;
+  } catch {
+    location.href = '/error';
+  }
+}
+
+export async function getUserInfos(studentId) {
+  try {
+    const baseUrl = `${import.meta.env.VITE_APP_ADMIN_USER}/details/student-id/${studentId}`;
+    const res = await APIService.private.get(baseUrl);
+    return res;
   } catch {
     location.href = '/error';
   }

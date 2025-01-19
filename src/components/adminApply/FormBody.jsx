@@ -1,46 +1,43 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from './FormBody.module.css';
+import { useGetQandA } from '@/hooks/useAdminApplyHook';
 
-export default function FormBody() {
+export default function FormBody({ studentId }) {
   const [userInfos, setUserInfos] = useState([]);
-  const [questions, setQuestions] = useState([]);
-  const [answers, setAnswers] = useState([]);
+  const [commonQA, setcommonQA] = useState([]);
+  const [partQA, setpartQA] = useState([]);
 
-  useEffect(() => {
-    setUserInfos([1, 2, 3, 4, 5]);
-    setQuestions([1, 2, 3, 4, 5]);
-    setAnswers([1, 2, 3, 4, 5]);
-  }, []);
+  useGetQandA(setUserInfos, setcommonQA, setpartQA, studentId);
 
   return (
     <div className={styles.bodyWrapper}>
-      {userInfos.map((item, index) => (
+      {Object.entries(userInfos).map(([key, value]) => (
         <div
-          key={index}
+          key={key}
           className={styles.inputWrapper}
         >
-          <p className={styles.question}>안녕</p>
-          <p className={styles.answer}>그래</p>
+          <p className={styles.question}>{key}</p>
+          <p className={styles.answer}>{value}</p>
         </div>
       ))}
       <div className={styles.divider}>공통 질문</div>
-      {questions.map((item, index) => (
+      {commonQA.map((item, index) => (
         <div
           key={index}
           className={styles.inputWrapper}
         >
-          <p className={styles.question}>안녕</p>
-          <p className={styles.answer}>그래</p>
+          <p className={styles.question}>{item.questionContent}</p>
+          <p className={styles.answer}>{item.answerContent}</p>
         </div>
       ))}
       <div className={styles.divider}>파트별 질문</div>
-      {questions.map((item, index) => (
+      {partQA.map((item, index) => (
         <div
           key={index}
           className={styles.inputWrapper}
         >
-          <p className={styles.question}>안녕</p>
-          <p className={styles.answer}>그래</p>
+          <p className={styles.question}>{item.questionContent}</p>
+          <p className={styles.answer}>{item.answerContent}</p>
         </div>
       ))}
     </div>

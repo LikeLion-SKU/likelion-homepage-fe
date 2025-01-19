@@ -14,7 +14,7 @@ export default function ViewForm() {
         url='/admin/apply'
         btnMsg='목록으로'
       />
-      <FormBody />
+      <FormBody studentId={studentId} />
     </div>
   );
 }
