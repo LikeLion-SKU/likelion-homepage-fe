@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './ProjectPageLayout.module.css';
 import CustomDropdown from './CustomDropdown.jsx';
 import projects from './ProjectData.jsx';
-import plusbtn from '../../assets/svgs/plusbtn.svg';
+import plusbtn from '@assets/projectPage/plusbtn.webp';
 import Pagination from './Pagination.jsx'; // 새로 만든 페이징 컴포넌트 가져오기
 
 const ITEMS_PER_PAGE = 6; // 한 페이지에 표시할 프로젝트 수

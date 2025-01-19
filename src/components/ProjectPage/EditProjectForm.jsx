@@ -4,7 +4,7 @@ import CustomDropdown from './CustomDropdown';
 import InputTeamRole from './InputTeamRole';
 import TextareaAutosize from 'react-textarea-autosize';
 import styles from './EditProjectForm.module.css';
-import uploadIcon from '../../assets/svgs/upload_icon.svg';
+import uploadIcon from '@assets/projectPage/upload_icon.webp';
 
 function EditProjectForm() {
   const location = useLocation();
