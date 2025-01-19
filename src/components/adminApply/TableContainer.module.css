@@ -1,22 +1,3 @@
-.pageWrapper {
-  padding: 0 3.13%;
-  margin-top: 5vh;
-  margin-bottom: 50px;
-}
-
-.header {
-  width: 100%;
-  height: 29px;
-  margin-bottom: 41px;
-
-  header {
-    text-align: center;
-    font-size: 3.6rem;
-    font-weight: 700;
-    line-height: 2.905rem;
-  }
-}
-
 .showApplyWrapper {
   width: 100%;
   height: 716px;

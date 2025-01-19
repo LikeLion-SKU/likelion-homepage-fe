@@ -34,7 +34,7 @@ export async function formSubmit(trackType, questions, answers) {
 
 export async function checkDidApply() {
   try {
-    const baseUrl = import.meta.env.VITE_APP_POST_ANSWER + '/my-submit-time';
+    const baseUrl = import.meta.env.VITE_APP_POST_ANSWER + '/my-submits/time';
     const didApply = await APIService.private.get(baseUrl);
     return didApply.createdAt ? false : 'apply';
   } catch {
