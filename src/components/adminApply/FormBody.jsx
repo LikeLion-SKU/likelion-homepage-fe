@@ -1,0 +1,45 @@
+import { useState } from 'react';
+import styles from './FormBody.module.css';
+import { useGetQandA } from '@/hooks/useAdminApplyHook';
+
+export default function FormBody({ studentId }) {
+  const [userInfos, setUserInfos] = useState([]);
+  const [commonQA, setcommonQA] = useState([]);
+  const [partQA, setpartQA] = useState([]);
+
+  useGetQandA(setUserInfos, setcommonQA, setpartQA, studentId);
+
+  return (
+    <div className={styles.bodyWrapper}>
+      {Object.entries(userInfos).map(([key, value]) => (
+        <div
+          key={key}
+          className={styles.inputWrapper}
+        >
+          <p className={styles.question}>{key}</p>
+          <p className={styles.answer}>{value}</p>
+        </div>
+      ))}
+      <div className={styles.divider}>공통 질문</div>
+      {commonQA.map((item, index) => (
+        <div
+          key={index}
+          className={styles.inputWrapper}
+        >
+          <p className={styles.question}>{item.questionContent}</p>
+          <p className={styles.answer}>{item.answerContent}</p>
+        </div>
+      ))}
+      <div className={styles.divider}>파트별 질문</div>
+      {partQA.map((item, index) => (
+        <div
+          key={index}
+          className={styles.inputWrapper}
+        >
+          <p className={styles.question}>{item.questionContent}</p>
+          <p className={styles.answer}>{item.answerContent}</p>
+        </div>
+      ))}
+    </div>
+  );
+}

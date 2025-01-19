@@ -82,6 +82,19 @@ export function useGetQuestions(type, track, setQuestions, setUserInfo, setAnswe
     }
 
     async function fetchQuestions() {
+      const token = localStorage.getItem('token');
+      if (!token || token === null) {
+        navigate('/error', {
+          state: {
+            msg: '로그인이 필요한 서비스입니다.',
+            msg2: '로그인 후 다시 이용해주세요.',
+            msg3: '이용에 불편을 드려 죄송합니다.',
+            btnMsg: '로그인',
+            url: '/login',
+          },
+        });
+        return;
+      }
       const check = !fetchType ? await checkDidApply() : 'apply';
       if (!check) {
         navigate('/error', {
