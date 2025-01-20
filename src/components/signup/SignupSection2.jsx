@@ -254,16 +254,15 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
           </div>
         </div>
 
-        <p className={styles.line}>! (선택)항목은 멋쟁이사자처럼 동아리에 이미 가입된 부원들만 입력해주세요</p>
         <div className={styles.Signup_input_box}>
           <div className={styles.label_box}>
-            <label htmlFor='semester'>기수 (선택)</label>
+            <label htmlFor='semester'>기수 (기존 동아리원만 선택)</label>
           </div>
           <div className={styles.input_box}>
             <div className={styles.Input}>
               <input
                 type='text'
-                placeholder='기수를 적어주세요'
+                placeholder='숫자만 입력해주세요'
                 id='semester'
                 value={form.semester}
                 className={errors.semester ? 'invalid' : form.semester ? 'valid' : ''}
@@ -276,7 +275,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
 
         <div className={styles.Signup_input_box}>
           <div className={styles.label_box}>
-            <label htmlFor='part'>트랙 (선택)</label>
+            <label htmlFor='part'>트랙 (기존 동아리원만 선택)</label>
           </div>
           <div className={styles.input_box}>
             <button
@@ -294,7 +293,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                   id='part'
                   onClick={handleInputChange(setForm)}
                 >
-                  선택
+                  트랙 선택
                 </li>
                 <li
                   value='front'
