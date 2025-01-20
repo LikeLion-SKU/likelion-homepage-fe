@@ -8,12 +8,10 @@ import classNames from 'classnames/bind';
 import styles from './LoginForm.module.css';
 import { useNavigate } from 'react-router-dom';
 import { APIService } from '@api/axios';
-import { useState } from 'react';
 
 const cn = classNames.bind(styles);
 
 export default function LoginForm() {
-  const [loginFalse, setLoginFalse] = useState(false);
   const {
     register,
     handleSubmit,
@@ -33,7 +31,7 @@ export default function LoginForm() {
    */
   async function onSubmit(userData) {
     if (errors.loginId?.message || errors.password?.message) {
-      setLoginFalse(true);
+      alert('잘못된 이메일 또는 비밀번호를 입력하셨습니다.');
     } else {
       try {
         const requestData = {
@@ -47,15 +45,13 @@ export default function LoginForm() {
           // 토큰 저장
           localStorage.setItem('token', response.accessToken);
           localStorage.setItem('refreshToken', response.refreshToken);
-          setLoginFalse(false);
-
           // 홈화면으로 이동
           navigate('/');
         } else {
-          setLoginFalse(true);
+          alert('잘못된 이메일 또는 비밀번호를 입력하셨습니다.');
         }
       } catch {
-        setLoginFalse(true);
+        alert('잘못된 이메일 또는 비밀번호를 입력하셨습니다.');
       }
     }
   }
@@ -116,13 +112,6 @@ export default function LoginForm() {
         </div>
       </fieldset>
 
-      {loginFalse ? (
-        <div className={styles['login-form__falseBox']}>
-          <p className={styles['login-form__false-message']}>
-            ID 또는 비밀번호가 잘못 되었습니다. 정확히 입력해주세요.
-          </p>
-        </div>
-      ) : null}
       <button
         className={cn('button', isSubmitting && 'button--submitting')}
         type='submit'

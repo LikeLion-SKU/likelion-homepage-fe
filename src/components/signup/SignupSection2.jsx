@@ -22,6 +22,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
     consent: false,
   });
   const [errors, setErrors] = useState({});
+  const [isSelect, setIsSelect] = useState(false);
   const navigate = useNavigate();
 
   // email이 변경될 때마다 form의 id 업데이트
@@ -56,6 +57,13 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
 
   function handleCheckboxChange(event) {
     setForm({ ...form, consent: event.target.checked });
+  }
+
+  function handleSelectBox(event) {
+    event.preventDefault;
+    console.log('트랙 눌림!');
+    setIsSelect(!isSelect);
+    console.log(isSelect);
   }
 
   // 회원가입 버튼 클릭 //
@@ -280,24 +288,58 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             <label htmlFor='part'>트랙 (선택)</label>
           </div>
           <div className={styles.input_box}>
-            <div className={styles.Select}>
-              <select
-                id='part'
-                className={styles.selection}
-                value={form.part}
-                onChange={handleInputChange(setForm)}
-              >
-                <option value=''>선택</option>
-                <option value='front'>프론트앤드</option>
-                <option value='back'>백앤드</option>
-                <option value='PM'>기획</option>
-                <option value='design'>디자인</option>
-              </select>
-            </div>
+            <button
+              className={styles.selection}
+              value={form.part}
+              onClick={handleSelectBox}
+            >
+              {form.part}
+              {isSelect ? '⌃' : '⌄'}
+            </button>
+            {isSelect ? (
+              <ul>
+                <li
+                  value=''
+                  id='part'
+                  onClick={handleInputChange(setForm)}
+                >
+                  선택
+                </li>
+                <li
+                  value='front'
+                  id='part'
+                  onClick={handleInputChange(setForm)}
+                >
+                  프론트앤드
+                </li>
+                <li
+                  value='back'
+                  id='part'
+                  onClick={handleInputChange(setForm)}
+                >
+                  백앤드
+                </li>
+                <li
+                  value='PM'
+                  id='part'
+                  onClick={handleInputChange(setForm)}
+                >
+                  기획
+                </li>
+                <li
+                  value='design'
+                  id='part'
+                  onClick={handleInputChange(setForm)}
+                >
+                  디자인
+                </li>
+              </ul>
+            ) : null}
             {errors.part ? <p className={styles.error_message}>{errors.part}</p> : null}
           </div>
         </div>
-        <div className={styles.Signup_input_box}>
+
+        <div className={styles.Signup_input_box_}>
           <div className={styles.label_box}>
             <input
               type='checkbox'
