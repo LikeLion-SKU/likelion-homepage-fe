@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SignupSection.module.css';
-import { handleIdchecking, handleSignup } from '../../utils/register.js';
+import { handleSignup } from '../../utils/register.js';
 import { handleInputChange } from '../../utils/inputOnChange.js';
 import { APIService } from '../../api/axios.js';
 
@@ -45,7 +45,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
         }
         setForm({ ...form, id_valid: true });
         setErrors({ ...errors, id: '' });
-      } catch (error) {
+      } catch {
         setErrors({ ...errors, id: '이메일 중복 확인 중 오류가 발생했습니다.' });
       }
     };
@@ -81,7 +81,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
           } else {
             setErrors({ ...errors, signup: '회원가입에 실패하였습니다.' });
           }
-        } catch (error) {
+        } catch {
           setErrors({ ...errors, signup: '회원가입 중 서버 오류가 발생했습니다. 나중에 다시 시도해주세요' });
         }
       };
@@ -100,14 +100,14 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
       <div className={styles.Signup_input_boxs}>
         <div className={styles.Signup_input_box}>
           <div className={styles.label_box}>
-            <label>아이디</label>
+            <label htmlFor='id'>아이디</label>
             <p>*</p>
           </div>
           <div className={styles.input_box}>
             <div className={styles.Input}>
               <input
                 type='text'
-                name='id'
+                id='id'
                 value={form.id}
                 className={`${errors.id ? 'invalid' : form.id ? 'valid' : ''} cursor-not-allowed bg-gray-100`}
                 readOnly
@@ -130,7 +130,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
         </div>
         <div className={styles.Signup_input_box}>
           <div className={styles.label_box}>
-            <label>비밀번호</label>
+            <label htmlFor='password'>비밀번호</label>
             <p>*</p>
           </div>
           <div className={styles.input_box}>
@@ -138,19 +138,20 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
               <input
                 type='password'
                 placeholder='최소 4자 이상의 영문, 숫자, 특수문자를 포함'
-                name='password'
+                id='password'
                 value={form.password}
                 className={errors.password ? 'invalid' : form.password ? 'valid' : ''}
                 onChange={handleInputChange(setForm)}
+                autoComplete='off'
                 required
               ></input>
             </div>
-            {errors.password && <p className={styles.error_message}>{errors.password}</p>}
+            {errors.password ? <p className={styles.error_message}>{errors.password}</p> : null}
           </div>
         </div>
         <div className={styles.Signup_input_box}>
           <div className={styles.label_box}>
-            <label>비밀번호 확인</label>
+            <label htmlFor='password_valid'>비밀번호 확인</label>
             <p>*</p>
           </div>
           <div className={styles.input_box}>
@@ -158,19 +159,20 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
               <input
                 type='password'
                 placeholder='비밀번호 확인'
-                name='password_valid'
+                id='password_valid'
                 value={form.password_valid}
                 className={errors.password_valid ? 'invalid' : form.password_valid ? 'valid' : ''}
                 onChange={handleInputChange(setForm)}
+                autoComplete='off'
                 required
               ></input>
             </div>
-            {errors.password_valid && <p className={styles.error_message}>{errors.password_valid}</p>}
+            {errors.password_valid ? <p className={styles.error_message}>{errors.password_valid}</p> : null}
           </div>
         </div>
         <div className={styles.Signup_input_box}>
           <div className={styles.label_box}>
-            <label>이름</label>
+            <label htmlFor='name'>이름</label>
             <p>*</p>
           </div>
           <div className={styles.input_box}>
@@ -178,19 +180,19 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
               <input
                 type='text'
                 placeholder='한글로 2-10자'
-                name='name'
+                id='name'
                 value={form.name}
                 className={errors.name ? 'invalid' : form.name ? 'valid' : ''}
                 onChange={handleInputChange(setForm)}
                 required
               ></input>
             </div>
-            {errors.name && <p className={styles.error_message}>{errors.name}</p>}
+            {errors.name ? <p className={styles.error_message}>{errors.name}</p> : null}
           </div>
         </div>
         <div className={styles.Signup_input_box}>
           <div className={styles.label_box}>
-            <label>학과/학부</label>
+            <label htmlFor='department'>학과/학부</label>
             <p>*</p>
           </div>
           <div className={styles.input_box}>
@@ -198,19 +200,19 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
               <input
                 type='text'
                 placeholder='본인의 학과/학부'
-                name='department'
+                id='department'
                 value={form.department}
                 className={errors.department ? 'invalid' : form.department ? 'valid' : ''}
                 onChange={handleInputChange(setForm)}
                 required
               ></input>
             </div>
-            {errors.department && <p className={styles.error_message}>{errors.department}</p>}
+            {errors.department ? <p className={styles.error_message}>{errors.department}</p> : null}
           </div>
         </div>
         <div className={styles.Signup_input_box}>
           <div className={styles.label_box}>
-            <label>학번</label>
+            <label htmlFor='strudent_num'>학번</label>
             <p>*</p>
           </div>
           <div className={styles.input_box}>
@@ -219,19 +221,19 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 type='text'
                 maxLength={10}
                 placeholder='본인의 학번 10자'
-                name='strudent_num'
+                id='strudent_num'
                 value={form.strudent_num}
                 className={errors.strudent_num ? 'invalid' : form.strudent_num ? 'valid' : ''}
                 onChange={handleInputChange(setForm)}
                 required
               ></input>
             </div>
-            {errors.strudent_num && <p className={styles.error_message}>{errors.strudent_num}</p>}
+            {errors.strudent_num ? <p className={styles.error_message}>{errors.strudent_num}</p> : null}
           </div>
         </div>
         <div className={styles.Signup_input_box}>
           <div className={styles.label_box}>
-            <label>연락처</label>
+            <label htmlFor='phone_num'>연락처</label>
             <p>*</p>
           </div>
           <div className={styles.input_box}>
@@ -239,45 +241,45 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
               <input
                 type='text'
                 placeholder="'-'빼고 숫자로"
-                name='phone_num'
+                id='phone_num'
                 value={form.phone_num}
                 className={errors.phone_num ? 'invalid' : form.phone_num ? 'valid' : ''}
                 onChange={handleInputChange(setForm)}
                 required
               ></input>
             </div>
-            {errors.phone_num && <p className={styles.error_message}>{errors.phone_num}</p>}
+            {errors.phone_num ? <p className={styles.error_message}>{errors.phone_num}</p> : null}
           </div>
         </div>
 
         <p className={styles.line}>! 아래는 멋쟁이사자처럼 동아리에 이미 가입된 부원들만 입력해주세요</p>
         <div className={styles.Signup_input_box}>
           <div className={styles.label_box}>
-            <label>기수</label>
+            <label htmlFor='semester'>기수</label>
           </div>
           <div className={styles.input_box}>
             <div className={styles.Input}>
               <input
                 type='text'
                 placeholder='기수를 적어주세요'
-                name='semester'
+                id='semester'
                 value={form.semester}
                 className={errors.semester ? 'invalid' : form.semester ? 'valid' : ''}
                 onChange={handleInputChange(setForm)}
               ></input>
             </div>
-            {errors.semester && <p className={styles.error_message}>{errors.semester}</p>}
+            {errors.semester ? <p className={styles.error_message}>{errors.semester}</p> : null}
           </div>
         </div>
 
         <div className={styles.Signup_input_box}>
           <div className={styles.label_box}>
-            <label>파트</label>
+            <label htmlFor='part'>파트</label>
           </div>
           <div className={styles.input_box}>
             <div className={styles.Select}>
               <select
-                name='part'
+                id='part'
                 className={styles.selection}
                 value={form.part}
                 onChange={handleInputChange(setForm)}
@@ -285,10 +287,11 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 <option value=''>선택</option>
                 <option value='front'>프론트앤드</option>
                 <option value='back'>백앤드</option>
-                <option value='PM/design'>기획/디자인</option>
+                <option value='PM'>기획</option>
+                <option value='design'>디자인</option>
               </select>
             </div>
-            {errors.part && <p className={styles.error_message}>{errors.part}</p>}
+            {errors.part ? <p className={styles.error_message}>{errors.part}</p> : null}
           </div>
         </div>
         <div className={styles.Signup_progress_box2}>
@@ -312,7 +315,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
               로그인
             </button>
           </div>
-          {errors.signup && <p className={styles.error_message_false}>{errors.signup}</p>}
+          {errors.signup ? <p className={styles.error_message_false}>{errors.signup}</p> : null}
         </div>
       </div>
     </div>

@@ -79,12 +79,14 @@ input.invalid {
 
 .error_message {
   color: red;
+  margin-top: 0.5rem;
   margin-left: 1rem;
   font-size: 1.2rem;
 }
 
 .ok_message {
   color: var(--accent-color);
+  margin-top: 0.5rem;
   margin-left: 1rem;
   font-size: 1.2rem;
 }
@@ -99,6 +101,19 @@ input.invalid {
   border-radius: 10px;
   padding: 1rem;
   width: 90%;
+}
+
+.confirmCode_messegeBox{
+  display: flex;
+  flex-direction: row;
+}
+
+.time {
+  color: var(--black-44-color);
+  margin-top: 0.5rem;
+  margin-left: 1rem;
+  font-size: 1.2rem;
+  margin-left: auto;
 }
 
 .Signup_progress_box {
@@ -192,20 +207,24 @@ input.invalid {
 }
 
 .checkingBtn {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 300;
   background-color: var(--main-text-color);
   padding: 1.5rem 1rem;
   border-radius: 10px;
   color: var(--main-bg-color);
   margin-left: 1rem;
-  min-width: 8rem;
+  min-width: 9rem;
 }
-
-.time {
-  color: var(--black-44-color);
+.checkingBtn_Yet {
+  font-size: 1.1rem;
+  font-weight: 300;
+  background-color: var(--grey-a9-color);
+  padding: 1.5rem 1rem;
+  border-radius: 10px;
+  color: var(--grey-e5-color);
   margin-left: 1rem;
-  font-size: 1.2rem;
+  min-width: 9rem;
 }
 
 .Select > select {
