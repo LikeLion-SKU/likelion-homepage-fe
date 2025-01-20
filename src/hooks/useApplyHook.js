@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { checkDidApply, formSubmit, tempSubmit } from '@api/applyAPI';
 import { APIService } from '@api/axios';
-import { options } from '@constants/adminApplyConst';
+import { options } from '@constants/applicationForm/formConstants.js';
 
 export function useCheckApproach(step, track) {
   const navigate = useNavigate();
@@ -82,7 +82,20 @@ export function useGetQuestions(type, track, setQuestions, setUserInfo, setAnswe
     }
 
     async function fetchQuestions() {
-      const check = await checkDidApply();
+      const token = localStorage.getItem('token');
+      if (!token || token === null) {
+        navigate('/error', {
+          state: {
+            msg: '로그인이 필요한 서비스입니다.',
+            msg2: '로그인 후 다시 이용해주세요.',
+            msg3: '이용에 불편을 드려 죄송합니다.',
+            btnMsg: '로그인',
+            url: '/login',
+          },
+        });
+        return;
+      }
+      const check = !fetchType ? await checkDidApply() : 'apply';
       if (!check) {
         navigate('/error', {
           state: {
@@ -105,7 +118,7 @@ export function useGetQuestions(type, track, setQuestions, setUserInfo, setAnswe
 
           const baseUrl2 = import.meta.env.VITE_APP_POST_ANSWER;
           const data2 = await APIService.private.get(`${baseUrl2}/temps/type/${fetchType}`);
-          const tmpAnswer = data2.answers.map((item) => item.content);
+          const tmpAnswer = data2.answers?.map((item) => item.content) || [];
           setAnswers(tmpAnswer);
           let option = {};
           switch (data2.trackType) {
@@ -121,7 +134,8 @@ export function useGetQuestions(type, track, setQuestions, setUserInfo, setAnswe
             case 'DESIGN':
               option = options[3];
           }
-          if (data2.trackType !== 'NONE') setTrack(option);
+
+          if (data2.trackType !== 'NONE' && data2.trackType !== null) setTrack(option);
           if (tmpAnswer.length > 0) {
             const updatedCharCounts = tmpAnswer.map((answer) => (answer ? answer.length : 0));
             setCharCounts(updatedCharCounts);
@@ -140,5 +154,5 @@ export function useGetQuestions(type, track, setQuestions, setUserInfo, setAnswe
     fetchQuestions();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [type, track]);
+  }, [type]);
 }

@@ -3,12 +3,20 @@
 :root {
   --main-bg-color: #fbfbfb;
   --main-text-color: #1c1b1a;
-  --accent-color: #64A772;
+  --accent-color: #64a772;
   --black-44-color: #444444;
-  --grey-a9-color: #A9A9A9;
+  --grey-a9-color: #a9a9a9;
   --grey-da-color: #dadada;
   --grey-e5-color: #e5e5e5;
   --lightgrey-color: #f5f5f7;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 /* Reset CSS */
