@@ -277,7 +277,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
 
         <div className={styles.Signup_input_box}>
           <div className={styles.label_box}>
-            <label htmlFor='part'>파트 (선택)</label>
+            <label htmlFor='part'>트랙 (선택)</label>
           </div>
           <div className={styles.input_box}>
             <div className={styles.Select}>
