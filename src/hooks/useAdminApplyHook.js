@@ -23,8 +23,8 @@ export function useGetQandA(setUserInfos, setCommonQA, setPartQA, studentId) {
       const res = await getAnswers(studentId, setCommonQA, setPartQA);
 
       // 배열을 필터링하여 분류
-      const commonAnswers = res.answers.filter((answer) => answer.questionContent.includes('공통'));
-      const partAnswers = res.answers.filter((answer) => !answer.questionContent.includes('공통'));
+      const commonAnswers = res.commonAnswers;
+      const partAnswers = res.trackAnswers;
 
       setCommonQA(commonAnswers);
       setPartQA(partAnswers);
