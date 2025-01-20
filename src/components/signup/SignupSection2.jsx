@@ -10,7 +10,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
 
   const [form, setForm] = useState({
     id: fullEmail,
-    id_valid: false,
+    id_valid: true,
     password: '',
     password_valid: '',
     name: '',
@@ -31,6 +31,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
   }, [email]);
 
   // 이메일 중복 체크 버튼 클릭 //
+  /*
   function handleDuplicateClick(event) {
     event.preventDefault();
 
@@ -54,6 +55,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
 
     checkEmailDuplicate();
   }
+  */
 
   function handleCheckboxChange(event) {
     setForm({ ...form, consent: event.target.checked });
@@ -124,19 +126,8 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 readOnly
                 required
               ></input>
-              <button
-                style={{ cursor: 'pointer' }}
-                className={styles.checkingBtn}
-                onClick={handleDuplicateClick}
-              >
-                중복확인
-              </button>
             </div>
-            {errors.id ? (
-              <p className={styles.error_message}>{errors.id}</p>
-            ) : form.id_valid ? (
-              <p className={styles.ok_message}>아이디를 사용하실 수 있습니다.</p>
-            ) : null}
+            {errors.id ? <p className={styles.error_message}>{errors.id}</p> : null}
           </div>
         </div>
         <div className={styles.Signup_input_box}>
@@ -320,18 +311,11 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                   백앤드
                 </li>
                 <li
-                  value='PM'
+                  value='PM/design'
                   id='part'
                   onClick={handleInputChange(setForm)}
                 >
-                  기획
-                </li>
-                <li
-                  value='design'
-                  id='part'
-                  onClick={handleInputChange(setForm)}
-                >
-                  디자인
+                  기획/디자인
                 </li>
               </ul>
             ) : null}
