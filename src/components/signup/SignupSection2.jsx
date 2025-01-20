@@ -19,6 +19,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
     semester: '',
     phone_num: '',
     part: '',
+    consent: false,
   });
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
@@ -53,12 +54,16 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
     checkEmailDuplicate();
   }
 
+  function handleCheckboxChange(event) {
+    setForm({ ...form, consent: event.target.checked });
+  }
+
   // 회원가입 버튼 클릭 //
   function handleSignupClick(event) {
     event.preventDefault();
 
     const isValid = handleSignup(setErrors, form);
-    if (isValid && form.id_valid) {
+    if (isValid === true && form.id_valid === true && form.consent === true) {
       const signUp = async () => {
         try {
           const requestData = {
@@ -82,13 +87,11 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             setErrors({ ...errors, signup: '회원가입에 실패하였습니다.' });
           }
         } catch {
-          setErrors({ ...errors, signup: '회원가입 중 서버 오류가 발생했습니다. 나중에 다시 시도해주세요' });
+          setErrors({ errors, signup: '회원가입 중 서버 오류가 발생했습니다. 나중에 다시 시도해주세요' });
         }
       };
 
       signUp();
-    } else if (!form.id_valid) {
-      setErrors({ ...errors, id: '이메일 중복 확인이 필요합니다.' });
     }
   }
 
@@ -252,10 +255,10 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
           </div>
         </div>
 
-        <p className={styles.line}>! 아래는 멋쟁이사자처럼 동아리에 이미 가입된 부원들만 입력해주세요</p>
+        <p className={styles.line}>! (선택)항목은 멋쟁이사자처럼 동아리에 이미 가입된 부원들만 입력해주세요</p>
         <div className={styles.Signup_input_box}>
           <div className={styles.label_box}>
-            <label htmlFor='semester'>기수</label>
+            <label htmlFor='semester'>기수 (선택)</label>
           </div>
           <div className={styles.input_box}>
             <div className={styles.Input}>
@@ -274,7 +277,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
 
         <div className={styles.Signup_input_box}>
           <div className={styles.label_box}>
-            <label htmlFor='part'>파트</label>
+            <label htmlFor='part'>파트 (선택)</label>
           </div>
           <div className={styles.input_box}>
             <div className={styles.Select}>
@@ -292,6 +295,52 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
               </select>
             </div>
             {errors.part ? <p className={styles.error_message}>{errors.part}</p> : null}
+          </div>
+        </div>
+        <div className={styles.Signup_input_box}>
+          <div className={styles.label_box}>
+            <input
+              type='checkbox'
+              id='consent'
+              checked={form.consent}
+              className={errors.consent ? 'invalid' : form.consent ? 'valid' : ''}
+              onChange={handleCheckboxChange}
+            ></input>
+            <label htmlFor='consent'>(필수) 개인정보 수집 및 이용 동의서</label>
+            <p>*</p>
+          </div>
+          <div className={styles.input_box}>
+            <div className={styles.consent_information_box}>
+              <table className={styles.consent_table}>
+                <tbody>
+                  <tr className={styles.consent_row_}>
+                    <th className={styles.consent_head}>수집 목적</th>
+                    <td className={styles.consent_body}>
+                      재학생(휴학생 포함) 여부 확인, 입부 지원 처리, 지원 내역 및 합격 여부 확인, 지원자 의사 확인 및
+                      원활한 의사소통
+                    </td>
+                  </tr>
+                  <tr className={styles.consent_row_}>
+                    <th className={styles.consent_head}>필수항목</th>
+                    <td className={styles.consent_body}>이름, 연락처, 이메일 주소, 학과, 학번</td>
+                  </tr>
+                  <tr className={styles.consent_row}>
+                    <th className={styles.consent_head}>보유 기간</th>
+                    <td className={styles.consent_body}>
+                      지원자: 서류 지원 결과 통지일로부터 1개월 동안 보관 후 파기 <br></br>
+                      부원: 활동 기간 동안보관하며, 활동 종료 후에도 원활한 운영 및 기록 보관 목적으로 보유할 수 있으며,
+                      본인의 요청이 있는 경우 지체 없이 파기
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <pre className={styles.consent_info}>
+                귀하는 개인 정보 수집 및 이용에 대한 동의를 거부할 권리가 있습니다.<br></br>
+                다만, 동의를 거부할 경우 지원 및 입부 절차가 진행되지 않을 수 있음을 알려드립니다.<br></br>
+                위의 내용을 충분히 숙지하였으며, 이에 동의합니다.
+              </pre>
+            </div>
+            {errors.consent ? <p className={styles.error_message}>{errors.consent}</p> : null}
           </div>
         </div>
         <div className={styles.Signup_progress_box2}>

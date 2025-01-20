@@ -128,7 +128,7 @@ input.invalid {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin-top: 2rem;
+  margin-top: 16rem;
 }
 
 .SignupBtn {
@@ -241,12 +241,47 @@ input.invalid {
 }
 
 .line {
-  margin-top: 5rem;
+  margin-top: 4rem;
   margin-bottom: 1rem;
   color: var(--main-text-color);
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: 500;
   background-color: var(--grey-da-color);
   padding: 1.5rem 1rem;
   border-radius: 5px;
+}
+
+.consent_information_box{
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+}
+
+.consent_table{
+  width: 100%;
+  border-collapse: collapse;
+}
+
+
+.consent_head{
+  background-color: var(--grey-e5-color);
+  width: 20%;
+  padding: 1rem;
+  text-align: center;
+  font-size: 1.1rem;
+  border-bottom: 1px solid var(--grey-da-color);
+}
+.consent_body{
+  padding: 0.5rem;
+  height: max-content;
+  font-size: 1.1rem;
+  line-height: 130%;
+  border-bottom: 1px solid var(--grey-da-color);
+}
+
+.consent_info{
+  margin-top: 1rem;
+  margin-left: 0.5rem;
+  font-size: 1.1rem;
+  line-height: 130%;
 }

@@ -44,6 +44,7 @@ export function validateInput_email(form) {
     semester: '',
     phone_num: '',
     part: '',
+    consent: false,
   };
 
   if (form.email === '') {
@@ -75,6 +76,7 @@ export function validateInput_confirmCode(form) {
     semester: '',
     phone_num: '',
     part: '',
+    consent: false,
   };
 
   if (form.confirmCode === '') {
@@ -110,6 +112,7 @@ export function validateInput_signup(form) {
     semester: '',
     phone_num: '',
     part: '',
+    consent: false,
   };
 
   if (form.id === '') {
@@ -156,6 +159,10 @@ export function validateInput_signup(form) {
     errors.phone_num = '연락처는 숫자 8~12자로 입력해야 합니다.';
   }
 
+  if (!form.consent) {
+    errors.consent = '개인정보 수집 및 이용에 동의해야 합니다.';
+  }
+
   return errors;
 }
 
@@ -169,7 +176,8 @@ export function handleSignup(setErrors, form) {
     errors.name ||
     errors.department ||
     errors.strudent_num ||
-    errors.phone_num
+    errors.phone_num ||
+    errors.consent
   ) {
     return false;
   }
