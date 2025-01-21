@@ -1,5 +1,4 @@
-import React from "react";
-import styles from "./styles/Pagination.module.css";
+import styles from './Pagination.module.css';
 
 function Pagination({ currentPage, totalPages, onPageChange }) {
   // 이전 페이지 버튼 핸들러
@@ -48,9 +47,7 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
         <button
           key={pageNumber}
           onClick={() => onPageChange(pageNumber)}
-          className={`${styles.paginationButton} ${
-            pageNumber === currentPage ? styles.activePage : ""
-          }`}
+          className={`${styles.paginationButton} ${pageNumber === currentPage ? styles.activePage : ''}`}
         >
           {pageNumber}
         </button>

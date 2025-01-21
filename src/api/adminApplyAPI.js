@@ -24,7 +24,9 @@ export async function getApplicants(setApplicants, semester) {
 
 export async function getAnswers(studentId) {
   try {
-    const baseUrl = `${import.meta.env.VITE_APP_POST_ANSWER}/semester/${14}/studentId/${studentId}`;
+    const baseUrl = studentId
+      ? `${import.meta.env.VITE_APP_POST_ANSWER}/semester/${14}/studentId/${studentId}`
+      : `${import.meta.env.VITE_APP_POST_ANSWER}/my-submits`;
     const res = await APIService.private.get(baseUrl);
     return res;
   } catch {
@@ -34,7 +36,9 @@ export async function getAnswers(studentId) {
 
 export async function getUserInfos(studentId) {
   try {
-    const baseUrl = `${import.meta.env.VITE_APP_ADMIN_USER}/details/student-id/${studentId}`;
+    const baseUrl = studentId
+      ? `${import.meta.env.VITE_APP_ADMIN_USER}/details/student-id/${studentId}`
+      : `${import.meta.env.VITE_APP_GET_USERINFO}`;
     const res = await APIService.private.get(baseUrl);
     return res;
   } catch {
