@@ -6,7 +6,7 @@ import { sortOptions, sortStyle } from '@constants/adminApplyConst';
 import { getApplicants } from '@/api/adminApplyAPI';
 
 export default function HeaderContainer() {
-  const { semester, setApplicants, setSort } = useStore();
+  const { semester, setApplicants, setSort, sort } = useStore();
 
   return (
     <>
@@ -17,6 +17,7 @@ export default function HeaderContainer() {
       <Select
         styles={sortStyle}
         options={sortOptions}
+        value={sort}
         onChange={(option) => {
           setSort(option);
           getApplicants(setApplicants, semester, option.value);
