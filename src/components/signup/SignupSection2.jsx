@@ -4,6 +4,7 @@ import styles from './SignupSection.module.css';
 import { handleSignup } from '../../utils/register.js';
 import { handleInputChange } from '../../utils/inputOnChange.js';
 import { APIService } from '../../api/axios.js';
+import ConsentTable from './ConsentTable';
 
 export default function SignupSection({ email, setSignupSuccess, setNow }) {
   const fullEmail = `${email}@skuniv.ac.kr`;
@@ -23,40 +24,13 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
   });
   const [errors, setErrors] = useState({});
   const [isDropdownView, setIsDropdownView] = useState(false);
-  const [selcetPart, setSelectPart] = useState('트랙선택');
+  const [selcetPart, setSelectPart] = useState('트랙 선택');
   const navigate = useNavigate();
 
   // email이 변경될 때마다 form의 id 업데이트
   useEffect(() => {
     setForm((prev) => ({ ...prev, id: `${email}@skuniv.ac.kr` }));
   }, [email]);
-
-  // 이메일 중복 체크 버튼 클릭 //
-  /*
-  function handleDuplicateClick(event) {
-    event.preventDefault();
-
-    // 이메일 형식 체크는 이미 이전 단계에서 완료되었으므로 생략
-    const checkEmailDuplicate = async () => {
-      try {
-        const response = await APIService.public.post(import.meta.env.VITE_APP_USER_ID_DUPLICATE_CHECK, {
-          email: form.id,
-        });
-        // 이미 가입되어있는 이메일 일 경우
-        if (response.duplicate) {
-          setErrors({ ...errors, id: '이미 가입된 이메일입니다.' });
-          return;
-        }
-        setForm({ ...form, id_valid: true });
-        setErrors({ ...errors, id: '' });
-      } catch {
-        setErrors({ ...errors, id: '이메일 중복 확인 중 오류가 발생했습니다.' });
-      }
-    };
-
-    checkEmailDuplicate();
-  }
-  */
 
   function handleCheckboxChange(event) {
     setForm({ ...form, consent: event.target.checked });
@@ -65,6 +39,22 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
   function handleSelectBox(event) {
     event.preventDefault;
     setIsDropdownView(!isDropdownView);
+  }
+
+  function handlePart(event) {
+    if (form.part === event.target.id) {
+      setForm({ ...form, part: '' });
+      setSelectPart('트랙 선택');
+    } else {
+      setForm({ ...form, part: event.target.id });
+      if (event.target.id === 'PM/design') {
+        setSelectPart('기획/디자인');
+      } else if (event.target.id === 'front') {
+        setSelectPart('프론트앤드');
+      } else if (event.target.id === 'back') {
+        setSelectPart('백앤드');
+      }
+    }
   }
 
   // 회원가입 버튼 클릭 //
@@ -123,6 +113,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 value={form.id}
                 className={`${errors.id ? 'invalid' : form.id ? 'valid' : ''} cursor-not-allowed bg-gray-100`}
                 readOnly
+                disabled
                 required
               ></input>
             </div>
@@ -280,51 +271,42 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             <div className={styles.selcetBox}>
               <label onClick={handleSelectBox}>
                 <button
+                  style={{ cursor: 'pointer' }}
                   className={styles.selection}
                   value={selcetPart}
                 >
-                  {selcetPart}
-                  {isDropdownView ? '▲' : '▼'}
+                  <p>{selcetPart}</p>
+                  <p>{isDropdownView ? '▲' : '▼'}</p>
                 </button>
               </label>
             </div>
             {isDropdownView ? (
-              <div>
-                <ul>
-                  <li
-                    onClick={() => {
-                      setForm({ ...form, part: '' });
-                      setSelectPart('트랙선택');
-                    }}
-                  >
-                    트랙 선택
-                  </li>
-                  <li
-                    onClick={() => {
-                      setForm({ ...form, part: 'PM/design' });
-                      setSelectPart('기획/디자인');
-                    }}
-                  >
-                    기획/디자인
-                  </li>
-                  <li
-                    onClick={() => {
-                      setForm({ ...form, part: 'front' });
-                      setSelectPart('프론트앤드');
-                    }}
-                  >
-                    프론트앤드
-                  </li>
-                  <li
-                    onClick={() => {
-                      setForm({ ...form, part: 'back' });
-                      setSelectPart('백앤드');
-                    }}
-                  >
-                    백앤드
-                  </li>
-                </ul>
-              </div>
+              <ul
+                style={{ cursor: 'pointer' }}
+                className={styles.partMenu}
+              >
+                <li
+                  className={selcetPart === '기획/디자인' ? styles.partSelect : styles.part}
+                  id='PM/design'
+                  onClick={handlePart}
+                >
+                  기획/디자인
+                </li>
+                <li
+                  id='front'
+                  className={selcetPart === '프론트앤드' ? styles.partSelect : styles.part}
+                  onClick={handlePart}
+                >
+                  프론트앤드
+                </li>
+                <li
+                  id='back'
+                  className={selcetPart === '백앤드' ? styles.partSelect : styles.part}
+                  onClick={handlePart}
+                >
+                  백앤드
+                </li>
+              </ul>
             ) : null}
             {errors.part ? <p className={styles.error_message}>{errors.part}</p> : null}
           </div>
@@ -343,36 +325,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             <p>*</p>
           </div>
           <div className={styles.input_box}>
-            <div className={styles.consent_information_box}>
-              <table className={styles.consent_table}>
-                <tbody>
-                  <tr className={styles.consent_row_}>
-                    <th className={styles.consent_head}>수집 목적</th>
-                    <td className={styles.consent_body}>
-                      재학생(휴학생 포함) 여부 확인, 입부 지원 처리, 지원 내역 및 합격 여부 확인, 지원자 의사 확인 및
-                      원활한 의사소통
-                    </td>
-                  </tr>
-                  <tr className={styles.consent_row_}>
-                    <th className={styles.consent_head}>필수항목</th>
-                    <td className={styles.consent_body}>이름, 연락처, 이메일 주소, 학과, 학번</td>
-                  </tr>
-                  <tr className={styles.consent_row}>
-                    <th className={styles.consent_head}>보유 기간</th>
-                    <td className={styles.consent_body}>
-                      지원자: 서류 지원 결과 통지일로부터 1개월 동안 보관 후 파기 <br></br>
-                      부원: 활동 기간 동안보관하며, 활동 종료 후에도 원활한 운영 및 기록 보관 목적으로 보유할 수 있으며,
-                      본인의 요청이 있는 경우 지체 없이 파기
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <pre className={styles.consent_info}>
-                귀하는 개인 정보 수집 및 이용에 대한 동의를 거부할 권리가 있습니다.<br></br>
-                다만, 동의를 거부할 경우 지원 및 입부 절차가 진행되지 않을 수 있음을 알려드립니다.<br></br>
-                위의 내용을 충분히 숙지하였으며, 이에 동의합니다.
-              </pre>
-            </div>
+            <ConsentTable />
             {errors.consent ? <p className={styles.error_message}>{errors.consent}</p> : null}
           </div>
         </div>
