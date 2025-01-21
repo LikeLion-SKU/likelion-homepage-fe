@@ -34,3 +34,10 @@
   align-items: center;
   justify-content: center;
 }
+
+@media screen and (max-width: 768px) {
+  .bodyWrapper {
+    min-width: 0;
+    width: 95%;
+  }
+}
