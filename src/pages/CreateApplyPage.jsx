@@ -1,10 +1,9 @@
-import CreateApplySection from "@components/createApply/CreateApplySection";
+import { CreateApplyBtnSection } from '@/components/createApply';
 
 export default function CreateApplyPage() {
-    
-    return (
-        <>
-            <CreateApplySection />
-        </>
-    )
+  return (
+    <>
+      <CreateApplyBtnSection />
+    </>
+  );
 }
