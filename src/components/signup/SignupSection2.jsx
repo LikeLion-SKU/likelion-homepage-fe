@@ -4,7 +4,6 @@ import styles from './SignupSection.module.css';
 import { handleSignup } from '../../utils/register.js';
 import { handleInputChange } from '../../utils/inputOnChange.js';
 import { APIService } from '../../api/axios.js';
-import PartDropdown from './PartDropdown';
 
 export default function SignupSection({ email, setSignupSuccess, setNow }) {
   const fullEmail = `${email}@skuniv.ac.kr`;
@@ -24,6 +23,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
   });
   const [errors, setErrors] = useState({});
   const [isDropdownView, setIsDropdownView] = useState(false);
+  const [selcetPart, setSelectPart] = useState('트랙선택');
   const navigate = useNavigate();
 
   // email이 변경될 때마다 form의 id 업데이트
@@ -64,9 +64,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
 
   function handleSelectBox(event) {
     event.preventDefault;
-    console.log('트랙 눌림!');
     setIsDropdownView(!isDropdownView);
-    console.log(isDropdownView);
   }
 
   // 회원가입 버튼 클릭 //
@@ -279,19 +277,54 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             <label htmlFor='part'>트랙 (기존 동아리원만 선택)</label>
           </div>
           <div className={styles.input_box}>
-            <button
-              className={styles.selection}
-              value={form.part}
-              onClick={handleSelectBox}
-            >
-              {form.part}
-              {isDropdownView ? '⌃' : '⌄'}
-            </button>
+            <div className={styles.selcetBox}>
+              <label onClick={handleSelectBox}>
+                <button
+                  className={styles.selection}
+                  value={selcetPart}
+                >
+                  {selcetPart}
+                  {isDropdownView ? '▲' : '▼'}
+                </button>
+              </label>
+            </div>
             {isDropdownView ? (
-              <PartDropdown
-                form={form}
-                setForm={setForm}
-              />
+              <div>
+                <ul>
+                  <li
+                    onClick={() => {
+                      setForm({ ...form, part: '' });
+                      setSelectPart('트랙선택');
+                    }}
+                  >
+                    트랙 선택
+                  </li>
+                  <li
+                    onClick={() => {
+                      setForm({ ...form, part: 'PM/design' });
+                      setSelectPart('기획/디자인');
+                    }}
+                  >
+                    기획/디자인
+                  </li>
+                  <li
+                    onClick={() => {
+                      setForm({ ...form, part: 'front' });
+                      setSelectPart('프론트앤드');
+                    }}
+                  >
+                    프론트앤드
+                  </li>
+                  <li
+                    onClick={() => {
+                      setForm({ ...form, part: 'back' });
+                      setSelectPart('백앤드');
+                    }}
+                  >
+                    백앤드
+                  </li>
+                </ul>
+              </div>
             ) : null}
             {errors.part ? <p className={styles.error_message}>{errors.part}</p> : null}
           </div>
