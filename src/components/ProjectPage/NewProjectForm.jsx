@@ -1,22 +1,22 @@
-import { useState } from "react";
-import CustomDropdown from "./CustomDropdown";
-import InputTeamRole from "./InputTeamRole";
+import { useState } from 'react';
+import CustomDropdown from './CustomDropdown';
+import InputTeamRole from './InputTeamRole';
 import TextareaAutosize from 'react-textarea-autosize';
-import styles from "./styles/NewProjectForm.module.css";
-import uploadIcon from "../../assets/svgs/upload_icon.svg";
+import styles from './NewProjectForm.module.css';
+import uploadIcon from '@assets/projectPage/upload_icon.webp';
 
-function NewProjectForm () {
+function NewProjectForm() {
   const [formData, setFormData] = useState({
-    category: "",
-    title: "",
-    detail: "",
+    category: '',
+    title: '',
+    detail: '',
     image: null,
     imagePreview: null, // 이미지 미리보기 URL
     teamMembers: {
-      pm: "",
-      design: "",
-      "front-end": "",
-      "back-end": "",
+      pm: '',
+      design: '',
+      'front-end': '',
+      'back-end': '',
     },
   });
 
@@ -40,7 +40,7 @@ function NewProjectForm () {
         image: file,
         imagePreview: URL.createObjectURL(file), // 미리보기 URL 생성
       });
-      console.log("Uploaded Image:", file);
+      console.log('Uploaded Image:', file);
     }
   }
 
@@ -56,54 +56,60 @@ function NewProjectForm () {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log("Form submitted:", formData);
+    console.log('Form submitted:', formData);
   }
 
   return (
     <div className={styles.formContainer}>
       <h2 className={styles.title}>새로운 프로젝트 등록</h2>
-      <form className={styles.form} onSubmit={handleSubmit}>
+      <form
+        className={styles.form}
+        onSubmit={handleSubmit}
+      >
         {/* Image Upload Section */}
-        <label htmlFor="imageUpload" className={styles.imageUploadContainer}>
+        <label
+          htmlFor='imageUpload'
+          className={styles.imageUploadContainer}
+        >
           {formData.imagePreview ? (
             <img
               src={formData.imagePreview}
-              alt="Preview"
+              alt='Preview'
               className={styles.imagePreview}
             />
           ) : (
             <>
               <img
                 src={uploadIcon}
-                alt="Upload"
+                alt='Upload'
                 className={styles.imageUploadIcon}
               />
               <span className={styles.imageUploadText}>이미지 첨부</span>
             </>
           )}
           <input
-            type="file"
-            id="imageUpload"
-            accept="image/*"
-            style={{ display: "none" }}
+            type='file'
+            id='imageUpload'
+            accept='image/*'
+            style={{ display: 'none' }}
             onChange={handleImageUpload}
           />
         </label>
 
         {/* 제목 입력 */}
-          <TextareaAutosize
-            type="text"
-            className={styles.titleInput}
-            placeholder="제목을 입력해주세요"
-            value={formData.title}
-            onChange={handleTitleChange}
-          />
+        <TextareaAutosize
+          type='text'
+          className={styles.titleInput}
+          placeholder='제목을 입력해주세요'
+          value={formData.title}
+          onChange={handleTitleChange}
+        />
 
         {/* Dropdown Section */}
         <div className={styles.inputGroup}>
           <CustomDropdown
-            options={["중앙해커톤", "아이디어톤", "자체프로젝트"]}
-            defaultOption="카테고리"
+            options={['중앙해커톤', '아이디어톤', '자체프로젝트']}
+            defaultOption='카테고리'
             onSelect={handleCategorySelect}
             hideArrow={true}
           />
@@ -114,7 +120,7 @@ function NewProjectForm () {
         <div className={styles.contentContainer}>
           <TextareaAutosize
             className={styles.detailInput}
-            placeholder="프로젝트를 설명해주세요"
+            placeholder='프로젝트를 설명해주세요'
             value={formData.detail}
             onChange={handleDetailChange}
           />
@@ -126,13 +132,16 @@ function NewProjectForm () {
 
         {/* 등록하기 버튼 */}
         <div className={styles.buttonContainer}>
-          <button type="submit" className={styles.submitButton}>
+          <button
+            type='submit'
+            className={styles.submitButton}
+          >
             등록하기
           </button>
         </div>
       </form>
     </div>
   );
-};
+}
 
 export default NewProjectForm;
