@@ -13,7 +13,7 @@
 .title {
   color: var(--main-text-color);
   font-size: 3.6rem;
-  font-weight: 750;
+  font-weight: 700;
 }
 
 .Signup_input_boxs {
@@ -32,6 +32,7 @@
   text-align: left;
   height: 11rem;
   width: 100%;
+  margin-bottom: 2rem;
 }
 .Signup_input_box_ {
   display: flex;
@@ -39,7 +40,7 @@
   text-align: left;
   height: 11rem;
   width: 100%;
-  margin-top: 12rem;
+  margin-top: 10rem;
 }
 
 .label_box {
@@ -51,7 +52,7 @@
 .label_box > label {
   color: var(--main-text-color);
   font-size: 1.6rem;
-  font-weight: 600;
+  font-weight: 500;
   margin: 0.5rem;
   line-height: 3rem;
 }
@@ -66,9 +67,9 @@
 
 .Input > input {
   border: 1px solid var(--grey-da-color);
-  border-radius: 8px;
+  border-radius: 10px;
   width: 100%;
-  height: 2rem;
+  height: 3rem;
   padding: 1rem;
 }
 
@@ -89,14 +90,14 @@ input.invalid {
   color: #E42938;
   margin-top: 0.5rem;
   margin-left: 1rem;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
 
 .ok_message {
   color: var(--accent-color);
   margin-top: 0.5rem;
   margin-left: 1rem;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
 
 .confirmCode_messegeBox{
@@ -127,9 +128,9 @@ input.invalid {
 .time{
   margin-left: auto;
   margin-right: 0.5rem;
-  margin-top: 1rem;
-  font-size: 1.2rem;
-  
+  margin-top: 0.5rem;
+  font-size: 1.4rem;
+  width: 11rem;
   display: flex;
   flex-direction: row;
 }
@@ -159,13 +160,13 @@ input.invalid {
 
 .SignupBtn {
   color: var(--main-bg-color);
-  font-size: 1.5rem;
-  font-weight: 400;
+  font-size: 1.6rem;
+  font-weight: 500;
   margin-top: 2rem;
   margin-bottom: 1rem;
   line-height: 3rem;
   padding: 0.5rem 1rem;
-
+  height: 5rem;
   width: 100%;
   background-color: var(--accent-color);
   border-radius: 10px;
@@ -173,12 +174,12 @@ input.invalid {
 
 .SignupBtn_Success {
   color: var(--main-bg-color);
-  font-size: 1.5rem;
-  font-weight: 400;
+  font-size: 1.6rem;
+  font-weight: 500;
   margin-bottom: 1rem;
   line-height: 3rem;
   padding: 0.5rem 1rem;
-
+  height: 5rem;
   width: 100%;
   background-color: var(--accent-color);
   border-radius: 10px;
@@ -186,12 +187,12 @@ input.invalid {
 
 .SignupBtn_Yet {
   color: var(--grey-e5-color);
-  font-size: 1.5rem;
-  font-weight: 400;
+  font-size: 1.6rem;
+  font-weight: 500;
   margin-bottom: 1rem;
   line-height: 3rem;
   padding: 0.5rem 1rem;
-
+  height: 5rem;
   width: 100%;
   background-color: var(--grey-a9-color);
   border-radius: 10px;
@@ -204,10 +205,10 @@ input.invalid {
 }
 .Input > p {
   color: var(--grey-a9-color);
-  font-size: 1.1rem;
+  font-size: 1.6rem;
   font-weight: 500;
   padding: 0.5rem;
-  margin-left: 1rem;
+  margin-left: 0.5rem;
 }
 
 .selection {
@@ -221,10 +222,11 @@ input.invalid {
 }
 
 .toLogin > p {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
 }
 .toLogin > button {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
+
 }
 
 .tologinBtn {
@@ -234,24 +236,24 @@ input.invalid {
 }
 
 .checkingBtn {
-  font-size: 1.1rem;
-  font-weight: 300;
+  font-size: 1.6rem;
+  font-weight: 500;
   background-color: var(--black-44-color);
   padding: 1.5rem 1rem;
   border-radius: 10px;
   color: var(--main-bg-color);
   margin-left: 1rem;
-  min-width: 9rem;
+  min-width: 12.3rem;
 }
 .checkingBtn_Yet {
-  font-size: 1.1rem;
-  font-weight: 300;
+  font-size: 1.6rem;
+  font-weight: 500;
   background-color: var(--grey-a9-color);
   padding: 1.5rem 1rem;
   border-radius: 10px;
-  color: var(--grey-e5-color);
+  color: var(--main-bg-color);
   margin-left: 1rem;
-  min-width: 9rem;
+  min-width: 12.3rem;
 }
 
 .Select > select {
@@ -267,29 +269,19 @@ input.invalid {
   margin-right: 16rem;
 }
 
-.line {
-  margin-top: 4rem;
-  margin-bottom: 1rem;
-  color: var(--main-text-color);
-  font-size: 1.2rem;
-  font-weight: 500;
-  background-color: var(--grey-da-color);
-  padding: 1.5rem 1rem;
-  border-radius: 5px;
-}
-
 .selection{
   width: 50%;
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
   border: 1px solid var(--grey-da-color);
-  border-radius: 8px;
-  height: 4rem;
+  border-radius: 10px;
+  height: 5rem;
   padding: 1rem;
   background-color: white;
-  font-size: 1.4rem;
-  color: var(--black-44-color);;
+  font-size: 1.6rem;
+  color: var(--grey-a9-color);
 }
 .partMenu{
   margin-top: 0.5rem;
@@ -299,13 +291,13 @@ input.invalid {
   background-color: white;
 }
 .part{
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   padding: 1.4rem;
   margin:0;
   color: #1C1B1A;
 }
 .partSelect{
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   padding: 1.4rem;
   margin:0;
   color: #1C1B1A;
@@ -326,24 +318,24 @@ input.invalid {
 
 
 .consent_head{
-  background-color: var(--grey-e5-color);
+  background-color: var(--lightgrey-color);
   width: 20%;
   padding: 1rem;
   text-align: center;
-  font-size: 1.1rem;
-  border-bottom: 1px solid var(--grey-da-color);
+  font-size: 1rem;
+  border-bottom: 1px solid #D7D7DF;
 }
 .consent_body{
   padding: 0.5rem;
   height: max-content;
-  font-size: 1.1rem;
+  font-size: 1rem;
   line-height: 130%;
-  border-bottom: 1px solid var(--grey-da-color);
+  border-bottom: 1px solid #D7D7DF;
 }
 
 .consent_info{
   margin-top: 1rem;
   margin-left: 0.5rem;
-  font-size: 1.1rem;
+  font-size: 1rem;
   line-height: 130%;
 }
