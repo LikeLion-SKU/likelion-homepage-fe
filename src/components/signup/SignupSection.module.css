@@ -104,17 +104,41 @@ input.invalid {
   flex-direction: row;
 }
 
+.loaderBox{
+  margin: 2rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.loader {
+  width: 10px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  animation: l5 1s infinite linear alternate;
+}
+@keyframes l5 {
+    0%  {box-shadow: 20px 0 #000, -20px 0 #0002;background: #000 }
+    33% {box-shadow: 20px 0 #000, -20px 0 #0002;background: #0002}
+    66% {box-shadow: 20px 0 #0002,-20px 0 #000; background: #0002}
+    100%{box-shadow: 20px 0 #0002,-20px 0 #000; background: #000 }
+}
+
 .time{
   margin-left: auto;
-  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+  margin-top: 1rem;
   font-size: 1.2rem;
   
+  display: flex;
+  flex-direction: row;
 }
 .timeTitle {
   color: var(--black-44-color);
   
 }
 .timeNum{
+  margin-left: 0.5rem;
   color: #E42938;
 }
 

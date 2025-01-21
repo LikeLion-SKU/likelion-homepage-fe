@@ -11,6 +11,7 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
     email_valid: false,
     confirmCode: '',
     confirmCode_valid: false,
+    sendemail: '',
     timing: false,
   });
   const [m, setM] = useState();
@@ -86,8 +87,6 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
     if (isValid) {
       try {
         setSendSuccess(3);
-        console.log('=============');
-        console.log(form);
         // 이메일에 도메인을 붙여서 전송
         const fullEmail = `${form.email}@skuniv.ac.kr`;
         // 이메일 인증번호 전송 API 호출
@@ -98,7 +97,7 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
           setSendSuccess(2);
           setConfirms({ ...form, email: '인증번호가 전송되었습니다.' });
           setCount(300); // 5분
-          setForm({ ...form, email_valid: true, timing: true });
+          setForm({ ...form, email_valid: true, sendemail: form.email, timing: true });
         } else {
           console.log(response.message);
         }
@@ -120,7 +119,7 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
     if (!isValid) return;
 
     try {
-      const fullEmail = `${form.email}@skuniv.ac.kr`;
+      const fullEmail = `${form.sendemail}@skuniv.ac.kr`;
 
       const requestData = {
         email: fullEmail,
@@ -175,7 +174,7 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
   // 계속 버튼 클릭 //
   function next(e) {
     e.preventDefault();
-    setEmail(form.email); // 이메일 값을 상위 컴포넌트로 전달
+    setEmail(form.sendemail); // 이메일 값을 상위 컴포넌트로 전달
     setNow(2); // 2번째 페이지 보여줌.
   }
 
@@ -198,6 +197,7 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
                 value={form.email}
                 className={form.email_valid ? 'valid' : errors.email ? 'invalid' : form.email ? 'valid' : ''}
                 onChange={inputChange}
+                disabled={sendSuccess === 3 ? true : false}
                 autoComplete='off'
                 required
               ></input>
@@ -220,7 +220,7 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
         <div className={styles.Signup_input_box}>
           <div className={styles.input_box}>
             <div className={styles.Input}>
-              {form.email_valid ? (
+              {sendSuccess === 2 && form.email_valid === true ? (
                 <>
                   <input
                     type='text'
@@ -248,6 +248,10 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
                     인증번호 확인
                   </button>
                 </>
+              ) : sendSuccess === 3 ? (
+                <div className={styles.loaderBox}>
+                  <div className={styles.loader}></div>
+                </div>
               ) : (
                 <div style={{ visibility: 'hidden' }}>
                   ?
@@ -270,21 +274,23 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
                 </div>
               )}
             </div>
-            <div className={styles.confirmCode_messegeBox}>
-              {form.confirmCode_valid ? (
-                <p className={styles.ok_message}>{confirms.confirmCode}</p>
-              ) : errors.confirmCode ? (
-                <p className={styles.error_message}>{errors.confirmCode}</p>
-              ) : null}
-              {form.timing ? (
-                <div className={styles.time}>
-                  <p className={styles.timeTitle}>입력대기시간 </p>
-                  <p className={styles.timeNum}>
-                    {m}:{s.toString().padStart(2, '0')}
-                  </p>
-                </div>
-              ) : null}
-            </div>
+            {sendSuccess === 2 && form.email_valid === true ? (
+              <div className={styles.confirmCode_messegeBox}>
+                {form.confirmCode_valid ? (
+                  <p className={styles.ok_message}>{confirms.confirmCode}</p>
+                ) : errors.confirmCode ? (
+                  <p className={styles.error_message}>{errors.confirmCode}</p>
+                ) : null}
+                {form.timing ? (
+                  <div className={styles.time}>
+                    <p className={styles.timeTitle}>입력대기시간 </p>
+                    <p className={styles.timeNum}>
+                      {m}:{s.toString().padStart(2, '0')}
+                    </p>
+                  </div>
+                ) : null}
+              </div>
+            ) : null}
           </div>
         </div>
         <div

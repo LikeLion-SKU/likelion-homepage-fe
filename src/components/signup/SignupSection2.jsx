@@ -4,6 +4,7 @@ import styles from './SignupSection.module.css';
 import { handleSignup } from '../../utils/register.js';
 import { handleInputChange } from '../../utils/inputOnChange.js';
 import { APIService } from '../../api/axios.js';
+import PartDropdown from './PartDropdown';
 
 export default function SignupSection({ email, setSignupSuccess, setNow }) {
   const fullEmail = `${email}@skuniv.ac.kr`;
@@ -22,7 +23,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
     consent: false,
   });
   const [errors, setErrors] = useState({});
-  const [isSelect, setIsSelect] = useState(false);
+  const [isDropdownView, setIsDropdownView] = useState(false);
   const navigate = useNavigate();
 
   // email이 변경될 때마다 form의 id 업데이트
@@ -64,8 +65,8 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
   function handleSelectBox(event) {
     event.preventDefault;
     console.log('트랙 눌림!');
-    setIsSelect(!isSelect);
-    console.log(isSelect);
+    setIsDropdownView(!isDropdownView);
+    console.log(isDropdownView);
   }
 
   // 회원가입 버튼 클릭 //
@@ -284,39 +285,13 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
               onClick={handleSelectBox}
             >
               {form.part}
-              {isSelect ? '⌃' : '⌄'}
+              {isDropdownView ? '⌃' : '⌄'}
             </button>
-            {isSelect ? (
-              <ul>
-                <li
-                  value=''
-                  id='part'
-                  onClick={handleInputChange(setForm)}
-                >
-                  트랙 선택
-                </li>
-                <li
-                  value='front'
-                  id='part'
-                  onClick={handleInputChange(setForm)}
-                >
-                  프론트앤드
-                </li>
-                <li
-                  value='back'
-                  id='part'
-                  onClick={handleInputChange(setForm)}
-                >
-                  백앤드
-                </li>
-                <li
-                  value='PM/design'
-                  id='part'
-                  onClick={handleInputChange(setForm)}
-                >
-                  기획/디자인
-                </li>
-              </ul>
+            {isDropdownView ? (
+              <PartDropdown
+                form={form}
+                setForm={setForm}
+              />
             ) : null}
             {errors.part ? <p className={styles.error_message}>{errors.part}</p> : null}
           </div>
