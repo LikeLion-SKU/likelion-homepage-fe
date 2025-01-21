@@ -53,6 +53,7 @@ export default function Routes() {
         {/* Application Routes */}
         <Route path="apply" element={<Apply />} />
         <Route path="recruit" element={<RecruitPage />} />
+        <Route path='application' element={<ViewForm/>} />
 
         {/* Admin Routes */}
         <Route path="admin">
