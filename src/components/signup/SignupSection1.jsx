@@ -320,7 +320,6 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
             >
               로그인
             </button>
-            <button onClick={() => setNow(2)}>회원가입2로 이동~~~~~~!!!!!!! </button>
           </div>
         </div>
       </div>
