@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import styles from './SignupSection.module.css';
 import { handleEmailchecking, handleConfirmCodechecking } from '../../utils/register.js';
 import { APIService } from '../../api/axios.js';
-import { handleInputChange } from '../../utils/inputOnChange.js';
 
 export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail, setNow }) {
   const [form, setForm] = useState({
@@ -30,6 +29,7 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
     confirmCode: '',
   });
   const [sendSuccess, setSendSuccess] = useState(1);
+  const [confirmSuccess, setConfirmSuccess] = useState(1);
   const [confirms, setConfirms] = useState({});
   const navigate = useNavigate();
 
@@ -54,10 +54,29 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
       setForm({ ...form, timing: false, confirmCode: '' });
       setErrors({
         ...form,
-        confirmCode: '인증번호 확인 시간이 만료되었습니다. 다시 인증번호를 전송해주세요.',
+        confirmCode: '입력 시간이 만료되었습니다. 다시 인증번호를 전송해주세요.',
       });
     }
   }, [count]);
+
+  function inputChange(event) {
+    const { id, value } = event.target;
+    setForm({ ...form, [id]: value });
+
+    if (id === 'email') {
+      if (value === '') {
+        setSendSuccess(1);
+      } else {
+        setSendSuccess(2);
+      }
+    } else if (id === 'confirmCode') {
+      if (value === '') {
+        setConfirmSuccess(1);
+      } else {
+        setConfirmSuccess(2);
+      }
+    }
+  }
 
   // 인증번호 전송 버튼 클릭 //
   const handleSendingClick = async (event) => {
@@ -66,7 +85,9 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
 
     if (isValid) {
       try {
-        setSendSuccess(2);
+        setSendSuccess(3);
+        console.log('=============');
+        console.log(form);
         // 이메일에 도메인을 붙여서 전송
         const fullEmail = `${form.email}@skuniv.ac.kr`;
         // 이메일 인증번호 전송 API 호출
@@ -74,10 +95,12 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
 
         // 인증번호 이메일일 전송 성공시
         if (response.success === true) {
-          setSendSuccess(3);
+          setSendSuccess(2);
           setConfirms({ ...form, email: '인증번호가 전송되었습니다.' });
           setCount(300); // 5분
           setForm({ ...form, email_valid: true, timing: true });
+        } else {
+          console.log(response.message);
         }
       } catch (error) {
         //에러처리
@@ -174,35 +197,18 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
                 id='email'
                 value={form.email}
                 className={form.email_valid ? 'valid' : errors.email ? 'invalid' : form.email ? 'valid' : ''}
-                onChange={handleInputChange(setForm)}
+                onChange={inputChange}
                 autoComplete='off'
                 required
               ></input>
               <p> @skuniv.ac.kr </p>
-              {sendSuccess === 1 ? (
-                <button
-                  style={{ cursor: 'pointer' }}
-                  className={styles.checkingBtn}
-                  onClick={handleSendingClick}
-                >
-                  인증번호 전송
-                </button>
-              ) : sendSuccess === 2 ? (
-                <button
-                  style={{ cursor: 'pointer' }}
-                  className={styles.checkingBtn_Yet}
-                >
-                  전송중
-                </button>
-              ) : sendSuccess === 3 ? (
-                <button
-                  style={{ cursor: 'pointer' }}
-                  className={styles.checkingBtn}
-                  onClick={handleSendingClick}
-                >
-                  인증번호 재전송
-                </button>
-              ) : null}
+              <button
+                style={{ cursor: 'pointer' }}
+                className={sendSuccess === 2 ? styles.checkingBtn : styles.checkingBtn_Yet}
+                onClick={handleSendingClick}
+              >
+                {sendSuccess === 3 ? '전송중' : '인증번호 전송'}
+              </button>
             </div>
             {form.email_valid ? (
               <p className={styles.ok_message}>{confirms.email}</p>
@@ -229,14 +235,14 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
                             ? 'valid'
                             : ''
                     }
-                    onChange={handleInputChange(setForm)}
+                    onChange={inputChange}
                     disabled={!form.timing}
                     autoComplete='off'
                     required
                   ></input>
                   <button
                     style={{ cursor: 'pointer' }}
-                    className={styles.checkingBtn}
+                    className={confirmSuccess === 1 ? styles.checkingBtn_Yet : styles.checkingBtn}
                     onClick={handleCheckingClick}
                   >
                     인증번호 확인
@@ -250,12 +256,13 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
                     id='confirmCode'
                     value={form.confirmCode}
                     className={errors.confirmCode ? 'invalid' : form.confirmCode ? 'valid' : ''}
-                    onChange={handleInputChange(setForm)}
+                    onChange={inputChange}
                     autoComplete='off'
                     disabled={true}
                   ></input>
                   <button
-                    className={styles.checkingBtn_Yet}
+                    style={{ cursor: 'pointer' }}
+                    className={confirmSuccess === 1 ? styles.checkingBtn_Yet : styles.checkingBtn}
                     onClick={handleCheckingClick}
                   >
                     인증번호 확인
@@ -270,9 +277,12 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
                 <p className={styles.error_message}>{errors.confirmCode}</p>
               ) : null}
               {form.timing ? (
-                <p className={styles.time}>
-                  입력대기시간 {m}:{s.toString().padStart(2, '0')}
-                </p>
+                <div className={styles.time}>
+                  <p className={styles.timeTitle}>입력대기시간 </p>
+                  <p className={styles.timeNum}>
+                    {m}:{s.toString().padStart(2, '0')}
+                  </p>
+                </div>
               ) : null}
             </div>
           </div>
@@ -304,6 +314,7 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
             >
               로그인
             </button>
+            <button onClick={() => setNow(2)}>회원가입2로 이동~~~~~~!!!!!!! </button>
           </div>
         </div>
       </div>

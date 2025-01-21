@@ -57,7 +57,7 @@
 }
 .label_box > p {
   font-size: 1.5rem;
-  color: red;
+  color: #E42938;
 }
 
 .input_box {
@@ -82,11 +82,11 @@ input.valid {
 }
 
 input.invalid {
-  border-color: red;
+  border-color: #E42938;
 }
 
 .error_message {
-  color: red;
+  color: #E42938;
   margin-top: 0.5rem;
   margin-left: 1rem;
   font-size: 1.2rem;
@@ -99,29 +99,23 @@ input.invalid {
   font-size: 1.2rem;
 }
 
-.error_message_false {
-  margin-top: 2rem;
-  color: rgb(253, 109, 109, 0.9);
-  font-size: 1.2rem;
-  font-weight: 600;
-  background-color: rgba(255, 214, 214, 0.8);
-  border: 2px solid rgb(255, 191, 191, 0.8);
-  border-radius: 10px;
-  padding: 1rem;
-  width: 90%;
-}
-
 .confirmCode_messegeBox{
   display: flex;
   flex-direction: row;
 }
 
-.time {
-  color: var(--black-44-color);
-  margin-top: 0.5rem;
-  margin-left: 1rem;
-  font-size: 1.2rem;
+.time{
   margin-left: auto;
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
+  
+}
+.timeTitle {
+  color: var(--black-44-color);
+  
+}
+.timeNum{
+  color: #E42938;
 }
 
 .Signup_progress_box {
@@ -187,6 +181,7 @@ input.invalid {
 .Input > p {
   color: var(--grey-a9-color);
   font-size: 1.1rem;
+  font-weight: 500;
   padding: 0.5rem;
   margin-left: 1rem;
 }
@@ -215,9 +210,9 @@ input.invalid {
 }
 
 .checkingBtn {
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 300;
-  background-color: var(--main-text-color);
+  background-color: var(--black-44-color);
   padding: 1.5rem 1rem;
   border-radius: 10px;
   color: var(--main-bg-color);
