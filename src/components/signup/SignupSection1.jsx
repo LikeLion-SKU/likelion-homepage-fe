@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SignupSection.module.css';
 import { handleEmailchecking, handleConfirmCodechecking } from '../../utils/register.js';
-import { APIService } from '../../api/axios.js';
+import { APIService } from '@api/axios';
 
 export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail, setNow }) {
   const [form, setForm] = useState({
@@ -80,7 +80,7 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
   }
 
   // 인증번호 전송 버튼 클릭 //
-  const handleSendingClick = async (event) => {
+  async function handleSendingClick(event) {
     event.preventDefault();
     const isValid = handleEmailchecking(setErrors, form);
 
@@ -99,25 +99,23 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
           setCount(300); // 5분
           setForm({ ...form, email_valid: true, sendemail: form.email, timing: true });
         } else {
-          setSendSuccess(2);
-          console.log(response);
-          console.log(response.message);
-          setCount(300);
-          setForm({ ...form, email_valid: true, sendemail: form.email, timing: true });
-          setErrors({ ...errors, email: response.message });
+          setErrors({
+            ...errors,
+            email: '인증번호 전송에 실패했습니다.',
+          });
         }
       } catch (error) {
         //에러처리
-        setErrors((prev) => ({
-          ...prev,
+        setErrors({
+          ...errors,
           email: error.response?.data?.message || '인증번호 전송에 실패했습니다.',
-        }));
+        });
       }
     }
-  };
+  }
 
   // 인증번호 확인 버튼 클릭 //
-  const handleCheckingClick = async (event) => {
+  async function handleCheckingClick(event) {
     event.preventDefault();
 
     const isValid = handleConfirmCodechecking(setErrors, form);
@@ -174,7 +172,7 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
         confirmCode_valid: false,
       }));
     }
-  };
+  }
 
   // 계속 버튼 클릭 //
   function next(e) {
@@ -329,7 +327,6 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
             >
               로그인
             </button>
-            <button onClick={() => setNow(2)}>회원가입2로 이동~~~~~~!!!!!!! </button>
           </div>
         </div>
       </div>

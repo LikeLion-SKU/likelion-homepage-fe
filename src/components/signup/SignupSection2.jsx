@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './SignupSection.module.css';
 import { handleSignup } from '../../utils/register.js';
 import { handleInputChange } from '../../utils/inputOnChange.js';
-import { APIService } from '../../api/axios.js';
+import { APIService } from '@api/axios';
 import ConsentTable from './ConsentTable';
 
 export default function SignupSection({ email, setSignupSuccess, setNow }) {
@@ -70,33 +70,34 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
 
     const isValid = handleSignup(setErrors, form);
     if (isValid === true && form.id_valid === true && form.consent === true) {
-      const signUp = async () => {
-        try {
-          const requestData = {
-            loginId: form.id,
-            password: form.password,
-            userName: form.name,
-            department: form.department,
-            studentId: form.strudent_num,
-            semester: form.semester === '' ? 0 : Number(form.semester),
-            phoneNumber: form.phone_num,
-            parts: form.part,
-          };
-
-          const response = await APIService.public.post(import.meta.env.VITE_APP_SIGN_UP, requestData);
-
-          if (response.success) {
-            setSignupSuccess(true);
-            setNow(1);
-            navigate('/welcome?name=${form.name}');
-          } else {
-            alert('회원가입에 실패하였습니다.');
-          }
-        } catch {
-          alert('회원가입 중 서버 오류가 발생했습니다. 나중에 다시 시도해주세요');
-        }
-      };
       signUp();
+    }
+  }
+
+  async function signUp() {
+    try {
+      const requestData = {
+        loginId: form.id,
+        password: form.password,
+        userName: form.name,
+        department: form.department,
+        studentId: form.strudent_num,
+        semester: form.semester === '' ? 0 : Number(form.semester),
+        phoneNumber: form.phone_num,
+        parts: form.part,
+      };
+
+      const response = await APIService.public.post(import.meta.env.VITE_APP_SIGN_UP, requestData);
+
+      if (response.success) {
+        setSignupSuccess(true);
+        setNow(1);
+        navigate('/welcome?name=${form.name}');
+      } else {
+        alert('회원가입에 실패하였습니다.');
+      }
+    } catch {
+      alert('회원가입 중 서버 오류가 발생했습니다. 나중에 다시 시도해주세요');
     }
   }
 
@@ -180,6 +181,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 value={form.name}
                 className={errors.name ? 'invalid' : form.name ? 'valid' : ''}
                 onChange={handleInputChange(setForm)}
+                autoComplete='off'
                 required
               ></input>
             </div>
@@ -200,6 +202,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 value={form.department}
                 className={errors.department ? 'invalid' : form.department ? 'valid' : ''}
                 onChange={handleInputChange(setForm)}
+                autoComplete='off'
                 required
               ></input>
             </div>
@@ -241,6 +244,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 value={form.phone_num}
                 className={errors.phone_num ? 'invalid' : form.phone_num ? 'valid' : ''}
                 onChange={handleInputChange(setForm)}
+                autoComplete='off'
                 required
               ></input>
             </div>
@@ -260,6 +264,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 id='semester'
                 value={form.semester}
                 className={errors.semester ? 'invalid' : form.semester ? 'valid' : ''}
+                autoComplete='off'
                 onChange={handleInputChange(setForm)}
               ></input>
             </div>

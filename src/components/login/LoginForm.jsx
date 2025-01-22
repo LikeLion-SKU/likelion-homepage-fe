@@ -42,7 +42,7 @@ export default function LoginForm() {
         const response = await APIService.public.post(import.meta.env.VITE_APP_LOGIN, requestData);
 
         if (response.success === true) {
-          // 토큰 저장
+          // localStorage에 토큰 저장
           localStorage.setItem('token', response.accessToken);
           localStorage.setItem('refreshToken', response.refreshToken);
           // 홈화면으로 이동
