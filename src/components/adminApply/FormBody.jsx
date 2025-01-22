@@ -2,12 +2,11 @@ import { useState } from 'react';
 import styles from './FormBody.module.css';
 import { useGetQandA } from '@/hooks/useAdminApplyHook';
 
-export default function FormBody({ studentId }) {
-  const [userInfos, setUserInfos] = useState([]);
+export default function FormBody({ studentId, userInfos }) {
   const [commonQA, setcommonQA] = useState([]);
   const [partQA, setpartQA] = useState([]);
 
-  useGetQandA(setUserInfos, setcommonQA, setpartQA, studentId);
+  useGetQandA(setcommonQA, setpartQA, studentId);
 
   return (
     <div className={styles.bodyWrapper}>

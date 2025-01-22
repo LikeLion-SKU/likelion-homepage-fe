@@ -2,19 +2,25 @@ import styles from '@pages/Apply.module.css';
 import ViewFormHeader from './ViewFormHeader';
 import FormBody from './FormBody';
 import { useParams } from 'react-router-dom';
+import { useGetUserInfo } from '@/hooks/useAdminApplyHook';
+import { useState } from 'react';
 
 export default function ViewForm() {
   const { studentId } = useParams();
+  const [userInfos, setUserInfos] = useState([]);
+  useGetUserInfo(setUserInfos, studentId);
 
   return (
     <div className={styles.pageWrapper}>
       <ViewFormHeader
-        name='김예찬'
-        onClick={() => {}}
+        name={userInfos.이름}
         url='/admin/apply'
         btnMsg='목록으로'
       />
-      <FormBody studentId={studentId} />
+      <FormBody
+        studentId={studentId}
+        userInfos={userInfos}
+      />
     </div>
   );
 }
