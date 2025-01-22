@@ -184,16 +184,16 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
   }
 
   return (
-    <div className={styles.SignupPage_layout}>
-      <p className={styles.title}>회원가입</p>
-      <div className={styles.Signup_input_boxs}>
-        <div className={styles.Signup_input_box}>
-          <div className={styles.label_box}>
+    <div className={styles['signup-form']}>
+      <p className={styles['signup-form__title']}>회원가입</p>
+      <div className={styles['signup-form__inputboxs']}>
+        <div className={styles['signup-form__inputbox']}>
+          <div className={styles['signup-form__labelsection']}>
             <label htmlFor='email'>이메일</label>
             <p>*</p>
           </div>
-          <div className={styles.input_box}>
-            <div className={styles.Input}>
+          <div className={styles['signup-form__inputsection']}>
+            <div className={styles['signup-form__input']}>
               <input
                 type='text'
                 id='email'
@@ -207,7 +207,9 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
               <p> @skuniv.ac.kr </p>
               <button
                 style={{ cursor: 'pointer' }}
-                className={sendSuccess === 2 ? styles.checkingBtn : styles.checkingBtn_Yet}
+                className={
+                  sendSuccess === 2 ? styles['signup-form__inputbutton'] : styles['signup-form__inputbuttonYet']
+                }
                 onClick={handleSendingClick}
               >
                 {sendSuccess === 3 ? '전송중' : '인증번호 전송'}
@@ -220,9 +222,9 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
             ) : null}
           </div>
         </div>
-        <div className={styles.Signup_input_box}>
-          <div className={styles.input_box}>
-            <div className={styles.Input}>
+        <div className={styles['signup-form__inputbox']}>
+          <div className={styles['signup-form__inputsection']}>
+            <div className={styles['signup-form__input']}>
               {sendSuccess === 2 && form.email_valid === true ? (
                 <>
                   <input
@@ -245,15 +247,17 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
                   ></input>
                   <button
                     style={{ cursor: 'pointer' }}
-                    className={confirmSuccess === 1 ? styles.checkingBtn_Yet : styles.checkingBtn}
+                    className={
+                      confirmSuccess === 1 ? styles['signup-form__inputbuttonYet'] : styles['signup-form__inputbutton']
+                    }
                     onClick={handleCheckingClick}
                   >
                     인증번호 확인
                   </button>
                 </>
               ) : sendSuccess === 3 ? (
-                <div className={styles.loaderBox}>
-                  <div className={styles.loader}></div>
+                <div className={styles['loaderBox']}>
+                  <div className={styles['loader']}></div>
                 </div>
               ) : (
                 <div style={{ visibility: 'hidden' }}>
@@ -269,7 +273,9 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
                   ></input>
                   <button
                     style={{ cursor: 'pointer' }}
-                    className={confirmSuccess === 1 ? styles.checkingBtn_Yet : styles.checkingBtn}
+                    className={
+                      confirmSuccess === 1 ? styles['signup-form__inputbuttonYet'] : styles['signup-form__inputbutton']
+                    }
                     onClick={handleCheckingClick}
                   >
                     인증번호 확인
@@ -278,16 +284,16 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
               )}
             </div>
             {sendSuccess === 2 && form.email_valid === true ? (
-              <div className={styles.confirmCode_messegeBox}>
+              <div className={styles['signup-form__confirmCodeMessegeBox']}>
                 {form.confirmCode_valid ? (
                   <p className={styles.ok_message}>{confirms.confirmCode}</p>
                 ) : errors.confirmCode ? (
                   <p className={styles.error_message}>{errors.confirmCode}</p>
                 ) : null}
                 {form.timing ? (
-                  <div className={styles.time}>
-                    <p className={styles.timeTitle}>입력대기시간 </p>
-                    <p className={styles.timeNum}>
+                  <div className={styles['signup-form__timesection']}>
+                    <p className={styles['signup-form__timeTitle']}>입력대기시간 </p>
+                    <p className={styles['signup-form__timeNum']}>
                       {m}:{s.toString().padStart(2, '0')}
                     </p>
                   </div>
@@ -298,25 +304,25 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
         </div>
         <div
           name='Signup_progress_box'
-          className={styles.Signup_progress_box}
+          className={styles['signup-form__progressBox1']}
         >
           {emailSuccess === true ? (
             <button
               style={{ cursor: 'pointer' }}
-              className={styles.SignupBtn_Success}
+              className={styles['signup-form__button--submittingSuccess']}
               onClick={next}
             >
               계속
             </button>
           ) : (
-            <button className={styles.SignupBtn_Yet}>계속</button>
+            <button className={styles['signup-form__button--submittingYet']}>계속</button>
           )}
-          <div className={styles.toLogin}>
-            <p>이미 계정이 있으신가요?</p>
+          <div className={styles['login-togoBox']}>
+            <p className={styles['login-mention']}>이미 계정이 있으신가요?</p>
             <button
               style={{ cursor: 'pointer' }}
               type='submit'
-              className={styles.tologinBtn}
+              className={styles['login-button']}
               onClick={() => {
                 navigate('/login');
               }}

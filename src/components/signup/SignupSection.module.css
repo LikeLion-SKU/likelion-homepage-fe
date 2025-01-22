@@ -1,4 +1,4 @@
-.SignupPage_layout {
+.signup-form {
   text-align: center;
   height: 100%;
   margin-top: 5vh;
@@ -10,13 +10,13 @@
   width: 100%;
 }
 
-.title {
+.signup-form__title {
   color: var(--main-text-color);
   font-size: 3.6rem;
   font-weight: 700;
 }
 
-.Signup_input_boxs {
+.signup-form__inputboxs {
   display: flex;
   flex-direction: column;
   margin-top: 7rem;
@@ -26,7 +26,7 @@
   min-width: 300px;
 }
 
-.Signup_input_box {
+.signup-form__inputbox {
   display: flex;
   flex-direction: column;
   text-align: left;
@@ -36,36 +36,36 @@
 }
 
 /* label 관련 */
-.label_box {
+.signup-form__labelsection {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.label_box > label {
+.signup-form__labelsection > label {
   color: var(--main-text-color);
   font-size: 1.6rem;
   font-weight: 500;
   margin: 0.5rem;
   line-height: 3rem;
 }
-.label_box > p {
+.signup-form__labelsection > p {
   font-size: 1.5rem;
   color: #E42938;
 }
 
 
 /* input창 관련 */
-.input_box {
+.signup-form__inputsection {
   margin-bottom: 1rem;
 }
 
-.Input {
+.signup-form__input {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-.Input > p {
+.signup-form__input > p {
   color: var(--grey-a9-color);
   font-size: 1.6rem;
   font-weight: 500;
@@ -73,7 +73,7 @@
   margin-left: 0.5rem;
 }
 
-.Input > input {
+.signup-form__input > input {
   border: 1px solid var(--grey-da-color);
   border-radius: 10px;
   width: 100%;
@@ -116,7 +116,7 @@ input.invalid {
 }
 
 /* 인증번호 전송, 확인 버튼 (input창 우측 위치) */
-.checkingBtn {
+.signup-form__inputbutton {
   font-size: 1.6rem;
   font-weight: 500;
   background-color: var(--black-44-color);
@@ -126,7 +126,7 @@ input.invalid {
   margin-left: 1rem;
   min-width: 12.3rem;
 }
-.checkingBtn_Yet {
+.signup-form__inputbuttonYet {
   font-size: 1.6rem;
   font-weight: 500;
   background-color: var(--grey-a9-color);
@@ -152,11 +152,11 @@ input.invalid {
   font-size: 1.4rem;
 }
 
-.confirmCode_messegeBox{
+.signup-form__confirmCodeMessegeBox{
   display: flex;
   flex-direction: row;
 }
-.time{
+.signup-form__timesection{
   margin-left: auto;
   margin-right: 0.5rem;
   margin-top: 0.5rem;
@@ -165,17 +165,17 @@ input.invalid {
   display: flex;
   flex-direction: row;
 }
-.timeTitle {
+.signup-form__timeTitle {
   color: var(--black-44-color);
   
 }
-.timeNum{
+.signup-form__timeNum{
   margin-left: 0.5rem;
   color: #E42938;
 }
 
-/* Signup2 - 트랙(part) 드롭아웃 메뉴 */
-.selection{
+/* Signup2 - 트랙(signup-form__selection) 드롭아웃 메뉴 */
+.signup-form__selectbutton{
   width: 50%;
   display: flex;
   flex-direction: row;
@@ -189,26 +189,26 @@ input.invalid {
   font-size: 1.6rem;
   color: #808080;
 }
-.partMenu{
+.signup-form__selectMenu{
   margin-top: 0.5rem;
   width: 50%;
   border: 1px solid var(--grey-da-color);
   border-radius: 10px;
   background-color: white;
 }
-.part{
+.signup-form__selection{
   font-size: 1.6rem;
   padding: 1.4rem;
   margin:0;
   color: #1C1B1A;
 }
-.part:hover{
+.signup-form__selection:hover{
   font-size: 1.6rem;
   padding: 1.4rem;
   margin:0;
   color: var(--accent-color);
 }
-.partSelect{
+.signup-form__selectionSelected{
   font-size: 1.6rem;
   padding: 1.4rem;
   margin:0;
@@ -216,7 +216,7 @@ input.invalid {
 }
 
 /* Signup2 - 이용동의서 */
-.Signup_input_box_consent {
+.signup-form__inputbox_consent {
   display: flex;
   flex-direction: column;
   text-align: left;
@@ -224,17 +224,17 @@ input.invalid {
   width: 100%;
   margin-top: 12rem;
 }
-.consent_information_box{
+.signup-form__consentsection{
   display: flex;
   flex-direction: column;
   font-size: 1rem;
 }
-.consent_table{
+.signup-form__consent_table{
   width: 100%;
   border-collapse: collapse;
 }
 
-.consent_head{
+.signup-form__consent_head{
   background-color: var(--lightgrey-color);
   width: 20%;
   padding: 1rem;
@@ -242,7 +242,7 @@ input.invalid {
   font-size: 1.2rem;
   border-bottom: 1px solid #D7D7DF;
 }
-.consent_body{
+.signup-form__consent_body{
   padding: 0.5rem;
   height: max-content;
   font-size: 1.2rem;
@@ -250,7 +250,7 @@ input.invalid {
   border-bottom: 1px solid #D7D7DF;
 }
 
-.consent_info{
+.signup-form__consent_info{
   margin-top: 1rem;
   margin-left: 0.5rem;
   font-size: 1.2rem;
@@ -258,14 +258,14 @@ input.invalid {
 }
 
 /* 회원가입 진행 버튼 */
-.Signup_progress_box {
+.signup-form__progressBox1 {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   margin-top: 1rem;
 }
-.Signup_progress_box2 {
+.signup-form__progressBox2 {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -273,7 +273,7 @@ input.invalid {
   margin-top: 16rem;
 }
 
-.SignupBtn {
+.signup-form__button--submitting {
   color: var(--main-bg-color);
   font-size: 1.6rem;
   font-weight: 500;
@@ -287,7 +287,7 @@ input.invalid {
   border-radius: 10px;
 }
 
-.SignupBtn_Success {
+.SignupBtsignup-form__button--submittingSuccessn_Success {
   color: var(--main-bg-color);
   font-size: 1.6rem;
   font-weight: 500;
@@ -300,7 +300,7 @@ input.invalid {
   border-radius: 10px;
 }
 
-.SignupBtn_Yet {
+.signup-form__button--submittingYet {
   color: var(--grey-e5-color);
   font-size: 1.6rem;
   font-weight: 500;
@@ -314,21 +314,17 @@ input.invalid {
 }
 
 /* 로그인 페이지 바로가기 */
-.toLogin {
+.login-togoBox {
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
-.toLogin > p {
+.login-mention {
   font-size: 1.6rem;
 }
-.toLogin > button {
+.login-button {
   font-size: 1.6rem;
-
-}
-
-.tologinBtn {
   color: var(--accent-color);
   background-color: var(--main-bg-color);
   margin-left: 1rem;

@@ -101,18 +101,16 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
   }
 
   return (
-    <div className={styles.SignupPage_layout}>
-      <div name='Signup_input_information'>
-        <p className={styles.title}>회원가입</p>
-      </div>
-      <div className={styles.Signup_input_boxs}>
-        <div className={styles.Signup_input_box}>
-          <div className={styles.label_box}>
+    <div className={styles['signup-form']}>
+      <p className={styles['signup-form__title']}>회원가입</p>
+      <div className={styles['signup-form__inputboxs']}>
+        <div className={styles['signup-form__inputbox']}>
+          <div className={styles['signup-form__labelsection']}>
             <label htmlFor='id'>아이디</label>
             <p>*</p>
           </div>
-          <div className={styles.input_box}>
-            <div className={styles.Input}>
+          <div className={styles['signup-form__inputsection']}>
+            <div className={styles['signup-form__input']}>
               <input
                 type='text'
                 id='id'
@@ -126,13 +124,13 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             {errors.id ? <p className={styles.error_message}>{errors.id}</p> : null}
           </div>
         </div>
-        <div className={styles.Signup_input_box}>
-          <div className={styles.label_box}>
+        <div className={styles['signup-form__inputbox']}>
+          <div className={styles['signup-form__labelsection']}>
             <label htmlFor='password'>비밀번호</label>
             <p>*</p>
           </div>
-          <div className={styles.input_box}>
-            <div className={styles.Input}>
+          <div className={styles['signup-form__inputsection']}>
+            <div className={styles['signup-form__input']}>
               <input
                 type='password'
                 placeholder='영문, 숫자, 특수문자를 포함한 최소 8자 이상을 입력해주세요'
@@ -147,13 +145,13 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             {errors.password ? <p className={styles.error_message}>{errors.password}</p> : null}
           </div>
         </div>
-        <div className={styles.Signup_input_box}>
-          <div className={styles.label_box}>
+        <div className={styles['signup-form__inputbox']}>
+          <div className={styles['signup-form__labelsection']}>
             <label htmlFor='password_valid'>비밀번호 확인</label>
             <p>*</p>
           </div>
-          <div className={styles.input_box}>
-            <div className={styles.Input}>
+          <div className={styles['signup-form__inputsection']}>
+            <div className={styles['signup-form__input']}>
               <input
                 type='password'
                 placeholder='비밀번호를 다시 입력해주세요'
@@ -168,13 +166,13 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             {errors.password_valid ? <p className={styles.error_message}>{errors.password_valid}</p> : null}
           </div>
         </div>
-        <div className={styles.Signup_input_box}>
-          <div className={styles.label_box}>
+        <div className={styles['signup-form__inputbox']}>
+          <div className={styles['signup-form__labelsection']}>
             <label htmlFor='name'>이름</label>
             <p>*</p>
           </div>
-          <div className={styles.input_box}>
-            <div className={styles.Input}>
+          <div className={styles['signup-form__inputsection']}>
+            <div className={styles['signup-form__input']}>
               <input
                 type='text'
                 placeholder='한글로 입력해주세요'
@@ -188,13 +186,13 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             {errors.name ? <p className={styles.error_message}>{errors.name}</p> : null}
           </div>
         </div>
-        <div className={styles.Signup_input_box}>
-          <div className={styles.label_box}>
+        <div className={styles['signup-form__inputbox']}>
+          <div className={styles['signup-form__labelsection']}>
             <label htmlFor='department'>학과/학부</label>
             <p>*</p>
           </div>
-          <div className={styles.input_box}>
-            <div className={styles.Input}>
+          <div className={styles['signup-form__inputsection']}>
+            <div className={styles['signup-form__input']}>
               <input
                 type='text'
                 placeholder='한글로 입력해주세요'
@@ -208,13 +206,13 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             {errors.department ? <p className={styles.error_message}>{errors.department}</p> : null}
           </div>
         </div>
-        <div className={styles.Signup_input_box}>
-          <div className={styles.label_box}>
+        <div className={styles['signup-form__inputbox']}>
+          <div className={styles['signup-form__labelsection']}>
             <label htmlFor='strudent_num'>학번</label>
             <p>*</p>
           </div>
-          <div className={styles.input_box}>
-            <div className={styles.Input}>
+          <div className={styles['signup-form__inputsection']}>
+            <div className={styles['signup-form__input']}>
               <input
                 type='text'
                 maxLength={10}
@@ -229,13 +227,13 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             {errors.strudent_num ? <p className={styles.error_message}>{errors.strudent_num}</p> : null}
           </div>
         </div>
-        <div className={styles.Signup_input_box}>
-          <div className={styles.label_box}>
+        <div className={styles['signup-form__inputbox']}>
+          <div className={styles['signup-form__labelsection']}>
             <label htmlFor='phone_num'>연락처</label>
             <p>*</p>
           </div>
-          <div className={styles.input_box}>
-            <div className={styles.Input}>
+          <div className={styles['signup-form__inputsection']}>
+            <div className={styles['signup-form__input']}>
               <input
                 type='text'
                 placeholder='- 빼고 입력 ex) 01012345678'
@@ -250,12 +248,12 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
           </div>
         </div>
 
-        <div className={styles.Signup_input_box}>
-          <div className={styles.label_box}>
+        <div className={styles['signup-form__inputbox']}>
+          <div className={styles['signup-form__labelsection']}>
             <label htmlFor='semester'>기수 (기존 동아리원만 선택)</label>
           </div>
-          <div className={styles.input_box}>
-            <div className={styles.Input}>
+          <div className={styles['signup-form__inputsection']}>
+            <div className={styles['signup-form__input']}>
               <input
                 type='text'
                 placeholder='숫자만 입력해주세요'
@@ -269,20 +267,20 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
           </div>
         </div>
 
-        <div className={styles.Signup_input_box}>
-          <div className={styles.label_box}>
+        <div className={styles['signup-form__inputbox']}>
+          <div className={styles['signup-form__labelsection']}>
             <label htmlFor='part'>트랙 (기존 동아리원만 선택)</label>
           </div>
           <div
-            className={styles.input_box}
+            className={styles['signup-form__inputsection']}
             onBlur={handleBlurSelcetBox}
           >
-            <div className={styles.selcetBox}>
+            <div className={styles['signup-form__selectsection']}>
               <label onClick={handleSelectBox}>
                 <button
                   id='part'
                   style={{ cursor: 'pointer' }}
-                  className={styles.selection}
+                  className={styles['signup-form__selectbutton']}
                   value={selcetPart}
                 >
                   <p>{selcetPart}</p>
@@ -293,10 +291,14 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             {isDropdownView ? (
               <ul
                 style={{ cursor: 'pointer' }}
-                className={styles.partMenu}
+                className={styles['signup-form__selectMenu']}
               >
                 <li
-                  className={selcetPart === '기획/디자인' ? styles.partSelect : styles.part}
+                  className={
+                    selcetPart === '기획/디자인'
+                      ? styles['signup-form__selectionSelected']
+                      : styles['signup-form__selection']
+                  }
                   id='PM/design'
                   onClick={handlePart}
                 >
@@ -304,14 +306,22 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 </li>
                 <li
                   id='front'
-                  className={selcetPart === '프론트앤드' ? styles.partSelect : styles.part}
+                  className={
+                    selcetPart === '프론트앤드'
+                      ? styles['signup-form__selectionSelected']
+                      : styles['signup-form__selection']
+                  }
                   onClick={handlePart}
                 >
                   프론트앤드
                 </li>
                 <li
                   id='back'
-                  className={selcetPart === '백앤드' ? styles.partSelect : styles.part}
+                  className={
+                    selcetPart === '백앤드'
+                      ? styles['signup-form__selectionSelected']
+                      : styles['signup-form__selection']
+                  }
                   onClick={handlePart}
                 >
                   백앤드
@@ -322,8 +332,8 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
           </div>
         </div>
 
-        <div className={styles.Signup_input_box_consent}>
-          <div className={styles.label_box}>
+        <div className={styles['signup-form__inputbox_consent']}>
+          <div className={styles['signup-form__labelsection']}>
             <input
               type='checkbox'
               id='consent'
@@ -334,26 +344,26 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             <label htmlFor='consent'>(필수) 개인정보 수집 및 이용 동의서</label>
             <p>*</p>
           </div>
-          <div className={styles.input_box}>
+          <div className={styles['signup-form__inputsection']}>
             <ConsentTable />
             {errors.consent ? <p className={styles.error_message}>{errors.consent}</p> : null}
           </div>
         </div>
-        <div className={styles.Signup_progress_box2}>
+        <div className={styles['signup-form__progressBox2']}>
           <button
             style={{ cursor: 'pointer' }}
-            className={styles.SignupBtn}
+            className={styles['signup-form__button--submitting']}
             onClick={handleSignupClick}
           >
             회원가입
           </button>
-          <div className={styles.toLogin}>
-            <p>이미 계정이 있으신가요?</p>
+          <div className={styles['login-togoBox']}>
+            <p className={styles['login-mention']}>이미 계정이 있으신가요?</p>
             <button
               style={{ cursor: 'pointer' }}
               type='submit'
-              className={styles.tologinBtn}
-              onClick={() => {
+              className={styles['login-button']}
+              onClick={function () {
                 navigate('/login');
               }}
             >
