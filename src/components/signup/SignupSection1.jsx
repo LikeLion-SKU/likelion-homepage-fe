@@ -99,7 +99,12 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
           setCount(300); // 5분
           setForm({ ...form, email_valid: true, sendemail: form.email, timing: true });
         } else {
+          setSendSuccess(2);
+          console.log(response);
           console.log(response.message);
+          setCount(300);
+          setForm({ ...form, email_valid: true, sendemail: form.email, timing: true });
+          setErrors({ ...errors, email: response.message });
         }
       } catch (error) {
         //에러처리
@@ -180,9 +185,7 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
 
   return (
     <div className={styles.SignupPage_layout}>
-      <div className={styles.Signup_input_information}>
-        <p className={styles.title}>회원가입</p>
-      </div>
+      <p className={styles.title}>회원가입</p>
       <div className={styles.Signup_input_boxs}>
         <div className={styles.Signup_input_box}>
           <div className={styles.label_box}>

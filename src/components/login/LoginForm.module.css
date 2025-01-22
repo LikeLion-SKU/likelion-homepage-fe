@@ -26,6 +26,7 @@ fieldset{
   min-height: 10.9rem;
 }
 
+/* label */
 .login-form__label {
   color: var(--main-text-color);
   font-size: 1.6rem;
@@ -34,6 +35,7 @@ fieldset{
   line-height: 3rem;
 }
 
+/* input 관련 */
 .login-form__inputSection{
   display: flex;
   flex-direction: row;
@@ -61,6 +63,7 @@ fieldset{
   border-color: var(--accent-color);
 }
 
+/* 이메일 도메인 (@skuniv.ac.kr) */
 .login-form__emailDomain{
   margin-left: 1.5rem;
   color: var(--grey-a9-color);
@@ -68,6 +71,7 @@ fieldset{
   font-weight: 500;
 }
 
+/* input 창 아래 메세지 */
 .login-form__result-message--error {
   color: red;
   margin-left: 1rem;
@@ -75,6 +79,7 @@ fieldset{
   font-size: 1.2rem;
 }
 
+/* 로그인 버튼 */
 .button {
   color: var(--main-bg-color);
   font-size: 1.5rem;

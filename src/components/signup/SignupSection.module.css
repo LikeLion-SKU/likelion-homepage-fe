@@ -34,15 +34,8 @@
   width: 100%;
   margin-bottom: 2rem;
 }
-.Signup_input_box_ {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-  height: 11rem;
-  width: 100%;
-  margin-top: 10rem;
-}
 
+/* label 관련 */
 .label_box {
   display: flex;
   flex-direction: row;
@@ -61,8 +54,23 @@
   color: #E42938;
 }
 
+
+/* input창 관련 */
 .input_box {
   margin-bottom: 1rem;
+}
+
+.Input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.Input > p {
+  color: var(--grey-a9-color);
+  font-size: 1.6rem;
+  font-weight: 500;
+  padding: 0.5rem;
+  margin-left: 0.5rem;
 }
 
 .Input > input {
@@ -86,25 +94,7 @@ input.invalid {
   border-color: #E42938;
 }
 
-.error_message {
-  color: #E42938;
-  margin-top: 0.5rem;
-  margin-left: 1rem;
-  font-size: 1.4rem;
-}
-
-.ok_message {
-  color: var(--accent-color);
-  margin-top: 0.5rem;
-  margin-left: 1rem;
-  font-size: 1.4rem;
-}
-
-.confirmCode_messegeBox{
-  display: flex;
-  flex-direction: row;
-}
-
+/* Signup1 - 전송 후 Loader */
 .loaderBox{
   margin: 2rem;
   width: 100%;
@@ -125,6 +115,47 @@ input.invalid {
     100%{box-shadow: 20px 0 #0002,-20px 0 #000; background: #000 }
 }
 
+/* 인증번호 전송, 확인 버튼 (input창 우측 위치) */
+.checkingBtn {
+  font-size: 1.6rem;
+  font-weight: 500;
+  background-color: var(--black-44-color);
+  padding: 1.5rem 1rem;
+  border-radius: 10px;
+  color: var(--main-bg-color);
+  margin-left: 1rem;
+  min-width: 12.3rem;
+}
+.checkingBtn_Yet {
+  font-size: 1.6rem;
+  font-weight: 500;
+  background-color: var(--grey-a9-color);
+  padding: 1.5rem 1rem;
+  border-radius: 10px;
+  color: var(--main-bg-color);
+  margin-left: 1rem;
+  min-width: 12.3rem;
+}
+
+/* input창 아래 메세지 관련 */
+.error_message {
+  color: #E42938;
+  margin-top: 0.5rem;
+  margin-left: 1rem;
+  font-size: 1.4rem;
+}
+
+.ok_message {
+  color: var(--accent-color);
+  margin-top: 0.5rem;
+  margin-left: 1rem;
+  font-size: 1.4rem;
+}
+
+.confirmCode_messegeBox{
+  display: flex;
+  flex-direction: row;
+}
 .time{
   margin-left: auto;
   margin-right: 0.5rem;
@@ -143,6 +174,90 @@ input.invalid {
   color: #E42938;
 }
 
+/* Signup2 - 트랙(part) 드롭아웃 메뉴 */
+.selection{
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--grey-da-color);
+  border-radius: 10px;
+  height: 5rem;
+  padding: 1rem;
+  background-color: white;
+  font-size: 1.6rem;
+  color: #808080;
+}
+.partMenu{
+  margin-top: 0.5rem;
+  width: 50%;
+  border: 1px solid var(--grey-da-color);
+  border-radius: 10px;
+  background-color: white;
+}
+.part{
+  font-size: 1.6rem;
+  padding: 1.4rem;
+  margin:0;
+  color: #1C1B1A;
+}
+.part:hover{
+  font-size: 1.6rem;
+  padding: 1.4rem;
+  margin:0;
+  color: var(--accent-color);
+}
+.partSelect{
+  font-size: 1.6rem;
+  padding: 1.4rem;
+  margin:0;
+  color: var(--accent-color);
+}
+
+/* Signup2 - 이용동의서 */
+.Signup_input_box_consent {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  height: 11rem;
+  width: 100%;
+  margin-top: 12rem;
+}
+.consent_information_box{
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+}
+.consent_table{
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.consent_head{
+  background-color: var(--lightgrey-color);
+  width: 20%;
+  padding: 1rem;
+  text-align: center;
+  font-size: 1.2rem;
+  border-bottom: 1px solid #D7D7DF;
+}
+.consent_body{
+  padding: 0.5rem;
+  height: max-content;
+  font-size: 1.2rem;
+  line-height: 130%;
+  border-bottom: 1px solid #D7D7DF;
+}
+
+.consent_info{
+  margin-top: 1rem;
+  margin-left: 0.5rem;
+  font-size: 1rem;
+  line-height: 130%;
+}
+
+/* 회원가입 진행 버튼 */
 .Signup_progress_box {
   display: flex;
   flex-direction: column;
@@ -198,23 +313,7 @@ input.invalid {
   border-radius: 10px;
 }
 
-.Input {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.Input > p {
-  color: var(--grey-a9-color);
-  font-size: 1.6rem;
-  font-weight: 500;
-  padding: 0.5rem;
-  margin-left: 0.5rem;
-}
-
-.selection {
-  border: 1px solid var(--grey-da-color);
-}
-
+/* 로그인 페이지 바로가기 */
 .toLogin {
   display: flex;
   flex-direction: row;
@@ -231,111 +330,6 @@ input.invalid {
 
 .tologinBtn {
   color: var(--accent-color);
-  background-color: rgba(255, 255, 255, 0);
+  background-color: var(--main-bg-color);
   margin-left: 1rem;
-}
-
-.checkingBtn {
-  font-size: 1.6rem;
-  font-weight: 500;
-  background-color: var(--black-44-color);
-  padding: 1.5rem 1rem;
-  border-radius: 10px;
-  color: var(--main-bg-color);
-  margin-left: 1rem;
-  min-width: 12.3rem;
-}
-.checkingBtn_Yet {
-  font-size: 1.6rem;
-  font-weight: 500;
-  background-color: var(--grey-a9-color);
-  padding: 1.5rem 1rem;
-  border-radius: 10px;
-  color: var(--main-bg-color);
-  margin-left: 1rem;
-  min-width: 12.3rem;
-}
-
-.Select > select {
-  width: 40%;
-  height: 4rem;
-  border-radius: 10px;
-  padding-left: 1rem;
-}
-
-.semester_p {
-  font-size: 3rem;
-  min-width: 5rem;
-  margin-right: 16rem;
-}
-
-.selection{
-  width: 50%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  border: 1px solid var(--grey-da-color);
-  border-radius: 10px;
-  height: 5rem;
-  padding: 1rem;
-  background-color: white;
-  font-size: 1.6rem;
-  color: var(--grey-a9-color);
-}
-.partMenu{
-  margin-top: 0.5rem;
-  width: 50%;
-  border: 1px solid var(--grey-da-color);
-  border-radius: 10px;
-  background-color: white;
-}
-.part{
-  font-size: 1.6rem;
-  padding: 1.4rem;
-  margin:0;
-  color: #1C1B1A;
-}
-.partSelect{
-  font-size: 1.6rem;
-  padding: 1.4rem;
-  margin:0;
-  color: #1C1B1A;
-  background-color: var(--grey-da-color);
-}
-
-
-.consent_information_box{
-  display: flex;
-  flex-direction: column;
-  font-size: 1rem;
-}
-
-.consent_table{
-  width: 100%;
-  border-collapse: collapse;
-}
-
-
-.consent_head{
-  background-color: var(--lightgrey-color);
-  width: 20%;
-  padding: 1rem;
-  text-align: center;
-  font-size: 1rem;
-  border-bottom: 1px solid #D7D7DF;
-}
-.consent_body{
-  padding: 0.5rem;
-  height: max-content;
-  font-size: 1rem;
-  line-height: 130%;
-  border-bottom: 1px solid #D7D7DF;
-}
-
-.consent_info{
-  margin-top: 1rem;
-  margin-left: 0.5rem;
-  font-size: 1rem;
-  line-height: 130%;
 }

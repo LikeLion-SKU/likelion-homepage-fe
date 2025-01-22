@@ -36,9 +36,16 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
     setForm({ ...form, consent: event.target.checked });
   }
 
+  // 트랙(part) 드롭아웃 메뉴 관련 함수
   function handleSelectBox(event) {
     event.preventDefault;
     setIsDropdownView(!isDropdownView);
+  }
+
+  function handleBlurSelcetBox() {
+    setTimeout(() => {
+      setIsDropdownView(false);
+    }, 100);
   }
 
   function handlePart(event) {
@@ -89,7 +96,6 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
           setErrors({ errors, signup: '회원가입 중 서버 오류가 발생했습니다. 나중에 다시 시도해주세요' });
         }
       };
-
       signUp();
     }
   }
@@ -267,10 +273,14 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
           <div className={styles.label_box}>
             <label htmlFor='part'>트랙 (기존 동아리원만 선택)</label>
           </div>
-          <div className={styles.input_box}>
+          <div
+            className={styles.input_box}
+            onBlur={handleBlurSelcetBox}
+          >
             <div className={styles.selcetBox}>
               <label onClick={handleSelectBox}>
                 <button
+                  id='part'
                   style={{ cursor: 'pointer' }}
                   className={styles.selection}
                   value={selcetPart}
@@ -312,7 +322,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
           </div>
         </div>
 
-        <div className={styles.Signup_input_box_}>
+        <div className={styles.Signup_input_box_consent}>
           <div className={styles.label_box}>
             <input
               type='checkbox'
