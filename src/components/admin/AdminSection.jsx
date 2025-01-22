@@ -20,7 +20,7 @@ export default function AdminSection() {
         />
         <Admin.Button
           label='멋사인 편집하기'
-          path='/'
+          path='about'
         />
       </Admin.ItemBox>
     </Admin>
