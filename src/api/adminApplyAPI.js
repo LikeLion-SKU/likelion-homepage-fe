@@ -1,21 +1,25 @@
 import { APIService } from './axios';
 
-export async function assignPassed(formAnswerId, isPassed, setApplicants, semester) {
+export async function assignPassed(formAnswerId, isPassed, setApplicants, semester, sort) {
   try {
     const baseUrl = import.meta.env.VITE_APP_POST_ANSWER + `/${formAnswerId}/passed`;
     await APIService.private.put(baseUrl, {
       isPassed: isPassed.value,
     });
-    getApplicants(setApplicants, semester);
+    getApplicants(setApplicants, semester, sort);
   } catch {
     location.href = '/error';
   }
 }
 
-export async function getApplicants(setApplicants, semester) {
+export async function getApplicants(setApplicants, semester, trackType) {
   try {
-    const baseUrl = import.meta.env.VITE_APP_POST_ANSWER;
-    const res = await APIService.private.get(`${baseUrl}/semester/${semester}`);
+    const baseUrl = `${import.meta.env.VITE_APP_POST_ANSWER}/semester/${semester}`;
+    const res = await APIService.private.get(baseUrl, {
+      params: {
+        trackType,
+      },
+    });
     setApplicants(res);
   } catch {
     location.href = '/error';

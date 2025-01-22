@@ -8,7 +8,7 @@ import { assignPassed } from '@api/adminApplyAPI';
 import { useStore } from '@store/useStore';
 
 export default function TableContainer() {
-  const { applicants, setApplicants, semester } = useStore();
+  const { applicants, setApplicants, semester, sort } = useStore();
   const navigate = useNavigate();
 
   useGetApplicants(setApplicants, semester);
@@ -38,7 +38,7 @@ export default function TableContainer() {
                   styles={style}
                   options={options}
                   onChange={(value) => {
-                    assignPassed(applicant.id, value, setApplicants, semester);
+                    assignPassed(applicant.id, value, setApplicants, semester, sort.value);
                   }}
                   value={applicant.isPassed ? options[0] : options[1]}
                   placeholder='선택'

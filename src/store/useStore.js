@@ -33,4 +33,10 @@ export const useStore = create((set) => ({
 
   applicants: [],
   setApplicants: (newApplicants) => set(() => ({ applicants: newApplicants })),
+
+  sort: '',
+  setSort: (newSort) =>
+    set(() => ({
+      sort: newSort,
+    })),
 }));
