@@ -90,10 +90,10 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             setNow(1);
             navigate('/welcome?name=${form.name}');
           } else {
-            setErrors({ ...errors, signup: '회원가입에 실패하였습니다.' });
+            alert('회원가입에 실패하였습니다.');
           }
         } catch {
-          setErrors({ errors, signup: '회원가입 중 서버 오류가 발생했습니다. 나중에 다시 시도해주세요' });
+          alert('회원가입 중 서버 오류가 발생했습니다. 나중에 다시 시도해주세요');
         }
       };
       signUp();
@@ -135,7 +135,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             <div className={styles.Input}>
               <input
                 type='password'
-                placeholder='최소 4자 이상의 영문, 숫자, 특수문자를 포함'
+                placeholder='영문, 숫자, 특수문자를 포함한 최소 8자 이상을 입력해주세요'
                 id='password'
                 value={form.password}
                 className={errors.password ? 'invalid' : form.password ? 'valid' : ''}
@@ -156,7 +156,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             <div className={styles.Input}>
               <input
                 type='password'
-                placeholder='비밀번호 확인'
+                placeholder='비밀번호를 다시 입력해주세요'
                 id='password_valid'
                 value={form.password_valid}
                 className={errors.password_valid ? 'invalid' : form.password_valid ? 'valid' : ''}
@@ -177,7 +177,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             <div className={styles.Input}>
               <input
                 type='text'
-                placeholder='한글로 2-10자'
+                placeholder='한글로 입력해주세요'
                 id='name'
                 value={form.name}
                 className={errors.name ? 'invalid' : form.name ? 'valid' : ''}
@@ -197,7 +197,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             <div className={styles.Input}>
               <input
                 type='text'
-                placeholder='본인의 학과/학부'
+                placeholder='한글로 입력해주세요'
                 id='department'
                 value={form.department}
                 className={errors.department ? 'invalid' : form.department ? 'valid' : ''}
@@ -218,7 +218,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
               <input
                 type='text'
                 maxLength={10}
-                placeholder='본인의 학번 10자'
+                placeholder='숫자만 10자 입력해주세요'
                 id='strudent_num'
                 value={form.strudent_num}
                 className={errors.strudent_num ? 'invalid' : form.strudent_num ? 'valid' : ''}
@@ -238,7 +238,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             <div className={styles.Input}>
               <input
                 type='text'
-                placeholder="'-'빼고 숫자로"
+                placeholder='- 빼고 입력 ex) 01012345678'
                 id='phone_num'
                 value={form.phone_num}
                 className={errors.phone_num ? 'invalid' : form.phone_num ? 'valid' : ''}
@@ -360,7 +360,6 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
               로그인
             </button>
           </div>
-          {errors.signup ? <p className={styles.error_message_false}>{errors.signup}</p> : null}
         </div>
       </div>
     </div>
