@@ -63,29 +63,7 @@
 }
 
 .buttonContainer {
-    display: flex;
-    padding: 5%;
-    gap: 2%;
-    justify-content: center;
-    width: 80%;
-}
-
-.btn {
-    width: 200px;
-    height: 40px;
-    border-radius: 20px;
-    border: 2px solid var(--main-text-color);
-    background-color: #fff;
-    color: var(--main-text-color);
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.btn:hover {
-    background-color: rgb(191, 191, 191);
-    transform: scale(1.05);
+    width: 100%;
 }
 
 .chairmanContainer {
