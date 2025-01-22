@@ -1,54 +1,41 @@
-// import { useState } from 'react';
+import { useState } from 'react';
 import styles from './generation.module.css';
-import Button from '@/components/adminApply/Generation';
+import styles2 from '@components/adminApply/Generation.module.css';
+import { getProfile } from '@api/aboutAdminAPI';
+import Registration from './Registration';
 
 export default function Generation() {
-  // const [buttons, setButtons] = useState(['LIKELION 12TH', 'LIKELION 13TH', 'LIKELION 14TH']);
+  const years = [12, 13, 14];
+  const [apiData, setApiData] = useState([]);
 
-  // // 버튼 삭제 핸들러
-  // function handleRemove(index) {
-  //   setButtons(
-  //     buttons.filter(function (_, i) {
-  //       return i !== index;
-  //     }),
-  //   );
-  // }
-
-  // // 버튼 추가 핸들러
-  // function handleAdd() {
-  //   setButtons([...buttons, `LIKELION ${buttons.length + 12}TH`]);
-  // }
+  async function changeSemester(semester) {
+    try {
+      const users = await getProfile(semester);
+      setApiData(users);
+    } catch (error) {
+      console.error('API 호출 오류:', error);
+    }
+  }
 
   return (
     <div className={styles.allContainer}>
       <div className={styles.titleContainer}>
         <p className={styles.title}>멋사인 편집하기</p>
         <div className={styles.buttonContainer}>
-          <Button />
-          {/* {buttons.map((label, index) => (
-            <div
-              key={index}
-              className={styles.btnWrapper}
-            >
-              <button className={styles.btn}>
-                {label}
-                <span
-                  className={styles.closeIcon}
-                  onClick={() => handleRemove(index)}
-                >
-                  ×
-                </span>
+          <div className={styles2.navbar}>
+            {years.map((year, index) => (
+              <button
+                key={index}
+                onClick={() => changeSemester(year)}
+              >
+                LIKELION SKU {year}TH
               </button>
-            </div>
-          ))}
-          <button
-            className={styles.addButtonContainer}
-            onClick={handleAdd}
-          >
-            <span className={styles.addButton}>+</span>
-          </button> */}
+            ))}
+          </div>
         </div>
       </div>
+
+      <Registration users={apiData} />
     </div>
   );
 }
