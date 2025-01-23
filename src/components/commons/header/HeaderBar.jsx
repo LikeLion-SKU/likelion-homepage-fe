@@ -84,40 +84,21 @@ function Login() {
 
   return (
     <li>
-      {isLoggedIn ? (
-        <button
-          className={styles.loginBtn}
-          onClick={() => {
-            navigate('mypage');
-            closeMenu();
-          }}
-        >
-          <div className={styles.loginBtn__imgbox}>
-            <img
-              src={login}
-              alt='마이페이지'
-            />
-          </div>
-
-          <p>마이페이지</p>
-        </button>
-      ) : (
-        <button
-          className={styles.loginBtn}
-          onClick={() => {
-            navigate('login');
-            closeMenu();
-          }}
-        >
-          <div className={styles.loginBtn__imgbox}>
-            <img
-              src={login}
-              alt='로그인'
-            />
-          </div>
-          <p>로그인</p>
-        </button>
-      )}
+      <button
+        className={styles.loginBtn}
+        onClick={() => {
+          navigate(isLoggedIn ? 'mypage' : 'login');
+          closeMenu();
+        }}
+      >
+        <div className={styles.loginBtn__imgbox}>
+          <img
+            src={login}
+            alt={isLoggedIn ? '마이페이지' : '로그인'}
+          />
+        </div>
+        <p>{isLoggedIn ? '마이페이지' : '로그인'}</p>
+      </button>
     </li>
   );
 }
