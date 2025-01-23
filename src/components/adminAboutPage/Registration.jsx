@@ -3,10 +3,10 @@ import styles from './registration.module.css';
 import AddImage from './AddImage';
 import { FaTrashAlt } from 'react-icons/fa';
 import { MdEdit } from 'react-icons/md';
+import { putProfile } from '@api/aboutAdminAPI';
 
 export default function Registration({ users }) {
   const [rows, setRows] = useState([]);
-  const [isStorage, setIsStorage] = useState(false);
 
   const roleOrder = ['회장', '부회장', '운영진', '아기사자', '게스트'];
   const partOrder = ['기획/디자인', '기획', '디자인', '프론트엔드', '백엔드'];
@@ -20,6 +20,7 @@ export default function Registration({ users }) {
         department: user.department || '',
         studentId: user.studentId || '',
         image: user.profileImageUrl || '',
+        isStorage: false, // 각 행별 저장 상태 추가
       }));
       setRows(initialRows);
     }
@@ -33,8 +34,10 @@ export default function Registration({ users }) {
     return [...rows].sort((a, b) => roleOrder.indexOf(a.role) - roleOrder.indexOf(b.role));
   }
 
-  function toggleStorage() {
-    setIsStorage((prev) => !prev);
+  function toggleStorage(index) {
+    const updatedRows = [...rows];
+    updatedRows[index].isStorage = !updatedRows[index].isStorage; // 특정 행의 저장 상태 토글
+    setRows(updatedRows);
   }
 
   function handleCellChange(index, field, value) {
@@ -52,6 +55,28 @@ export default function Registration({ users }) {
     updatedRows[index].image = url;
     updatedRows[index].fileName = name;
     setRows(updatedRows);
+  }
+
+  async function handleSave(index) {
+    const originalUser = users[index];
+    const updatedRow = rows[index];
+
+    const updatedData = {
+      role: updatedRow.role,
+      userName: updatedRow.name,
+      parts: updatedRow.part,
+      department: updatedRow.department,
+      studentId: updatedRow.studentId,
+    };
+
+    try {
+      await putProfile(originalUser.semester, originalUser.studentId, updatedData);
+      alert('저장되었습니다.');
+      toggleStorage(index); // 저장 후 편집 모드로 전환
+    } catch (error) {
+      console.error('저장 중 오류 발생:', error);
+      alert('저장에 실패했습니다.');
+    }
   }
 
   return (
@@ -82,7 +107,7 @@ export default function Registration({ users }) {
                       className={styles.tableInput}
                       value={row.role}
                       onChange={(e) => handleCellChange(index, 'role', e.target.value)}
-                      disabled={isStorage}
+                      disabled={row.isStorage}
                     >
                       {roleOrder.map((role) => (
                         <option
@@ -101,7 +126,7 @@ export default function Registration({ users }) {
                       type='text'
                       value={row.name}
                       onChange={(e) => handleCellChange(index, 'name', e.target.value)}
-                      disabled={isStorage}
+                      disabled={row.isStorage}
                     />
                   </td>
 
@@ -110,7 +135,7 @@ export default function Registration({ users }) {
                       className={styles.tableInput}
                       value={row.part}
                       onChange={(e) => handleCellChange(index, 'part', e.target.value)}
-                      disabled={isStorage}
+                      disabled={row.isStorage}
                     >
                       {partOrder.map((part) => (
                         <option
@@ -129,7 +154,7 @@ export default function Registration({ users }) {
                       type='text'
                       value={row.department}
                       onChange={(e) => handleCellChange(index, 'department', e.target.value)}
-                      disabled={isStorage}
+                      disabled={row.isStorage}
                     />
                   </td>
 
@@ -139,17 +164,17 @@ export default function Registration({ users }) {
                       type='text'
                       value={row.studentId}
                       onChange={(e) => handleCellChange(index, 'studentId', e.target.value)}
-                      disabled={isStorage}
+                      disabled={row.isStorage}
                     />
                   </td>
 
                   <td>
                     <div>
-                      {isStorage ? (
+                      {row.isStorage ? (
                         <div className={styles.deleteButtonContainer}>
                           <MdEdit
                             style={{ color: 'black', fontSize: '2rem', cursor: 'pointer' }}
-                            onClick={toggleStorage}
+                            onClick={() => toggleStorage(index)}
                           />
                           <FaTrashAlt
                             style={{ color: 'red', fontSize: '2rem', cursor: 'pointer' }}
@@ -160,7 +185,7 @@ export default function Registration({ users }) {
                         <div className={styles.submitButtonContainer}>
                           <button
                             className={styles.submitButton}
-                            onClick={toggleStorage}
+                            onClick={() => handleSave(index)}
                           >
                             저장하기
                           </button>
@@ -173,7 +198,7 @@ export default function Registration({ users }) {
                     <div className={styles.container}>
                       <AddImage
                         onImageUpload={(data) => handleImageUpload(index, data)}
-                        isStorage={isStorage}
+                        isStorage={row.isStorage}
                       />
                     </div>
                   </td>

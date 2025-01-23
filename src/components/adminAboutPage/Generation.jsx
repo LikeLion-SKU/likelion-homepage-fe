@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './generation.module.css';
 import styles2 from '@components/adminApply/Generation.module.css';
 import { getProfile } from '@api/aboutAdminAPI';
@@ -7,15 +7,22 @@ import Registration from './Registration';
 export default function Generation() {
   const years = [12, 13, 14];
   const [apiData, setApiData] = useState([]);
+  const [selectedYear, setSelectedYear] = useState(null);
 
   async function changeSemester(semester) {
     try {
       const users = await getProfile(semester);
       setApiData(users);
+      setSelectedYear(semester);
     } catch (error) {
       console.error('API 호출 오류:', error);
     }
   }
+
+  useEffect(() => {
+    const defaultYear = Math.max(...years);
+    changeSemester(defaultYear);
+  }, []);
 
   return (
     <div className={styles.allContainer}>
