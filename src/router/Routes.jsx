@@ -1,4 +1,5 @@
 import { Routes as ReactRouters, Route } from 'react-router-dom';
+import PrivateRoute from './PrivateRoutes';
 
 // Pages
 import HomePage from '@pages/HomePage';
@@ -57,7 +58,7 @@ export default function Routes() {
         <Route path='application' element={<ViewForm/>} />
 
         {/* Admin Routes */}
-        <Route path="admin">
+        <Route path="admin" element={<PrivateRoute>
           <Route index element={<AdminPage />} />
           {/* 지원서 생성하기 */}
           <Route path="create" element={<CreateApplyPage />} />
@@ -75,6 +76,7 @@ export default function Routes() {
           </Route>
           {/* 멋사인 편집하기 */}
           <Route path="about" element={<AdminAbout />} />
+        </PrivateRoute>}>
         </Route>
 
         {/* User Routes */}
