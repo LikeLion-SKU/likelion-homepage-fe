@@ -1,0 +1,7 @@
+.dead-line-input-container {
+  display: flex;
+  justify-content: space-between;
+  width: 30%;
+  min-width: 192px;
+  margin-bottom: 5vh;
+}
