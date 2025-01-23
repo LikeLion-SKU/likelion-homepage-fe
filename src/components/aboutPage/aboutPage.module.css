@@ -1,16 +1,7 @@
 @media (max-width: 1300px) {
-    .managementCardGrid {
-        grid-template-columns: repeat(3, 1fr) !important;
-    }
-    
-    .cardGrid {
-        grid-template-columns: repeat(5, 1fr) !important;
-    }
-}
 
-@media (max-width: 1100px) {
     .managementCardGrid {
-        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-columns: repeat(4, 1fr) !important;
     }
     
     .cardGrid {
@@ -18,9 +9,23 @@
     }
 }
 
-@media (max-width: 880px) {
+@media (max-width: 1100px) {
     .managementCardGrid {
-        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+    
+    .cardGrid {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+}
+
+@media (max-width: 950px) {
+    .subTitleGrid{
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+
+    .managementCardGrid {
+        grid-template-columns: repeat(3, 1fr) !important;
     }
     
     .cardGrid {
@@ -28,7 +33,11 @@
     }
 }
 
-@media (max-width: 650px) {
+@media (max-width: 700px) {
+    .subTitleGrid{
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
     .managementCardGrid {
         grid-template-columns: repeat(2, 1fr) !important;
     }
@@ -54,14 +63,6 @@
     align-items: center;
 }
 
-.title {
-    color: var(--main-text-color);
-    font-size: 36px;
-    font-weight: 700;
-    margin-top: 5vh;
-    margin-bottom: 5%;
-}
-
 .buttonContainer {
     width: 100%;
 }
@@ -84,15 +85,32 @@
 .chairman {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .mainText {
-    font-size: 23.04px;
+    font-size: 4rem;
     font-weight: 700;
     color: var(--main-text-color);
     margin-bottom: 20px;
     margin-top: 10px;
+}
+
+.subTitleGrid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.subText{
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--main-text-color);
+    margin-bottom: 20px;
+    margin-top: 10px;
+    width: 200px;
 }
 
 .managementContainer {
@@ -115,11 +133,12 @@
     gap: 3rem;
     justify-content: center;
     align-items: center;
+    margin-bottom: 2rem;
 }
 
 .cardGrid {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 3rem;
     justify-content: center;
     align-items: center;
@@ -140,5 +159,13 @@
 
     .title{
         font-size: 3.5rem;
+    }
+
+    .subTitleGrid{
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    .subText{
+        width: 160px;
     }
 }

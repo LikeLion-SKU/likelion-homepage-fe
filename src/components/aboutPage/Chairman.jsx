@@ -1,7 +1,6 @@
-import styles from './aboutPage.module.css';
+import styles from './chairman.module.css';
 import Card from './Card';
 import profileImage from '@/assets/svgs/ex.svg';
-import Button from '@/components/adminApply/Generation';
 
 export default function Chairman() {
   const chairmanMembers = [
@@ -11,12 +10,6 @@ export default function Chairman() {
 
   return (
     <div className={styles.allContainer}>
-      <div className={styles.titleContainer}>
-        <p className={styles.title}>멋사인</p>
-        <div className={styles.buttonContainer}>
-          <Button />
-        </div>
-      </div>
       <div className={styles.chairmanContainer}>
         <div className={styles.chairmanCardGrid}>
           {chairmanMembers.map((member, index) => (
@@ -24,7 +17,7 @@ export default function Chairman() {
               key={index}
               className={styles.chairman}
             >
-              <q className={styles.mainText}>{member.role}</q>
+              <p className={styles.mainText}>{member.role}</p>
               <Card
                 name={member.name}
                 department={member.department}
