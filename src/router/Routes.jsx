@@ -12,7 +12,7 @@ import WelcomePage from '@pages/WelcomePage';
 import Apply from '@pages/ApplyPage';
 import ApiTestPage from '@/pages/ApiTestPage';
 import AdminPage from '@/pages/AdminPage';
-import QuestionAdminPage from '@/pages/adminPage1/QuestionAdminPage';
+import QuestionAdminPage from '@/pages/QuestionAdminPage';
 import AdminApply from '@pages/AdminApplyPage';
 import CreateApplyPage from '@/pages/CreateApplyPage';
 import AdminAbout from '@/pages/AdminAboutPage';
