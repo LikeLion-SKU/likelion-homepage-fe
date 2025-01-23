@@ -173,7 +173,7 @@ input.invalid {
   color: #E42938;
 }
 
-/* Signup2 - 트랙(signup-form__selection) 드롭아웃 메뉴 */
+/* Signup2 - 파트(signup-form__selection) 드롭아웃 메뉴 */
 .signup-form__selectbutton{
   width: 50%;
   display: flex;

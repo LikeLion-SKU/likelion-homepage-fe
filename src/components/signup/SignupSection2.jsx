@@ -24,7 +24,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
   });
   const [errors, setErrors] = useState({});
   const [isDropdownView, setIsDropdownView] = useState(false);
-  const [selcetPart, setSelectPart] = useState('트랙 선택');
+  const [selcetPart, setSelectPart] = useState('파트 선택');
   const navigate = useNavigate();
 
   // email이 변경될 때마다 form의 id 업데이트
@@ -36,7 +36,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
     setForm({ ...form, consent: event.target.checked });
   }
 
-  // 트랙(part) 드롭아웃 메뉴 관련 함수
+  // 파트(part) 드롭아웃 메뉴 관련 함수
   function handleSelectBox(event) {
     event.preventDefault;
     setIsDropdownView(!isDropdownView);
@@ -51,7 +51,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
   function handlePart(event) {
     if (form.part === event.target.id) {
       setForm({ ...form, part: '' });
-      setSelectPart('트랙 선택');
+      setSelectPart('파트 선택');
     } else {
       setForm({ ...form, part: event.target.id });
       if (event.target.id === 'PM/design') {
@@ -274,7 +274,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
 
         <div className={styles['signup-form__inputbox']}>
           <div className={styles['signup-form__labelsection']}>
-            <label htmlFor='part'>트랙 (기존 동아리원만 선택)</label>
+            <label htmlFor='part'>파트 (기존 동아리원만 선택)</label>
           </div>
           <div
             className={styles['signup-form__inputsection']}

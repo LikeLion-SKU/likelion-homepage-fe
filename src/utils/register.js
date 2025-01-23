@@ -156,7 +156,7 @@ export function validateInput_signup(form) {
   if (form.phone_num === '') {
     errors.phone_num = '연락처는 필수 입력 항목입니다.';
   } else if (!inputRegexs.phoneNumberRegex.test(form.phone_num)) {
-    errors.phone_num = '연락처는 숫자 8~12자로 입력해야 합니다.';
+    errors.phone_num = '연락처는 숫자로만 8~12자로 입력해야 합니다.';
   }
 
   if (!form.consent) {
