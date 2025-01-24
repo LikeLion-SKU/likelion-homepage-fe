@@ -3,24 +3,24 @@ import styles from './registration.module.css';
 import AddImage from './AddImage';
 import { FaTrashAlt } from 'react-icons/fa';
 import { MdEdit } from 'react-icons/md';
-import { putProfile } from '@api/aboutAdminAPI';
+import { putProfile, putImage, deleteProfile } from '@api/aboutAdminAPI';
 
 export default function Registration({ users }) {
   const [rows, setRows] = useState([]);
 
-  const roleOrder = ['회장', '부회장', '운영진', '아기사자', '게스트'];
+  const roleOrder = ['LEAD', 'COLEAD', 'COREMEMBER', 'BABYLION', 'GUEST'];
   const partOrder = ['기획/디자인', '기획', '디자인', '프론트엔드', '백엔드'];
 
   useEffect(() => {
     if (users && Array.isArray(users)) {
       const initialRows = users.map((user) => ({
-        role: user.role || '운영진',
+        role: user.role || 'GUEST',
         name: user.userName || '',
         part: user.parts || '',
         department: user.department || '',
         studentId: user.studentId || '',
         image: user.profileImageUrl || '',
-        isStorage: false, // 각 행별 저장 상태 추가
+        isStorage: true,
       }));
       setRows(initialRows);
     }
@@ -31,12 +31,17 @@ export default function Registration({ users }) {
   }
 
   function sortRows(rows) {
-    return [...rows].sort((a, b) => roleOrder.indexOf(a.role) - roleOrder.indexOf(b.role));
+    return [...rows].sort((a, b) => {
+      const roleComparison = roleOrder.indexOf(a.role) - roleOrder.indexOf(b.role);
+      if (roleComparison !== 0) {
+        return roleComparison;
+      }
+      return partOrder.indexOf(a.part) - partOrder.indexOf(b.part); // partOrder로 추가 정렬
+    });
   }
-
   function toggleStorage(index) {
     const updatedRows = [...rows];
-    updatedRows[index].isStorage = !updatedRows[index].isStorage; // 특정 행의 저장 상태 토글
+    updatedRows[index].isStorage = !updatedRows[index].isStorage;
     setRows(updatedRows);
   }
 
@@ -47,13 +52,21 @@ export default function Registration({ users }) {
   }
 
   function handleDeleteRow(index) {
+    const originalUser = users[index];
     setRows(sortRows(rows.filter((_, rowIndex) => rowIndex !== index)));
+    try {
+      deleteProfile(originalUser.semester, originalUser.studentId);
+
+      alert('삭제되었습니다.');
+    } catch (error) {
+      console.error('삭제 중 오류 발생:', error);
+      alert('삭제에 실패했습니다.');
+    }
   }
 
-  function handleImageUpload(index, { url, name }) {
+  function handleImageUpload(index, url) {
     const updatedRows = [...rows];
     updatedRows[index].image = url;
-    updatedRows[index].fileName = name;
     setRows(updatedRows);
   }
 
@@ -71,6 +84,10 @@ export default function Registration({ users }) {
 
     try {
       await putProfile(originalUser.semester, originalUser.studentId, updatedData);
+
+      const updatedImage = updatedRow.image ? { url: updatedRow.image } : null;
+      await putImage(originalUser.semester, originalUser.studentId, updatedImage);
+
       alert('저장되었습니다.');
       toggleStorage(index); // 저장 후 편집 모드로 전환
     } catch (error) {
@@ -197,8 +214,10 @@ export default function Registration({ users }) {
                   <td>
                     <div className={styles.container}>
                       <AddImage
-                        onImageUpload={(data) => handleImageUpload(index, data)}
+                        index={index}
+                        onImageUpload={(url, idx) => handleImageUpload(idx, url)}
                         isStorage={row.isStorage}
+                        initialImage={row.image} // row.image를 전달
                       />
                     </div>
                   </td>
