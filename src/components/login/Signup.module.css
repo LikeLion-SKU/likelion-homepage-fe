@@ -1,3 +1,14 @@
+.signup-boxs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.signup-box {
+  display: flex;
+  flex-direction: row;
+  margin-top: 0.5rem;
+}
+
 .signup-button {
   color: var(--accent-color);
   background-color: rgba(255, 255, 255, 0);

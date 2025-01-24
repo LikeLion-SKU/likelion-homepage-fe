@@ -6,6 +6,7 @@ import AboutPage from '@pages/AboutPage';
 import ProjectPage from '@pages/ProjectPage';
 import RecruitPage from '@pages/RecruitPage';
 import LoginPage from '@pages/LoginPage';
+import PasswordFindPage from '@pages/PasswordFindPage';
 import SignupPage from '@pages/SignupPage';
 import MyPage from '@pages/MyPage';
 import WelcomePage from '@pages/WelcomePage';
@@ -40,6 +41,7 @@ export default function Routes() {
         <Route index element={<HomePage />} />
         <Route path="about" element={<AboutPage />} />
         <Route path="login" element={<LoginPage />} />
+        <Route path="passwordFind" element={<PasswordFindPage />} />
         <Route path="signup" element={<SignupPage />} />
         <Route path="welcome" element={<WelcomePage />} />
         <Route path="project" element={<ProjectPage />} />
