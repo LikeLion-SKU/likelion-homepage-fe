@@ -5,7 +5,7 @@ import { handleEmailchecking, handleConfirmCodechecking } from '../../utils/regi
 import styles from './PasswordFindForm.module.css';
 import { APIService } from '@api/axios';
 
-export default function PasswordFindForm({ emailSuccess, setEmailSuccess, setEmail, setNow }) {
+export default function PasswordFindForm({ emailSuccess, setEmailSuccess, setEmail, setNow, setSubPassword }) {
   const [form, setForm] = useState({
     email: '',
     email_valid: false,
@@ -316,6 +316,17 @@ export default function PasswordFindForm({ emailSuccess, setEmailSuccess, setEma
             <button className={styles['passwordFind-form__button--submittingYet']}>비밀번호 찾기</button>
           )}
         </div>
+        <button
+          style={{ cursor: 'pointer' }}
+          onClick={(e) => {
+            e.preventDefault();
+            console.log(form);
+            console.log('이동해줘!!!!');
+            setNow(2);
+          }}
+        >
+          결과 페이지로 이동~~~~
+        </button>
       </div>
     </div>
   );
