@@ -107,9 +107,19 @@ export default function LoginForm() {
             id='password'
             {...register('password')}
           />
-          {errors.password?.message ? (
-            <p className={styles['login-form__result-message--error']}>{errors.password.message}</p>
-          ) : null}
+          <div className={styles['login-form__result-messageBox']}>
+            {errors.password?.message ? (
+              <p className={styles['login-form__result-message--error']}>{errors.password.message}</p>
+            ) : null}
+            <button
+              className={styles['passwordFind-button']}
+              onClick={function () {
+                navigate('/passwordFind');
+              }}
+            >
+              비밀번호 찾기
+            </button>
+          </div>
         </div>
       </fieldset>
 
