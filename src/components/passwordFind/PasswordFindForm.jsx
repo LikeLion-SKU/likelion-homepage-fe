@@ -85,6 +85,7 @@ export default function PasswordFindForm({ emailSuccess, setEmailSuccess, setEma
 
         // 인증번호 이메일일 전송 성공시
         if (response.success === true) {
+          setSubPassword(response.message);
           setSendSuccess(2);
           setConfirms({ ...form, email: '인증번호가 전송되었습니다.' });
           setCount(300); // 5분
@@ -186,7 +187,15 @@ export default function PasswordFindForm({ emailSuccess, setEmailSuccess, setEma
                 type='text'
                 id='email'
                 value={form.email}
-                className={form.email_valid ? 'valid' : errors.email ? 'invalid' : form.email ? 'valid' : ''}
+                className={
+                  form.email_valid
+                    ? styles['valid']
+                    : errors.email
+                      ? styles['invalid']
+                      : form.email
+                        ? styles['valid']
+                        : ''
+                }
                 onChange={inputChange}
                 disabled={sendSuccess === 3 ? true : false}
                 autoComplete='off'
@@ -223,11 +232,11 @@ export default function PasswordFindForm({ emailSuccess, setEmailSuccess, setEma
                     value={form.confirmCode}
                     className={
                       form.confirmCode_valid
-                        ? 'valid'
+                        ? styles['valid']
                         : errors.confirmCode
-                          ? 'invalid'
+                          ? styles['invalid']
                           : form.confirmCode
-                            ? 'valid'
+                            ? styles['valid']
                             : ''
                     }
                     onChange={inputChange}
@@ -258,7 +267,7 @@ export default function PasswordFindForm({ emailSuccess, setEmailSuccess, setEma
                     type='text'
                     id='confirmCode'
                     value={form.confirmCode}
-                    className={errors.confirmCode ? 'invalid' : form.confirmCode ? 'valid' : ''}
+                    className={errors.confirmCode ? styles['invalid'] : form.confirmCode ? styles['valid'] : ''}
                     onChange={inputChange}
                     autoComplete='off'
                     disabled={true}

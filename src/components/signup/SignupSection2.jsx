@@ -116,7 +116,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 type='text'
                 id='id'
                 value={form.id}
-                className={`${errors.id ? 'invalid' : form.id ? 'valid' : ''} cursor-not-allowed bg-gray-100`}
+                className={`${errors.id ? styles['invalid'] : form.id ? styles['valid'] : ''} cursor-not-allowed bg-gray-100`}
                 readOnly
                 disabled
                 required
@@ -137,7 +137,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 placeholder='영문, 숫자, 특수문자를 포함한 최소 8자 이상을 입력해주세요'
                 id='password'
                 value={form.password}
-                className={errors.password ? 'invalid' : form.password ? 'valid' : ''}
+                className={errors.password ? styles['invalid'] : form.password ? styles['valid'] : ''}
                 onChange={handleInputChange(setForm)}
                 autoComplete='off'
                 required
@@ -158,7 +158,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 placeholder='비밀번호를 다시 입력해주세요'
                 id='password_valid'
                 value={form.password_valid}
-                className={errors.password_valid ? 'invalid' : form.password_valid ? 'valid' : ''}
+                className={errors.password_valid ? styles['invalid'] : form.password_valid ? styles['valid'] : ''}
                 onChange={handleInputChange(setForm)}
                 autoComplete='off'
                 required
@@ -179,7 +179,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 placeholder='한글로 입력해주세요'
                 id='name'
                 value={form.name}
-                className={errors.name ? 'invalid' : form.name ? 'valid' : ''}
+                className={errors.name ? styles['invalid'] : form.name ? styles['valid'] : ''}
                 onChange={handleInputChange(setForm)}
                 autoComplete='off'
                 required
@@ -200,7 +200,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 placeholder='한글로 입력해주세요'
                 id='department'
                 value={form.department}
-                className={errors.department ? 'invalid' : form.department ? 'valid' : ''}
+                className={errors.department ? styles['invalid'] : form.department ? styles['valid'] : ''}
                 onChange={handleInputChange(setForm)}
                 autoComplete='off'
                 required
@@ -222,7 +222,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 placeholder='숫자만 10자 입력해주세요'
                 id='strudent_num'
                 value={form.strudent_num}
-                className={errors.strudent_num ? 'invalid' : form.strudent_num ? 'valid' : ''}
+                className={errors.strudent_num ? styles['invalid'] : form.strudent_num ? styles['valid'] : ''}
                 onChange={handleInputChange(setForm)}
                 required
               ></input>
@@ -242,7 +242,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 placeholder='- 빼고 입력 ex) 01012345678'
                 id='phone_num'
                 value={form.phone_num}
-                className={errors.phone_num ? 'invalid' : form.phone_num ? 'valid' : ''}
+                className={errors.phone_num ? styles['invalid'] : form.phone_num ? styles['valid'] : ''}
                 onChange={handleInputChange(setForm)}
                 autoComplete='off'
                 required
@@ -263,7 +263,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 placeholder='숫자만 입력해주세요'
                 id='semester'
                 value={form.semester}
-                className={errors.semester ? 'invalid' : form.semester ? 'valid' : ''}
+                className={errors.semester ? styles['invalid'] : form.semester ? styles['valid'] : ''}
                 autoComplete='off'
                 onChange={handleInputChange(setForm)}
               ></input>
@@ -343,7 +343,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
               type='checkbox'
               id='consent'
               checked={form.consent}
-              className={errors.consent ? 'invalid' : form.consent ? 'valid' : ''}
+              className={errors.consent ? styles['invalid'] : form.consent ? styles['valid'] : ''}
               onChange={handleCheckboxChange}
             ></input>
             <label htmlFor='consent'>(필수) 개인정보 수집 및 이용 동의서</label>
