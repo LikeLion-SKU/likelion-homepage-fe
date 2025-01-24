@@ -196,7 +196,15 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
                 type='text'
                 id='email'
                 value={form.email}
-                className={form.email_valid ? 'valid' : errors.email ? 'invalid' : form.email ? 'valid' : ''}
+                className={
+                  form.email_valid
+                    ? styles['valid']
+                    : errors.email
+                      ? styles['invalid']
+                      : form.email
+                        ? styles['valid']
+                        : ''
+                }
                 onChange={inputChange}
                 disabled={sendSuccess === 3 ? true : false}
                 autoComplete='off'
@@ -231,11 +239,11 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
                     value={form.confirmCode}
                     className={
                       form.confirmCode_valid
-                        ? 'valid'
+                        ? styles['valid']
                         : errors.confirmCode
-                          ? 'invalid'
+                          ? styles['invalid']
                           : form.confirmCode
-                            ? 'valid'
+                            ? styles['valid']
                             : ''
                     }
                     onChange={inputChange}
@@ -264,7 +272,7 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
                     type='text'
                     id='confirmCode'
                     value={form.confirmCode}
-                    className={errors.confirmCode ? 'invalid' : form.confirmCode ? 'valid' : ''}
+                    className={errors.confirmCode ? styles['invalid'] : form.confirmCode ? styles['valid'] : ''}
                     onChange={inputChange}
                     autoComplete='off'
                     disabled={true}
