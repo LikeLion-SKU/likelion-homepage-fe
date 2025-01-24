@@ -183,3 +183,38 @@ export function handleSignup(setErrors, form) {
   }
   return true;
 }
+
+// 비밀번호 변경 버튼 클릭시
+export function validateInput_passwordChangeForm(form) {
+  let errors = {
+    password: '',
+    newpassword: '',
+    newpassword_valid: '',
+  };
+
+  if (form.password === '') {
+    errors.password = '현재 비밀번호는 필수 입력 항목입니다.';
+  }
+
+  if (form.newpassword === '') {
+    errors.newpassword = '새 비밀번호는 필수 입력 항목입니다.';
+  } else if (!inputRegexs.pwRegex.test(form.newpassword)) {
+    errors.newpassword = '비밀번호는 최소 8자 이상의 영문, 숫자, 특수문자를 포함해야 합니다.';
+  }
+
+  if (form.newpassword_valid === '') {
+    errors.newpassword_valid = '새 비밀번호 확인은 필수 입력 항목입니다.';
+  } else if (form.newpassword_valid !== form.newpassword) {
+    errors.newpassword_valid = '새 비밀번호와 다릅니다.';
+  }
+  return errors;
+}
+
+export function handlePasswordChangeForm(setErrors, form) {
+  const errors = validateInput_passwordChangeForm(form);
+  setErrors(errors);
+  if (errors.password || errors.newpassword || errors.newpassword_valid) {
+    return false;
+  }
+  return true;
+}
