@@ -42,7 +42,6 @@ export default function Routes() {
         <Route index element={<HomePage />} />
         <Route path="about" element={<AboutPage />} />
         <Route path="login" element={<LoginPage />} />
-        <Route path="passwordChange" element={<PasswordChangePage />} />
         <Route path="signup" element={<SignupPage />} />
         <Route path="welcome" element={<WelcomePage />} />
         <Route path="project" element={<ProjectPage />} />
@@ -85,6 +84,7 @@ export default function Routes() {
 
         {/* User Routes */}
         <Route path="mypage" element={<MyPage />} />
+        <Route path="passwordChange" element={<PasswordChangePage />} />
 
         {/* Development Routes */}
         <Route path="apitest" element={<ApiTestPage />} />
