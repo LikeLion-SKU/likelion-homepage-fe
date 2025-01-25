@@ -35,6 +35,7 @@ export default function LoginForm() {
     } else {
       try {
         const fullEmail = `${userData.loginId}@skuniv.ac.kr`;
+
         const requestData = {
           loginId: fullEmail,
           password: userData.password,

@@ -92,9 +92,12 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
       if (response.success) {
         setSignupSuccess(true);
         setNow(1);
-        navigate('/welcome?name=${form.name}');
+        navigate(`/welcome?name=${encodeURIComponent(form.name)}`);
       } else {
-        alert('회원가입에 실패하였습니다.');
+        let tologin = confirm(response.message + ' 로그인 페이지로 이동합니다.');
+        if (tologin) {
+          navigate('/login');
+        }
       }
     } catch {
       alert('회원가입 중 서버 오류가 발생했습니다. 나중에 다시 시도해주세요');
