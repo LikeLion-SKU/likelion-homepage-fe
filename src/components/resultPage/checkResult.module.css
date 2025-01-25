@@ -48,17 +48,17 @@
     border-radius: 10px;
     border-color: #9F9C98;
     width: 40%;
-    height: 50%;
+    height: 4rem;
     margin-left: 3%;
     margin-bottom: 0;
 }
 
 .checkButton{
-    background-color: var(--black-44-color);
+    background-color: var(--accent-color);
     color: #fff;
     width: 10%;
-    height: 41.6px;
-    font-size: 16px;
+    height: 4.6rem;
+    font-size: 1.6rem;
     font-weight: 600;
     border-radius: 10px;
     cursor: pointer;
