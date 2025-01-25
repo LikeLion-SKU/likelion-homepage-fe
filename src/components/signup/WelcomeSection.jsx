@@ -1,6 +1,6 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import './WelcomeSection.css';
-import logo from '@assets/commons/logo.webp';
+import logo from '@assets/homepage/lion.webp';
 
 export default function WelcomeSection() {
   const [searchParams] = useSearchParams();
@@ -26,8 +26,7 @@ export default function WelcomeSection() {
       </div>
       <div className='welcomePage_message'>
         <p className='userName'>{name}님</p>
-        <p>서경대학교 멋쟁이사자처럼 홈페이지</p>
-        <p>가입을 환영합니다!</p>
+        <p>서경대학교 멋쟁이사자처럼 홈페이지 가입을 환영합니다!</p>
       </div>
       <div className='welcomePage_Btn'>
         <button

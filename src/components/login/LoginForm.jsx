@@ -34,8 +34,10 @@ export default function LoginForm() {
       alert('잘못된 이메일 또는 비밀번호를 입력하셨습니다.');
     } else {
       try {
+        const fullEmail = `${userData.loginId}@skuniv.ac.kr`;
+
         const requestData = {
-          loginId: userData.loginId,
+          loginId: fullEmail,
           password: userData.password,
         };
 
@@ -107,9 +109,19 @@ export default function LoginForm() {
             id='password'
             {...register('password')}
           />
-          {errors.password?.message ? (
-            <p className={styles['login-form__result-message--error']}>{errors.password.message}</p>
-          ) : null}
+          <div className={styles['login-form__result-messageBox']}>
+            {errors.password?.message ? (
+              <p className={styles['login-form__result-message--error']}>{errors.password.message}</p>
+            ) : null}
+            <button
+              className={styles['passwordFind-button']}
+              onClick={function () {
+                navigate('/passwordFind');
+              }}
+            >
+              비밀번호 찾기
+            </button>
+          </div>
         </div>
       </fieldset>
 
