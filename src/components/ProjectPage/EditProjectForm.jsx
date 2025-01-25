@@ -62,7 +62,7 @@ function EditProjectForm() {
     event.preventDefault();
     console.log('Edited Project Data:', formData);
     // 수정된 데이터 저장 로직 추가
-    navigate('/project/admin');
+    navigate('/admin/project');
   }
 
   return (

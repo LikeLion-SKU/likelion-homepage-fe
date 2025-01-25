@@ -1,0 +1,86 @@
+.imagePreviewContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+  max-width: 120rem;
+  aspect-ratio: 16 / 9;
+  background-color: #e5e5e5;
+  border-radius: 20px;
+  overflow: hidden; /* 이미지가 영역을 넘어가지 않도록 설정 */
+  margin-top: 1.5rem;
+}
+
+.imagePreview {
+  height: 100%;
+  object-fit: contain; /* 이미지 비율 유지하며 컨테이너에 맞춤 */
+  background-color: #e5e5e5;
+}
+
+.noImageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #e5e5e5;
+}
+
+.noImageIcon {
+  width: 4rem;
+}
+
+.arrowLeft,
+.arrowRight {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 5rem;
+  cursor: pointer;
+  z-index: 2;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.arrowLeft:hover,
+.arrowRight:hover {
+  opacity: 1;
+  filter: brightness(1.2); /* 약간 밝게 */
+}
+
+.arrowLeft {
+  left: 1rem;
+}
+
+.arrowRight {
+  right: 1rem;
+}
+
+@media (max-width: 768px) {
+  .imagePreviewContainer {
+    border-radius: 15px; /* 작은 화면에서 둥근 모서리 조정 */
+  }
+
+  .arrowLeft,
+  .arrowRight {
+    height: 3rem; /* 화살표 크기 축소 */
+  }
+}
+
+@media (max-width: 480px) {
+  .imagePreviewContainer {
+    max-width: 100%; /* 화면 너비에 맞춤 */
+    aspect-ratio: 16 / 9;
+    border-radius: 10px; /* 작은 화면에서 둥근 모서리 줄임 */
+  }
+
+  .arrowLeft,
+  .arrowRight {
+    height: 2.5rem; /* 화살표 크기 축소 */
+  }
+
+  .noImageIcon {
+    width: 3rem; /* 작은 화면에서 아이콘 크기 축소 */
+  }
+}
