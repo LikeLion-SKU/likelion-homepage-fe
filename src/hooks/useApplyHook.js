@@ -104,7 +104,7 @@ export function useGetQuestions(type, track, setQuestions, setUserInfo, setAnswe
             msg3: '설문지는 한번만 작성할 수 있습니다.',
             msg4: '함께 활동하기를 기대하겠습니다.',
             btnMsg: '내 지원서 보러가기',
-            url: '/',
+            url: '/application',
           },
         });
       } else if (check === 'error') {
