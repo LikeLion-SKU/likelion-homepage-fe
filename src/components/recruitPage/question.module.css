@@ -1,7 +1,6 @@
 .allContainer{
     margin-left: 5%;
     margin-right: 5%;
-    margin-top: 5%;
     margin-bottom: 10%;
 }
 
@@ -10,6 +9,7 @@
     font-weight: 700;
     color: var(--main-text-color);
     margin-bottom: 10%;
+    margin-top: 10%;
 }
 
 .qaContainer {
