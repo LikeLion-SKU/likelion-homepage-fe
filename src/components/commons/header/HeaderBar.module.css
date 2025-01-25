@@ -54,7 +54,7 @@
   border: none;
   font-size: 1.8rem;
   cursor: pointer;
-  padding-right: 2vh;
+  margin: 0.1rem 1rem;
   transition:
     color 0.3s ease,
     filter 0.3s ease;
@@ -70,6 +70,7 @@
 .loginBtn {
   height: 3.6rem;
   display: flex;
+  margin: 0 1rem;
   align-items: center;
   font-size: 1.6rem;
   cursor: pointer;
