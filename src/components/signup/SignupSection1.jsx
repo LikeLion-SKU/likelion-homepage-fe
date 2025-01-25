@@ -2,21 +2,16 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SignupSection.module.css';
-import {
-  validateInput_email,
-  validateInput_confirmCode,
-  handleEmailchecking,
-  handleConfirmCodechecking,
-} from '../../utils/register.js';
-import { APIService } from '../../api/axios.js';
-import { handleInputChange } from '../../utils/inputOnChange.js';
+import { handleEmailchecking, handleConfirmCodechecking } from '../../utils/register.js';
+import { APIService } from '@api/axios';
 
-export default function SignupSection(props) {
+export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail, setNow }) {
   const [form, setForm] = useState({
     email: '',
     email_valid: false,
     confirmCode: '',
     confirmCode_valid: false,
+    sendemail: '',
     timing: false,
   });
   const [m, setM] = useState();
@@ -34,6 +29,8 @@ export default function SignupSection(props) {
     email: '',
     confirmCode: '',
   });
+  const [sendSuccess, setSendSuccess] = useState(1);
+  const [confirmSuccess, setConfirmSuccess] = useState(1);
   const [confirms, setConfirms] = useState({});
   const navigate = useNavigate();
 
@@ -58,46 +55,74 @@ export default function SignupSection(props) {
       setForm({ ...form, timing: false, confirmCode: '' });
       setErrors({
         ...form,
-        confirmCode: '인증번호 확인 시간이 만료되었습니다. 다시 인증번호를 전송해주세요.',
+        confirmCode: '입력 시간이 만료되었습니다. 다시 인증번호를 전송해주세요.',
       });
     }
   }, [count]);
 
+  function inputChange(event) {
+    const { id, value } = event.target;
+    setForm({ ...form, [id]: value });
+
+    if (id === 'email') {
+      if (value === '') {
+        setSendSuccess(1);
+      } else {
+        setSendSuccess(2);
+      }
+    } else if (id === 'confirmCode') {
+      if (value === '') {
+        setConfirmSuccess(1);
+      } else {
+        setConfirmSuccess(2);
+      }
+    }
+  }
+
   // 인증번호 전송 버튼 클릭 //
-  const handleSendingClick = async (event) => {
+  async function handleSendingClick(event) {
     event.preventDefault();
     const isValid = handleEmailchecking(setErrors, form);
 
     if (isValid) {
       try {
+        setSendSuccess(3);
         // 이메일에 도메인을 붙여서 전송
         const fullEmail = `${form.email}@skuniv.ac.kr`;
         // 이메일 인증번호 전송 API 호출
         const response = await APIService.public.post(import.meta.env.VITE_APP_AUTH_EMAIL_SEND, { email: fullEmail });
 
         // 인증번호 이메일일 전송 성공시
-        setConfirms({ ...form, email: '인증번호가 전송되었습니다.' });
-        setCount(300); // 5분
-        setForm({ ...form, email_valid: true, timing: true });
+        if (response.success === true) {
+          setSendSuccess(2);
+          setConfirms({ ...form, email: '인증번호가 전송되었습니다.' });
+          setCount(300); // 5분
+          setForm({ ...form, email_valid: true, sendemail: form.email, timing: true });
+        } else {
+          setErrors({
+            ...errors,
+            email: '인증번호 전송에 실패했습니다.',
+          });
+        }
       } catch (error) {
         //에러처리
-        setErrors((prev) => ({
-          ...prev,
+        setErrors({
+          ...errors,
           email: error.response?.data?.message || '인증번호 전송에 실패했습니다.',
-        }));
+        });
       }
     }
-  };
+  }
 
   // 인증번호 확인 버튼 클릭 //
-  const handleCheckingClick = async (event) => {
+  async function handleCheckingClick(event) {
     event.preventDefault();
 
     const isValid = handleConfirmCodechecking(setErrors, form);
     if (!isValid) return;
 
     try {
-      const fullEmail = `${form.email}@skuniv.ac.kr`;
+      const fullEmail = `${form.sendemail}@skuniv.ac.kr`;
 
       const requestData = {
         email: fullEmail,
@@ -113,10 +138,11 @@ export default function SignupSection(props) {
           confirmCode: response.message || '이메일이 인증되었습니다.',
         }));
 
-        props.setEmailSuccess(true);
+        setEmailSuccess(true);
         setForm((prev) => ({
           ...prev,
           confirmCode_valid: true,
+          timing: false,
         }));
       } else {
         // 인증번호가 틀린 경우 (verified가 false인 경우)
@@ -134,7 +160,7 @@ export default function SignupSection(props) {
           confirmCode_valid: false,
         }));
       }
-    } catch (error) {
+    } catch {
       // 서버 응답 자체가 실패한 경우
       setErrors((prev) => ({
         ...prev,
@@ -146,43 +172,53 @@ export default function SignupSection(props) {
         confirmCode_valid: false,
       }));
     }
-  };
+  }
 
   // 계속 버튼 클릭 //
   function next(e) {
     e.preventDefault();
-    props.setEmail(form.email); // 이메일 값을 상위 컴포넌트로 전달
-    props.setNow(2); // 2번째 페이지 보여줌.
+    setEmail(form.sendemail); // 이메일 값을 상위 컴포넌트로 전달
+    setNow(2); // 2번째 페이지 보여줌.
   }
 
   return (
-    <div className={styles.SignupPage_layout}>
-      <div className={styles.Signup_input_information}>
-        <p className={styles.title}>회원가입</p>
-      </div>
-      <div className={styles.Signup_input_boxs}>
-        <div className={styles.Signup_input_box}>
-          <div className={styles.label_box}>
-            <label>이메일</label>
+    <div className={styles['signup-form']}>
+      <p className={styles['signup-form__title']}>회원가입</p>
+      <div className={styles['signup-form__inputboxs']}>
+        <div className={styles['signup-form__inputbox']}>
+          <div className={styles['signup-form__labelsection']}>
+            <label htmlFor='email'>이메일</label>
             <p>*</p>
           </div>
-          <div className={styles.input_box}>
-            <div className={styles.Input}>
+          <div className={styles['signup-form__inputsection']}>
+            <div className={styles['signup-form__input']}>
               <input
                 type='text'
-                name='email'
+                id='email'
                 value={form.email}
-                className={form.email_valid ? 'valid' : errors.email ? 'invalid' : form.email ? 'valid' : ''}
-                onChange={handleInputChange(setForm)}
+                className={
+                  form.email_valid
+                    ? styles['valid']
+                    : errors.email
+                      ? styles['invalid']
+                      : form.email
+                        ? styles['valid']
+                        : ''
+                }
+                onChange={inputChange}
+                disabled={sendSuccess === 3 ? true : false}
+                autoComplete='off'
                 required
               ></input>
               <p> @skuniv.ac.kr </p>
               <button
                 style={{ cursor: 'pointer' }}
-                className={styles.checkingBtn}
+                className={
+                  sendSuccess === 2 ? styles['signup-form__inputbutton'] : styles['signup-form__inputbuttonYet']
+                }
                 onClick={handleSendingClick}
               >
-                인증번호 전송
+                {sendSuccess === 3 ? '전송중' : '인증번호 전송'}
               </button>
             </div>
             {form.email_valid ? (
@@ -192,49 +228,60 @@ export default function SignupSection(props) {
             ) : null}
           </div>
         </div>
-        <div className={styles.Signup_input_box}>
-          <div className={styles.input_box}>
-            <div className={styles.Input}>
-              {form.email_valid ? (
+        <div className={styles['signup-form__inputbox']}>
+          <div className={styles['signup-form__inputsection']}>
+            <div className={styles['signup-form__input']}>
+              {sendSuccess === 2 && form.email_valid === true ? (
                 <>
                   <input
                     type='text'
-                    name='confirmCode'
+                    id='confirmCode'
                     value={form.confirmCode}
                     className={
                       form.confirmCode_valid
-                        ? 'valid'
+                        ? styles['valid']
                         : errors.confirmCode
-                          ? 'invalid'
+                          ? styles['invalid']
                           : form.confirmCode
-                            ? 'valid'
+                            ? styles['valid']
                             : ''
                     }
-                    onChange={handleInputChange(setForm)}
+                    onChange={inputChange}
                     disabled={!form.timing}
+                    autoComplete='off'
                     required
                   ></input>
                   <button
                     style={{ cursor: 'pointer' }}
-                    className={styles.checkingBtn}
+                    className={
+                      confirmSuccess === 1 ? styles['signup-form__inputbuttonYet'] : styles['signup-form__inputbutton']
+                    }
                     onClick={handleCheckingClick}
                   >
                     인증번호 확인
                   </button>
                 </>
+              ) : sendSuccess === 3 ? (
+                <div className={styles['loaderBox']}>
+                  <div className={styles['loader']}></div>
+                </div>
               ) : (
                 <div style={{ visibility: 'hidden' }}>
                   ?
                   <input
                     type='text'
-                    name='confirmCode'
+                    id='confirmCode'
                     value={form.confirmCode}
-                    className={errors.confirmCode ? 'invalid' : form.confirmCode ? 'valid' : ''}
-                    onChange={handleInputChange(setForm)}
+                    className={errors.confirmCode ? styles['invalid'] : form.confirmCode ? styles['valid'] : ''}
+                    onChange={inputChange}
+                    autoComplete='off'
                     disabled={true}
                   ></input>
                   <button
-                    className={styles.checkingBtn_Yet}
+                    style={{ cursor: 'pointer' }}
+                    className={
+                      confirmSuccess === 1 ? styles['signup-form__inputbuttonYet'] : styles['signup-form__inputbutton']
+                    }
                     onClick={handleCheckingClick}
                   >
                     인증번호 확인
@@ -242,38 +289,46 @@ export default function SignupSection(props) {
                 </div>
               )}
             </div>
-            {form.confirmCode_valid ? (
-              <p className={styles.ok_message}>{confirms.confirmCode}</p>
-            ) : errors.confirmCode ? (
-              <p className={styles.error_message}>{errors.confirmCode}</p>
-            ) : form.timing ? (
-              <p className={styles.time}>
-                입력대기시간 {m}:{s.toString().padStart(2, '0')}
-              </p>
+            {sendSuccess === 2 && form.email_valid === true ? (
+              <div className={styles['signup-form__confirmCodeMessegeBox']}>
+                {form.confirmCode_valid ? (
+                  <p className={styles.ok_message}>{confirms.confirmCode}</p>
+                ) : errors.confirmCode ? (
+                  <p className={styles.error_message}>{errors.confirmCode}</p>
+                ) : null}
+                {form.timing ? (
+                  <div className={styles['signup-form__timesection']}>
+                    <p className={styles['signup-form__timeTitle']}>입력대기시간 </p>
+                    <p className={styles['signup-form__timeNum']}>
+                      {m}:{s.toString().padStart(2, '0')}
+                    </p>
+                  </div>
+                ) : null}
+              </div>
             ) : null}
           </div>
         </div>
         <div
           name='Signup_progress_box'
-          className={styles.Signup_progress_box}
+          className={styles['signup-form__progressBox1']}
         >
-          {props.emailSuccess === true ? (
+          {emailSuccess === true ? (
             <button
               style={{ cursor: 'pointer' }}
-              className={styles.SignupBtn_Success}
+              className={styles['signup-form__button--submittingSuccess']}
               onClick={next}
             >
               계속
             </button>
           ) : (
-            <button className={styles.SignupBtn_Yet}>계속</button>
+            <button className={styles['signup-form__button--submittingYet']}>계속</button>
           )}
-          <div className={styles.toLogin}>
-            <p>이미 계정이 있으신가요?</p>
+          <div className={styles['login-togoBox']}>
+            <p className={styles['login-mention']}>이미 계정이 있으신가요?</p>
             <button
               style={{ cursor: 'pointer' }}
               type='submit'
-              className={styles.tologinBtn}
+              className={styles['login-button']}
               onClick={() => {
                 navigate('/login');
               }}

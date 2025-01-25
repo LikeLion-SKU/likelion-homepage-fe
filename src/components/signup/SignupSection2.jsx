@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SignupSection.module.css';
-import { handleIdchecking, handleSignup } from '../../utils/register.js';
+import { handleSignup } from '../../utils/register.js';
 import { handleInputChange } from '../../utils/inputOnChange.js';
-import { APIService } from '../../api/axios.js';
+import { APIService } from '@api/axios';
+import ConsentTable from './ConsentTable';
 
 export default function SignupSection({ email, setSignupSuccess, setNow }) {
   const fullEmail = `${email}@skuniv.ac.kr`;
 
   const [form, setForm] = useState({
     id: fullEmail,
-    id_valid: false,
+    id_valid: true,
     password: '',
     password_valid: '',
     name: '',
@@ -19,8 +20,11 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
     semester: '',
     phone_num: '',
     part: '',
+    consent: false,
   });
   const [errors, setErrors] = useState({});
+  const [isDropdownView, setIsDropdownView] = useState(false);
+  const [selcetPart, setSelectPart] = useState('파트 선택');
   const navigate = useNavigate();
 
   // email이 변경될 때마다 form의 id 업데이트
@@ -28,29 +32,36 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
     setForm((prev) => ({ ...prev, id: `${email}@skuniv.ac.kr` }));
   }, [email]);
 
-  // 이메일 중복 체크 버튼 클릭 //
-  function handleDuplicateClick(event) {
-    event.preventDefault();
+  function handleCheckboxChange(event) {
+    setForm({ ...form, consent: event.target.checked });
+  }
 
-    // 이메일 형식 체크는 이미 이전 단계에서 완료되었으므로 생략
-    const checkEmailDuplicate = async () => {
-      try {
-        const response = await APIService.public.post(import.meta.env.VITE_APP_USER_ID_DUPLICATE_CHECK, {
-          email: form.id,
-        });
-        // 이미 가입되어있는 이메일 일 경우
-        if (response.duplicate) {
-          setErrors({ ...errors, id: '이미 가입된 이메일입니다.' });
-          return;
-        }
-        setForm({ ...form, id_valid: true });
-        setErrors({ ...errors, id: '' });
-      } catch (error) {
-        setErrors({ ...errors, id: '이메일 중복 확인 중 오류가 발생했습니다.' });
+  // 파트(part) 드롭아웃 메뉴 관련 함수
+  function handleSelectBox(event) {
+    event.preventDefault;
+    setIsDropdownView(!isDropdownView);
+  }
+
+  function handleBlurSelcetBox() {
+    setTimeout(() => {
+      setIsDropdownView(false);
+    }, 100);
+  }
+
+  function handlePart(event) {
+    if (form.part === event.target.id) {
+      setForm({ ...form, part: '' });
+      setSelectPart('파트 선택');
+    } else {
+      setForm({ ...form, part: event.target.id });
+      if (event.target.id === 'PM/design') {
+        setSelectPart('기획/디자인');
+      } else if (event.target.id === 'front') {
+        setSelectPart('프론트앤드');
+      } else if (event.target.id === 'back') {
+        setSelectPart('백앤드');
       }
-    };
-
-    checkEmailDuplicate();
+    }
   }
 
   // 회원가입 버튼 클릭 //
@@ -58,261 +69,312 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
     event.preventDefault();
 
     const isValid = handleSignup(setErrors, form);
-    if (isValid && form.id_valid) {
-      const signUp = async () => {
-        try {
-          const requestData = {
-            loginId: form.id,
-            password: form.password,
-            userName: form.name,
-            department: form.department,
-            studentId: form.strudent_num,
-            semester: form.semester === '' ? 0 : Number(form.semester),
-            phoneNumber: form.phone_num,
-            parts: form.part,
-          };
+    if (isValid === true && form.id_valid === true && form.consent === true) {
+      signUp();
+    }
+  }
 
-          const response = await APIService.public.post(import.meta.env.VITE_APP_SIGN_UP, requestData);
-
-          if (response.success) {
-            setSignupSuccess(true);
-            setNow(1);
-            navigate('/welcome?name=${form.name}');
-          } else {
-            setErrors({ ...errors, signup: '회원가입에 실패하였습니다.' });
-          }
-        } catch (error) {
-          setErrors({ ...errors, signup: '회원가입 중 서버 오류가 발생했습니다. 나중에 다시 시도해주세요' });
-        }
+  async function signUp() {
+    try {
+      const requestData = {
+        loginId: form.id,
+        password: form.password,
+        userName: form.name,
+        department: form.department,
+        studentId: form.strudent_num,
+        semester: form.semester === '' ? 0 : Number(form.semester),
+        phoneNumber: form.phone_num,
+        parts: form.part,
       };
 
-      signUp();
-    } else if (!form.id_valid) {
-      setErrors({ ...errors, id: '이메일 중복 확인이 필요합니다.' });
+      const response = await APIService.public.post(import.meta.env.VITE_APP_SIGN_UP, requestData);
+
+      if (response.success) {
+        setSignupSuccess(true);
+        setNow(1);
+        navigate('/welcome?name=${form.name}');
+      } else {
+        alert('회원가입에 실패하였습니다.');
+      }
+    } catch {
+      alert('회원가입 중 서버 오류가 발생했습니다. 나중에 다시 시도해주세요');
     }
   }
 
   return (
-    <div className={styles.SignupPage_layout}>
-      <div name='Signup_input_information'>
-        <p className={styles.title}>회원가입</p>
-      </div>
-      <div className={styles.Signup_input_boxs}>
-        <div className={styles.Signup_input_box}>
-          <div className={styles.label_box}>
-            <label>아이디</label>
+    <div className={styles['signup-form']}>
+      <p className={styles['signup-form__title']}>회원가입</p>
+      <div className={styles['signup-form__inputboxs']}>
+        <div className={styles['signup-form__inputbox']}>
+          <div className={styles['signup-form__labelsection']}>
+            <label htmlFor='id'>아이디</label>
             <p>*</p>
           </div>
-          <div className={styles.input_box}>
-            <div className={styles.Input}>
+          <div className={styles['signup-form__inputsection']}>
+            <div className={styles['signup-form__input']}>
               <input
                 type='text'
-                name='id'
+                id='id'
                 value={form.id}
-                className={`${errors.id ? 'invalid' : form.id ? 'valid' : ''} cursor-not-allowed bg-gray-100`}
+                className={`${errors.id ? styles['invalid'] : form.id ? styles['valid'] : ''} cursor-not-allowed bg-gray-100`}
                 readOnly
+                disabled
                 required
               ></input>
-              <button
-                style={{ cursor: 'pointer' }}
-                className={styles.checkingBtn}
-                onClick={handleDuplicateClick}
-              >
-                중복확인
-              </button>
             </div>
-            {errors.id ? (
-              <p className={styles.error_message}>{errors.id}</p>
-            ) : form.id_valid ? (
-              <p className={styles.ok_message}>아이디를 사용하실 수 있습니다.</p>
-            ) : null}
+            {errors.id ? <p className={styles.error_message}>{errors.id}</p> : null}
           </div>
         </div>
-        <div className={styles.Signup_input_box}>
-          <div className={styles.label_box}>
-            <label>비밀번호</label>
+        <div className={styles['signup-form__inputbox']}>
+          <div className={styles['signup-form__labelsection']}>
+            <label htmlFor='password'>비밀번호</label>
             <p>*</p>
           </div>
-          <div className={styles.input_box}>
-            <div className={styles.Input}>
+          <div className={styles['signup-form__inputsection']}>
+            <div className={styles['signup-form__input']}>
               <input
                 type='password'
-                placeholder='최소 4자 이상의 영문, 숫자, 특수문자를 포함'
-                name='password'
+                placeholder='영문, 숫자, 특수문자를 포함한 최소 8자 이상을 입력해주세요'
+                id='password'
                 value={form.password}
-                className={errors.password ? 'invalid' : form.password ? 'valid' : ''}
+                className={errors.password ? styles['invalid'] : form.password ? styles['valid'] : ''}
                 onChange={handleInputChange(setForm)}
+                autoComplete='off'
                 required
               ></input>
             </div>
-            {errors.password && <p className={styles.error_message}>{errors.password}</p>}
+            {errors.password ? <p className={styles.error_message}>{errors.password}</p> : null}
           </div>
         </div>
-        <div className={styles.Signup_input_box}>
-          <div className={styles.label_box}>
-            <label>비밀번호 확인</label>
+        <div className={styles['signup-form__inputbox']}>
+          <div className={styles['signup-form__labelsection']}>
+            <label htmlFor='password_valid'>비밀번호 확인</label>
             <p>*</p>
           </div>
-          <div className={styles.input_box}>
-            <div className={styles.Input}>
+          <div className={styles['signup-form__inputsection']}>
+            <div className={styles['signup-form__input']}>
               <input
                 type='password'
-                placeholder='비밀번호 확인'
-                name='password_valid'
+                placeholder='비밀번호를 다시 입력해주세요'
+                id='password_valid'
                 value={form.password_valid}
-                className={errors.password_valid ? 'invalid' : form.password_valid ? 'valid' : ''}
+                className={errors.password_valid ? styles['invalid'] : form.password_valid ? styles['valid'] : ''}
                 onChange={handleInputChange(setForm)}
+                autoComplete='off'
                 required
               ></input>
             </div>
-            {errors.password_valid && <p className={styles.error_message}>{errors.password_valid}</p>}
+            {errors.password_valid ? <p className={styles.error_message}>{errors.password_valid}</p> : null}
           </div>
         </div>
-        <div className={styles.Signup_input_box}>
-          <div className={styles.label_box}>
-            <label>이름</label>
+        <div className={styles['signup-form__inputbox']}>
+          <div className={styles['signup-form__labelsection']}>
+            <label htmlFor='name'>이름</label>
             <p>*</p>
           </div>
-          <div className={styles.input_box}>
-            <div className={styles.Input}>
+          <div className={styles['signup-form__inputsection']}>
+            <div className={styles['signup-form__input']}>
               <input
                 type='text'
-                placeholder='한글로 2-10자'
-                name='name'
+                placeholder='한글로 입력해주세요'
+                id='name'
                 value={form.name}
-                className={errors.name ? 'invalid' : form.name ? 'valid' : ''}
+                className={errors.name ? styles['invalid'] : form.name ? styles['valid'] : ''}
                 onChange={handleInputChange(setForm)}
+                autoComplete='off'
                 required
               ></input>
             </div>
-            {errors.name && <p className={styles.error_message}>{errors.name}</p>}
+            {errors.name ? <p className={styles.error_message}>{errors.name}</p> : null}
           </div>
         </div>
-        <div className={styles.Signup_input_box}>
-          <div className={styles.label_box}>
-            <label>학과/학부</label>
+        <div className={styles['signup-form__inputbox']}>
+          <div className={styles['signup-form__labelsection']}>
+            <label htmlFor='department'>학과/학부</label>
             <p>*</p>
           </div>
-          <div className={styles.input_box}>
-            <div className={styles.Input}>
+          <div className={styles['signup-form__inputsection']}>
+            <div className={styles['signup-form__input']}>
               <input
                 type='text'
-                placeholder='본인의 학과/학부'
-                name='department'
+                placeholder='한글로 입력해주세요'
+                id='department'
                 value={form.department}
-                className={errors.department ? 'invalid' : form.department ? 'valid' : ''}
+                className={errors.department ? styles['invalid'] : form.department ? styles['valid'] : ''}
                 onChange={handleInputChange(setForm)}
+                autoComplete='off'
                 required
               ></input>
             </div>
-            {errors.department && <p className={styles.error_message}>{errors.department}</p>}
+            {errors.department ? <p className={styles.error_message}>{errors.department}</p> : null}
           </div>
         </div>
-        <div className={styles.Signup_input_box}>
-          <div className={styles.label_box}>
-            <label>학번</label>
+        <div className={styles['signup-form__inputbox']}>
+          <div className={styles['signup-form__labelsection']}>
+            <label htmlFor='strudent_num'>학번</label>
             <p>*</p>
           </div>
-          <div className={styles.input_box}>
-            <div className={styles.Input}>
+          <div className={styles['signup-form__inputsection']}>
+            <div className={styles['signup-form__input']}>
               <input
                 type='text'
                 maxLength={10}
-                placeholder='본인의 학번 10자'
-                name='strudent_num'
+                placeholder='숫자만 10자 입력해주세요'
+                id='strudent_num'
                 value={form.strudent_num}
-                className={errors.strudent_num ? 'invalid' : form.strudent_num ? 'valid' : ''}
+                className={errors.strudent_num ? styles['invalid'] : form.strudent_num ? styles['valid'] : ''}
                 onChange={handleInputChange(setForm)}
                 required
               ></input>
             </div>
-            {errors.strudent_num && <p className={styles.error_message}>{errors.strudent_num}</p>}
+            {errors.strudent_num ? <p className={styles.error_message}>{errors.strudent_num}</p> : null}
           </div>
         </div>
-        <div className={styles.Signup_input_box}>
-          <div className={styles.label_box}>
-            <label>연락처</label>
+        <div className={styles['signup-form__inputbox']}>
+          <div className={styles['signup-form__labelsection']}>
+            <label htmlFor='phone_num'>연락처</label>
             <p>*</p>
           </div>
-          <div className={styles.input_box}>
-            <div className={styles.Input}>
+          <div className={styles['signup-form__inputsection']}>
+            <div className={styles['signup-form__input']}>
               <input
                 type='text'
-                placeholder="'-'빼고 숫자로"
-                name='phone_num'
+                placeholder='- 빼고 입력 ex) 01012345678'
+                id='phone_num'
                 value={form.phone_num}
-                className={errors.phone_num ? 'invalid' : form.phone_num ? 'valid' : ''}
+                className={errors.phone_num ? styles['invalid'] : form.phone_num ? styles['valid'] : ''}
                 onChange={handleInputChange(setForm)}
+                autoComplete='off'
                 required
               ></input>
             </div>
-            {errors.phone_num && <p className={styles.error_message}>{errors.phone_num}</p>}
+            {errors.phone_num ? <p className={styles.error_message}>{errors.phone_num}</p> : null}
           </div>
         </div>
 
-        <p className={styles.line}>! 아래는 멋쟁이사자처럼 동아리에 이미 가입된 부원들만 입력해주세요</p>
-        <div className={styles.Signup_input_box}>
-          <div className={styles.label_box}>
-            <label>기수</label>
+        <div className={styles['signup-form__inputbox']}>
+          <div className={styles['signup-form__labelsection']}>
+            <label htmlFor='semester'>기수 (기존 동아리원만 선택)</label>
           </div>
-          <div className={styles.input_box}>
-            <div className={styles.Input}>
+          <div className={styles['signup-form__inputsection']}>
+            <div className={styles['signup-form__input']}>
               <input
                 type='text'
-                placeholder='기수를 적어주세요'
-                name='semester'
+                placeholder='숫자만 입력해주세요'
+                id='semester'
                 value={form.semester}
-                className={errors.semester ? 'invalid' : form.semester ? 'valid' : ''}
+                className={errors.semester ? styles['invalid'] : form.semester ? styles['valid'] : ''}
+                autoComplete='off'
                 onChange={handleInputChange(setForm)}
               ></input>
             </div>
-            {errors.semester && <p className={styles.error_message}>{errors.semester}</p>}
+            {errors.semester ? <p className={styles.error_message}>{errors.semester}</p> : null}
           </div>
         </div>
 
-        <div className={styles.Signup_input_box}>
-          <div className={styles.label_box}>
-            <label>파트</label>
+        <div className={styles['signup-form__inputbox']}>
+          <div className={styles['signup-form__labelsection']}>
+            <label htmlFor='part'>파트 (기존 동아리원만 선택)</label>
           </div>
-          <div className={styles.input_box}>
-            <div className={styles.Select}>
-              <select
-                name='part'
-                className={styles.selection}
-                value={form.part}
-                onChange={handleInputChange(setForm)}
-              >
-                <option value=''>선택</option>
-                <option value='front'>프론트앤드</option>
-                <option value='back'>백앤드</option>
-                <option value='PM/design'>기획/디자인</option>
-              </select>
+          <div
+            className={styles['signup-form__inputsection']}
+            onBlur={handleBlurSelcetBox}
+          >
+            <div className={styles['signup-form__selectsection']}>
+              <label onClick={handleSelectBox}>
+                <button
+                  id='part'
+                  style={{ cursor: 'pointer' }}
+                  className={styles['signup-form__selectbutton']}
+                  value={selcetPart}
+                >
+                  <p>{selcetPart}</p>
+                  <p>{isDropdownView ? '▲' : '▼'}</p>
+                </button>
+              </label>
             </div>
-            {errors.part && <p className={styles.error_message}>{errors.part}</p>}
+            {isDropdownView ? (
+              <ul
+                style={{ cursor: 'pointer' }}
+                className={styles['signup-form__selectMenu']}
+              >
+                <li
+                  className={
+                    selcetPart === '기획/디자인'
+                      ? styles['signup-form__selectionSelected']
+                      : styles['signup-form__selection']
+                  }
+                  id='PM/design'
+                  onClick={handlePart}
+                >
+                  기획/디자인
+                </li>
+                <li
+                  id='front'
+                  className={
+                    selcetPart === '프론트앤드'
+                      ? styles['signup-form__selectionSelected']
+                      : styles['signup-form__selection']
+                  }
+                  onClick={handlePart}
+                >
+                  프론트앤드
+                </li>
+                <li
+                  id='back'
+                  className={
+                    selcetPart === '백앤드'
+                      ? styles['signup-form__selectionSelected']
+                      : styles['signup-form__selection']
+                  }
+                  onClick={handlePart}
+                >
+                  백앤드
+                </li>
+              </ul>
+            ) : null}
+            {errors.part ? <p className={styles.error_message}>{errors.part}</p> : null}
           </div>
         </div>
-        <div className={styles.Signup_progress_box2}>
+
+        <div className={styles['signup-form__inputbox_consent']}>
+          <div className={styles['signup-form__labelsection']}>
+            <input
+              type='checkbox'
+              id='consent'
+              checked={form.consent}
+              className={errors.consent ? styles['invalid'] : form.consent ? styles['valid'] : ''}
+              onChange={handleCheckboxChange}
+            ></input>
+            <label htmlFor='consent'>(필수) 개인정보 수집 및 이용 동의서</label>
+            <p>*</p>
+          </div>
+          <div className={styles['signup-form__inputsection']}>
+            <ConsentTable />
+            {errors.consent ? <p className={styles.error_message}>{errors.consent}</p> : null}
+          </div>
+        </div>
+        <div className={styles['signup-form__progressBox2']}>
           <button
             style={{ cursor: 'pointer' }}
-            className={styles.SignupBtn}
+            className={styles['signup-form__button--submitting']}
             onClick={handleSignupClick}
           >
             회원가입
           </button>
-          <div className={styles.toLogin}>
-            <p>이미 계정이 있으신가요?</p>
+          <div className={styles['login-togoBox']}>
+            <p className={styles['login-mention']}>이미 계정이 있으신가요?</p>
             <button
               style={{ cursor: 'pointer' }}
               type='submit'
-              className={styles.tologinBtn}
-              onClick={() => {
+              className={styles['login-button']}
+              onClick={function () {
                 navigate('/login');
               }}
             >
               로그인
             </button>
           </div>
-          {errors.signup && <p className={styles.error_message_false}>{errors.signup}</p>}
         </div>
       </div>
     </div>
