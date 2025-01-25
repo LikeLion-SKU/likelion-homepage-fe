@@ -18,6 +18,7 @@ export default function PasswordChangeForm() {
   // 비밀번호 변경 버튼 클릭 //
   function handlePasswordChangeClick(event) {
     event.preventDefault();
+    setErrors({});
     const isValid = handlePasswordChangeForm(setErrors, form);
 
     if (form.password === '' && form.newpassword === '' && form.newpassword_valid === '') {
@@ -40,13 +41,11 @@ export default function PasswordChangeForm() {
       const response = await APIService.private.put(import.meta.env.VITE_APP_CHANGE_PASSWORD, requestData, { token });
 
       if (response.success) {
-        let gohome = confirm(response.message + ' 홈화면으로 이동하시겠습니까?');
-        if (gohome) {
-          navigate('/');
-        }
+        localStorage.removeItem('token');
+        localStorage.removeItem('refreshToken');
+        navigate('/');
       } else {
         setErrors({
-          ...errors,
           password: response.message,
         });
       }

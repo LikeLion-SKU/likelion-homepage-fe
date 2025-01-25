@@ -207,6 +207,7 @@ export function validateInput_passwordChangeForm(form) {
   } else if (form.newpassword_valid !== form.newpassword) {
     errors.newpassword_valid = '새 비밀번호와 다릅니다.';
   }
+
   return errors;
 }
 
