@@ -17,6 +17,7 @@ import QuestionAdminPage from '@/pages/adminPage1/QuestionAdminPage';
 import AdminApply from '@pages/AdminApplyPage';
 import CreateApplyPage from '@/pages/CreateApplyPage';
 import AdminAbout from '@/pages/AdminAboutPage';
+import ResultPage from '@/pages/ResultPage';
 
 // Components
 import ProjectPageLayout from '../components/ProjectPage/ProjectPageLayout';
@@ -56,6 +57,9 @@ export default function Routes() {
         <Route path="apply" element={<Apply />} />
         <Route path="recruit" element={<RecruitPage />} />
         <Route path='application' element={<ViewForm/>} />
+
+        {/* Result Routes */}
+        <Route path="result" element={<ResultPage /> } />
 
         {/* Admin Routes */}
         <Route path="admin" element={<PrivateRoute>

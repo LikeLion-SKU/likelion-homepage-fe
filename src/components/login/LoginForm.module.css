@@ -1,7 +1,6 @@
 .login-form {
   display: flex;
   flex-direction: column;
-  margin-top: 7rem;
   width: 90vw;
   max-width: 40rem;
   min-width: 300px;
@@ -11,32 +10,44 @@
   color: var(--main-text-color);
   margin-bottom: 3vh;
   font-size: 3.6rem;
-  font-weight: 750;
+  font-weight: 700;
+  margin-bottom: 7rem;
+}
+
+fieldset{
+  min-height: 37rem;
 }
 
 .login-form__inputbox {
   display: flex;
   flex-direction: column;
   text-align: left;
-  margin-bottom: 2rem;
-  height: 8rem;
+  margin-bottom: 1rem;
+  min-height: 10.9rem;
 }
 
+/* label */
 .login-form__label {
   color: var(--main-text-color);
   font-size: 1.6rem;
-  font-weight: 600;
+  font-weight: 500;
   margin: 0.5rem;
   line-height: 3rem;
+}
+
+/* input 관련 */
+.login-form__inputSection{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .login-form__input {
   border: 1px solid var(--grey-da-color);
   border-radius: 8px;
   width: 95%;
-  height: 2rem;
+  height: 3rem;
   padding: 1rem;
-  margin-bottom: 0.5rem;
 }
 
 .login-form__input:focus {
@@ -52,21 +63,33 @@
   border-color: var(--accent-color);
 }
 
+/* 이메일 도메인 (@skuniv.ac.kr) */
+.login-form__emailDomain{
+  margin-left: 1.5rem;
+  color: var(--grey-a9-color);
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+/* input 창 아래 메세지 */
 .login-form__result-message--error {
   color: red;
   margin-left: 1rem;
+  margin-top: 0.5rem;
   font-size: 1.2rem;
 }
 
+/* 로그인 버튼 */
 .button {
   color: var(--main-bg-color);
   font-size: 1.5rem;
-  font-weight: 400;
-  margin-top: 2rem;
+  font-weight: 500;
+  margin-top: 1rem;
   margin-bottom: 1rem;
   line-height: 3rem;
   padding: 0.5rem 1rem;
   width: 100%;
+  height: 5rem;
   background-color: var(--accent-color);
   border-radius: 10px;
   cursor: pointer;

@@ -1,38 +1,31 @@
 import { useState, useEffect } from 'react';
-import styles from './generation.module.css';
+import styles from '@components/adminAboutPage/generation.module.css';
 import styles2 from '@components/adminApply/Generation.module.css';
-import { getProfile } from '@api/aboutAdminAPI';
-import Registration from './Registration';
+import Management from './Management';
 
 export default function Generation() {
   const years = [12, 13, 14];
-  const [apiData, setApiData] = useState([]);
   const [selectedYear, setSelectedYear] = useState(null);
-
-  async function changeSemester(semester) {
-    try {
-      const users = await getProfile(semester);
-      setApiData(users);
-      setSelectedYear(semester);
-    } catch (error) {
-      console.error('API 호출 오류:', error);
-    }
-  }
 
   useEffect(() => {
     const defaultYear = Math.max(...years);
-    changeSemester(defaultYear);
+    setSelectedYear(defaultYear);
   }, []);
+
+  const changeSemester = (semester) => {
+    setSelectedYear(semester);
+  };
 
   return (
     <div className={styles.allContainer}>
       <div className={styles.titleContainer}>
-        <p className={styles.title}>멋사인 편집하기</p>
+        <p className={styles.title}>멋사인</p>
         <div className={styles.buttonContainer}>
           <div className={styles2.navbar}>
             {years.map((year, index) => (
               <button
                 key={index}
+                className={selectedYear === year ? styles2.activeButton : ''} // 선택된 버튼 스타일
                 onClick={() => changeSemester(year)}
               >
                 LIKELION SKU {year}TH
@@ -41,8 +34,6 @@ export default function Generation() {
           </div>
         </div>
       </div>
-
-      <Registration users={apiData} />
     </div>
   );
 }
