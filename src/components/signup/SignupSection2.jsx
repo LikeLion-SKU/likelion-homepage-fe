@@ -94,7 +94,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
         setNow(1);
         navigate(`/welcome?name=${encodeURIComponent(form.name)}`);
       } else {
-        let tologin = confirm(response.message);
+        let tologin = confirm(response.message + ' 로그인 페이지로 이동합니다.');
         if (tologin) {
           navigate('/login');
         }
