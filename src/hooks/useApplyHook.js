@@ -112,16 +112,23 @@ export function useGetQuestions(type, track, setQuestions, setUserInfo, setAnswe
       }
       try {
         if (fetchType) {
-          const baseUrl = import.meta.env.VITE_APP_GET_QUESTION;
-          const data = await APIService.private.get(`${baseUrl}/${14}/type/${fetchType}`);
+          const data = await APIService.private.get(`/api/questions`, {
+            params: {
+              type: fetchType,
+            },
+          });
           setQuestions(data);
 
-          const baseUrl2 = import.meta.env.VITE_APP_POST_ANSWER;
-          const data2 = await APIService.private.get(`${baseUrl2}/temps/type/${fetchType}`);
+          const baseUrl = '/api/applications/temp-answers/my-submits';
+          const data2 = await APIService.private.get(baseUrl, {
+            params: {
+              type: fetchType,
+            },
+          });
           const tmpAnswer = data2.answers?.map((item) => item.content) || [];
           setAnswers(tmpAnswer);
           let option = {};
-          switch (data2.trackType) {
+          switch (data2.partType) {
             case 'FRONT_END':
               option = options[0];
               break;
@@ -135,7 +142,7 @@ export function useGetQuestions(type, track, setQuestions, setUserInfo, setAnswe
               option = options[3];
           }
 
-          if (data2.trackType !== 'NONE' && data2.trackType !== null) setTrack(option);
+          if (data2.partType !== 'NONE' && data2.partType !== null) setTrack(option);
           if (tmpAnswer.length > 0) {
             const updatedCharCounts = tmpAnswer.map((answer) => (answer ? answer.length : 0));
             setCharCounts(updatedCharCounts);
