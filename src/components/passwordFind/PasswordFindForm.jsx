@@ -180,19 +180,22 @@ export default function PasswordFindForm({ emailSuccess, setEmailSuccess, setEma
       const fullEmail = `${form.sendemail}@skuniv.ac.kr`;
 
       const requestData = {
-        email: fullEmail,
+        loginId: fullEmail,
       };
 
       const response = await APIService.private.post(import.meta.env.VITE_APP_FIND_PASSWORD, requestData, { token });
-      console.log(fullEmail);
+
+      // message에서 임시 비밀번호만 얻어서 pw에 저장.
+      const message = response.message;
+      const match = message.match(/임시 비밀번호는\s+(.+?)\s+입니다\./);
+      const pw = match ? match[1] : null;
+
       // verified가 false인 경우도 처리
-      if (response.isSuccess === true) {
-        setSubPassword(response.message);
+      if (response.success === true) {
+        setSubPassword(pw);
         setEmail(form.sendemail);
         setNow(2); // 2번째 페이지 보여줌.
       } else {
-        console.log('발급에서 막힘');
-        console.log(response.message);
         alert(response.message);
       }
     } catch {
