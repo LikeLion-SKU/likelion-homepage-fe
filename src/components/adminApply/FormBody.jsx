@@ -5,7 +5,6 @@ import { useGetQandA } from '@/hooks/useAdminApplyHook';
 export default function FormBody({ id, userInfos }) {
   const [commonQA, setcommonQA] = useState([]);
   const [partQA, setpartQA] = useState([]);
-  console.log(commonQA, partQA);
 
   useGetQandA(setcommonQA, setpartQA, id);
 
