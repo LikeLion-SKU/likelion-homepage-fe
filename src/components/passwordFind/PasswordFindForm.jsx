@@ -24,7 +24,6 @@ export default function PasswordFindForm({ emailSuccess, setEmailSuccess, setEma
   const [sendSuccess, setSendSuccess] = useState(1);
   const [confirmSuccess, setConfirmSuccess] = useState(1);
   const [confirms, setConfirms] = useState({});
-  const token = localStorage.getItem('token');
 
   // 타이머 관련 함수 //
   useEffect(() => {
@@ -91,8 +90,6 @@ export default function PasswordFindForm({ emailSuccess, setEmailSuccess, setEma
           setCount(300); // 5분
           setForm({ ...form, email_valid: true, sendemail: form.email, timing: true });
         } else {
-          console.log(response.success);
-          console.log(response.message);
           setErrors({
             ...errors,
             email: '인증번호 전송에 실패했습니다.',
@@ -183,7 +180,7 @@ export default function PasswordFindForm({ emailSuccess, setEmailSuccess, setEma
         loginId: fullEmail,
       };
 
-      const response = await APIService.private.post(import.meta.env.VITE_APP_FIND_PASSWORD, requestData, { token });
+      const response = await APIService.private.post(import.meta.env.VITE_APP_FIND_PASSWORD, requestData);
 
       // message에서 임시 비밀번호만 얻어서 pw에 저장.
       const message = response.message;
