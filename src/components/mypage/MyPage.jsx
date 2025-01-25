@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { APIService } from '@api/axios';
 import { useNavigate } from 'react-router-dom';
 import styles from './MyPage.module.css';
-import defaultImg from '@assets/mypage/defaultImg.webp';
 import editImg from '@assets/mypage/editImg.webp';
 
 export default function MyPage({ children }) {
@@ -12,16 +12,7 @@ function MyPageProfile({ children }) {
   return <div className={styles.profile}>{children}</div>;
 }
 
-function MyPageText() {
-  const [username, setUsername] = useState('');
-  const [useremail, setUseremail] = useState('');
-
-  useEffect(() => {
-    const storedUsername = localStorage.getItem('username');
-    if (storedUsername) {
-      setUsername(storedUsername);
-    }
-  }, []);
+function MyPageText({ username, useremail }) {
   return (
     <div className={styles.textContainer}>
       <p className={styles.title}>
@@ -33,8 +24,9 @@ function MyPageText() {
   );
 }
 
-function MyPageImage() {
-  const [imagesrc, setImagesrc] = useState(defaultImg);
+function MyPageImage({ userimage }) {
+  const [imagesrc, setImagesrc] = useState(userimage);
+
   const handleImgChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -45,9 +37,33 @@ function MyPageImage() {
       reader.readAsDataURL(file);
     }
   };
+
+  const handleImgSubmit = async () => {
+    if (!userimage) {
+      alert('업로드할 이미지를 선택하세요.');
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append('profileImage', userimage);
+
+      const baseUrl = import.meta.env.VITE_APP_PUT_IMAGE;
+      const response = await APIService.private.post(baseUrl, formData);
+
+      if (response.status === 200) {
+        alert('프로필 이미지가 성공적으로 업데이트되었습니다.');
+      } else {
+        alert('이미지 업로드에 실패했습니다.');
+      }
+    } catch (error) {
+      console.error('이미지 업로드 중 오류 발생:', error);
+      location.href = '/error';
+    }
+  };
+
   return (
     <div className={styles.imageContainer}>
-      {/* 프로필 이미지 표시 */}
       <div>
         <img
           src={imagesrc}
@@ -56,7 +72,6 @@ function MyPageImage() {
         />
       </div>
 
-      {/* 이미지 업로드 버튼 */}
       <button className={styles.editButton}>
         <label htmlFor='file-input'>
           <img
@@ -66,7 +81,6 @@ function MyPageImage() {
         </label>
       </button>
 
-      {/* 파일 선택 */}
       <input
         type='file'
         accept='image/*'
@@ -74,6 +88,13 @@ function MyPageImage() {
         onChange={handleImgChange}
         style={{ display: 'none' }}
       />
+
+      <button
+        className={styles.submitButton}
+        onClick={handleImgSubmit}
+      >
+        저장
+      </button>
     </div>
   );
 }
@@ -129,7 +150,6 @@ function MyPageLogout() {
 }
 
 MyPage.Profile = MyPageProfile;
-// MyPage.Title = MyPageTitle;
 MyPage.Text = MyPageText;
 MyPage.Image = MyPageImage;
 MyPage.ItemBox = MyPageItemBox;

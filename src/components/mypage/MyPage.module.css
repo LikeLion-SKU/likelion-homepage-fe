@@ -57,6 +57,13 @@
   bottom: 0;
 }
 
+.submitButton {
+  width: 12rem;
+  height: 2.5rem;
+  background-color: var(--lightgrey-color);
+  border-radius: 0.8rem;
+}
+
 .itembox {
   margin-top: 5vh;
 }
