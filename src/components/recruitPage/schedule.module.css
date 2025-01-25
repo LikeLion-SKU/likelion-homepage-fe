@@ -35,7 +35,7 @@
     align-items: center;
     justify-content: space-between;
     position: relative;
-    width: 100%;
+    width: 90%;
     padding: 20px 0;
     margin-top: 5%;
     margin-bottom: 10%;
@@ -70,14 +70,14 @@
 
 .label {
     margin-top: 10px;
-    font-size: 16px;
+    font-size: 1.6rem;
     font-weight: 500;
     color: var(--main-text-color);
 }
 
 .date {
     margin-top: 5px;
-    font-size: 12px;
+    font-size: 1.2rem;
     color: var(--main-text-color);
 }
 
