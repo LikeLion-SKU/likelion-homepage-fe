@@ -34,8 +34,9 @@ export default function LoginForm() {
       alert('잘못된 이메일 또는 비밀번호를 입력하셨습니다.');
     } else {
       try {
+        const fullEmail = `${userData.loginId}@skuniv.ac.kr`;
         const requestData = {
-          loginId: userData.loginId,
+          loginId: fullEmail,
           password: userData.password,
         };
 
