@@ -121,6 +121,13 @@ export default function LoginForm() {
       >
         로그인
       </button>
+      <button
+        onClick={() => {
+          navigate('/passwordChange');
+        }}
+      >
+        비밀번호 변경으로 이동!!!!!!!!!!!!!!
+      </button>
     </form>
   );
 }

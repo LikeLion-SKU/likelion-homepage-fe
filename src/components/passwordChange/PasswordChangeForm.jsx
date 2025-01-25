@@ -12,7 +12,6 @@ export default function PasswordChangeForm() {
     newpassword_valid: '',
   });
   const [errors, setErrors] = useState({});
-  const [isUserPassword, setIsUserPassword] = useState(false);
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
 
@@ -21,38 +20,11 @@ export default function PasswordChangeForm() {
     event.preventDefault();
     const isValid = handlePasswordChangeForm(setErrors, form);
 
-    console.log(errors);
     if (form.password === '' && form.newpassword === '' && form.newpassword_valid === '') {
       alert('변경사항이 없습니다.');
     } else {
-      passwordCheck();
-      if (isValid === true && isUserPassword) {
+      if (isValid === true) {
         passwordChanging();
-      }
-    }
-  }
-
-  // 현재 비밀번호가 DB에 있는 비번이랑 같은지 확인
-  async function passwordCheck() {
-    if (token) {
-      try {
-        const response = await APIService.private.get(import.meta.env.VITE_APP_GET_USERINFO, { token });
-        console.log(response);
-        if (response.isSuccess) {
-          if (form.password === response.password) {
-            setIsUserPassword(true);
-          } else {
-            setErrors({
-              ...errors,
-              password: '비밀번호가 일치하지않습니다.',
-            });
-          }
-        } else {
-          console.log(response.message);
-        }
-      } catch (error) {
-        console.log('비번 회원정보 조회 오류');
-        console.log(error);
       }
     }
   }
@@ -67,19 +39,19 @@ export default function PasswordChangeForm() {
 
       const response = await APIService.private.put(import.meta.env.VITE_APP_CHANGE_PASSWORD, requestData, { token });
 
-      if (response.isSuccess) {
-        console.log('비밀번호 변경 성공!');
-        console.log(response.message);
-        let gohome = confirm('홈화면으로 이동하시겠습니까?');
+      if (response.success) {
+        let gohome = confirm(response.message + ' 홈화면으로 이동하시겠습니까?');
         if (gohome) {
-          navigate('/home');
+          navigate('/');
         }
       } else {
-        console.log(response.message);
+        setErrors({
+          ...errors,
+          password: response.message,
+        });
       }
-    } catch (error) {
-      console.log('비밀번호 변경 오류');
-      console.log(error);
+    } catch {
+      alert('비밀번호 변경 중 오류가 발생했습니다.');
     }
   }
 
@@ -132,7 +104,7 @@ export default function PasswordChangeForm() {
                 placeholder='새 비밀번호를 다시 입력해주세요'
                 id='newpassword_valid'
                 value={form.newpassword_valid}
-                className={errors.newpassword_valid ? styles['invalid'] : form.newpassword_valid ? ['valid'] : ''}
+                className={errors.newpassword_valid ? styles['invalid'] : form.newpassword_valid ? styles['valid'] : ''}
                 onChange={handleInputChange(setForm)}
                 autoComplete='off'
                 required
