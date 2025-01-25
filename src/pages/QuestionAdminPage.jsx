@@ -1,5 +1,10 @@
-import { InformationInputSection } from '@/components/creatingQuestions';
+import { CreatingQuestionsSection, InformationInputSection } from '@/components/creatingQuestions';
 
 export default function QuestionAdminPage() {
-  return <InformationInputSection />;
+  return (
+    <>
+      <InformationInputSection />
+      <CreatingQuestionsSection />
+    </>
+  );
 }

@@ -1,0 +1,8 @@
+.create-question-btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+}
