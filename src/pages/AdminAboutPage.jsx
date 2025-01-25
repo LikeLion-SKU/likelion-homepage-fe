@@ -1,11 +1,5 @@
-import Generation from "../components/adminAboutPage/Generation";
-import Registration from "../components/adminAboutPage/Registration";
+import Generation from '../components/adminAboutPage/Generation';
 
 export default function AboutPage() {
-    return(
-        <>
-            <Generation />
-            <Registration />
-        </>
-    )
+  return <Generation />;
 }
