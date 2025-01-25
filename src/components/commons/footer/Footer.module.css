@@ -30,7 +30,7 @@ li a {
 }
 
 li img {
-  width: 3rem;
+  width: 3vh;
   height: auto;
   transition: transform 0.3s ease;
 }

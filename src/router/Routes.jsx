@@ -13,7 +13,6 @@ import WelcomePage from '@pages/WelcomePage';
 import Apply from '@pages/ApplyPage';
 import ApiTestPage from '@/pages/ApiTestPage';
 import AdminPage from '@/pages/AdminPage';
-import QuestionAdminPage from '@/pages/adminPage1/QuestionAdminPage';
 import AdminApply from '@pages/AdminApplyPage';
 import CreateApplyPage from '@/pages/CreateApplyPage';
 import AdminAbout from '@/pages/AdminAboutPage';
@@ -66,7 +65,6 @@ export default function Routes() {
           <Route index element={<AdminPage />} />
           {/* 지원서 생성하기 */}
           <Route path="create" element={<CreateApplyPage />} />
-          <Route path="questions" element={<QuestionAdminPage />} />
           {/* 지원서 모아보기 */}
           <Route path="apply">
             <Route index element={<AdminApply/>}/>

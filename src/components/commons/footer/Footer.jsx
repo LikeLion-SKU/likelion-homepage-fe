@@ -10,13 +10,13 @@ import github from '@assets/footer/github.webp';
 export default function Footer() {
   const [clickCount, setClickCount] = useState(0);
   const navigate = useNavigate();
-  const userRole = localStorage.getItem('role');
 
   function handleClick() {
     setClickCount((prevCount) => prevCount + 1);
 
-    if (clickCount + 1 === 3 && userRole === 'admin') {
+    if (clickCount + 1 === 3) {
       navigate('/admin');
+      return 0;
     }
   }
 
