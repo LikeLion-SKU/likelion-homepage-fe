@@ -24,6 +24,7 @@ export default function PasswordFindForm({ emailSuccess, setEmailSuccess, setEma
   const [sendSuccess, setSendSuccess] = useState(1);
   const [confirmSuccess, setConfirmSuccess] = useState(1);
   const [confirms, setConfirms] = useState({});
+  const token = localStorage.getItem('token');
 
   // 타이머 관련 함수 //
   useEffect(() => {
@@ -85,12 +86,13 @@ export default function PasswordFindForm({ emailSuccess, setEmailSuccess, setEma
 
         // 인증번호 이메일일 전송 성공시
         if (response.success === true) {
-          setSubPassword(response.message);
           setSendSuccess(2);
           setConfirms({ ...form, email: '인증번호가 전송되었습니다.' });
           setCount(300); // 5분
           setForm({ ...form, email_valid: true, sendemail: form.email, timing: true });
         } else {
+          console.log(response.success);
+          console.log(response.message);
           setErrors({
             ...errors,
             email: '인증번호 전송에 실패했습니다.',
@@ -169,8 +171,34 @@ export default function PasswordFindForm({ emailSuccess, setEmailSuccess, setEma
   // 비밀번호 찾기 버튼 클릭 => 임시 비번 발급하고 성공하면 페이지 넘기기 //
   function next(e) {
     e.preventDefault();
-    setEmail(form.sendemail); // 이메일 값을 상위 컴포넌트로 전달
-    setNow(2); // 2번째 페이지 보여줌.
+    subPasswordGet();
+  }
+
+  // 임시 비밀번호 발급 //
+  async function subPasswordGet() {
+    try {
+      const fullEmail = `${form.sendemail}@skuniv.ac.kr`;
+
+      const requestData = {
+        email: fullEmail,
+      };
+
+      const response = await APIService.private.post(import.meta.env.VITE_APP_FIND_PASSWORD, requestData, { token });
+      console.log(fullEmail);
+      // verified가 false인 경우도 처리
+      if (response.isSuccess === true) {
+        setSubPassword(response.message);
+        setEmail(form.sendemail);
+        setNow(2); // 2번째 페이지 보여줌.
+      } else {
+        console.log('발급에서 막힘');
+        console.log(response.message);
+        alert(response.message);
+      }
+    } catch {
+      // 서버 응답 자체가 실패한 경우
+      alert('서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+    }
   }
 
   return (
