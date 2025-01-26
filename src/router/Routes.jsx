@@ -61,7 +61,8 @@ export default function Routes() {
         <Route path="result" element={<ResultPage /> } />
 
         {/* Admin Routes */}
-        <Route path="admin" element={<PrivateRoute>
+        <Route>
+          <Route path="admin" element={<PrivateRoute />}>
           <Route index element={<AdminPage />} />
           {/* 지원서 생성하기 */}
           <Route path="create" element={<CreateApplyPage />} />
@@ -78,8 +79,9 @@ export default function Routes() {
           </Route>
           {/* 멋사인 편집하기 */}
           <Route path="about" element={<AdminAbout />} />
-        </PrivateRoute>}>
         </Route>
+        </Route>
+        
 
         {/* User Routes */}
         <Route path="mypage" element={<MyPage />} />

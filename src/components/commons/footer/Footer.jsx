@@ -12,12 +12,16 @@ export default function Footer() {
   const navigate = useNavigate();
 
   function handleClick() {
-    setClickCount((prevCount) => prevCount + 1);
+    setClickCount((prevCount) => {
+      const newCount = prevCount + 1;
 
-    if (clickCount + 1 === 3) {
-      navigate('/admin');
-      return 0;
-    }
+      if (newCount === 3) {
+        navigate('/admin');
+        return 0;
+      }
+
+      return newCount;
+    });
   }
 
   return (

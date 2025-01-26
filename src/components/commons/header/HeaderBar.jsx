@@ -14,7 +14,7 @@ export default function HeaderBar({ children }) {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
 
-  // 새로고침 없이 로그인 -> 마이페이지
+  // 새로고침 없이 로그인 <-> 마이페이지
   useEffect(() => {
     const checkLoginStatus = () => {
       const token = localStorage.getItem('token');
@@ -31,8 +31,17 @@ export default function HeaderBar({ children }) {
       }
     };
 
+    const originalRemoveItem = localStorage.removeItem;
+    localStorage.removeItem = function (key) {
+      originalRemoveItem.apply(this, arguments);
+      if (key === 'token') {
+        checkLoginStatus();
+      }
+    };
+
     return () => {
       localStorage.setItem = originalSetItem;
+      localStorage.removeItem = originalRemoveItem;
     };
   }, []);
 

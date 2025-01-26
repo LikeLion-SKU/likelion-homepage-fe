@@ -3,7 +3,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { APIService } from '@/api/axios';
 
 export default function PrivateRoute({ children }) {
-  const [userRole, setUserRole] = useState('');
+  const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
     async function fetchUserRole() {
@@ -24,6 +24,10 @@ export default function PrivateRoute({ children }) {
 
     fetchUserRole();
   }, []);
+
+  if (userRole === null) {
+    return null;
+  }
 
   if (userRole !== 'ADMIN') {
     return <Navigate to="/" replace />;
