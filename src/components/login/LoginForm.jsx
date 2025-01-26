@@ -114,6 +114,7 @@ export default function LoginForm() {
               <p className={styles['login-form__result-message--error']}>{errors.password.message}</p>
             ) : null}
             <button
+              type='button'
               className={styles['passwordFind-button']}
               onClick={function () {
                 navigate('/passwordFind');

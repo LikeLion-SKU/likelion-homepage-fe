@@ -33,7 +33,7 @@ export default function TableContainer() {
                 <span>{applicant.userName}</span>
                 <span>{applicant.department}</span>
                 <span>{applicant.studentId}</span>
-                <span>{applicant.trackName}</span>
+                <span>{applicant.part}</span>
                 <Select
                   styles={style}
                   options={options}
@@ -45,7 +45,7 @@ export default function TableContainer() {
                   isSearchable={false}
                 />
                 <div className={styles.btnWrapper}>
-                  <button onClick={() => navigate(`/admin/apply/${applicant.studentId}`)}>지원서 확인</button>
+                  <button onClick={() => navigate(`/admin/apply/${applicant.id}`)}>지원서 확인</button>
                 </div>
               </div>
             ))

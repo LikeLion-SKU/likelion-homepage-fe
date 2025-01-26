@@ -6,9 +6,9 @@ import { useGetUserInfo } from '@/hooks/useAdminApplyHook';
 import { useState } from 'react';
 
 export default function ViewForm() {
-  const { studentId } = useParams();
+  const { id } = useParams();
   const [userInfos, setUserInfos] = useState([]);
-  useGetUserInfo(setUserInfos, studentId);
+  useGetUserInfo(setUserInfos, id);
 
   return (
     <div className={styles.pageWrapper}>
@@ -18,7 +18,7 @@ export default function ViewForm() {
         btnMsg='목록으로'
       />
       <FormBody
-        studentId={studentId}
+        id={id}
         userInfos={userInfos}
       />
     </div>

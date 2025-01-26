@@ -71,7 +71,7 @@ export default function Routes() {
           {/* 지원서 모아보기 */}
           <Route path="apply">
             <Route index element={<AdminApply/>}/>
-            <Route path=':studentId' element={<ViewForm/>}/>
+            <Route path=':id' element={<ViewForm/>}/>
           </Route>
           {/* 프로젝트 편집하기 */}
           <Route path="project">
