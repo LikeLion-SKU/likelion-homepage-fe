@@ -24,12 +24,14 @@ function MyPageText({ username, useremail }) {
   );
 }
 
-function MyPageImage({ userimage }) {
+function MyPageImage({ userimage, semester, studentId }) {
   const [imagesrc, setImagesrc] = useState(userimage);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const handleImgChange = (event) => {
     const file = event.target.files[0];
     if (file) {
+      setSelectedFile(file);
       const reader = new FileReader();
       reader.onload = () => {
         setImagesrc(reader.result);
@@ -39,26 +41,33 @@ function MyPageImage({ userimage }) {
   };
 
   const handleImgSubmit = async () => {
-    if (!userimage) {
+    if (!selectedFile) {
       alert('업로드할 이미지를 선택하세요.');
       return;
     }
 
     try {
-      const formData = new FormData();
-      formData.append('profileImage', userimage);
-
       const baseUrl = import.meta.env.VITE_APP_PUT_IMAGE;
-      const response = await APIService.private.post(baseUrl, formData);
+      const params = new URLSearchParams({ semester, studentId });
+      const urlWithParams = `${baseUrl}?${params}`;
 
-      if (response.status === 200) {
+      const formData = new FormData();
+      formData.append('profileImage', selectedFile);
+
+      const response = await APIService.private.put(urlWithParams, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if (response.success === true) {
         alert('프로필 이미지가 성공적으로 업데이트되었습니다.');
       } else {
         alert('이미지 업로드에 실패했습니다.');
       }
     } catch (error) {
       console.error('이미지 업로드 중 오류 발생:', error);
-      location.href = '/error';
+      // location.href = '/error';
     }
   };
 
