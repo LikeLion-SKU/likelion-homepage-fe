@@ -7,21 +7,21 @@ export function useGetApplicants(setApplicants, semester) {
   }, [semester, setApplicants]);
 }
 
-export function useGetQandA(setCommonQA, setPartQA, studentId) {
+export function useGetQandA(setCommonQA, setPartQA, id) {
   useEffect(() => {
     const fetchUserInfo = async () => {
-      const res = await getAnswers(studentId, setCommonQA, setPartQA);
+      const res = await getAnswers(id, setCommonQA, setPartQA);
 
       // 배열을 필터링하여 분류
       const commonAnswers = res.commonAnswers;
-      const partAnswers = res.trackAnswers;
+      const partAnswers = res.partAnswers;
 
       setCommonQA(commonAnswers);
       setPartQA(partAnswers);
     };
 
     fetchUserInfo();
-  }, [setCommonQA, setPartQA, studentId]);
+  }, [setCommonQA, setPartQA, id]);
 }
 
 export function useGetUserInfo(setUserInfos, studentId) {
