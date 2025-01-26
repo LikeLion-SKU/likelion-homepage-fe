@@ -1,7 +1,7 @@
 import { APIService } from '@api/axios';
 
 // 비밀번호 변경
-export async function usePasswordChanging(form, setErrors, navigate, token) {
+export async function passwordChanging(form, setErrors, navigate, token) {
   try {
     const requestData = {
       currentPassword: form.password,
