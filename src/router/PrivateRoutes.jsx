@@ -11,7 +11,7 @@ export default function PrivateRoute({ children }) {
         const baseUrl = import.meta.env.VITE_APP_GET_ROLE;
         const response = await APIService.private.get(baseUrl, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`, // 토큰 추가
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
         if (response.role === 'ADMIN') {

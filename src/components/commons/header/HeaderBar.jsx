@@ -10,12 +10,37 @@ const HeaderBarContext = createContext();
 
 export default function HeaderBar({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
 
+  // 새로고침 없이 로그인 -> 마이페이지
+  useEffect(() => {
+    const checkLoginStatus = () => {
+      const token = localStorage.getItem('token');
+      setIsLoggedIn(!!token);
+    };
+
+    checkLoginStatus();
+
+    const originalSetItem = localStorage.setItem;
+    localStorage.setItem = function (key) {
+      originalSetItem.apply(this, arguments);
+      if (key === 'token') {
+        checkLoginStatus();
+      }
+    };
+
+    return () => {
+      localStorage.setItem = originalSetItem;
+    };
+  }, []);
+
   return (
     <div className={styles.section}>
-      <HeaderBarContext.Provider value={{ isMenuOpen, toggleMenu, closeMenu }}>{children}</HeaderBarContext.Provider>
+      <HeaderBarContext.Provider value={{ isMenuOpen, toggleMenu, closeMenu, isLoggedIn, setIsLoggedIn }}>
+        {children}
+      </HeaderBarContext.Provider>
     </div>
   );
 }
@@ -73,21 +98,15 @@ function NavItem({ label, path }) {
 }
 
 function Login() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
-  const { closeMenu } = useContext(HeaderBarContext);
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    setIsLoggedIn(!!token);
-  }, []);
+  const { closeMenu, isLoggedIn } = useContext(HeaderBarContext);
 
   return (
     <li>
       <button
         className={styles.loginBtn}
         onClick={() => {
-          navigate(isLoggedIn ? 'mypage' : 'login');
+          navigate(isLoggedIn ? '/mypage' : '/login');
           closeMenu();
         }}
       >
