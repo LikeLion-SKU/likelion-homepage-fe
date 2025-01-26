@@ -19,9 +19,7 @@ export default function MyPageSection() {
       setUserimage(response.profileImageUrl);
       setSemester(response.semester);
       setStudentId(response.studentId);
-      console.log(response);
       console.log(response.profileImageUrl);
-      console.log(response.semester);
     } catch (error) {
       console.error('사용자 정보를 불러오는데 실패했습니다:', error);
       location.href = '/error';

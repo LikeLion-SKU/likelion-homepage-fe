@@ -25,18 +25,15 @@ function MyPageText({ username, useremail }) {
 }
 
 function MyPageImage({ userimage, semester, studentId }) {
-  const [imagesrc, setImagesrc] = useState(userimage);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [uploadedFile, setUploadedFile] = useState(userimage);
 
   const handleImgChange = (event) => {
     const file = event.target.files[0];
     if (file) {
       setSelectedFile(file);
-      const reader = new FileReader();
-      reader.onload = () => {
-        setImagesrc(reader.result);
-      };
-      reader.readAsDataURL(file);
+      const previewUrl = URL.createObjectURL(file);
+      setUploadedFile(previewUrl); // 미리보기
     }
   };
 
@@ -54,13 +51,18 @@ function MyPageImage({ userimage, semester, studentId }) {
       const formData = new FormData();
       formData.append('profileImage', selectedFile);
 
+      console.log('formData에 추가된 값:', selectedFile);
+
       const response = await APIService.private.put(urlWithParams, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-
+      console.log(response);
       if (response.success === true) {
+        const updatedImageUrl = response.updatedUserImageUrl;
+        setUploadedFile(updatedImageUrl);
+        // console.log('이미지 업데이트 성공:', uploadedFile);
         alert('프로필 이미지가 성공적으로 업데이트되었습니다.');
       } else {
         alert('이미지 업로드에 실패했습니다.');
@@ -75,7 +77,7 @@ function MyPageImage({ userimage, semester, studentId }) {
     <div className={styles.imageContainer}>
       <div>
         <img
-          src={imagesrc}
+          src={uploadedFile}
           alt='profile'
           className={styles.image}
         />
