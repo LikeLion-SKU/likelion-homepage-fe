@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import styles from './PasswordChangeForm.module.css';
 import { handlePasswordChangeForm } from '../../utils/register.js';
 import { handleInputChange } from '../../utils/inputOnChange.js';
-import { APIService } from '@api/axios';
+
+import { passwordChanging } from '../../hooks/usePasswordChangeHook';
 
 export default function PasswordChangeForm() {
   const [form, setForm] = useState({
@@ -25,32 +26,8 @@ export default function PasswordChangeForm() {
       alert('변경사항이 없습니다.');
     } else {
       if (isValid === true) {
-        passwordChanging();
+        passwordChanging(form, setErrors, navigate, token);
       }
-    }
-  }
-
-  // 비밀번호 변경
-  async function passwordChanging() {
-    try {
-      const requestData = {
-        currentPassword: form.password,
-        newPassword: form.newpassword,
-      };
-
-      const response = await APIService.private.put(import.meta.env.VITE_APP_CHANGE_PASSWORD, requestData, { token });
-
-      if (response.success) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('refreshToken');
-        navigate('/');
-      } else {
-        setErrors({
-          password: response.message,
-        });
-      }
-    } catch {
-      alert('비밀번호 변경 중 오류가 발생했습니다.');
     }
   }
 
