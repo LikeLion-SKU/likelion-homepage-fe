@@ -23,7 +23,7 @@ export default function PasswordFindResult({ email, subPassword }) {
         <div className={styles['passwordFind-result__MessageBox']}>
           <p className={styles['passwordFind-result__Message']}>
             위 비밀번호는 임시 비밀번호입니다.<br></br>
-            로그인 후 &quot;마이페이지&quot; =&gt; &quot;비밀번호 변경&quot;에서<br></br>
+            로그인 후 &quot;마이페이지&quot; =&gt; &quot;비밀번호 변경&quot; 에서<br></br>
             반드시 비밀번호를 변경해주세요.
           </p>
         </div>
