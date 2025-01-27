@@ -1,11 +1,11 @@
 // 비번찾기 페이지.
 import { useState } from 'react';
-import { handleEmailchecking, handleConfirmCodechecking } from '../../utils/register.js';
-import { inputChange } from '../../utils/inputOnChange.js';
+import { handleEmailchecking, handleConfirmCodechecking } from '@utils/register.js';
+import { inputChange } from '@utils/inputOnChange.js';
 import styles from './PasswordFindForm.module.css';
 
-import { handleSendingClick, handleCheckingClick, useTimerEmailConfirm } from '../../hooks/useEmailConfirmHook.js';
-import { subPasswordGet } from '../../hooks/usePasswordFindHook.js';
+import { handleSendingClick, handleCheckingClick, useTimerEmailConfirm } from '@hooks/useEmailConfirmHook.js';
+import { subPasswordGet } from '@hooks/usePasswordFindHook.js';
 
 export default function PasswordFindForm({ emailSuccess, setEmailSuccess, setEmail, setNow, setSubPassword }) {
   const [form, setForm] = useState({
