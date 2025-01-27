@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './PasswordChangeForm.module.css';
-import { handlePasswordChangeForm } from '../../utils/register.js';
-import { handleInputChange } from '../../utils/inputOnChange.js';
+import { handleInputChange } from '@utils/inputOnChange.js';
 
-import { passwordChanging } from '../../hooks/usePasswordChangeHook';
+import { handlePasswordChangeClick } from '@hooks/usePasswordChangeHook';
 
 export default function PasswordChangeForm() {
   const [form, setForm] = useState({
@@ -15,21 +14,6 @@ export default function PasswordChangeForm() {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
-
-  // 비밀번호 변경 버튼 클릭 //
-  function handlePasswordChangeClick(event) {
-    event.preventDefault();
-    setErrors({});
-    const isValid = handlePasswordChangeForm(setErrors, form);
-
-    if (form.password === '' && form.newpassword === '' && form.newpassword_valid === '') {
-      alert('변경사항이 없습니다.');
-    } else {
-      if (isValid === true) {
-        passwordChanging(form, setErrors, navigate, token);
-      }
-    }
-  }
 
   return (
     <div className={styles['passwordChange-form']}>
@@ -94,7 +78,9 @@ export default function PasswordChangeForm() {
           <button
             style={{ cursor: 'pointer' }}
             className={styles['passwordChange-form__button--submitting']}
-            onClick={handlePasswordChangeClick}
+            onClick={function (event) {
+              handlePasswordChangeClick(event, form, setErrors, navigate, token);
+            }}
           >
             비밀번호
           </button>
