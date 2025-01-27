@@ -2,7 +2,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1vh;
   background-color: var(--main-bg-color);
   font-weight: bold;
   width: 100%;
@@ -10,6 +9,7 @@
   box-sizing: border-box;
   min-width: 360px;
   max-width: 1280px;
+  padding: 0 2rem;
 }
 
 .logoBtn {
@@ -54,7 +54,7 @@
   border: none;
   font-size: 1.8rem;
   cursor: pointer;
-  padding-right: 2vh;
+  margin: 0.1rem 1rem;
   transition:
     color 0.3s ease,
     filter 0.3s ease;
@@ -70,6 +70,7 @@
 .loginBtn {
   height: 3.6rem;
   display: flex;
+  margin: 0 1rem;
   align-items: center;
   font-size: 1.6rem;
   cursor: pointer;
@@ -106,7 +107,7 @@
   }
 
   .menuIcon img {
-    height: 3vh;
+    height: 3rem;
     transition: transform 0.3s ease;
   }
 
@@ -136,7 +137,7 @@
   .navbar ul li {
     width: 100%;
     text-align: center;
-    margin: 1.5vh 0;
+    margin: 1rem 0;
   }
 
   .navbar.active {
