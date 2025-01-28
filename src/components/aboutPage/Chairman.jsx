@@ -13,12 +13,10 @@ export default function Chairman({ year }) {
       fetchChairmanData('COLEAD', setCoChairman); // 부회장 데이터 요청
     }
   }, [year]);
-
-  const fetchChairmanData = async (role, setter) => {
+  async function fetchChairmanData(role, setter) {
     try {
       const response = await getChairman(role);
       const users = response?.users || [];
-      console.log(users);
 
       // year(semester)와 동일한 데이터 필터링
       const filteredMember = users.find((user) => user.semester == year);
@@ -32,10 +30,10 @@ export default function Chairman({ year }) {
       } else {
         setter(null);
       }
-    } catch (error) {
-      console.error(`${role} 데이터 가져오기 실패:`, error);
+    } catch {
+      location.href = '/error';
     }
-  };
+  }
 
   return (
     <div className={styles.allContainer}>

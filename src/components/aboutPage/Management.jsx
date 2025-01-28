@@ -48,9 +48,9 @@ export default function Management({ selectedYear }) {
             </div>
             <div className={styles.managementCardGrid}>
               {managementMembers[part] &&
-                managementMembers[part].map((member, index) => (
+                managementMembers[part].map((member) => (
                   <Card
-                    key={index}
+                    key={member.studentId}
                     name={member.userName}
                     department={member.department}
                     studentId={member.studentId}
