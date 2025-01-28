@@ -1,10 +1,9 @@
 import styles from './card.module.css';
-import DefaultImage from '@/assets/aboutPage/lion.svg';
 
 export default function Card({ profileImage, department, studentId, name }) {
-  const formattedStudentId = studentId ? studentId.slice(2, 4) + '학번' : '';
+  const formattedStudentId =
+    studentId && studentId.toString().length === 10 ? studentId.toString().slice(2, 4) + '학번' : '';
   const apiUrl = import.meta.env.VITE_APP_API_URL;
-  console.log(`${apiUrl}${profileImage}`);
 
   return (
     <div className={styles.cardContainer}>

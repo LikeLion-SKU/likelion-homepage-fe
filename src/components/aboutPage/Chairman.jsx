@@ -23,7 +23,7 @@ export default function Chairman({ year }) {
       if (filteredMember) {
         setter({
           name: filteredMember.userName,
-          department: `${filteredMember.department} ${filteredMember.studentId.slice(0, 4)}학번`,
+          department: `${filteredMember.department} ${filteredMember.studentId.slice(2, 4)}학번`,
           profileImage: filteredMember.profileImageUrl,
           role: role === 'LEAD' ? '회장' : '부회장', // 역할 이름 변환
         });
