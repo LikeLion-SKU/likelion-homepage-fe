@@ -35,7 +35,8 @@ function RecruitTimer() {
     seconds: 0,
   });
 
-  const targetDate = new Date('2025-03-10T23:59:59');
+  // 서류 마감 날짜
+  const targetDate = new Date('2025-03-07T23:59:59');
 
   useEffect(() => {
     const intervalId = setInterval(() => {
