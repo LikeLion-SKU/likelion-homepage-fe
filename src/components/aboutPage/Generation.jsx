@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import styles from '@components/adminAboutPage/generation.module.css';
-import styles2 from '@components/adminApply/Generation.module.css';
 
 export default function Generation({ selectedYear, setSelectedYear }) {
   const years = [12, 13, 14];
@@ -20,11 +19,11 @@ export default function Generation({ selectedYear, setSelectedYear }) {
       <div className={styles.titleContainer}>
         <p className={styles.title}>멋사인</p>
         <div className={styles.buttonContainer}>
-          <div className={styles2.navbar}>
+          <div className={styles.navbar}>
             {years.map((year, index) => (
               <button
                 key={index}
-                className={selectedYear === year ? styles2.activeButton : ''}
+                className={selectedYear === year ? styles.button : ''}
                 onClick={() => changeSemester(year)}
               >
                 LIKELION SKU {year}TH

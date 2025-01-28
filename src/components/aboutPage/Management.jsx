@@ -2,24 +2,31 @@ import { useEffect, useState } from 'react';
 import styles from './aboutPage.module.css';
 import Card from './Card';
 import Chairman from './Chairman';
-import { getAbout } from '@/api/adminAPI';
+import { getAbout } from '@/api/aboutAPI';
 
 export default function Management({ selectedYear }) {
   const [managementMembers, setManagementMembers] = useState([]);
-  const parts = ['기획', '디자인', '프론트엔드', '백엔드'];
+  const [parts, setParts] = useState(['기획', '디자인', '프론트엔드', '백엔드']);
   const role = 'COREMEMBER';
 
   useEffect(() => {
+    const updatedParts =
+      selectedYear === 11 || selectedYear === 12
+        ? ['기획디자인', '프론트엔드', '백엔드']
+        : ['기획', '디자인', '프론트엔드', '백엔드'];
+
+    setParts(updatedParts);
+
     if (selectedYear) {
-      fetchManagementData(selectedYear);
+      fetchManagementData(updatedParts, selectedYear);
     }
   }, [selectedYear]);
 
-  const fetchManagementData = async (semester) => {
+  const fetchManagementData = async (updatedParts, semester) => {
     try {
-      const data = await Promise.all(parts.map((part) => getAbout(semester, part, role)));
-      const formattedData = parts.reduce((acc, part, index) => {
-        acc[part] = data[index].users; // 각 파트의 'users' 배열을 저장
+      const data = await Promise.all(updatedParts.map((part) => getAbout(semester, part, role)));
+      const formattedData = updatedParts.reduce((acc, part, index) => {
+        acc[part] = data[index]?.users || [];
         return acc;
       }, {});
 
@@ -33,11 +40,11 @@ export default function Management({ selectedYear }) {
     <div className={styles.allContainer}>
       <div className={styles.managementContainer}>
         <p className={styles.mainText}>운영진</p>
-        <Chairman />
+        <Chairman year={selectedYear} />
         {parts.map((part) => (
           <div key={part}>
             <div className={styles.subTitleGrid}>
-              <p className={styles.subText}>{part}</p>
+              <p className={styles.subText}>{part === '기획디자인' ? '기획/디자인' : part}</p>
             </div>
             <div className={styles.managementCardGrid}>
               {managementMembers[part] &&
