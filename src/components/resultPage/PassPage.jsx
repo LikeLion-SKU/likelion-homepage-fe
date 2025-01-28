@@ -15,7 +15,7 @@ export default function PassPage() {
     }
 
     // isPassed가 true여야만 pass 페이지에 접근할 수 있음
-    const fetchResult = async () => {
+    const fetchResult = async function () {
       try {
         const response = await getResult({
           headers: { Authorization: `Bearer ${token}` },
@@ -24,8 +24,7 @@ export default function PassPage() {
         if (!response.isPassed) {
           navigate('/result');
         }
-      } catch (error) {
-        console.error('결과를 확인하는 중 오류 발생:', error);
+      } catch {
         navigate('/result');
       }
     };

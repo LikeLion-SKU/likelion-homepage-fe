@@ -58,8 +58,7 @@ export default function Registration({ users }) {
     try {
       deleteProfile(originalUser.semester, originalUser.studentId);
       alert('삭제되었습니다.');
-    } catch (error) {
-      console.error('삭제 중 오류 발생:', error);
+    } catch {
       alert('삭제에 실패했습니다.');
     }
   }
@@ -87,15 +86,13 @@ export default function Registration({ users }) {
 
       if (updatedRow.image || updatedRow.image == null) {
         const formData = new FormData();
-        console.log(updatedRow.image);
         formData.append('image', updatedRow.image); // 파일 추가
         await putImage(originalUser.semester, originalUser.studentId, formData);
       }
 
       alert('저장되었습니다.');
       toggleStorage(index); // 저장 후 편집 모드로 전환
-    } catch (error) {
-      console.error('저장 중 오류 발생:', error);
+    } catch {
       alert('저장에 실패했습니다.');
     }
   }

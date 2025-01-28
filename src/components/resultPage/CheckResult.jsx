@@ -20,15 +20,15 @@ export default function CheckResult() {
           headers: { Authorization: `Bearer ${token}` },
         });
         setCreatedAt(response.createdAt.replace('T', ' '));
-      } catch (error) {
-        console.error('데이터를 가져오는 중 오류 발생:', error);
+      } catch {
+        location.href = '/error';
       }
     };
 
     fetchDate();
   }, []);
 
-  const handleCheckResult = async () => {
+  const handleCheckResult = async function () {
     try {
       const token = localStorage.getItem('token');
       if (!token) {
@@ -45,8 +45,8 @@ export default function CheckResult() {
       } else {
         navigate('/fail');
       }
-    } catch (error) {
-      console.error('결과를 가져오는 중 오류 발생:', error);
+    } catch {
+      alert('결과를 가져오는 중 오류 발생.');
     }
   };
 
