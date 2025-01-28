@@ -7,7 +7,6 @@ export async function getProfile(semester) {
     return res.users;
   } catch (error) {
     console.error('API 호출 실패:', error);
-    location.href = '/error';
   }
 }
 
