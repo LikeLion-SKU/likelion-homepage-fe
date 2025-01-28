@@ -9,7 +9,7 @@ export default function Registration({ users }) {
   const [rows, setRows] = useState([]);
 
   const roleOrder = ['LEAD', 'COLEAD', 'COREMEMBER', 'BABYLION', 'GUEST'];
-  const partOrder = ['기획/디자인', '기획', '디자인', '프론트엔드', '백엔드'];
+  const partOrder = ['기획디자인', '기획', '디자인', '프론트엔드', '백엔드'];
 
   useEffect(() => {
     if (users && Array.isArray(users)) {
@@ -131,7 +131,10 @@ export default function Registration({ users }) {
                       disabled={row.isStorage}
                     >
                       {roleOrder.map((role) => (
-                        <option key={role} value={role}>
+                        <option
+                          key={role}
+                          value={role}
+                        >
                           {role}
                         </option>
                       ))}
@@ -156,7 +159,10 @@ export default function Registration({ users }) {
                       disabled={row.isStorage}
                     >
                       {partOrder.map((part) => (
-                        <option key={part} value={part}>
+                        <option
+                          key={part}
+                          value={part}
+                        >
                           {part}
                         </option>
                       ))}
