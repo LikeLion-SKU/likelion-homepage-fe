@@ -17,6 +17,8 @@ import AdminApply from '@pages/AdminApplyPage';
 import CreateApplyPage from '@/pages/CreateApplyPage';
 import AdminAbout from '@/pages/AdminAboutPage';
 import ResultPage from '@/pages/ResultPage';
+import PassPage from '@/pages/PassPage';
+import FailPage from '@/pages/FailPage';
 
 // Components
 import ProjectPageLayout from '../components/ProjectPage/ProjectPageLayout';
@@ -59,6 +61,9 @@ export default function Routes() {
 
         {/* Result Routes */}
         <Route path="result" element={<ResultPage /> } />
+        <Route path="pass" element={<PassPage /> } />
+        <Route path="fail" element={<FailPage /> } />
+
 
         {/* Admin Routes */}
         <Route>

@@ -1,9 +1,5 @@
-import ResultPage from '@/components/resultPage/CheckResult';
+import Result from '@/components/resultPage/CheckResult';
 
-export default function RecruitPage() {
-  return (
-    <>
-      <ResultPage />
-    </>
-  );
+export default function ResultPage() {
+  return <Result />;
 }
