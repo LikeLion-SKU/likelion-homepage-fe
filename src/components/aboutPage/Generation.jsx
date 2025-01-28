@@ -10,9 +10,9 @@ export default function Generation({ selectedYear, setSelectedYear }) {
     setSelectedYear(defaultYear);
   }, [setSelectedYear]);
 
-  const changeSemester = (semester) => {
+  function changeSemester(semester) {
     setSelectedYear(semester);
-  };
+  }
 
   return (
     <div className={styles.allContainer}>
@@ -20,9 +20,9 @@ export default function Generation({ selectedYear, setSelectedYear }) {
         <p className={styles.title}>멋사인</p>
         <div className={styles.buttonContainer}>
           <div className={styles.navbar}>
-            {years.map((year, index) => (
+            {years.map((year) => (
               <button
-                key={index}
+                key={year}
                 className={selectedYear === year ? styles.button : ''}
                 onClick={() => changeSemester(year)}
               >
