@@ -22,7 +22,7 @@ export default function Management({ selectedYear }) {
     }
   }, [selectedYear]);
 
-  const fetchManagementData = async (updatedParts, semester) => {
+  async function fetchManagementData(updatedParts, semester) {
     try {
       const data = await Promise.all(updatedParts.map((part) => getAbout(semester, part, role)));
       const formattedData = updatedParts.reduce((acc, part, index) => {
@@ -31,10 +31,10 @@ export default function Management({ selectedYear }) {
       }, {});
 
       setManagementMembers(formattedData);
-    } catch (error) {
-      console.error('운영진 데이터를 가져오는 중 오류 발생:', error);
+    } catch {
+      location.href = '/error';
     }
-  };
+  }
 
   return (
     <div className={styles.allContainer}>
