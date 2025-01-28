@@ -1,4 +1,5 @@
 import { Routes as ReactRouters, Route } from 'react-router-dom';
+import PrivateRoute from './PrivateRoutes';
 
 // Pages
 import HomePage from '@pages/HomePage';
@@ -12,7 +13,6 @@ import WelcomePage from '@pages/WelcomePage';
 import Apply from '@pages/ApplyPage';
 import ApiTestPage from '@/pages/ApiTestPage';
 import AdminPage from '@/pages/AdminPage';
-import QuestionAdminPage from '@/pages/adminPage1/QuestionAdminPage';
 import AdminApply from '@pages/AdminApplyPage';
 import CreateApplyPage from '@/pages/CreateApplyPage';
 import AdminAbout from '@/pages/AdminAboutPage';
@@ -61,15 +61,15 @@ export default function Routes() {
         <Route path="result" element={<ResultPage /> } />
 
         {/* Admin Routes */}
-        <Route path="admin">
+        <Route>
+          <Route path="admin" element={<PrivateRoute />}>
           <Route index element={<AdminPage />} />
           {/* 지원서 생성하기 */}
           <Route path="create" element={<CreateApplyPage />} />
-          <Route path="questions" element={<QuestionAdminPage />} />
           {/* 지원서 모아보기 */}
           <Route path="apply">
             <Route index element={<AdminApply/>}/>
-            <Route path=':studentId' element={<ViewForm/>}/>
+            <Route path=':id' element={<ViewForm/>}/>
           </Route>
           {/* 프로젝트 편집하기 */}
           <Route path="project">
@@ -80,6 +80,8 @@ export default function Routes() {
           {/* 멋사인 편집하기 */}
           <Route path="about" element={<AdminAbout />} />
         </Route>
+        </Route>
+        
 
         {/* User Routes */}
         <Route path="mypage" element={<MyPage />} />
