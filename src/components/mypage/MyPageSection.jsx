@@ -1,12 +1,12 @@
 import { APIService } from '@api/axios';
 import { useState, useEffect } from 'react';
 import MyPage from './MyPage';
-import defaultImg from '@assets/mypage/defaultImg.webp';
+// import defaultImg from '@assets/mypage/defaultImg.webp';
 
 export default function MyPageSection() {
   const [username, setUsername] = useState('');
   const [useremail, setUseremail] = useState('');
-  const [userimage, setUserimage] = useState(defaultImg);
+  const [userimage, setUserimage] = useState('');
   const [semester, setSemester] = useState('');
   const [studentId, setStudentId] = useState('');
 
@@ -16,10 +16,10 @@ export default function MyPageSection() {
       const response = await APIService.private.get(baseUrl);
       setUsername(response.userName);
       setUseremail(response.loginId);
-      setUserimage(response.profileImageUrl);
+      setUserimage(`${import.meta.env.VITE_APP_API_URL}${response.profileImageUrl}`);
       setSemester(response.semester);
       setStudentId(response.studentId);
-      console.log(response.profileImageUrl);
+      console.log(userimage);
     } catch (error) {
       console.error('사용자 정보를 불러오는데 실패했습니다:', error);
       location.href = '/error';
@@ -40,7 +40,6 @@ export default function MyPageSection() {
           userimage={userimage}
           semester={semester}
           studentId={studentId}
-          setUserimage={setUserimage}
         />
       </MyPage.Profile>
       <MyPage.ItemBox>

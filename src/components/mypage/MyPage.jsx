@@ -25,15 +25,18 @@ function MyPageText({ username, useremail }) {
 }
 
 function MyPageImage({ userimage, semester, studentId }) {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [uploadedFile, setUploadedFile] = useState(userimage);
+  const [selectedFile, setSelectedFile] = useState(null); // 사용자가 선택한 파일
+  const [uploadedFile, setUploadedFile] = useState(userimage); // 서버에 올라가 있는 파일
 
   const handleImgChange = (event) => {
     const file = event.target.files[0];
     if (file) {
+      console.log(uploadedFile);
       setSelectedFile(file);
+      // 미리보기
       const previewUrl = URL.createObjectURL(file);
-      setUploadedFile(previewUrl); // 미리보기
+      console.log('미리보기 이미지 형식: ', previewUrl);
+      setUploadedFile(previewUrl);
     }
   };
 
@@ -49,27 +52,28 @@ function MyPageImage({ userimage, semester, studentId }) {
       const urlWithParams = `${baseUrl}?${params}`;
 
       const formData = new FormData();
-      formData.append('profileImage', selectedFile);
-
-      console.log('formData에 추가된 값:', selectedFile);
+      formData.append('image', selectedFile);
 
       const response = await APIService.private.put(urlWithParams, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-      console.log(response);
+
       if (response.success === true) {
-        const updatedImageUrl = response.updatedUserImageUrl;
-        setUploadedFile(updatedImageUrl);
-        // console.log('이미지 업데이트 성공:', uploadedFile);
+        const updatedImageUrl = `${import.meta.env.VITE_APP_API_URL}${response.updatedUserImageUrl}`;
+        console.log('새로 등록한 이미지: ', updatedImageUrl);
+        userimage = updatedImageUrl;
+        // setUploadedFile(updatedImageUrl);
+
+        console.log('현재 화면에 보이는 파일: ', uploadedFile);
         alert('프로필 이미지가 성공적으로 업데이트되었습니다.');
       } else {
         alert('이미지 업로드에 실패했습니다.');
       }
     } catch (error) {
       console.error('이미지 업로드 중 오류 발생:', error);
-      // location.href = '/error';
+      location.href = '/error';
     }
   };
 
@@ -77,7 +81,7 @@ function MyPageImage({ userimage, semester, studentId }) {
     <div className={styles.imageContainer}>
       <div>
         <img
-          src={uploadedFile}
+          src={userimage}
           alt='profile'
           className={styles.image}
         />

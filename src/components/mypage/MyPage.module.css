@@ -11,7 +11,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* gap: 20vw; */
   padding-top: 10vh;
 }
 
@@ -44,24 +43,33 @@
 }
 
 .image {
-  width: 14rem;
-  height: 14rem;
+  width: 13rem;
+  height: 13rem;
   object-fit: cover;
   border: 0.2rem solid var(--grey-da-color);
-  border-radius: 5rem;
+  border-radius: 4.5rem;
 }
 
 .editButton {
   background-color: transparent;
   position: absolute;
-  bottom: 0;
+  top: 10rem;
+}
+
+.editButton img {
+  width: 4rem;
+  height: 4rem;
 }
 
 .submitButton {
-  width: 12rem;
-  height: 2.5rem;
-  background-color: var(--lightgrey-color);
-  border-radius: 0.8rem;
+  width: 13rem;
+  height: 3rem;
+  background-color: var(--grey-a9-color);
+  color: var(--main-bg-color);
+  margin-top: 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 500;
 }
 
 .itembox {
