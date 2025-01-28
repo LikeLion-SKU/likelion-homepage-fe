@@ -1,16 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import styles from '@components/adminAboutPage/generation.module.css';
 import styles2 from '@components/adminApply/Generation.module.css';
-import Management from './Management';
 
-export default function Generation() {
+export default function Generation({ selectedYear, setSelectedYear }) {
   const years = [12, 13, 14];
-  const [selectedYear, setSelectedYear] = useState(null);
 
+  // 컴포넌트 로드 시 가장 최근 연도로 초기화
   useEffect(() => {
     const defaultYear = Math.max(...years);
     setSelectedYear(defaultYear);
-  }, []);
+  }, [setSelectedYear]);
 
   const changeSemester = (semester) => {
     setSelectedYear(semester);
@@ -25,7 +24,7 @@ export default function Generation() {
             {years.map((year, index) => (
               <button
                 key={index}
-                className={selectedYear === year ? styles2.activeButton : ''} // 선택된 버튼 스타일
+                className={selectedYear === year ? styles2.activeButton : ''}
                 onClick={() => changeSemester(year)}
               >
                 LIKELION SKU {year}TH

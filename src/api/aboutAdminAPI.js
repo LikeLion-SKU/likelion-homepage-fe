@@ -38,8 +38,19 @@ export async function putImage(semester, studentId, updatedImage) {
     const formData = new FormData();
     if (updatedImage) {
       formData.append('file', updatedImage);
+      console.log(updatedImage);
     } else {
-      formData.append('file', null); // 이미지가 없는 경우 null로 처리 (서버에서 null 처리 필요)
+      formData.append('file', null);
+      console.log('null이다!');
+    }
+
+    for (let key of formData.keys()) {
+      console.log(key);
+    }
+
+    // FormData의 value 확인
+    for (let value of formData.values()) {
+      console.log(value);
     }
 
     const res = await APIService.private.put(urlWithParams, formData, {

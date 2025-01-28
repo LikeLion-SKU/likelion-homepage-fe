@@ -83,13 +83,25 @@ export default function Registration({ users }) {
     };
 
     try {
+      // 프로필 데이터 저장
       await putProfile(originalUser.semester, originalUser.studentId, updatedData);
 
-      const updatedImage = updatedRow.image ? { url: updatedRow.image } : null;
-      await putImage(originalUser.semester, originalUser.studentId, updatedImage);
+      // 이미지 데이터 저장
+      let imageToSend = updatedRow.image;
+      if (imageToSend === ' ' || imageToSend === '') {
+        imageToSend = null; // 이미지가 빈 문자열일 경우 null로 처리
+      }
+
+      // if (imageToSend && !updatedRow.isStorage) {
+      //   const imageBlob = await fetch(imageToSend).then((res) => res.blob());
+      //   await putImage(originalUser.semester, originalUser.studentId, imageBlob);
+      //   console.log(imageBlob);
+      // }
+
+      await putImage(originalUser.semester, originalUser.studentId, imageToSend);
 
       alert('저장되었습니다.');
-      toggleStorage(index); // 저장 후 편집 모드로 전환
+      toggleStorage(index);
     } catch (error) {
       console.error('저장 중 오류 발생:', error);
       alert('저장에 실패했습니다.');

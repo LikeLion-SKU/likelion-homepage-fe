@@ -29,7 +29,7 @@ export default function AddImage({ index, onImageUpload, isStorage, initialImage
 
   const handleRemoveFile = () => {
     setFileData({ url: '', name: '' });
-    onImageUpload('', index); // 이미지 제거 시 빈 문자열과 index 전달
+    onImageUpload(null, index); // 이미지 제거 시 빈 문자열과 index 전달
   };
 
   return (
