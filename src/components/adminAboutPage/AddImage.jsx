@@ -7,16 +7,24 @@ export default function AddImage({ index, onImageUpload, isStorage, initialImage
 
   useEffect(() => {
     if (initialImage) {
-      setFileData({ url: initialImage, name: initialImage.split('/').pop() });
+      // initialImage가 문자열일 때만 split을 실행
+      if (typeof initialImage === 'string') {
+        setFileData({ url: initialImage, name: initialImage.split('/').pop() });
+      } else {
+        // 이미지 객체가 전달된 경우 처리 (예: URL.createObjectURL로 변환)
+        setFileData({ url: URL.createObjectURL(initialImage), name: initialImage.name });
+      }
     }
   }, [initialImage]);
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const url = URL.createObjectURL(file);
-      setFileData({ url, name: file.name });
-      onImageUpload(url, index); // index와 url 함께 전달
+      setFileData({
+        url: URL.createObjectURL(file), // file의 URL 생성
+        name: file.name,
+      });
+      onImageUpload(file, index);
     }
   };
 
@@ -29,7 +37,7 @@ export default function AddImage({ index, onImageUpload, isStorage, initialImage
 
   const handleRemoveFile = () => {
     setFileData({ url: '', name: '' });
-    onImageUpload(null, index); // 이미지 제거 시 빈 문자열과 index 전달
+    onImageUpload(null, index); // 이미지 제거 시 빈 값 전달
   };
 
   return (
@@ -41,7 +49,7 @@ export default function AddImage({ index, onImageUpload, isStorage, initialImage
             onClick={handleFileNameClick}
             style={{ cursor: isStorage ? 'default' : 'pointer', textDecoration: 'underline' }}
           >
-            {fileData.name}
+            {fileData.name} {/* fileData.name을 렌더링 */}
           </p>
           {!isStorage && (
             <button

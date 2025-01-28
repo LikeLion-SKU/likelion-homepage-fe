@@ -27,31 +27,13 @@ export async function putProfile(semester, studentId, updatedData) {
   }
 }
 
-export async function putImage(semester, studentId, updatedImage) {
+export async function putImage(semester, studentId, formData) {
   try {
     const baseUrl = `${import.meta.env.VITE_APP_PUT_IMAGE}`;
     const semesterInt = parseInt(semester, 10);
     const params = new URLSearchParams({ semester: semesterInt, studentId });
 
     const urlWithParams = `${baseUrl}?${params}`;
-
-    const formData = new FormData();
-    if (updatedImage) {
-      formData.append('file', updatedImage);
-      console.log(updatedImage);
-    } else {
-      formData.append('file', null);
-      console.log('null이다!');
-    }
-
-    for (let key of formData.keys()) {
-      console.log(key);
-    }
-
-    // FormData의 value 확인
-    for (let value of formData.values()) {
-      console.log(value);
-    }
 
     const res = await APIService.private.put(urlWithParams, formData, {
       headers: {
