@@ -4,7 +4,7 @@ import Card from './Card';
 import { getAbout } from '@/api/aboutAPI';
 
 export default function BabyLion({ selectedYear }) {
-  const [managementMembers, setManagementMembers] = useState([]);
+  const [babyLions, setBabyLions] = useState([]);
   const [parts, setParts] = useState(['기획', '디자인', '프론트엔드', '백엔드']);
   const role = 'BABYLION';
 
@@ -21,7 +21,7 @@ export default function BabyLion({ selectedYear }) {
     }
   }, [selectedYear]);
 
-  const fetchManagementData = async (updatedParts, semester) => {
+  async function fetchManagementData(updatedParts, semester) {
     try {
       const data = await Promise.all(updatedParts.map((part) => getAbout(semester, part, role)));
       const formattedData = updatedParts.reduce((acc, part, index) => {
@@ -29,11 +29,11 @@ export default function BabyLion({ selectedYear }) {
         return acc;
       }, {});
 
-      setManagementMembers(formattedData);
-    } catch (error) {
-      console.error('아기사자 데이터를 가져오는 중 오류 발생:', error);
+      setBabyLions(formattedData);
+    } catch {
+      location.href = '/error';
     }
-  };
+  }
 
   return (
     <div className={styles.allContainer}>
@@ -45,10 +45,10 @@ export default function BabyLion({ selectedYear }) {
               <p className={styles.subText}>{part === '기획디자인' ? '기획/디자인' : part}</p>
             </div>
             <div className={styles.managementCardGrid}>
-              {managementMembers[part] &&
-                managementMembers[part].map((member, index) => (
+              {babyLions[part] &&
+                babyLions[part].map((member) => (
                   <Card
-                    key={index}
+                    key={member.studentId}
                     name={member.userName}
                     department={member.department}
                     studentId={member.studentId}
