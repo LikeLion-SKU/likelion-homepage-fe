@@ -9,10 +9,15 @@ export default function Generation() {
   const [apiData, setApiData] = useState([]);
   const [selectedYear, setSelectedYear] = useState(null);
 
+  const roleOrder = ['LEAD', 'COLEAD', 'COREMEMBER', 'BABYLION', 'GUEST'];
+
   async function changeSemester(semester) {
     try {
       const users = await getProfile(semester);
-      setApiData(users);
+      const sortedUsers = users.sort((a, b) => {
+        return roleOrder.indexOf(a.role) - roleOrder.indexOf(b.role);
+      });
+      setApiData(sortedUsers);
       setSelectedYear(semester);
     } catch {
       alert('API 호출 오류.');
