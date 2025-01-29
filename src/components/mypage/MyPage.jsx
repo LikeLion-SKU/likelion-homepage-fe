@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { APIService } from '@api/axios';
 import { useNavigate } from 'react-router-dom';
 import styles from './MyPage.module.css';
@@ -25,23 +25,46 @@ function MyPageText({ username, useremail }) {
 }
 
 function MyPageImage({ userimage, semester, studentId }) {
-  const [selectedFile, setSelectedFile] = useState(null); // 사용자가 선택한 파일
-  const [uploadedFile, setUploadedFile] = useState(userimage); // 서버에 올라가 있는 파일
+  const [file, setFile] = useState();
+  const [previewUrl, setPreviewUrl] = useState();
+  const [isVaild, setIsVaild] = useState(false);
 
-  const handleImgChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      console.log(uploadedFile);
-      setSelectedFile(file);
-      // 미리보기
-      const previewUrl = URL.createObjectURL(file);
-      console.log('미리보기 이미지 형식: ', previewUrl);
-      setUploadedFile(previewUrl);
+  const imageRef = useRef();
+
+  useEffect(() => {
+    if (!file) {
+      return;
     }
-  };
+    const fileReader = new FileReader();
+    fileReader.onload = () => {
+      setPreviewUrl(fileReader.result);
+    };
+    fileReader.readAsDataURL(file);
+  }, [file]);
+
+  function setImageRef(e) {
+    e.preventDefault();
+    imageRef.current.click();
+  }
+
+  function handleImage(event) {
+    let selectedFile = event.target.files[0];
+    let fileIsValid = isVaild;
+
+    if (event.target.files || event.target.files.length === 1) {
+      setFile(selectedFile);
+      setIsVaild(true);
+      fileIsValid = true;
+    } else {
+      setIsVaild(false);
+      fileIsValid = false;
+    }
+  }
+
+  console.log(previewUrl);
 
   const handleImgSubmit = async () => {
-    if (!selectedFile) {
+    if (!file) {
       alert('업로드할 이미지를 선택하세요.');
       return;
     }
@@ -50,9 +73,10 @@ function MyPageImage({ userimage, semester, studentId }) {
       const baseUrl = import.meta.env.VITE_APP_PUT_IMAGE;
       const params = new URLSearchParams({ semester, studentId });
       const urlWithParams = `${baseUrl}?${params}`;
+      console.log(urlWithParams);
 
       const formData = new FormData();
-      formData.append('image', selectedFile);
+      formData.append('image', file);
 
       const response = await APIService.private.put(urlWithParams, formData, {
         headers: {
@@ -61,12 +85,6 @@ function MyPageImage({ userimage, semester, studentId }) {
       });
 
       if (response.success === true) {
-        const updatedImageUrl = `${import.meta.env.VITE_APP_API_URL}${response.updatedUserImageUrl}`;
-        console.log('새로 등록한 이미지: ', updatedImageUrl);
-        userimage = updatedImageUrl;
-        // setUploadedFile(updatedImageUrl);
-
-        console.log('현재 화면에 보이는 파일: ', uploadedFile);
         alert('프로필 이미지가 성공적으로 업데이트되었습니다.');
       } else {
         alert('이미지 업로드에 실패했습니다.');
@@ -80,14 +98,25 @@ function MyPageImage({ userimage, semester, studentId }) {
   return (
     <div className={styles.imageContainer}>
       <div>
-        <img
-          src={userimage}
-          alt='profile'
-          className={styles.image}
-        />
+        {previewUrl ? (
+          <img
+            src={previewUrl}
+            alt='미리보기'
+            className={styles.image}
+          />
+        ) : (
+          <img
+            src={userimage}
+            alt='profile'
+            className={styles.image}
+          />
+        )}
       </div>
 
-      <button className={styles.editButton}>
+      <button
+        className={styles.editButton}
+        onChange={setImageRef}
+      >
         <label htmlFor='file-input'>
           <img
             src={editImg}
@@ -100,8 +129,9 @@ function MyPageImage({ userimage, semester, studentId }) {
         type='file'
         accept='image/*'
         id='file-input'
-        onChange={handleImgChange}
         style={{ display: 'none' }}
+        ref={imageRef}
+        onChange={handleImage}
       />
 
       <button
@@ -137,7 +167,7 @@ function MypageChangePW() {
   return (
     <button
       className={styles.itembox__button}
-      onClick={() => navigate('/application')}
+      onClick={() => navigate('/passwordChange')}
     >
       비밀번호 변경
     </button>
