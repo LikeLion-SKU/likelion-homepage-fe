@@ -9,7 +9,7 @@ export default function Registration({ users }) {
   const [rows, setRows] = useState([]);
 
   const roleOrder = ['LEAD', 'COLEAD', 'COREMEMBER', 'BABYLION', 'GUEST'];
-  const partOrder = ['기획/디자인', '기획', '디자인', '프론트엔드', '백엔드'];
+  const partOrder = ['기획디자인', '기획', '디자인', '프론트엔드', '백엔드'];
 
   useEffect(() => {
     if (users && Array.isArray(users)) {
@@ -36,9 +36,10 @@ export default function Registration({ users }) {
       if (roleComparison !== 0) {
         return roleComparison;
       }
-      return partOrder.indexOf(a.part) - partOrder.indexOf(b.part); // partOrder로 추가 정렬
+      return partOrder.indexOf(a.part) - partOrder.indexOf(b.part);
     });
   }
+
   function toggleStorage(index) {
     const updatedRows = [...rows];
     updatedRows[index].isStorage = !updatedRows[index].isStorage;
@@ -56,17 +57,15 @@ export default function Registration({ users }) {
     setRows(sortRows(rows.filter((_, rowIndex) => rowIndex !== index)));
     try {
       deleteProfile(originalUser.semester, originalUser.studentId);
-
       alert('삭제되었습니다.');
-    } catch (error) {
-      console.error('삭제 중 오류 발생:', error);
+    } catch {
       alert('삭제에 실패했습니다.');
     }
   }
 
-  function handleImageUpload(index, url) {
+  function handleImageUpload(file, index) {
     const updatedRows = [...rows];
-    updatedRows[index].image = url;
+    updatedRows[index].image = file === '' ? null : file; // 파일 업데이트
     setRows(updatedRows);
   }
 
@@ -85,13 +84,15 @@ export default function Registration({ users }) {
     try {
       await putProfile(originalUser.semester, originalUser.studentId, updatedData);
 
-      const updatedImage = updatedRow.image ? { url: updatedRow.image } : null;
-      await putImage(originalUser.semester, originalUser.studentId, updatedImage);
+      if (updatedRow.image || updatedRow.image == null) {
+        const formData = new FormData();
+        formData.append('image', updatedRow.image); // 파일 추가
+        await putImage(originalUser.semester, originalUser.studentId, formData);
+      }
 
       alert('저장되었습니다.');
       toggleStorage(index); // 저장 후 편집 모드로 전환
-    } catch (error) {
-      console.error('저장 중 오류 발생:', error);
+    } catch {
       alert('저장에 실패했습니다.');
     }
   }
@@ -215,7 +216,7 @@ export default function Registration({ users }) {
                     <div className={styles.container}>
                       <AddImage
                         index={index}
-                        onImageUpload={(url, idx) => handleImageUpload(idx, url)}
+                        onImageUpload={(file, idx) => handleImageUpload(file, idx)}
                         isStorage={row.isStorage}
                         initialImage={row.image} // row.image를 전달
                       />
