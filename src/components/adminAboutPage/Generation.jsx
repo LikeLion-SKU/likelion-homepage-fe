@@ -14,8 +14,8 @@ export default function Generation() {
       const users = await getProfile(semester);
       setApiData(users);
       setSelectedYear(semester);
-    } catch (error) {
-      console.error('API 호출 오류:', error);
+    } catch {
+      alert('API 호출 오류.');
     }
   }
 
@@ -30,9 +30,9 @@ export default function Generation() {
         <p className={styles.title}>멋사인 편집하기</p>
         <div className={styles.buttonContainer}>
           <div className={styles2.navbar}>
-            {years.map((year, index) => (
+            {years.map((year) => (
               <button
-                key={index}
+                key={year}
                 onClick={() => changeSemester(year)}
               >
                 LIKELION SKU {year}TH
