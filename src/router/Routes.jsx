@@ -19,6 +19,8 @@ import AdminAbout from '@/pages/AdminAboutPage';
 import ResultPage from '@/pages/ResultPage';
 import PassPage from '@/pages/PassPage';
 import FailPage from '@/pages/FailPage';
+import QuestionAdminPage from '@/pages/QuestionAdminPage';
+
 
 // Components
 import ProjectPageLayout from '../components/ProjectPage/ProjectPageLayout';
@@ -70,7 +72,12 @@ export default function Routes() {
           <Route path="admin" element={<PrivateRoute />}>
           <Route index element={<AdminPage />} />
           {/* 지원서 생성하기 */}
-          <Route path="create" element={<CreateApplyPage />} />
+          <Route path="create">
+            <Route index element={<CreateApplyPage />}/>
+            <Route path='questions' element={<QuestionAdminPage />} />
+          </Route>
+          
+
           {/* 지원서 모아보기 */}
           <Route path="apply">
             <Route index element={<AdminApply/>}/>

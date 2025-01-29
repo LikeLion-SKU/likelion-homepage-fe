@@ -9,7 +9,7 @@ export default function CreateApplyBtn() {
     <button
       className={styles['create-apply-btn']}
       onClick={function () {
-        navigate('/admin/questions');
+        navigate('/admin/create/questions');
       }}
     >
       <p className={styles['create-apply-btn__plus']}>+</p>
