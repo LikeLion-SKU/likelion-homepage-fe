@@ -6,6 +6,11 @@ const QuestionsContext = createContext(null);
 
 export default function QuestionsProvider({ children }) {
   const [selectedPart, setSelectedPart] = useState(questionParts[0].part);
+  const [applicationInformation, setApplicationInformation] = useState({
+    semester: null,
+    deadline: null,
+    activation: false,
+  });
   const [questions, setQuestions] = useState({
     commonQuestions: [
       {
@@ -38,6 +43,27 @@ export default function QuestionsProvider({ children }) {
       },
     ],
   });
+
+  function setSemester(value) {
+    setApplicationInformation((prev) => ({
+      ...prev,
+      semester: value,
+    }));
+  }
+
+  function setDeadLine(value) {
+    setApplicationInformation((prev) => ({
+      ...prev,
+      deadline: value,
+    }));
+  }
+
+  function setActivation(value) {
+    setApplicationInformation((prev) => ({
+      ...prev,
+      activation: value,
+    }));
+  }
 
   function createNewQuestion() {
     const newQuestion = {
@@ -74,6 +100,10 @@ export default function QuestionsProvider({ children }) {
         createNewQuestion,
         deleteQuestion,
         updateQuestionContent,
+        applicationInformation,
+        setSemester,
+        setDeadLine,
+        setActivation,
       }}
     >
       {children}
