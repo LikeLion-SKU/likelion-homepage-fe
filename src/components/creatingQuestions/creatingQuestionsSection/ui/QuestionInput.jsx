@@ -4,7 +4,7 @@ import styles from './QuestionInput.module.css';
 
 export default function QuestionInput({ updateQuestionContent, deleteQuestion, content, id }) {
   return (
-    <>
+    <div className={styles['question-input-container']}>
       <input
         className={styles['question-input']}
         placeholder='질문을 입력해주세요'
@@ -21,6 +21,6 @@ export default function QuestionInput({ updateQuestionContent, deleteQuestion, c
       >
         <FaRegTrashAlt className={styles['question-input-btn__trashicon']} />
       </button>
-    </>
+    </div>
   );
 }
