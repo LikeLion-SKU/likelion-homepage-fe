@@ -1,6 +1,13 @@
 import { APIService } from '@api/axios';
 import { handleSignup } from '@utils/register.js';
 
+// 계속 버튼 클릭 //
+export function next(e, form, setEmail, setNow) {
+  e.preventDefault();
+  setEmail(form.sendemail); // 이메일 값을 상위 컴포넌트로 전달
+  setNow(2); // 2번째 페이지 보여줌.
+}
+
 // 회원가입 버튼 클릭 //
 export function handleSignupClick(event, form, setErrors, setSignupSuccess, setNow, navigate) {
   event.preventDefault();
