@@ -2,6 +2,8 @@ import classNames from 'classnames/bind';
 
 import styles from './QuestionPartBtn.module.css';
 
+import { convertQuestionPartToString } from '@/utils/questionParts';
+
 const cn = classNames.bind(styles);
 
 export default function QuestionPartBtn({ part, onClick, isActive }) {
@@ -14,7 +16,7 @@ export default function QuestionPartBtn({ part, onClick, isActive }) {
         onClick(part);
       }}
     >
-      {part}
+      {convertQuestionPartToString(part)}
     </button>
   );
 }

@@ -1,9 +1,9 @@
 const PARTS = {
-  COMMON: '공통질문',
-  FRONT: '프론트엔드',
-  BACK: '백엔드',
-  PM: '기획',
-  DESIGN: '디자인',
+  COMMON: 'commonQuestions',
+  FRONT: 'frontEndQuestions',
+  BACK: 'backEndQuestions',
+  PM: 'pmQuestions',
+  DESIGN: 'designQuestions',
 };
 
 export const questionParts = [
