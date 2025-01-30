@@ -23,7 +23,7 @@ export default function Generation({ selectedYear, setSelectedYear }) {
             {years.map((year) => (
               <button
                 key={year}
-                className={selectedYear === year ? styles.button : ''}
+                className={`${styles.navbarButton} ${selectedYear === year ? styles.selectedButton : ''}`}
                 onClick={() => changeSemester(year)}
               >
                 LIKELION SKU {year}TH

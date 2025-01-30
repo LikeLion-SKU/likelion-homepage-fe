@@ -26,34 +26,39 @@
 }
 
 .navbar {
-    display: flex;
-    width: 100%;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 50px;
-  
-    button {
-      border: 1px solid rgba(0, 0, 0, 1);
-      font-size: 1.6rem;
-      line-height: 1.936rem;
-      font-weight: 700;
-      padding: 10px 23px;
-      width: 200px;
-      aspect-ratio: 5/1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 20px;
-      box-sizing: border-box;
-      cursor: pointer;
-      background-color: rgba(255, 255, 255, 1);
-      transition: transform 0.2s ease;
-  
-      &:hover {
-        transform: scale(1.05);
-      }
-    }
-  }
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.navbarButton {
+  border: 1px solid rgba(0, 0, 0, 1);
+  font-size: 1.6rem;
+  line-height: 1.936rem;
+  font-weight: 700;
+  padding: 10px 23px;
+  width: 200px;
+  aspect-ratio: 5/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  box-sizing: border-box;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 1);
+  transition: transform 0.2s ease, background-color 0.3s, color 0.3s;
+}
+
+.navbarButton:hover {
+  transform: scale(1.05);
+}
+
+.selectedButton {
+  background-color: var(--main-text-color) !important;
+  color: var(--main-bg-color);
+}
 
 @media (max-width: 700px) {
   .navbar button {
