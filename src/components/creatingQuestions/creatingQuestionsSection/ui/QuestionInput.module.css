@@ -1,0 +1,35 @@
+.question-input-container {
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  margin-bottom: 3vh;
+}
+
+.question-input {
+  width: 90%;
+  max-width: 640px;
+  height: 50px;
+  max-height: 50px;
+  background-color: var(--main-bg-color);
+  border: 1px solid var(--grey-da-color);
+  border-radius: 10px;
+  padding-left: 10px;
+}
+
+.question-input:focus {
+  border: 1px solid var(--grey-da-color);
+}
+
+.question-input-btn {
+  width: 10%;
+  max-width: 50px;
+  height: 50px;
+  background-color: var(--main-bg-color);
+  cursor: pointer;
+}
+
+.question-input-btn__trashicon {
+  width: 100%;
+  height: 40%;
+  color: red;
+}

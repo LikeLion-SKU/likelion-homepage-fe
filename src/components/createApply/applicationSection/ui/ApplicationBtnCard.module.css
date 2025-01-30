@@ -1,0 +1,65 @@
+.application-btn {
+  display: flex;
+  position: relative;
+  width: 90%;
+  max-width: 640px;
+  height: 60px;
+  border-radius: 15px;
+  border: 1px solid #dadada;
+  background-color: white;
+  margin-bottom: 4vh;
+}
+
+.application-btn:hover {
+  background-color: #dadada;
+  cursor: pointer;
+}
+
+.application-btn__cohort {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex: 7;
+  height: 100%;
+  padding-left: 20px;
+}
+
+.application-btn__text {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.application-btn__dots {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  flex: 1;
+  cursor: pointer;
+}
+
+.application-btn__menu {
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+  height: 50px;
+  position: absolute;
+  top: 40px;
+  right: 30px;
+  background-color: white;
+  border-radius: 15px;
+  border: solid 2px black;
+}
+
+.application-btn__item {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 1px;
+  margin: 0;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+}
