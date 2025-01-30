@@ -1,59 +1,65 @@
+import { useEffect, useState } from 'react';
 import styles from './aboutPage.module.css';
 import Card from './Card';
-import profileImage from '@/assets/svgs/ex.svg';
 import Chairman from './Chairman';
+import { getAbout } from '@/api/aboutAPI';
 
-export default function Management({selectedYear}) {
-  const managementMembers = [
-    { name: '김운영', department: '컴퓨터 공학과 22학번', part: '백엔드' },
-    { name: '이운영', department: '컴퓨터 공학과 21학번', part: '백엔드', profileImage },
-    { name: '박운영', department: '컴퓨터 공학과 20학번', part: '백엔드', profileImage },
-  ];
+export default function Management({ selectedYear }) {
+  const [managementMembers, setManagementMembers] = useState([]);
+  const [parts, setParts] = useState(['기획', '디자인', '프론트엔드', '백엔드']);
+  const role = 'COREMEMBER';
+
+  useEffect(() => {
+    const updatedParts =
+      selectedYear === 11 || selectedYear === 12
+        ? ['기획디자인', '프론트엔드', '백엔드']
+        : ['기획', '디자인', '프론트엔드', '백엔드'];
+
+    setParts(updatedParts);
+
+    if (selectedYear) {
+      fetchManagementData(updatedParts, selectedYear);
+    }
+  }, [selectedYear]);
+
+  async function fetchManagementData(updatedParts, semester) {
+    try {
+      const data = await Promise.all(updatedParts.map((part) => getAbout(semester, part, role)));
+      const formattedData = updatedParts.reduce((acc, part, index) => {
+        acc[part] = data[index]?.users || [];
+        return acc;
+      }, {});
+
+      setManagementMembers(formattedData);
+    } catch {
+      location.href = '/error';
+    }
+  }
 
   return (
     <div className={styles.allContainer}>
       <div className={styles.managementContainer}>
         <p className={styles.mainText}>운영진</p>
-        <Chairman />
-        <div className={styles.subTitleGrid}>
-          <p className={styles.subText}>기획/디자인</p>
-        </div>
-        <div className={styles.managementCardGrid}>
-          {managementMembers.map((member, index) => (
-            <Card
-              key={index}
-              name={member.name}
-              department={member.department}
-              profileImage={member.profileImage}
-            />
-          ))}
-        </div>
-        <div className={styles.subTitleGrid}>
-          <p className={styles.subText}>프론트엔드</p>
-        </div>
-        <div className={styles.managementCardGrid}>
-          {managementMembers.map((member, index) => (
-            <Card
-              key={index}
-              name={member.name}
-              department={member.department}
-              profileImage={member.profileImage}
-            />
-          ))}
-        </div>
-        <div className={styles.subTitleGrid}>
-          <p className={styles.subText}>백엔드</p>
-        </div>
-        <div className={styles.managementCardGrid}>
-          {managementMembers.map((member, index) => (
-            <Card
-              key={index}
-              name={member.name}
-              department={member.department}
-              profileImage={member.profileImage}
-            />
-          ))}
-        </div>
+        <Chairman year={selectedYear} />
+        {parts.map((part) => (
+          <div key={part}>
+            <div className={styles.subTitleGrid}>
+              <p className={styles.subText}>{part === '기획디자인' ? '기획/디자인' : part}</p>
+            </div>
+            <div className={styles.managementCardGrid}>
+              {managementMembers[part] &&
+                managementMembers[part].map((member) => (
+                  <Card
+                    key={member.studentId}
+                    name={member.userName}
+                    department={member.department}
+                    studentId={member.studentId}
+                    profileImage={member.profileImageUrl}
+                  />
+                ))}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

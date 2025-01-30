@@ -1,0 +1,16 @@
+.year-input-heading {
+  display: flex;
+  align-items: center;
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.year-input-input {
+  width: 60px;
+  height: 30px;
+  border: 0;
+  border-bottom: 2px solid;
+  text-align: center;
+  font-size: 36px;
+  font-weight: 700;
+}

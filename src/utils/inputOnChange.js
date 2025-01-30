@@ -11,3 +11,19 @@ export function handleInputChange(setState) {
     });
   };
 }
+
+export function inputChange(event, setForm, setSetting) {
+  event.preventDefault();
+  const { id, value } = event.target;
+
+  if (value === '') {
+    setSetting(1);
+  } else {
+    setSetting(2);
+  }
+
+  setForm((prev) => ({
+    ...prev,
+    [id]: value,
+  }));
+}

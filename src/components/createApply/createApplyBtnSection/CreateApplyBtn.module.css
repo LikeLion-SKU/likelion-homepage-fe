@@ -1,0 +1,22 @@
+.create-apply-btn {
+  display: block;
+  width: 215px;
+  height: 50%;
+  min-height: 125px;
+  margin: 0 auto;
+  background-color: #f5f5f7;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.create-apply-btn:hover {
+  transform: scale(1.2);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.create-apply-btn__plus {
+  font-weight: bold;
+  font-size: 50px;
+  color: #9f9fb2;
+}
