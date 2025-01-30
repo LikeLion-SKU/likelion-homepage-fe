@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SignupSection.module.css';
-import { handleEmailchecking, handleConfirmCodechecking } from '../../utils/register.js';
+import { handleEmailchecking, handleConfirmCodechecking } from '@utils/register.js';
 import { APIService } from '@api/axios';
 
 export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail, setNow }) {
