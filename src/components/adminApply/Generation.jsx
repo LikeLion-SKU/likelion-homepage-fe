@@ -1,10 +1,20 @@
 import { useStore } from '@store/useStore';
 import styles from './Generation.module.css';
-import { getApplicants } from '@/api/adminApplyAPI';
+import { getApplicants, getSemesters } from '@/api/adminApplyAPI';
+import { useEffect, useState } from 'react';
 
 export default function Generation() {
-  const years = [12, 13, 14];
+  const [years, setYears] = useState([]);
   const { setApplicants, setSemester, setSort } = useStore();
+
+  useEffect(() => {
+    const fetchSemester = async () => {
+      const data = await getSemesters();
+      setYears(data);
+    };
+
+    fetchSemester();
+  }, []);
 
   function changeSemester(semester) {
     setSort('');
@@ -13,14 +23,16 @@ export default function Generation() {
   }
   return (
     <div className={styles.navbar}>
-      {years.map((year, index) => (
-        <button
-          onClick={() => changeSemester(year)}
-          key={index}
-        >
-          LIKELION SKU {year}TH
-        </button>
-      ))}
+      {years.length > 0
+        ? years.map((year, index) => (
+            <button
+              onClick={() => changeSemester(year)}
+              key={index}
+            >
+              LIKELION SKU {year}TH
+            </button>
+          ))
+        : null}
     </div>
   );
 }
