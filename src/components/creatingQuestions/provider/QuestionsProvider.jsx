@@ -78,10 +78,17 @@ export default function QuestionsProvider({ children }) {
   }
 
   function deleteQuestion(id) {
-    setQuestions((prev) => ({
-      ...prev,
-      [selectedPart]: prev[selectedPart].filter((q) => q.id !== id),
-    }));
+    setQuestions((prev) => {
+      if (prev[selectedPart].length === 1) {
+        alert('질문은 1개 이상이어야 합니다.');
+        return prev;
+      }
+
+      return {
+        ...prev,
+        [selectedPart]: prev[selectedPart].filter((q) => q.id !== id),
+      };
+    });
   }
 
   function updateQuestionContent(id, value) {
