@@ -66,7 +66,7 @@
   flex: none; /* 크기 고정 */
   margin-left: auto; /* 오른쪽 끝으로 정렬 */
   margin-top: 4rem;
-  margin-right: 4rem;
+  margin-right: 6rem;
   padding: 0.5rem 1rem;
   width: 10rem;
   height: 3rem;
@@ -178,5 +178,9 @@
   .title {
     font-size: 2.2rem;
     margin: 2rem 0 1.5rem;
+  }
+
+  .titleInput {
+    font-size: 3.3rem;
   }
 }

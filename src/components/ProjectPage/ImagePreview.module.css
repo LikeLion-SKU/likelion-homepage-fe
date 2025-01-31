@@ -12,10 +12,30 @@
   margin-top: 1.5rem;
 }
 
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
 .imagePreview {
   height: 100%;
   object-fit: contain; /* 이미지 비율 유지하며 컨테이너에 맞춤 */
   background-color: #e5e5e5;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.deleteIconOnImage {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  width: 3rem;
+  cursor: pointer;
+  z-index: 2;
+  opacity: 0.8;
+  transition: all 0.3s ease;
 }
 
 .noImageContainer {
@@ -44,9 +64,10 @@
 }
 
 .arrowLeft:hover,
-.arrowRight:hover {
+.arrowRight:hover,
+.deleteIconOnImage:hover {
   opacity: 1;
-  filter: brightness(1.2); /* 약간 밝게 */
+  filter: brightness(1.2);
 }
 
 .arrowLeft {
@@ -59,12 +80,13 @@
 
 @media (max-width: 768px) {
   .imagePreviewContainer {
-    border-radius: 15px; /* 작은 화면에서 둥근 모서리 조정 */
+    border-radius: 15px;
   }
 
   .arrowLeft,
-  .arrowRight {
-    height: 3rem; /* 화살표 크기 축소 */
+  .arrowRight,
+  .deleteIcon {
+    height: 3rem;
   }
 }
 
@@ -72,15 +94,46 @@
   .imagePreviewContainer {
     max-width: 100%; /* 화면 너비에 맞춤 */
     aspect-ratio: 16 / 9;
-    border-radius: 10px; /* 작은 화면에서 둥근 모서리 줄임 */
+    border-radius: 10px;
   }
 
   .arrowLeft,
   .arrowRight {
-    height: 2.5rem; /* 화살표 크기 축소 */
+    height: 2.5rem;
   }
 
   .noImageIcon {
-    width: 3rem; /* 작은 화면에서 아이콘 크기 축소 */
+    width: 3rem;
   }
+}
+
+/* 이미지 업로드 버튼 */
+.imageUploadButton {
+  flex-shrink: 0; /* 크기를 줄이지 않도록 설정 */
+  display: flex; /* 플렉스 컨테이너로 설정 */
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+  gap: 0.7rem;
+  flex: none; /* 크기 고정 */
+  margin-left: auto; /* 오른쪽 끝으로 정렬 */
+  margin-top: 4rem;
+  margin-right: 6rem;
+  padding: 2rem 1rem;
+  width: 12rem;
+  height: 3rem;
+  background-color: #444444;
+  font-size: 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.uploadIcon {
+  width: 1.5rem;
+}
+
+.uploadText {
+  font-size: 1.5rem;
+  color: #fbfbfb;
+  font-weight: 700;
 }

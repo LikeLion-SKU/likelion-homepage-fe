@@ -68,7 +68,7 @@
 
 .card img {
   width: 100%;
-  border: 1px solid #a9a9a9;
+  background-color: #e5e5e5;
   aspect-ratio: 16 / 9;
   object-fit: contain;
   border-radius: 8px;

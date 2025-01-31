@@ -43,12 +43,10 @@ const projectAPI = {
       const response = await APIService.public.get(endpoint);
       const projectData = response.data || response;
 
-      // 이미지 URL 생성 및 기본 이미지 처리
+      // 그대로 반환
       return {
         ...projectData,
-        imageUrls: projectData.imageUrls?.length
-          ? projectData.imageUrls.map((url) => `${import.meta.env.VITE_APP_API_URL}${url}`)
-          : [defaultImage],
+        imageUrls: projectData.imageUrls || [],
       };
     } catch (error) {
       console.error(`프로젝트 상세 조회 실패 (ID: ${projectId}):`, error);
@@ -74,6 +72,26 @@ const projectAPI = {
     } catch (error) {
       console.error('프로젝트 등록 실패:', error);
       throw error;
+    }
+  },
+
+  /**
+   * 프로젝트 수정
+   * @param {string} endpoint - API URL
+   * @param {FormData} formData - 수정 데이터 (FormData 형태)
+   * @param {Array} remainingImageUrls - 남은 이미지 URL 배열
+   * @returns {Promise<Object>} 서버 응답 데이터
+   */
+  updateProject: async (endpoint, formData) => {
+    try {
+      const response = await APIService.private.put(endpoint, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+
+      return response.data || response;
+    } catch (error) {
+      console.error('프로젝트 수정 실패:', error);
+      throw error; // 에러를 상위로 전달
     }
   },
 

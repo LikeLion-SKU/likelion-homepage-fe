@@ -5,7 +5,7 @@ import ImagePreview from './ImagePreview';
 import InputTeamRole from './InputTeamRole';
 import DotsNavigation from './DotNavigation';
 import TextareaAutosize from 'react-textarea-autosize';
-import styles from './NewProjectForm.module.css';
+import styles from './ProjectForm.module.css';
 import imageUpload from '@assets/projectPage/imageUpload.webp';
 import projectAPI from '@/api/projectAPI';
 
@@ -144,7 +144,6 @@ function NewProjectForm() {
         className={styles.form}
         onSubmit={handleSubmit}
       >
-        {/* 이미지 미리보기 */}
         <ImagePreview
           images={formData.imagePreviews}
           currentImage={currentImage}
@@ -152,7 +151,6 @@ function NewProjectForm() {
           onNextClick={() => setCurrentImage((prev) => (prev < formData.imagePreviews.length - 1 ? prev + 1 : 0))}
         />
 
-        {/* Dot Navigation */}
         <DotsNavigation
           totalDots={formData.imagePreviews.length}
           activeIndex={currentImage}

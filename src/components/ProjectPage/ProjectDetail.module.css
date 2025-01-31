@@ -54,7 +54,7 @@
   width: 95%;
   display: flex;
   justify-content: space-between; /* description과 teamBox를 양쪽으로 배치 */
-  align-items: flex-start; /* 위쪽 정렬 */
+  align-items: flex-start;
   flex-wrap: nowrap; /* 기본적으로 한 줄로 유지 */
 }
 
@@ -116,7 +116,7 @@
   }
 
   .memberRow {
-    gap: 0.5rem; /* 간격 축소 */
+    gap: 0.5rem;
   }
 }
 

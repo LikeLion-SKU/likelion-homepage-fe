@@ -3,28 +3,34 @@ import noImage from '@assets/projectPage/noImage.webp';
 import imageLeft from '@assets/projectPage/imageLeft.webp';
 import imageRight from '@assets/projectPage/imageRight.webp';
 
-function ImagePreview({ images, currentImage, onPrevClick, onNextClick }) {
+function DetailPreview({ images, currentImage, onPrevClick, onNextClick }) {
+  const isSingleImage = images.length === 1;
+
   return (
     <div className={styles.imagePreviewContainer}>
       {images.length > 0 ? (
         <>
-          <img
-            src={imageLeft}
-            alt='Previous'
-            className={styles.arrowLeft}
-            onClick={onPrevClick}
-          />
+          {!isSingleImage ? (
+            <img
+              src={imageLeft}
+              alt='Previous'
+              className={styles.arrowLeft}
+              onClick={onPrevClick}
+            />
+          ) : null}
           <img
             src={images[currentImage]}
             alt={`Preview ${currentImage + 1}`}
             className={styles.imagePreview}
           />
-          <img
-            src={imageRight}
-            alt='Next'
-            className={styles.arrowRight}
-            onClick={onNextClick}
-          />
+          {!isSingleImage ? (
+            <img
+              src={imageRight}
+              alt='Next'
+              className={styles.arrowRight}
+              onClick={onNextClick}
+            />
+          ) : null}
         </>
       ) : (
         <div className={styles.noImageContainer}>
@@ -39,4 +45,4 @@ function ImagePreview({ images, currentImage, onPrevClick, onNextClick }) {
   );
 }
 
-export default ImagePreview;
+export default DetailPreview;

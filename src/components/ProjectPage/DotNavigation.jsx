@@ -1,6 +1,8 @@
 import styles from './DotNavigation.module.css';
 
 function DotsNavigation({ totalDots, activeIndex, onDotClick }) {
+  if (totalDots <= 1) return null;
+
   return (
     <div className={styles.dotsContainer}>
       {Array.from({ length: totalDots }).map((_, index) => (

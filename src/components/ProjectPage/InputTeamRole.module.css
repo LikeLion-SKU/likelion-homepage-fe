@@ -12,7 +12,7 @@
 .teamRole {
   padding: 1rem 0;
   display: flex;
-  align-items: center; /* 수평 정렬 */
+  align-items: center;
 }
 
 .role {
@@ -36,12 +36,12 @@
   background: transparent;
   text-align: left;
   resize: none;
-  padding: 0.5rem; /* 텍스트 내부 여백 */
+  padding: 0.5rem;
   box-sizing: border-box; /* 패딩 포함한 전체 크기 계산 */
 }
 
 .memberInput:focus {
-  color: #1c1b1a; /* 입력 시 색상 변경 */
+  color: #1c1b1a;
 }
 
 .memberInput:not(:placeholder-shown) {

@@ -74,7 +74,6 @@ function ProjectPageLayout({ isAdmin }) {
     if (confirmDelete) {
       try {
         await projectAPI.deleteProject(projectId); // 삭제 API 호출
-        console.log(`프로젝트(ID: ${projectId})가 성공적으로 삭제되었습니다.`);
 
         // 삭제 후 프로젝트 목록 다시 로드
         setProjects((prevProjects) => prevProjects.filter((project) => project.id !== projectId));
