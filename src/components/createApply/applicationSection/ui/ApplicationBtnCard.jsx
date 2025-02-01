@@ -58,8 +58,17 @@ function MenuList({ children }) {
   return null;
 }
 
-function MenuItem({ text }) {
-  return <li className={styles['application-btn__item']}>{text}</li>;
+function MenuItem({ text, onClick }) {
+  return (
+    <li
+      className={styles['application-btn__item']}
+      onClick={function () {
+        onClick();
+      }}
+    >
+      {text}
+    </li>
+  );
 }
 
 ApplicationBtnCard.Dots = Dots;
