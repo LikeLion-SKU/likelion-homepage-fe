@@ -15,6 +15,7 @@ export default function ApplicationStoredContainer() {
             return (
               <ApplicationBtn
                 key={application.id}
+                formId={application.id}
                 cohort={`멋사 ${application.semester}기 지원서`}
               />
             );
