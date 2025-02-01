@@ -31,8 +31,8 @@ function ProjectPageLayout({ isAdmin }) {
         const { content = [], totalPages = 0 } = response || {}; // content와 totalPages 추출
         setProjects(content);
         setTotalPages(totalPages);
-      } catch (error) {
-        console.error('Failed to fetch projects:', error);
+      } catch {
+        alert('Failed to fetch projects');
         setProjects([]); // 오류 발생 시 빈 목록으로 초기화
         setTotalPages(0); // 페이지 수 초기화
       }
@@ -54,40 +54,26 @@ function ProjectPageLayout({ isAdmin }) {
     };
   }, [menuVisible]);
 
-  const handleCardClick = (projectId) => {
-    navigate(`/project/${projectId}`);
-  };
-
-  const toggleMenu = (projectId) => {
-    setMenuVisible((prev) => (prev === projectId ? null : projectId));
-  };
-
-  const handleEdit = (projectId) => {
-    const project = projects.find((p) => p.id === projectId); // 수정할 프로젝트 데이터 찾기
-    if (project) {
-      navigate('/admin/project/edit', { state: { project } }); // 데이터와 함께 경로 이동
-    }
-  };
-
-  const handleDelete = async (projectId) => {
+  function handleDelete(projectId) {
     const confirmDelete = window.confirm('프로젝트가 삭제됩니다.');
     if (confirmDelete) {
-      try {
-        await projectAPI.deleteProject(projectId); // 삭제 API 호출
+      (async () => {
+        try {
+          await projectAPI.deleteProject(projectId); // 삭제 API 호출
 
-        // 삭제 후 프로젝트 목록 다시 로드
-        setProjects((prevProjects) => prevProjects.filter((project) => project.id !== projectId));
+          // 삭제 후 프로젝트 목록 다시 로드
+          setProjects((prevProjects) => prevProjects.filter((project) => project.id !== projectId));
 
-        // 삭제 성공 알림
-        alert('프로젝트가 성공적으로 삭제되었습니다.');
-      } catch (error) {
-        console.error('프로젝트 삭제 실패:', error);
-        alert('프로젝트 삭제에 실패했습니다. 다시 시도해주세요.');
-      }
+          // 삭제 성공 알림
+          alert('프로젝트가 성공적으로 삭제되었습니다.');
+        } catch {
+          alert('프로젝트 삭제에 실패했습니다.');
+        }
+      })();
     }
-  };
+  }
 
-  const handleTypeSelect = (type) => {
+  function handleTypeSelect(type) {
     const typeMap = {
       '전체 프로젝트': 'ALL',
       중앙해커톤: 'HACKATHON',
@@ -96,7 +82,7 @@ function ProjectPageLayout({ isAdmin }) {
     };
     setSelectedType(typeMap[type] || 'ALL'); // 매핑된 값 설정
     setCurrentPage(1);
-  };
+  }
 
   return (
     <div className={styles.projectPage}>
@@ -115,7 +101,7 @@ function ProjectPageLayout({ isAdmin }) {
           <CustomDropdown
             options={['전체 프로젝트', '중앙해커톤', '아이디어톤', '자체프로젝트']}
             defaultOption='전체 프로젝트'
-            onSelect={handleTypeSelect}
+            onSelect={(type) => handleTypeSelect(type)}
           />
         </div>
       </div>
@@ -126,7 +112,7 @@ function ProjectPageLayout({ isAdmin }) {
               key={project.id}
               className={styles.card}
             >
-              <div onClick={() => handleCardClick(project.id)}>
+              <div onClick={() => navigate(`/project/${project.id}`)}>
                 <img
                   src={project.thumbnailUrl}
                   alt={project.title || 'No Project image'}
@@ -151,7 +137,7 @@ function ProjectPageLayout({ isAdmin }) {
                   <div className={styles.menuContainer}>
                     <button
                       className={styles.menuButton}
-                      onClick={() => toggleMenu(project.id)}
+                      onClick={() => setMenuVisible((prev) => (prev === project.id ? null : project.id))}
                     >
                       &#x22EE;
                     </button>
@@ -160,7 +146,9 @@ function ProjectPageLayout({ isAdmin }) {
                         ref={(ref) => (menuRefs.current[project.id] = ref)}
                         className={styles.menu}
                       >
-                        <button onClick={() => handleEdit(project.id)}>수정하기</button>
+                        <button onClick={() => navigate('/admin/project/edit', { state: { project } })}>
+                          수정하기
+                        </button>
                         <button onClick={() => handleDelete(project.id)}>삭제하기</button>
                       </div>
                     ) : null}
@@ -176,7 +164,7 @@ function ProjectPageLayout({ isAdmin }) {
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
-        onPageChange={setCurrentPage}
+        onPageChange={(page) => setCurrentPage(page)}
       />
     </div>
   );

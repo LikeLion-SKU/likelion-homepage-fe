@@ -23,8 +23,7 @@ function ProjectDetail() {
           imageUrls: projectData.imageUrls.map((url) => (url.startsWith('http') ? url : `${baseUrl}${url}`)),
         };
         setProject(projectWithImages);
-      } catch (err) {
-        console.error('Failed to fetch project detail:', err);
+      } catch {
         setError('프로젝트 데이터를 불러오지 못했습니다.');
       }
     }

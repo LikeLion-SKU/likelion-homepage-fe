@@ -16,45 +16,41 @@ function EditProjectForm() {
   useEffect(() => {
     const fetchProjectData = async () => {
       if (!project?.id) {
-        console.error('프로젝트 ID가 없습니다.');
+        alert('프로젝트 ID가 없습니다.');
         return;
       }
-      try {
-        const projectDetail = await projectAPI.fetchProjectDetail(project.id);
 
-        setFormData({
-          ...projectDetail,
-          images: [],
-          imagePreviews: projectDetail.imageUrls || [],
-          category:
-            {
-              HACKATHON: '중앙해커톤',
-              IDEATHON: '아이디어톤',
-              SIDE: '자체프로젝트',
-            }[projectDetail.type] || '',
-          title: projectDetail.title || '',
-          detail: projectDetail.content || '',
-          teamMembers: {
-            pm: projectDetail.pmName || '',
-            design: projectDetail.designerName || '',
-            'front-end': projectDetail.feName || '',
-            'back-end': projectDetail.beName || '',
-          },
-        });
-      } catch (error) {
-        console.error('프로젝트 데이터를 가져오는 중 오류 발생:', error);
-        alert('프로젝트 데이터를 불러오는 데 실패했습니다.');
-      }
+      const projectDetail = await projectAPI.fetchProjectDetail(project.id);
+
+      setFormData({
+        ...projectDetail,
+        images: [],
+        imagePreviews: projectDetail.imageUrls || [],
+        category:
+          {
+            HACKATHON: '중앙해커톤',
+            IDEATHON: '아이디어톤',
+            SIDE: '자체프로젝트',
+          }[projectDetail.type] || '',
+        title: projectDetail.title || '',
+        detail: projectDetail.content || '',
+        teamMembers: {
+          pm: projectDetail.pmName || '',
+          design: projectDetail.designerName || '',
+          'front-end': projectDetail.feName || '',
+          'back-end': projectDetail.beName || '',
+        },
+      });
     };
 
     fetchProjectData();
   }, [project]);
 
-  const handleInputChange = (field, value) => {
+  function handleInputChange(field, value) {
     setFormData((prevData) => ({ ...prevData, [field]: value }));
-  };
+  }
 
-  const handleDeleteImage = (index) => {
+  function handleDeleteImage(index) {
     setFormData((prevData) => {
       const updatedImagePreviews = prevData.imagePreviews.filter((_, i) => i !== index);
       const updatedImages = prevData.images.filter((_, i) => i !== index);
@@ -70,7 +66,7 @@ function EditProjectForm() {
         images: updatedImages,
       };
     });
-  };
+  }
 
   const handleImageUpload = ({ file, previewUrl }) => {
     setFormData((prevData) => ({
@@ -83,61 +79,56 @@ function EditProjectForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    try {
-      const { title, category, detail, teamMembers, images } = formData;
-      const categoryMap = {
-        중앙해커톤: 'HACKATHON',
-        아이디어톤: 'IDEATHON',
-        자체프로젝트: 'SIDE',
-      };
-      const enumCategory = categoryMap[category] || category;
+    const { title, category, detail, teamMembers, images } = formData;
+    const categoryMap = {
+      중앙해커톤: 'HACKATHON',
+      아이디어톤: 'IDEATHON',
+      자체프로젝트: 'SIDE',
+    };
+    const enumCategory = categoryMap[category] || category;
 
-      const remainingUrls = formData.imagePreviews.filter((url) => {
-        return typeof url === 'string' && !url.startsWith('blob:'); // blob URL 제외
-      });
+    const remainingUrls = formData.imagePreviews.filter((url) => {
+      return typeof url === 'string' && !url.startsWith('blob:'); // blob URL 제외
+    });
 
-      // 새로 추가된 이미지 파일들을 FormData에 추가
-      const newImages = images.filter((file) => file instanceof File);
+    // 새로 추가된 이미지 파일들을 FormData에 추가
+    const newImages = images.filter((file) => file instanceof File);
 
-      if (remainingUrls.length === 0 && images.length === 0) {
-        alert('최소한 하나의 이미지를 포함해야 합니다.');
-        return;
-      }
+    if (remainingUrls.length === 0 && images.length === 0) {
+      alert('최소한 하나의 이미지를 포함해야 합니다.');
+      return;
+    }
 
-      const formDataToSubmit = new FormData();
-      formDataToSubmit.append(
-        'project',
-        new Blob(
-          [
-            JSON.stringify({
-              title,
-              type: enumCategory,
-              content: detail,
-              pmName: teamMembers.pm,
-              designerName: teamMembers.design,
-              feName: teamMembers['front-end'],
-              beName: teamMembers['back-end'],
-            }),
-          ],
-          { type: 'application/json' },
-        ),
-      );
+    const formDataToSubmit = new FormData();
+    formDataToSubmit.append(
+      'project',
+      new Blob(
+        [
+          JSON.stringify({
+            title,
+            type: enumCategory,
+            content: detail,
+            pmName: teamMembers.pm,
+            designerName: teamMembers.design,
+            feName: teamMembers['front-end'],
+            beName: teamMembers['back-end'],
+          }),
+        ],
+        { type: 'application/json' },
+      ),
+    );
 
-      newImages.forEach((file) => formDataToSubmit.append('newImages', file));
+    newImages.forEach((file) => formDataToSubmit.append('newImages', file));
 
-      const urlParams = `?remainingImageUrls=${encodeURIComponent(remainingUrls.join(','))}`;
-      const endpoint = `${import.meta.env.VITE_APP_PROJECT_UPDATE_API}/${project.id}${urlParams}`;
+    const urlParams = `?remainingImageUrls=${encodeURIComponent(remainingUrls.join(','))}`;
+    const endpoint = `${import.meta.env.VITE_APP_PROJECT_UPDATE_API}/${project.id}${urlParams}`;
 
-      const response = await projectAPI.updateProject(endpoint, formDataToSubmit);
+    const response = await projectAPI.updateProject(endpoint, formDataToSubmit);
 
-      if (response?.updateSuccess) {
-        alert(response.message || '프로젝트가 성공적으로 수정되었습니다!');
-        navigate('/admin/project');
-      } else {
-        throw new Error('API 응답 데이터가 없습니다.');
-      }
-    } catch (error) {
-      console.error('프로젝트 수정 실패:', error);
+    if (response?.updateSuccess) {
+      alert(response.message || '프로젝트가 성공적으로 수정되었습니다!');
+      navigate('/admin/project');
+    } else {
       alert('프로젝트 수정 중 오류가 발생했습니다.');
     }
   };

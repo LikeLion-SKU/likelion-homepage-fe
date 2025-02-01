@@ -27,52 +27,7 @@ function NewProjectForm() {
 
   const [currentImage, setCurrentImage] = useState(0); // 현재 표시 중인 이미지의 인덱스
 
-  const handleImageChange = (index) => {
-    setCurrentImage(index);
-  };
-
-  function handleCategorySelect(selectedCategory) {
-    const categoryMap = {
-      중앙해커톤: 'HACKATHON',
-      아이디어톤: 'IDEATHON',
-      자체프로젝트: 'SIDE',
-    };
-    setFormData({ ...formData, category: categoryMap[selectedCategory] || '' });
-  }
-
-  function handleMemberChange(role, value) {
-    setFormData((prevData) => ({
-      ...prevData,
-      teamMembers: {
-        ...prevData.teamMembers,
-        [role]: value,
-      },
-    }));
-  }
-
-  const handleInputChange = (field, value) => {
-    setFormData({ ...formData, [field]: value });
-  };
-
-  const handleImageUpload = (event) => {
-    const files = Array.from(event.target.files);
-
-    // 파일 유효성 확인
-    if (!files || files.length === 0) {
-      console.warn('No files selected');
-      return;
-    }
-
-    const filePreviews = files.map((file) => URL.createObjectURL(file));
-
-    setFormData((prevData) => ({
-      ...prevData,
-      images: [...prevData.images, ...files], // 기존 파일 배열에 추가
-      imagePreviews: [...prevData.imagePreviews, ...filePreviews],
-    }));
-  };
-
-  const handleSubmit = async (event) => {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     const { title, category, detail, images, teamMembers } = formData;
@@ -84,7 +39,7 @@ function NewProjectForm() {
 
     const formDataToSubmit = new FormData();
 
-    // 1. JSON 데이터를 Blob으로 변환하여 'project'라는 키로 추가
+    // JSON 데이터를 Blob으로 변환하여 'project'라는 키로 추가
     const projectData = {
       title,
       type: category.toUpperCase(),
@@ -99,50 +54,46 @@ function NewProjectForm() {
       new File([JSON.stringify(projectData)], 'project.json', { type: 'application/json' }),
     );
 
-    // 2. 이미지 배열을 'images'라는 키로 추가
-    images.forEach((image) => {
-      formDataToSubmit.append('images', image);
-    });
+    images.forEach((image) => formDataToSubmit.append('images', image));
 
-    // 3. 디버깅: FormData 내용을 확인
-    for (let pair of formDataToSubmit.entries()) {
-      console.log(`${pair[0]}:`, pair[1]);
-    }
-
-    // 4. 서버로 요청 전송
+    // 서버로 요청 전송
     try {
       const response = await projectAPI.createProject(formDataToSubmit);
       if (response.success) {
         alert('프로젝트가 성공적으로 등록되었습니다!');
         navigate('/admin/project');
-        setFormData({
-          category: '',
-          title: '',
-          detail: '',
-          images: [],
-          imagePreviews: [],
-          teamMembers: {
-            pm: '',
-            design: '',
-            'front-end': '',
-            'back-end': '',
-          },
-        });
+        resetForm();
       } else {
         alert('프로젝트 등록에 실패했습니다.');
       }
-    } catch (error) {
-      console.error('Server error:', error);
+    } catch {
       alert('서버 오류가 발생했습니다.');
     }
-  };
+  }
+
+  function resetForm() {
+    setFormData({
+      category: '',
+      title: '',
+      detail: '',
+      images: [],
+      imagePreviews: [],
+      teamMembers: {
+        pm: '',
+        design: '',
+        'front-end': '',
+        'back-end': '',
+      },
+    });
+    setCurrentImage(0);
+  }
 
   return (
     <div className={styles.formContainer}>
       <h2 className={styles.title}>새로운 프로젝트 등록</h2>
       <form
         className={styles.form}
-        onSubmit={handleSubmit}
+        onSubmit={(e) => handleSubmit(e)}
       >
         <ImagePreview
           images={formData.imagePreviews}
@@ -154,7 +105,7 @@ function NewProjectForm() {
         <DotsNavigation
           totalDots={formData.imagePreviews.length}
           activeIndex={currentImage}
-          onDotClick={handleImageChange}
+          onDotClick={(index) => setCurrentImage(index)}
         />
 
         <div className={styles.topRow}>
@@ -163,14 +114,21 @@ function NewProjectForm() {
               className={styles.titleInput}
               placeholder='제목을 입력해주세요'
               value={formData.title}
-              onChange={(e) => handleInputChange('title', e.target.value)}
+              onChange={(e) => setFormData((prevData) => ({ ...prevData, title: e.target.value }))}
               required={false} // 기본 유효성 검사 비활성화
               spellCheck={false} // 맞춤법 검사를 비활성화하여 빨간 줄 제거
             />
             <CustomDropdown
               options={['중앙해커톤', '아이디어톤', '자체프로젝트']}
               defaultOption='카테고리'
-              onSelect={handleCategorySelect}
+              onSelect={(selectedCategory) => {
+                const categoryMap = {
+                  중앙해커톤: 'HACKATHON',
+                  아이디어톤: 'IDEATHON',
+                  자체프로젝트: 'SIDE',
+                };
+                setFormData((prevData) => ({ ...prevData, category: categoryMap[selectedCategory] || '' }));
+              }}
             />
           </div>
           <label
@@ -189,7 +147,18 @@ function NewProjectForm() {
               accept='image/*'
               multiple
               style={{ display: 'none' }}
-              onChange={handleImageUpload}
+              onChange={(e) => {
+                const files = Array.from(e.target.files);
+                if (!files || files.length === 0) return;
+
+                const filePreviews = files.map((file) => URL.createObjectURL(file));
+
+                setFormData((prevData) => ({
+                  ...prevData,
+                  images: [...prevData.images, ...files],
+                  imagePreviews: [...prevData.imagePreviews, ...filePreviews],
+                }));
+              }}
             />
           </label>
         </div>
@@ -200,13 +169,18 @@ function NewProjectForm() {
             className={styles.detailInput}
             placeholder='프로젝트를 설명해주세요'
             value={formData.detail}
-            onChange={(e) => handleInputChange('detail', e.target.value)}
+            onChange={(e) => setFormData((prevData) => ({ ...prevData, detail: e.target.value }))}
             required={false} // 기본 유효성 검사 비활성화
             spellCheck={false} // 맞춤법 검사를 비활성화하여 빨간 줄 제거
           />
           <InputTeamRole
             teamMembers={formData.teamMembers}
-            onMemberChange={handleMemberChange}
+            onMemberChange={(role, value) => {
+              setFormData((prevData) => ({
+                ...prevData,
+                teamMembers: { ...prevData.teamMembers, [role]: value },
+              }));
+            }}
           />
         </div>
 

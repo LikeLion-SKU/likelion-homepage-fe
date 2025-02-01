@@ -26,18 +26,18 @@ function EditImagePreview({ images, onDeleteClick, onImageUpload }) {
 
   useEffect(() => {
     if (!imageRef.current) {
-      console.error('imageRef가 올바르게 연결되지 않았습니다.');
+      alert('imageRef가 올바르게 연결되지 않았습니다.');
     }
   }, []); // 렌더링 후 `ref`가 연결되었는지 확인
 
-  const setImageRef = (e) => {
+  function setImageRef(e) {
     e.preventDefault();
     if (imageRef.current) {
-      imageRef.current.click(); //  `null` 체크 후 실행
+      imageRef.current.click();
     } else {
-      console.error('imageRef is not assigned to input element');
+      alert('이미지를 업로드할 input 요소가 올바르게 설정되지 않았습니다.');
     }
-  };
+  }
 
   function handleImage(event) {
     const selectedFile = event.target.files[0];
@@ -56,9 +56,9 @@ function EditImagePreview({ images, onDeleteClick, onImageUpload }) {
     }
   }
 
-  const handleDotClick = (index) => {
+  function handleDotClick(index) {
     setCurrentImage(index); // 점 클릭 시 해당 이미지로 이동
-  };
+  }
 
   return (
     <>

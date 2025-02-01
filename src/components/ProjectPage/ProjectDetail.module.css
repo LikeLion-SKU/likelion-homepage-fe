@@ -63,6 +63,7 @@
   font-size: 1.5rem;
   font-weight: 500;
   line-height: 2.5rem;
+  white-space: pre-line; /* 줄바꿈 및 공백 유지 */
 }
 
 .teamBox {
