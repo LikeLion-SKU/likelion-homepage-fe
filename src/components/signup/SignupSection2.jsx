@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SignupSection.module.css';
 import { handleInputChange } from '@utils/inputOnChange.js';
+import { handleSignup } from '@utils/register.js';
 import ConsentTable from './ConsentTable';
 
 import { handleSelectBox, handleBlurSelcetBox, handlePart } from '@hooks/useSignupDropdownHook.js';
-import { handleCheckboxChange, handleSignupClick } from '@hooks/useSignupHook.js';
+import { handleCheckboxChange, signUp } from '@hooks/useSignupHook.js';
 
 export default function SignupSection({ email, setSignupSuccess, setNow }) {
   const fullEmail = `${email}@skuniv.ac.kr`;
@@ -27,6 +28,15 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
   const [isDropdownView, setIsDropdownView] = useState(false);
   const [selcetPart, setSelectPart] = useState('파트 선택');
   const navigate = useNavigate();
+
+  function handleSignupClick(event, form, setErrors, setSignupSuccess, setNow) {
+    event.preventDefault();
+
+    const isValid = handleSignup(setErrors, form);
+    if (isValid === true && form.id_valid === true && form.consent === true) {
+      signUp(form, setSignupSuccess, setNow, navigate);
+    }
+  }
 
   return (
     <div className={styles['signup-form']}>
@@ -205,7 +215,9 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
           </div>
           <div
             className={styles['signup-form__inputsection']}
-            onBlur={handleBlurSelcetBox(setIsDropdownView)}
+            onBlur={function () {
+              handleBlurSelcetBox(isDropdownView, setIsDropdownView);
+            }}
           >
             <div className={styles['signup-form__selectsection']}>
               <label
@@ -303,7 +315,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             style={{ cursor: 'pointer' }}
             className={styles['signup-form__button--submitting']}
             onClick={function (event) {
-              handleSignupClick(event, form, setErrors, form, setSignupSuccess, setNow, navigate);
+              handleSignupClick(event, form, setErrors, form, setSignupSuccess, setNow);
             }}
           >
             회원가입

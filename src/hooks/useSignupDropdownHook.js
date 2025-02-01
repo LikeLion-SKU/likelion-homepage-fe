@@ -4,10 +4,12 @@ export function handleSelectBox(event, isDropdownView, setIsDropdownView) {
   setIsDropdownView(!isDropdownView);
 }
 
-export function handleBlurSelcetBox(setIsDropdownView) {
+export function handleBlurSelcetBox(isDropdownView, setIsDropdownView) {
   setTimeout(() => {
-    setIsDropdownView(false);
-  }, 1000);
+    if (isDropdownView === true) {
+      setIsDropdownView(false);
+    }
+  }, 100);
 }
 
 export function handlePart(event, form, setForm, setSelectPart) {

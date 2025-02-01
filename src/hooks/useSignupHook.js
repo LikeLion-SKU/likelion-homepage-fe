@@ -1,5 +1,4 @@
 import { APIService } from '@api/axios';
-import { handleSignup } from '@utils/register.js';
 
 // 계속 버튼 클릭 //
 export function next(e, form, setEmail, setNow) {
@@ -9,15 +8,6 @@ export function next(e, form, setEmail, setNow) {
 }
 
 // 회원가입 버튼 클릭 //
-export function handleSignupClick(event, form, setErrors, setSignupSuccess, setNow, navigate) {
-  event.preventDefault();
-
-  const isValid = handleSignup(setErrors, form);
-  if (isValid === true && form.id_valid === true && form.consent === true) {
-    signUp(form, setSignupSuccess, setNow, navigate);
-  }
-}
-
 export async function signUp(form, setSignupSuccess, setNow, navigate) {
   try {
     const requestData = {
@@ -38,7 +28,7 @@ export async function signUp(form, setSignupSuccess, setNow, navigate) {
       setNow(1);
       navigate(`/welcome?name=${encodeURIComponent(form.name)}`);
     } else {
-      let tologin = confirm(response.message + ' 로그인 페이지로 이동합니다.');
+      const tologin = confirm(response.message + ' 로그인 페이지로 이동합니다.');
       if (tologin) {
         navigate('/login');
       }
