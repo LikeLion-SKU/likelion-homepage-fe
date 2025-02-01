@@ -35,6 +35,33 @@ export function useGetApplication() {
   };
 }
 
+export function useDeleteApplication(formId) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const deleteApplication = useCallback(
+    async function () {
+      setIsLoading(true);
+      try {
+        const res = await APIService.private.delete(`${import.meta.env.VITE_APP_APPLICATIONS}/${formId}`);
+        if (!res) {
+          alert('지원서를 성공적으로 삭제했습니다');
+          window.location.href = '/admin/create';
+        }
+      } catch {
+        alert('지원서를 불러오는데 실패했습니다');
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [formId],
+  );
+
+  return {
+    isLoading,
+    deleteApplication,
+  };
+}
+
 export default function useApplication() {
   const nav = useNavigate();
 
