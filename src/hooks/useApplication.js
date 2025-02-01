@@ -1,6 +1,39 @@
+import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { APIService } from '@/api/axios';
 import { convertQuestionPartToString } from '@/utils/questionParts';
-import { useNavigate } from 'react-router-dom';
+
+export function useGetApplication() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [storedApplications, setStoredApplications] = useState([]);
+  const [onGoingApplications, setOnGoingApplications] = useState([]);
+
+  const getAllApplication = useCallback(async function () {
+    setIsLoading(true);
+    try {
+      const res = await APIService.private.get(import.meta.env.VITE_APP_APPLICATIONS);
+      const storedApp = res.filter((application) => application.activation === false);
+      const onGoingApp = res.filter((application) => application.activation === true);
+      setStoredApplications(storedApp);
+      setOnGoingApplications(onGoingApp);
+    } catch {
+      alert('지원서를 불러오는데 실패했습니다');
+      return;
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    getAllApplication();
+  }, []);
+
+  return {
+    isLoading,
+    storedApplications,
+    onGoingApplications,
+  };
+}
 
 export default function useApplication() {
   const nav = useNavigate();
