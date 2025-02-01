@@ -209,6 +209,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
           >
             <div className={styles['signup-form__selectsection']}>
               <label
+                className={styles['signup-form__selectLabel']}
                 onClick={function (event) {
                   handleSelectBox(event, isDropdownView, setIsDropdownView);
                 }}
@@ -216,7 +217,11 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 <button
                   id='part'
                   style={{ cursor: 'pointer' }}
-                  className={styles['signup-form__selectbutton']}
+                  className={
+                    selcetPart !== '파트 선택'
+                      ? styles['signup-form__selectbutton-valid']
+                      : styles['signup-form__selectbutton']
+                  }
                   value={selcetPart}
                 >
                   <p>{selcetPart}</p>

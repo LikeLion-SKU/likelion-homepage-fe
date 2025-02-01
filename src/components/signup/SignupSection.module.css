@@ -174,8 +174,14 @@ input.invalid {
 }
 
 /* Signup2 - 파트(signup-form__selection) 드롭아웃 메뉴 */
+.signup-form__selectLabel{
+  display: block;
+  margin:0;
+  width: 20rem;
+}
+
 .signup-form__selectbutton{
-  width: 50%;
+  width: 20rem;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -185,12 +191,27 @@ input.invalid {
   height: 5rem;
   padding: 1rem;
   background-color: white;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   color: #808080;
 }
+.signup-form__selectbutton-valid {
+  width: 20rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--accent-color);
+  border-radius: 10px;
+  height: 5rem;
+  padding: 1rem;
+  background-color: white;
+  font-size: 1.5rem;
+  color: black;
+}
+
 .signup-form__selectMenu{
   margin-top: 0.5rem;
-  width: 50%;
+  width: 20rem;
   border: 1px solid var(--grey-da-color);
   border-radius: 10px;
   background-color: white;
