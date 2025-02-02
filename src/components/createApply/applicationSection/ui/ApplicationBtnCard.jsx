@@ -14,12 +14,19 @@ function useApplicationBtnContext() {
   return ctx;
 }
 
-export default function ApplicationBtnCard({ children }) {
+export default function ApplicationBtnCard({ children, onClick }) {
   const [isClicked, setIsClicked] = useState(false);
 
   return (
     <ApplicationBtnContext.Provider value={{ isClicked, setIsClicked }}>
-      <button className={styles['application-btn']}>{children}</button>
+      <button
+        className={styles['application-btn']}
+        onClick={function () {
+          onClick();
+        }}
+      >
+        {children}
+      </button>
     </ApplicationBtnContext.Provider>
   );
 }
@@ -32,13 +39,14 @@ function ApplicationCohort({ cohort }) {
   );
 }
 
-function Dots() {
+function Dots({ onClick }) {
   const { setIsClicked } = useApplicationBtnContext();
 
   return (
     <div
       className={styles['application-btn__dots']}
-      onClick={function () {
+      onClick={function (e) {
+        onClick(e);
         setIsClicked((prev) => !prev);
       }}
     >
