@@ -1,0 +1,19 @@
+.question-type-btn {
+  width: 120px;
+  height: 40px;
+  background-color: var(--lightgrey-color);
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.question-type-btn:hover {
+  transform: scale(1.2);
+}
+
+.question-type-btn--clicked {
+  background-color: #9f9fb2;
+  color: var(--main-bg-color);
+}

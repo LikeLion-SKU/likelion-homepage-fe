@@ -48,3 +48,14 @@ export async function getUserInfos(studentId) {
     location.href = '/error';
   }
 }
+
+export async function getSemesters() {
+  try {
+    const baseUrl = '/api/admin/applications/forms';
+    const res = await APIService.private.get(baseUrl);
+    const data = res.sort((a, b) => a.semester - b.semester).map((item) => item.semester);
+    return data;
+  } catch {
+    location.href = '/error';
+  }
+}

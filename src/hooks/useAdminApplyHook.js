@@ -1,4 +1,4 @@
-import { getAnswers, getApplicants, getUserInfos } from '@api/adminApplyAPI';
+import { getAnswers, getApplicants, getSemesters, getUserInfos } from '@api/adminApplyAPI';
 import { useEffect } from 'react';
 
 export function useGetApplicants(setApplicants, semester) {
@@ -39,4 +39,15 @@ export function useGetUserInfo(setUserInfos, studentId) {
     };
     fetchUserInfo();
   }, [setUserInfos, studentId]);
+}
+
+export function useGetSemesters(setYears) {
+  useEffect(() => {
+    async function fetchSemester() {
+      const data = await getSemesters();
+      setYears(data);
+    }
+
+    fetchSemester();
+  }, [setYears]);
 }

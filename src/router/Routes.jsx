@@ -7,6 +7,7 @@ import AboutPage from '@pages/AboutPage';
 import ProjectPage from '@pages/ProjectPage';
 import RecruitPage from '@pages/RecruitPage';
 import LoginPage from '@pages/LoginPage';
+import PasswordFindPage from '@pages/PasswordFindPage';
 import SignupPage from '@pages/SignupPage';
 import MyPage from '@pages/MyPage';
 import WelcomePage from '@pages/WelcomePage';
@@ -19,6 +20,8 @@ import AdminAbout from '@/pages/AdminAboutPage';
 import ResultPage from '@/pages/ResultPage';
 import PassPage from '@/pages/PassPage';
 import FailPage from '@/pages/FailPage';
+import QuestionAdminPage from '@/pages/QuestionAdminPage';
+
 
 // Components
 import ProjectPageLayout from '../components/ProjectPage/ProjectPageLayout';
@@ -43,6 +46,7 @@ export default function Routes() {
         <Route index element={<HomePage />} />
         <Route path="about" element={<AboutPage />} />
         <Route path="login" element={<LoginPage />} />
+        <Route path="passwordFind" element={<PasswordFindPage />} />
         <Route path="signup" element={<SignupPage />} />
         <Route path="welcome" element={<WelcomePage />} />
         <Route path="project" element={<ProjectPage />} />
@@ -70,7 +74,12 @@ export default function Routes() {
           <Route path="admin" element={<PrivateRoute />}>
           <Route index element={<AdminPage />} />
           {/* 지원서 생성하기 */}
-          <Route path="create" element={<CreateApplyPage />} />
+          <Route path="create">
+            <Route index element={<CreateApplyPage />}/>
+            <Route path='questions' element={<QuestionAdminPage />} />
+          </Route>
+          
+
           {/* 지원서 모아보기 */}
           <Route path="apply">
             <Route index element={<AdminApply/>}/>
