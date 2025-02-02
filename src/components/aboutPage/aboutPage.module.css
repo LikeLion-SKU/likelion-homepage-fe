@@ -144,6 +144,11 @@
     align-items: center;
 }
 
+.cardSkeleton{
+    height: 250px;
+    border-radius: 1.4rem !important;
+}
+
 @media (max-width: 500px){
     .chairmanContainer{
         margin-top: 5%;
