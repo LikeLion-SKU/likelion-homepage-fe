@@ -20,7 +20,10 @@ export default function ApplicationBtn({ cohort, formId }) {
             <ApplicationBtnCard.MenuItem text='수정 하기' />
             <ApplicationBtnCard.MenuItem
               text='삭제 하기'
-              onClick={deleteApplication}
+              onClick={function (e) {
+                e.stopPropagation();
+                deleteApplication();
+              }}
             />
           </>
         )}
