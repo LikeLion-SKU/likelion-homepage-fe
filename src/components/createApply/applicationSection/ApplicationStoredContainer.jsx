@@ -1,6 +1,7 @@
 import ApplicationBtn from '@/components/createApply/applicationSection/ApplicationBtn';
 import ApplicationLayout from '@/components/createApply/applicationSection/layout/ApplicationLayout';
 import ApplicationStateHeading from '@/components/createApply/applicationSection/ui/ApplicationStateHeading';
+import Loading from '@/components/createApply/applicationSection/ui/Loading';
 import { useGetApplication } from '@/hooks/useApplication';
 
 export default function ApplicationStoredContainer() {
@@ -8,7 +9,7 @@ export default function ApplicationStoredContainer() {
   return (
     <ApplicationLayout>
       <ApplicationStateHeading title='보관된 지원서' />
-      {isLoading ? <p>로딩중</p> : null}
+      {isLoading ? <Loading /> : null}
       {!isLoading && storedApplications.length === 0 ? <p>지원서가 없습니다</p> : null}
       {!isLoading && storedApplications.length !== 0
         ? storedApplications.map((application) => {
