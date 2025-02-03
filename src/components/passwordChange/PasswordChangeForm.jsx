@@ -82,7 +82,7 @@ export default function PasswordChangeForm() {
               handlePasswordChangeClick(event, form, setErrors, navigate, token);
             }}
           >
-            비밀번호
+            비밀번호 변경
           </button>
         </div>
       </div>
