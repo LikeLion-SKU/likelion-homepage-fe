@@ -109,3 +109,31 @@ export default function useApplication() {
 
   return { validateAndSubmitApplication };
 }
+
+export function useUpdateApplicationActivation(formId) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const updateApplicationActivation = useCallback(
+    async function () {
+      setIsLoading(true);
+      try {
+        const res = await APIService.private.put(`${import.meta.env.VITE_APP_APPLICATIONS}/${formId}/activate`);
+        if (res) {
+          alert('지원서 활성화 상태를 성공적으로 업데이트 했습니다');
+          window.location.href = '/admin/create';
+        }
+      } catch {
+        alert('지원서를 활성화 상태를 업데이트 하는데 실패했습니다');
+        return;
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [formId],
+  );
+
+  return {
+    isLoading,
+    updateApplicationActivation,
+  };
+}

@@ -1,12 +1,17 @@
-import { useDeleteApplication } from '@/hooks/useApplication';
+import { useDeleteApplication, useUpdateApplicationActivation } from '@/hooks/useApplication';
 import ApplicationBtnCard from './ui/ApplicationBtnCard';
 
 export default function ApplicationBtn({ cohort, formId }) {
   const { isLoading, deleteApplication } = useDeleteApplication(formId);
+  const { updateApplicationActivation } = useUpdateApplicationActivation(formId);
   return (
-    <ApplicationBtnCard>
+    <ApplicationBtnCard onClick={updateApplicationActivation}>
       <ApplicationBtnCard.ApplicationCohort cohort={cohort} />
-      <ApplicationBtnCard.Dots />
+      <ApplicationBtnCard.Dots
+        onClick={function (e) {
+          e.stopPropagation();
+        }}
+      />
       <ApplicationBtnCard.MenuList>
         {isLoading ? (
           <p>로딩중</p>

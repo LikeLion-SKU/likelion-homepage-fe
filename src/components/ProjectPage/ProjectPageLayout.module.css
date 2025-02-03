@@ -1,15 +1,15 @@
 .projectPage {
-    padding: 1rem;
-  }
-  
+  padding: 1rem;
+}
+
 .title {
-    color: var(--main-text-color);
-    font-size: 3.6rem;
-    margin-top : 5vh;    
-    margin-bottom: 3.5rem; 
-    font-weight: 700;
-    text-align: center; 
-    line-height: 1.6rem;
+  color: var(--main-text-color);
+  font-size: 3.6rem;
+  margin-top: 5vh;
+  margin-bottom: 3.5rem;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.6rem;
 }
 
 .controls {
@@ -18,7 +18,7 @@
   align-items: center;
   margin-bottom: 1.5rem;
   position: relative; /* 중앙 정렬을 위한 상대 위치 지정 */
-  height: 3rem; 
+  height: 3rem;
 }
 
 .addButtonImage {
@@ -26,7 +26,7 @@
   left: 50%; /* 부모의 50% 위치 */
   top: 50%; /* 부모의 세로 50% 위치 */
   transform: translate(-50%, -50%); /* 가로 및 세로 중앙 정렬 */
-  width: 2.5rem; 
+  width: 2.5rem;
   height: 2.5rem;
   cursor: pointer;
 }
@@ -53,7 +53,8 @@
   min-height: 40rem; /* 프로젝트가 없을 때도 공간 확보 */
 }
 
-@media (max-width: 768px) { /* 화면 가로 크기가 768px 이하일 때 */
+@media (max-width: 768px) {
+  /* 화면 가로 크기가 768px 이하일 때 */
   .grid {
     grid-template-columns: repeat(2, 1fr); /* 2열로 변경 */
   }
@@ -67,11 +68,13 @@
 
 .card img {
   width: 100%;
-  height: auto;
+  background-color: #e5e5e5;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
   border-radius: 8px;
 }
 
-@media (max-width: 420px) { 
+@media (max-width: 420px) {
   .name {
     font-size: 1.3rem;
   }
@@ -92,6 +95,7 @@
   font-size: 1.4rem;
   color: #666;
   line-height: 1.6rem;
+  height: 4.8rem;
 }
 
 .cardFooter {
@@ -162,7 +166,7 @@
 
 .menu button {
   display: flex; /* 플렉스 박스를 사용하여 중앙 정렬 */
-  justify-content: center; 
+  justify-content: center;
   align-items: center; /* 세로 중앙 정렬 */
   width: 100%;
   padding: 0.5rem 1rem;
