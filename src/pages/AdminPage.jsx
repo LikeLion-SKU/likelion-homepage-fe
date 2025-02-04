@@ -1,9 +1,5 @@
-import AdminSection from "@/components/admin/AdminSection";
+import AdminSection from '@/components/admin/AdminSection';
 
 export default function AdminPage() {
-  return (
-    <>
-      <AdminSection />
-    </>
-  );
+  return <AdminSection />;
 }
