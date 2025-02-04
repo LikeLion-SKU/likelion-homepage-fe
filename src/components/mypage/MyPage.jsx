@@ -61,9 +61,7 @@ function MyPageImage({ userimage, semester, studentId }) {
     }
   }
 
-  console.log(previewUrl);
-
-  const handleImgSubmit = async () => {
+  async function handleImgSubmit() {
     if (!file) {
       alert('업로드할 이미지를 선택하세요.');
       return;
@@ -92,7 +90,7 @@ function MyPageImage({ userimage, semester, studentId }) {
       console.error('이미지 업로드 중 오류 발생:', error);
       location.href = '/error';
     }
-  };
+  }
 
   return (
     <div className={styles.imageContainer}>
