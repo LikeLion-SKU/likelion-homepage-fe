@@ -1,0 +1,9 @@
+.dead-line-input {
+  border: 1px solid var(--grey-da-color);
+  color: var(--grey-a9-color);
+}
+
+.dead-line-label {
+  font-weight: 700;
+  font-size: 16px;
+}

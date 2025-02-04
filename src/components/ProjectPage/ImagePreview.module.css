@@ -1,0 +1,139 @@
+.imagePreviewContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+  max-width: 120rem;
+  aspect-ratio: 16 / 9;
+  background-color: #e5e5e5;
+  border-radius: 20px;
+  overflow: hidden; /* 이미지가 영역을 넘어가지 않도록 설정 */
+  margin-top: 1.5rem;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.imagePreview {
+  height: 100%;
+  object-fit: contain; /* 이미지 비율 유지하며 컨테이너에 맞춤 */
+  background-color: #e5e5e5;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.deleteIconOnImage {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  width: 3rem;
+  cursor: pointer;
+  z-index: 2;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.noImageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #e5e5e5;
+}
+
+.noImageIcon {
+  width: 4rem;
+}
+
+.arrowLeft,
+.arrowRight {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 5rem;
+  cursor: pointer;
+  z-index: 2;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.arrowLeft:hover,
+.arrowRight:hover,
+.deleteIconOnImage:hover {
+  opacity: 1;
+  filter: brightness(1.2);
+}
+
+.arrowLeft {
+  left: 1rem;
+}
+
+.arrowRight {
+  right: 1rem;
+}
+
+@media (max-width: 768px) {
+  .imagePreviewContainer {
+    border-radius: 15px;
+  }
+
+  .arrowLeft,
+  .arrowRight,
+  .deleteIcon {
+    height: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .imagePreviewContainer {
+    max-width: 100%; /* 화면 너비에 맞춤 */
+    aspect-ratio: 16 / 9;
+    border-radius: 10px;
+  }
+
+  .arrowLeft,
+  .arrowRight {
+    height: 2.5rem;
+  }
+
+  .noImageIcon {
+    width: 3rem;
+  }
+}
+
+/* 이미지 업로드 버튼 */
+.imageUploadButton {
+  flex-shrink: 0; /* 크기를 줄이지 않도록 설정 */
+  display: flex; /* 플렉스 컨테이너로 설정 */
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+  gap: 0.7rem;
+  flex: none; /* 크기 고정 */
+  margin-left: auto; /* 오른쪽 끝으로 정렬 */
+  margin-top: 4rem;
+  margin-right: 6rem;
+  padding: 2rem 1rem;
+  width: 12rem;
+  height: 3rem;
+  background-color: #444444;
+  font-size: 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.uploadIcon {
+  width: 1.5rem;
+}
+
+.uploadText {
+  font-size: 1.5rem;
+  color: #fbfbfb;
+  font-weight: 700;
+}

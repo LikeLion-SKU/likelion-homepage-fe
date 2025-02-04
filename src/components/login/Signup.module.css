@@ -1,5 +1,6 @@
 .signup-button {
   color: var(--accent-color);
+  border-bottom: 1px solid var(--accent-color);
   background-color: rgba(255, 255, 255, 0);
   margin-left: 1rem;
   cursor: pointer;
