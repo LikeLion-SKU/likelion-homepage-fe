@@ -25,7 +25,7 @@ export default function ApplicationBtn({ cohort, formId }) {
               text='수정 하기'
               onClick={function (e) {
                 e.stopPropagation();
-                nav('/admin/edit/application');
+                nav(`/admin/edit/application/${formId}`);
               }}
             />
             <ApplicationBtnCard.MenuItem
