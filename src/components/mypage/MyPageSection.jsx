@@ -1,7 +1,6 @@
 import { APIService } from '@api/axios';
 import { useState, useEffect } from 'react';
 import MyPage from './MyPage';
-// import defaultImg from '@assets/mypage/defaultImg.webp';
 
 export default function MyPageSection() {
   const [username, setUsername] = useState('');
@@ -19,7 +18,6 @@ export default function MyPageSection() {
       setUserimage(`${import.meta.env.VITE_APP_API_URL}${response.profileImageUrl}`);
       setSemester(response.semester);
       setStudentId(response.studentId);
-      console.log(userimage);
     } catch (error) {
       console.error('사용자 정보를 불러오는데 실패했습니다:', error);
       location.href = '/error';

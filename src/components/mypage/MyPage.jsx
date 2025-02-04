@@ -73,7 +73,6 @@ function MyPageImage({ userimage, semester, studentId }) {
       const baseUrl = import.meta.env.VITE_APP_PUT_IMAGE;
       const params = new URLSearchParams({ semester, studentId });
       const urlWithParams = `${baseUrl}?${params}`;
-      console.log(urlWithParams);
 
       const formData = new FormData();
       formData.append('image', file);
