@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { handleEmailchecking, handleConfirmCodechecking } from '@utils/register.js';
 import { inputChange } from '@utils/inputOnChange.js';
 import styles from './PasswordFindForm.module.css';
+import { TailSpin } from 'react-loader-spinner';
 
 import { handleSendingClick, handleCheckingClick, useTimerEmailConfirm } from '@hooks/useEmailConfirmHook.js';
 import { subPasswordGet } from '@hooks/usePasswordFindHook.js';
@@ -140,7 +141,16 @@ export default function PasswordFindForm({ emailSuccess, setEmailSuccess, setEma
                 </>
               ) : sendSuccess === 3 ? (
                 <div className={styles['loaderBox']}>
-                  <div className={styles['loader']}></div>
+                  <TailSpin
+                    visible={true}
+                    height='40'
+                    width='40'
+                    color='#4fa94d'
+                    ariaLabel='tail-spin-loading'
+                    radius='1'
+                    wrapperStyle={{}}
+                    wrapperClass=''
+                  />
                 </div>
               ) : (
                 <div style={{ visibility: 'hidden' }}>

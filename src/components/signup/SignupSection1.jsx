@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { handleEmailchecking, handleConfirmCodechecking } from '@utils/register.js';
 import { inputChange } from '@utils/inputOnChange.js';
 import styles from './SignupSection.module.css';
+import { TailSpin } from 'react-loader-spinner';
 
 import { handleSendingClick, handleCheckingClick, useTimerEmailConfirm } from '@hooks/useEmailConfirmHook.js';
 import { next } from '@hooks/useSignupHook.js';
@@ -146,7 +147,16 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
                 </>
               ) : sendSuccess === 3 ? (
                 <div className={styles['loaderBox']}>
-                  <div className={styles['loader']}></div>
+                  <TailSpin
+                    visible={true}
+                    height='40'
+                    width='40'
+                    color='#4fa94d'
+                    ariaLabel='tail-spin-loading'
+                    radius='1'
+                    wrapperStyle={{}}
+                    wrapperClass=''
+                  />
                 </div>
               ) : (
                 <div style={{ visibility: 'hidden' }}>
