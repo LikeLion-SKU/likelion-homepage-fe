@@ -83,7 +83,7 @@ export default function Routes() {
 
           {/* 지원서 수정하기 */}
           <Route path='edit'>
-            <Route path='application/:id' element={<EditApplicationPage />} />
+            <Route path='application/:semester' element={<EditApplicationPage />} />
           </Route>
           
 
