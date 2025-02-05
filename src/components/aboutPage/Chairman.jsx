@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 import styles from './chairman.module.css';
 import Card from './Card';
-import { getChairman } from '@/api/aboutAPI'; // getChairman 함수 호출
+import { getChairman } from '@/api/aboutAPI';
 
 export default function Chairman({ year }) {
   const [chairman, setChairman] = useState(null); // 회장 정보
   const [coChairman, setCoChairman] = useState(null); // 부회장 정보
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (year) {
@@ -13,7 +16,9 @@ export default function Chairman({ year }) {
       fetchChairmanData('COLEAD', setCoChairman); // 부회장 데이터 요청
     }
   }, [year]);
+
   async function fetchChairmanData(role, setter) {
+    setIsLoading(true);
     try {
       const response = await getChairman(role);
       const users = response?.users || [];
@@ -32,6 +37,8 @@ export default function Chairman({ year }) {
       }
     } catch {
       location.href = '/error';
+    } finally {
+      setIsLoading(false); // 로딩 종료
     }
   }
 
@@ -40,7 +47,12 @@ export default function Chairman({ year }) {
       <div className={styles.chairmanContainer}>
         <div className={styles.chairmanCardGrid}>
           {/* 회장 카드 */}
-          {chairman ? (
+          {isLoading || !chairman ? (
+            <div className={styles.chairman}>
+              <p className={styles.mainText}>회장</p>
+              <Skeleton className={styles.cardSkeleton} />
+            </div>
+          ) : (
             <div className={styles.chairman}>
               <p className={styles.mainText}>{chairman.role}</p>
               <Card
@@ -49,12 +61,15 @@ export default function Chairman({ year }) {
                 profileImage={chairman.profileImage}
               />
             </div>
-          ) : (
-            <p>회장 정보가 없습니다.</p>
           )}
 
           {/* 부회장 카드 */}
-          {coChairman ? (
+          {isLoading || !coChairman ? (
+            <div className={styles.chairman}>
+              <p className={styles.mainText}>부회장</p>
+              <Skeleton className={styles.cardSkeleton} />
+            </div>
+          ) : (
             <div className={styles.chairman}>
               <p className={styles.mainText}>{coChairman.role}</p>
               <Card
@@ -63,8 +78,6 @@ export default function Chairman({ year }) {
                 profileImage={coChairman.profileImage}
               />
             </div>
-          ) : (
-            <p>부회장 정보가 없습니다.</p>
           )}
         </div>
       </div>

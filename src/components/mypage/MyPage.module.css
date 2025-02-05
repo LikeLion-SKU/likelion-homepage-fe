@@ -1,17 +1,28 @@
 .section {
   display: flex;
   max-width: 40rem;
-  flex-direction: column; 
-  margin: 0 auto; 
+  flex-direction: column;
+  margin: 0 auto;
   padding: 2rem;
-  height: 70vh; 
+  height: 70vh;
+}
+
+.profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10vh;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .title {
-  padding-top: 5vh;
   font-size: 3.6rem;
   font-weight: 700;
-  margin-top: 5vh;
   line-height: 5rem;
 }
 
@@ -22,8 +33,47 @@
   color: var(--grey-a9-color);
 }
 
+.imageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  position: relative;
+  width: 14rem;
+  height: 16rem;
+}
+
+.image {
+  width: 13rem;
+  height: 13rem;
+  object-fit: cover;
+  border: 0.2rem solid var(--grey-da-color);
+  border-radius: 4.5rem;
+}
+
+.editButton {
+  background-color: transparent;
+  position: absolute;
+  top: 10rem;
+}
+
+.editButton img {
+  width: 4rem;
+  height: 4rem;
+}
+
+.submitButton {
+  width: 13rem;
+  height: 3rem;
+  background-color: var(--grey-a9-color);
+  color: var(--main-bg-color);
+  margin-top: 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
 .itembox {
-  margin-top: 5vh
+  margin-top: 5vh;
 }
 
 .itembox__button {
