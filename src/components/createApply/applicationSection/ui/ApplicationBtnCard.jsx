@@ -70,8 +70,8 @@ function MenuItem({ text, onClick }) {
   return (
     <li
       className={styles['application-btn__item']}
-      onClick={function () {
-        onClick();
+      onClick={function (e) {
+        onClick(e);
       }}
     >
       {text}
