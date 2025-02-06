@@ -1,0 +1,8 @@
+.dead-line-editing-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-width: 192px;
+  margin-bottom: 3vh;
+}

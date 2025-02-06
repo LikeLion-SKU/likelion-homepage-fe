@@ -35,6 +35,36 @@ export function useGetApplication() {
   };
 }
 
+export function useGetApplicationBySemester(semester) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [information, setInformation] = useState([]);
+
+  const getApplicationBySemester = useCallback(async function () {
+    setIsLoading(true);
+    try {
+      const res = await APIService.private.get(`${import.meta.env.VITE_APP_APPLICATIONS}/${semester}`);
+      console.log(res);
+      if (res) {
+        setInformation(res);
+      }
+    } catch {
+      alert('지원서를 불러오는데 실패했습니다');
+      return;
+    } finally {
+      setIsLoading(false);
+    }
+  });
+
+  useEffect(() => {
+    getApplicationBySemester();
+  }, []);
+
+  return {
+    isLoading,
+    information,
+  };
+}
+
 export function useDeleteApplication(formId) {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -135,5 +165,63 @@ export function useUpdateApplicationActivation(formId) {
   return {
     isLoading,
     updateApplicationActivation,
+  };
+}
+
+export function useUpdateApplicationInformation(semester, information, type) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const updateApplicationInformation = useCallback(
+    async function () {
+      setIsLoading(true);
+      try {
+        const res = await APIService.private.put(`${import.meta.env.VITE_APP_APPLICATIONS}/${semester}`, information);
+        if (res) {
+          alert('지원서 정보를 성공적으로 업데이트 했습니다');
+          window.location.href = `/admin/edit/application/${res.semester}?type=${type}`;
+        }
+      } catch {
+        alert('지원서를 활성화 상태를 업데이트 하는데 실패했습니다');
+        return;
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [semester, information, type],
+  );
+
+  return {
+    isLoading,
+    updateApplicationInformation,
+  };
+}
+
+export function useGetQuestionByType(semester, type) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [questions, setQuestions] = useState([]);
+
+  const getQuestionByType = useCallback(async function () {
+    setIsLoading(true);
+    try {
+      const res = await APIService.private.get(
+        `${import.meta.env.VITE_APP_QUESTIONS}?semester=${semester}&type=${type}`,
+      );
+      if (res) {
+        setQuestions(res);
+      }
+    } catch {
+      alert('질문을 불러오는데 실패했습니다');
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    getQuestionByType();
+  }, []);
+
+  return {
+    isLoading,
+    questions,
   };
 }

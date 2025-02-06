@@ -1,8 +1,8 @@
 .projectDetail {
   padding: 2rem;
   width: 100%;
-  max-width: 120rem;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .title {
@@ -44,14 +44,14 @@
 }
 
 .separator {
-  width: 95%;
+  width: 100%;
   height: 1px;
   background-color: #dadada;
   margin: 1.5rem 0;
 }
 
 .contentContainer {
-  width: 95%;
+  width: 100%;
   display: flex;
   justify-content: space-between; /* description과 teamBox를 양쪽으로 배치 */
   align-items: flex-start;

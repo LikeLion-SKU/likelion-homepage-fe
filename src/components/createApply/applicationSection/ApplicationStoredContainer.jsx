@@ -15,8 +15,8 @@ export default function ApplicationStoredContainer() {
         ? storedApplications.map((application) => {
             return (
               <ApplicationBtn
-                key={application.id}
-                formId={application.id}
+                key={application.semester}
+                semester={application.semester}
                 cohort={`멋사 ${application.semester}기 지원서`}
               />
             );

@@ -31,9 +31,11 @@ import NewProjectForm from '../components/ProjectPage/NewProjectForm';
 import EditProjectForm from '../components/ProjectPage/EditProjectForm';
 import ViewForm from '@components/adminApply/ViewForm';
 import { Error } from '@components/commons';
+import EditApplicationPage from '@/pages/EditApplicationPage';
 
 // Layouts
 import { MainLayout } from '@layouts';
+
 
 
 
@@ -78,6 +80,11 @@ export default function Routes() {
           <Route path="create">
             <Route index element={<CreateApplyPage />}/>
             <Route path='questions' element={<QuestionAdminPage />} />
+          </Route>
+
+          {/* 지원서 수정하기 */}
+          <Route path='edit'>
+            <Route path='application/:semester' element={<EditApplicationPage />} />
           </Route>
           
 
