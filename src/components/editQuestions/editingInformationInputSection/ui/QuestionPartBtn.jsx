@@ -6,7 +6,7 @@ import { convertQuestionPartToString } from '@/utils/questionParts';
 
 const cn = classNames.bind(styles);
 
-export default function QuestionPartBtn({ part, onClick, isActive, setSelectedPart }) {
+export default function QuestionPartBtn({ part, onClick, isActive }) {
   return (
     <button
       className={cn('question-type-btn', {
@@ -14,7 +14,6 @@ export default function QuestionPartBtn({ part, onClick, isActive, setSelectedPa
       })}
       onClick={function () {
         onClick(part);
-        setSelectedPart(part);
       }}
     >
       {convertQuestionPartToString(part)}
