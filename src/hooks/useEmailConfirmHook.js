@@ -70,7 +70,7 @@ export async function handleSendingClick(
       if (response.success === true) {
         setSendSuccess(4);
         setConfirms({ ...form, email: '인증번호가 전송되었습니다.' });
-        setCount(20); // 5분 300
+        setCount(300); // 5분 300
         setForm({ ...form, email_valid: true, sendemail: form.email, timing: true });
       } else {
         setErrors({

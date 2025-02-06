@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SignupSection.module.css';
-import { handleInputChange } from '@utils/inputOnChange.js';
+import { handleInputChange, handleInputChangeNumber } from '@utils/inputOnChange.js';
 import { handleSignup } from '@utils/register.js';
 import ConsentTable from './ConsentTable';
 
@@ -113,6 +113,8 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             <div className={styles['signup-form__input']}>
               <input
                 type='text'
+                minLength={2}
+                maxLength={6}
                 placeholder='한글로 입력해주세요'
                 id='name'
                 value={form.name}
@@ -134,6 +136,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             <div className={styles['signup-form__input']}>
               <input
                 type='text'
+                maxLength={15}
                 placeholder='한글로 입력해주세요'
                 id='department'
                 value={form.department}
@@ -160,7 +163,8 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 id='strudent_num'
                 value={form.strudent_num}
                 className={errors.strudent_num ? styles['invalid'] : form.strudent_num ? styles['valid'] : ''}
-                onChange={handleInputChange(setForm)}
+                onChange={handleInputChangeNumber(setForm)}
+                autoComplete='off'
                 required
               ></input>
             </div>
@@ -176,11 +180,12 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             <div className={styles['signup-form__input']}>
               <input
                 type='text'
+                maxLength={12}
                 placeholder='- 빼고 입력 ex) 01012345678'
                 id='phone_num'
                 value={form.phone_num}
                 className={errors.phone_num ? styles['invalid'] : form.phone_num ? styles['valid'] : ''}
-                onChange={handleInputChange(setForm)}
+                onChange={handleInputChangeNumber(setForm)}
                 autoComplete='off'
                 required
               ></input>
@@ -196,13 +201,14 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
           <div className={styles['signup-form__inputsection']}>
             <div className={styles['signup-form__input']}>
               <input
-                type='number'
+                type='text'
+                maxLength={2}
                 placeholder='숫자만 입력해주세요'
                 id='semester'
                 value={form.semester}
                 className={errors.semester ? styles['invalid'] : form.semester ? styles['valid'] : ''}
                 autoComplete='off'
-                onChange={handleInputChange(setForm)}
+                onChange={handleInputChangeNumber(setForm)}
               ></input>
             </div>
             {errors.semester ? <p className={styles.error_message}>{errors.semester}</p> : null}
