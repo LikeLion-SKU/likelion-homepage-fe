@@ -185,7 +185,7 @@ export function handleSignup(setErrors, form) {
 }
 
 // 비밀번호 변경 버튼 클릭시
-export function validateInput_passwordChangeForm(form) {
+export function validateInputPasswordChangeForm(form) {
   let errors = {
     password: '',
     newpassword: '',
@@ -194,6 +194,7 @@ export function validateInput_passwordChangeForm(form) {
 
   if (form.password === '') {
     errors.password = '현재 비밀번호는 필수 입력 항목입니다.';
+    return errors;
   }
 
   if (form.newpassword === '') {
@@ -212,7 +213,7 @@ export function validateInput_passwordChangeForm(form) {
 }
 
 export function handlePasswordChangeForm(setErrors, form) {
-  const errors = validateInput_passwordChangeForm(form);
+  const errors = validateInputPasswordChangeForm(form);
   setErrors(errors);
   if (errors.password || errors.newpassword || errors.newpassword_valid) {
     return false;
