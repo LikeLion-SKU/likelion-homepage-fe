@@ -115,10 +115,7 @@
   align-items: center;
   white-space: nowrap; /* 텍스트 줄바꿈 방지 */
   gap: 0.7rem;
-  flex: none; /* 크기 고정 */
-  margin-left: auto; /* 오른쪽 끝으로 정렬 */
-  margin-top: 4rem;
-  margin-right: 6rem;
+  margin-left: auto;
   padding: 2rem 1rem;
   width: 12rem;
   height: 3rem;
