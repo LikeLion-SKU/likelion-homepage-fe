@@ -1,3 +1,5 @@
+import EditingInformationSection from '@/components/editQuestions/editingInformationInputSection/EditingInformationSection';
+
 export default function EditApplicationPage() {
-  return <p>edit page</p>;
+  return <EditingInformationSection />;
 }
