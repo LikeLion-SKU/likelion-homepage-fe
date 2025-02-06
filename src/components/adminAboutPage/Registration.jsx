@@ -82,14 +82,19 @@ export default function Registration({ users }) {
     };
 
     try {
-      await putProfile(originalUser.semester, originalUser.studentId, updatedData);
-
       if (updatedRow.image || updatedRow.image == null) {
         const formData = new FormData();
         formData.append('image', updatedRow.image);
-        await putImage(originalUser.semester, originalUser.studentId, formData);
-      }
 
+        const response = await putImage(originalUser.semester, originalUser.studentId, formData);
+
+        if (!response.success) {
+          alert(response.message);
+          return;
+        }
+        await putProfile(originalUser.semester, originalUser.studentId, updatedData);
+      }
+      originalUser.studentId = updatedRow.studentId;
       alert('저장되었습니다.');
       toggleStorage(index);
     } catch {
@@ -113,7 +118,7 @@ export default function Registration({ users }) {
                 <th>파트</th>
                 <th>학과</th>
                 <th>학번</th>
-                <th></th>
+                <th>수정/삭제</th>
                 <th>이미지</th>
               </tr>
             </thead>
