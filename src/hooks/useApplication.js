@@ -168,6 +168,34 @@ export function useUpdateApplicationActivation(formId) {
   };
 }
 
+export function useUpdateApplicationInformation(semester, information, type) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const updateApplicationInformation = useCallback(
+    async function () {
+      setIsLoading(true);
+      try {
+        const res = await APIService.private.put(`${import.meta.env.VITE_APP_APPLICATIONS}/${semester}`, information);
+        if (res) {
+          alert('지원서 정보를 성공적으로 업데이트 했습니다');
+          window.location.href = `/admin/edit/application/${semester}?type=${type}`;
+        }
+      } catch {
+        alert('지원서를 활성화 상태를 업데이트 하는데 실패했습니다');
+        return;
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [semester, information, type],
+  );
+
+  return {
+    isLoading,
+    updateApplicationInformation,
+  };
+}
+
 export function useGetQuestionByType(semester, type) {
   const [isLoading, setIsLoading] = useState(false);
   const [questions, setQuestions] = useState([]);

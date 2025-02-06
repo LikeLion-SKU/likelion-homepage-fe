@@ -1,6 +1,6 @@
 import styles from './DeadLineEditingInput.module.css';
 
-export default function DeadLineEditingInput({ value, isEditing }) {
+export default function DeadLineEditingInput({ value, isEditing, setUpdatedDeadline }) {
   return (
     <div className={styles['dead-line-container']}>
       <label
@@ -15,6 +15,9 @@ export default function DeadLineEditingInput({ value, isEditing }) {
           type='date'
           id='dead-line-input'
           defaultValue={value}
+          onChange={function (e) {
+            setUpdatedDeadline(e.target.value);
+          }}
         />
       ) : (
         <input
