@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useDeleteApplication, useUpdateApplicationActivation } from '@/hooks/useApplication';
 import ApplicationBtnCard from './ui/ApplicationBtnCard';
 
-export default function ApplicationBtn({ cohort, formId }) {
-  const { isLoading, deleteApplication } = useDeleteApplication(formId);
-  const { updateApplicationActivation } = useUpdateApplicationActivation(formId);
+export default function ApplicationBtn({ cohort, semester }) {
+  const { isLoading, deleteApplication } = useDeleteApplication(semester);
+  const { updateApplicationActivation } = useUpdateApplicationActivation(semester);
 
   const nav = useNavigate();
   return (
@@ -25,7 +25,7 @@ export default function ApplicationBtn({ cohort, formId }) {
               text='수정 하기'
               onClick={function (e) {
                 e.stopPropagation();
-                nav(`/admin/edit/application/${formId}`);
+                nav(`/admin/edit/application/${semester}?type=COMMON`);
               }}
             />
             <ApplicationBtnCard.MenuItem
