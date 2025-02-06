@@ -92,7 +92,7 @@ export function useDeleteApplication(formId) {
   };
 }
 
-export default function useApplication() {
+export function useCreateApplication() {
   const nav = useNavigate();
 
   function extractQuestionsContent(questions) {
