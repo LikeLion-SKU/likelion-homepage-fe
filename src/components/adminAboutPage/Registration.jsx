@@ -66,7 +66,7 @@ export default function Registration({ users }) {
 
   async function handleSave(index) {
     const updatedRow = rows[index];
-    const originalUser = users.find((user) => user.studentId === updatedRow.studentId) || users[index];
+    const originalUser = users[index];
 
     if (!originalUser) {
       alert('원본 데이터를 찾을 수 없습니다.');
@@ -89,8 +89,7 @@ export default function Registration({ users }) {
         const response = await putImage(originalUser.semester, originalUser.studentId, formData);
 
         if (!response.success) {
-          alert(response.message);
-          return;
+          alert(`${response.message} 이미지로 다시 저장해주세요`);
         }
         await putProfile(originalUser.semester, originalUser.studentId, updatedData);
       }

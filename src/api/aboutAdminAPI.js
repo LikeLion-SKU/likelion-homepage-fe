@@ -22,7 +22,14 @@ export async function putProfile(semester, studentId, updatedData) {
 
     return res;
   } catch (error) {
-    console.error('수정 실패:', error);
+    let errorMessage = '프로필 수정에 실패했습니다.';
+
+    if (error.response && error.response.status === 500) {
+      errorMessage = '학번이 고유하지 않습니다.';
+    }
+
+    alert(errorMessage);
+    throw new Error(errorMessage);
   }
 }
 
