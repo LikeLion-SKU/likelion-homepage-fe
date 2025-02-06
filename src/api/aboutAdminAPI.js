@@ -56,7 +56,7 @@ export async function deleteProfile(semester, studentId) {
 
     const res = await APIService.private.delete(urlWithParams);
 
-    return res;
+    return res.success;
   } catch (error) {
     console.error('삭제 실패:', error);
   }

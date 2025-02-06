@@ -41,12 +41,18 @@ export default function Registration({ users }) {
     setRows(updatedRows);
   }
 
-  function handleDeleteRow(index) {
+  async function handleDeleteRow(index) {
     const originalUser = users[index];
-    setRows(rows.filter((_, rowIndex) => rowIndex !== index));
+
     try {
-      deleteProfile(originalUser.semester, originalUser.studentId);
-      alert('삭제되었습니다.');
+      const isDeleted = await deleteProfile(originalUser.semester, originalUser.studentId);
+
+      if (isDeleted) {
+        setRows(rows.filter((_, rowIndex) => rowIndex !== index));
+        alert('삭제되었습니다.');
+      } else {
+        alert('게스트만 삭제 가능합니다.');
+      }
     } catch {
       alert('삭제에 실패했습니다.');
     }
