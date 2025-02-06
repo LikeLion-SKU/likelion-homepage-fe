@@ -35,6 +35,36 @@ export function useGetApplication() {
   };
 }
 
+export function useGetApplicationBySemester(semester) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [information, setInformation] = useState([]);
+
+  const getApplicationBySemester = useCallback(async function () {
+    setIsLoading(true);
+    try {
+      const res = await APIService.private.get(`${import.meta.env.VITE_APP_APPLICATIONS}/${semester}`);
+      console.log(res);
+      if (res) {
+        setInformation(res);
+      }
+    } catch {
+      alert('지원서를 불러오는데 실패했습니다');
+      return;
+    } finally {
+      setIsLoading(false);
+    }
+  });
+
+  useEffect(() => {
+    getApplicationBySemester();
+  }, []);
+
+  return {
+    isLoading,
+    information,
+  };
+}
+
 export function useDeleteApplication(formId) {
   const [isLoading, setIsLoading] = useState(false);
 
