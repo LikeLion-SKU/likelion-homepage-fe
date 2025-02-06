@@ -3,12 +3,13 @@ import styles from './recruitMain.module.css';
 import { useNavigate } from 'react-router-dom';
 
 export default function RecruitMain() {
-  const scrollToSection = (sectionId) => {
+  function scrollToSection(sectionId) {
     const section = document.getElementById(sectionId);
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' });
     }
-  };
+  }
+
   const navigate = useNavigate();
 
   return (
@@ -24,26 +25,34 @@ export default function RecruitMain() {
       />
       <button
         className={styles.recruitButton}
-        onClick={() => navigate('/apply')}
+        onClick={function () {
+          navigate('/apply');
+        }}
       >
         멋사 지원하기
       </button>
       <div className={styles.pageButtonContainer}>
         <button
           className={styles.pageButton}
-          onClick={() => scrollToSection('scheduleSection')}
+          onClick={function () {
+            scrollToSection('scheduleSection');
+          }}
         >
           모집 일정
         </button>
         <button
           className={styles.pageButton}
-          onClick={() => scrollToSection('requirementSection')}
+          onClick={function () {
+            scrollToSection('requirementSection');
+          }}
         >
           모집 대상
         </button>
         <button
           className={styles.pageButton}
-          onClick={() => scrollToSection('questionSection')}
+          onClick={function () {
+            scrollToSection('questionSection');
+          }}
         >
           자주 묻는 질문
         </button>
