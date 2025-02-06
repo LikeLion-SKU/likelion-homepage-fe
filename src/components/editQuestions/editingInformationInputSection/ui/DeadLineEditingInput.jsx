@@ -1,6 +1,6 @@
 import styles from './DeadLineEditingInput.module.css';
 
-export default function DeadLineEditingInput({ value }) {
+export default function DeadLineEditingInput({ value, isEditing }) {
   return (
     <div className={styles['dead-line-container']}>
       <label
@@ -9,13 +9,22 @@ export default function DeadLineEditingInput({ value }) {
       >
         마감 날짜
       </label>
-      <input
-        className={styles['dead-line-input']}
-        type='date'
-        id='dead-line-input'
-        defaultValue={value}
-        readOnly={true}
-      />
+      {isEditing ? (
+        <input
+          className={styles['dead-line-input']}
+          type='date'
+          id='dead-line-input'
+          defaultValue={value}
+        />
+      ) : (
+        <input
+          className={styles['dead-line-input']}
+          type='date'
+          id='dead-line-input'
+          defaultValue={value}
+          readOnly={true}
+        />
+      )}
     </div>
   );
 }
