@@ -4,7 +4,6 @@ import { APIService } from '@api/axios';
 export function handlePasswordChangeClick(userData, errors, setError, navigate, token) {
   if (userData.password === '' && userData.newpassword === '' && userData.newpassword_valid === '') {
     alert('변경사항이 없습니다.');
-    console.log('다 공백');
   } else {
     if (!errors.password?.message && !errors.newpassword?.message && !errors.newpassword_valid?.message) {
       passwordChanging(userData, setError, navigate, token);

@@ -1,7 +1,5 @@
 import { useForm } from 'react-hook-form';
-
 import { yupResolver } from '@hookform/resolvers/yup';
-
 import { passwordChangeSchema } from '@/constants/validationSchema';
 
 import classNames from 'classnames/bind';
@@ -48,7 +46,7 @@ export default function PasswordChangeForm() {
             <input
               className={cn(
                 'passwordChange-form__input',
-                errors.loginId?.message ? 'passwordChange-form__input--invalid' : null,
+                errors.password?.message ? 'passwordChange-form__input--invalid' : null,
                 watch('password') && 'passwordChange-form__input--valid',
               )}
               type='text'
@@ -75,7 +73,7 @@ export default function PasswordChangeForm() {
             <input
               className={cn(
                 'passwordChange-form__input',
-                errors.loginId?.message ? 'passwordChange-form__input--invalid' : null,
+                errors.newpassword?.message ? 'passwordChange-form__input--invalid' : null,
                 watch('newpassword') && 'passwordChange-form__input--valid',
               )}
               type='text'
@@ -102,7 +100,7 @@ export default function PasswordChangeForm() {
             <input
               className={cn(
                 'passwordChange-form__input',
-                errors.loginId?.message ? 'passwordChange-form__input--invalid' : null,
+                errors.newpassword_valid?.message ? 'passwordChange-form__input--invalid' : null,
                 watch('newpassword_valid') && 'passwordChange-form__input--valid',
               )}
               type='text'
