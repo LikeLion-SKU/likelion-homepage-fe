@@ -137,3 +137,33 @@ export function useUpdateApplicationActivation(formId) {
     updateApplicationActivation,
   };
 }
+
+export function useGetQuestionByType(semester, type) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [questions, setQuestions] = useState([]);
+
+  const getQuestionByType = useCallback(async function () {
+    setIsLoading(true);
+    try {
+      const res = await APIService.private.get(
+        `${import.meta.env.VITE_APP_QUESTIONS}?semester=${semester}&type=${type}`,
+      );
+      if (res) {
+        setQuestions(res);
+      }
+    } catch {
+      alert('질문을 불러오는데 실패했습니다');
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    getQuestionByType();
+  }, []);
+
+  return {
+    isLoading,
+    questions,
+  };
+}
