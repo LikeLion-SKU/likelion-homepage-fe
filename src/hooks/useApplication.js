@@ -178,7 +178,7 @@ export function useUpdateApplicationInformation(semester, information, type) {
         const res = await APIService.private.put(`${import.meta.env.VITE_APP_APPLICATIONS}/${semester}`, information);
         if (res) {
           alert('지원서 정보를 성공적으로 업데이트 했습니다');
-          window.location.href = `/admin/edit/application/${semester}?type=${type}`;
+          window.location.href = `/admin/edit/application/${res.semester}?type=${type}`;
         }
       } catch {
         alert('지원서를 활성화 상태를 업데이트 하는데 실패했습니다');
