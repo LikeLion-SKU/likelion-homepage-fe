@@ -1,5 +1,6 @@
 import LionImage from '@/assets/recruitPage/lionImg.svg';
 import styles from './recruitMain.module.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function RecruitMain() {
   const scrollToSection = (sectionId) => {
@@ -8,6 +9,7 @@ export default function RecruitMain() {
       section.scrollIntoView({ behavior: 'smooth' });
     }
   };
+  const navigate = useNavigate();
 
   return (
     <div className={styles.allContainer}>
@@ -20,7 +22,12 @@ export default function RecruitMain() {
         alt='사자 이미지'
         className={styles.lionImg}
       />
-      <button className={styles.recruitButton}>멋사 지원하기</button>
+      <button
+        className={styles.recruitButton}
+        onClick={() => navigate('/apply')}
+      >
+        멋사 지원하기
+      </button>
       <div className={styles.pageButtonContainer}>
         <button
           className={styles.pageButton}
