@@ -5,6 +5,21 @@ export const loginSchema = yup.object().shape({
   password: yup.string().required('비밀번호를 입력해주세요'),
 });
 
+export const passwordChangeSchema = yup.object().shape({
+  password: yup.string().required('현재 비밀번호를 입력해주세요'),
+  newpassword: yup
+    .string()
+    .required('새 비밀번호를 입력해주세요')
+    .matches(
+      /^(?=.*\d)(?=.*[a-z])(?=.*[@#$%^&+=!])(?!.*\s).{4,}$/,
+      '비밀번호는 최소 8자 이상의 영문, 숫자, 특수문자를 포함해야 합니다.',
+    ),
+  newpassword_valid: yup
+    .string()
+    .required('새 비밀번호 확인을 입력해주세요')
+    .oneOf([yup.ref('newpassword'), null], '새 비밀번호와 일치하지 않습니다'),
+});
+
 export const signupSchema = yup.object().shape({
   email: yup
     .string()

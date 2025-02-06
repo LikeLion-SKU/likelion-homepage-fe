@@ -55,9 +55,11 @@ export default function LoginForm() {
             />
             <p className={styles['login-form__emailDomain']}>@skuniv.ac.kr</p>
           </div>
-          {errors.loginId?.message ? (
-            <p className={styles['login-form__result-message--error']}>{errors.loginId.message}</p>
-          ) : null}
+          <div className={styles['login-form__result-messageBox']}>
+            {errors.loginId?.message ? (
+              <p className={styles['login-form__result-message--error']}>{errors.loginId.message}</p>
+            ) : null}
+          </div>
         </div>
 
         <div className={styles['login-form__inputbox']}>
