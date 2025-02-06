@@ -66,7 +66,6 @@ export async function handleSendingClick(
       // 이메일 인증번호 전송 API 호출
       const response = await APIService.public.post(import.meta.env.VITE_APP_AUTH_EMAIL_SEND, { email: fullEmail });
 
-      console.log(response);
       // 인증번호 이메일일 전송 성공시
       if (response.success === true) {
         setSendSuccess(4);
