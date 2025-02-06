@@ -9,6 +9,7 @@ export function next(e, form, setEmail, setNow) {
 
 // 회원가입 버튼 클릭 //
 export async function signUp(form, setSignupSuccess, setNow, navigate) {
+  console.log(form);
   try {
     const requestData = {
       loginId: form.id,

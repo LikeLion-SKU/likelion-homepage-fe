@@ -37,7 +37,18 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
   const [confirms, setConfirms] = useState({});
   const navigate = useNavigate();
 
-  useTimerEmailConfirm(form, setForm, setErrors, count, setCount, setM, setS);
+  useTimerEmailConfirm(
+    form,
+    setForm,
+    setErrors,
+    setConfirms,
+    setSendSuccess,
+    setConfirmSuccess,
+    count,
+    setCount,
+    setM,
+    setS,
+  );
 
   return (
     <div className={styles['signup-form']}>
@@ -66,13 +77,13 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
                 onChange={function (e) {
                   inputChange(e, setForm, setSendSuccess);
                 }}
-                disabled={sendSuccess === 3 ? true : false}
+                disabled={sendSuccess === 3 || sendSuccess == 4 ? true : false}
                 autoComplete='off'
                 required
               ></input>
               <p> @skuniv.ac.kr </p>
               <button
-                style={{ cursor: 'pointer' }}
+                disabled={sendSuccess === 2 ? false : true}
                 className={
                   sendSuccess === 2 ? styles['signup-form__inputbutton'] : styles['signup-form__inputbuttonYet']
                 }
@@ -100,10 +111,24 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
             ) : null}
           </div>
         </div>
+
         <div className={styles['signup-form__inputbox']}>
           <div className={styles['signup-form__inputsection']}>
             <div className={styles['signup-form__input']}>
-              {sendSuccess === 2 && form.email_valid === true ? (
+              {sendSuccess === 3 ? (
+                <div className={styles['loaderBox']}>
+                  <TailSpin
+                    visible={true}
+                    height='40'
+                    width='40'
+                    color='#4fa94d'
+                    ariaLabel='tail-spin-loading'
+                    radius='1'
+                    wrapperStyle={{}}
+                    wrapperClass=''
+                  />
+                </div>
+              ) : form.email_valid === true ? (
                 <>
                   <input
                     type='text'
@@ -126,9 +151,9 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
                     required
                   ></input>
                   <button
-                    style={{ cursor: 'pointer' }}
+                    disabled={confirmSuccess === 2 ? false : true}
                     className={
-                      confirmSuccess === 1 ? styles['signup-form__inputbuttonYet'] : styles['signup-form__inputbutton']
+                      confirmSuccess === 2 ? styles['signup-form__inputbutton'] : styles['signup-form__inputbuttonYet']
                     }
                     onClick={function (e) {
                       handleCheckingClick(
@@ -138,6 +163,7 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
                         setErrors,
                         setConfirms,
                         setEmailSuccess,
+                        setConfirmSuccess,
                         handleConfirmCodechecking,
                       );
                     }}
@@ -145,56 +171,9 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
                     인증번호 확인
                   </button>
                 </>
-              ) : sendSuccess === 3 ? (
-                <div className={styles['loaderBox']}>
-                  <TailSpin
-                    visible={true}
-                    height='40'
-                    width='40'
-                    color='#4fa94d'
-                    ariaLabel='tail-spin-loading'
-                    radius='1'
-                    wrapperStyle={{}}
-                    wrapperClass=''
-                  />
-                </div>
-              ) : (
-                <div style={{ visibility: 'hidden' }}>
-                  ?
-                  <input
-                    type='text'
-                    id='confirmCode'
-                    value={form.confirmCode}
-                    className={errors.confirmCode ? styles['invalid'] : form.confirmCode ? styles['valid'] : ''}
-                    onChange={function (e) {
-                      inputChange(e, setForm, setConfirmSuccess);
-                    }}
-                    autoComplete='off'
-                    disabled={true}
-                  ></input>
-                  <button
-                    style={{ cursor: 'pointer' }}
-                    className={
-                      confirmSuccess === 1 ? styles['signup-form__inputbuttonYet'] : styles['signup-form__inputbutton']
-                    }
-                    onClick={function (e) {
-                      handleCheckingClick(
-                        e,
-                        form,
-                        setForm,
-                        setErrors,
-                        setConfirms,
-                        setEmailSuccess,
-                        handleConfirmCodechecking,
-                      );
-                    }}
-                  >
-                    인증번호 확인
-                  </button>
-                </div>
-              )}
+              ) : null}
             </div>
-            {sendSuccess === 2 && form.email_valid === true ? (
+            {sendSuccess !== 3 && form.email_valid === true ? (
               <div className={styles['signup-form__confirmCodeMessegeBox']}>
                 {form.confirmCode_valid ? (
                   <p className={styles.ok_message}>{confirms.confirmCode}</p>

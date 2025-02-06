@@ -196,7 +196,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
           <div className={styles['signup-form__inputsection']}>
             <div className={styles['signup-form__input']}>
               <input
-                type='text'
+                type='number'
                 placeholder='숫자만 입력해주세요'
                 id='semester'
                 value={form.semester}
