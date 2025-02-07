@@ -89,6 +89,22 @@ function ProjectPageLayout({ isAdmin }) {
     setCurrentPage(1);
   }
 
+  function handleAddProjectClick() {
+    navigate('/admin/project/add');
+  }
+
+  function handleProjectCardClick(projectId) {
+    navigate(`/project/${projectId}`);
+  }
+
+  function handleEditProjectClick(project) {
+    navigate('/admin/project/edit', { state: { project } });
+  }
+
+  function toggleMenu(projectId) {
+    setMenuVisible((prev) => (prev === projectId ? null : projectId));
+  }
+
   return (
     <div className={styles.projectPage}>
       <p className={styles.title}>프로젝트</p>
@@ -98,7 +114,7 @@ function ProjectPageLayout({ isAdmin }) {
             src={plusbtn}
             alt='Add Project'
             className={styles.addButtonImage}
-            onClick={() => navigate('/admin/project/add')}
+            onClick={handleAddProjectClick}
           />
         ) : null}
 
@@ -106,7 +122,7 @@ function ProjectPageLayout({ isAdmin }) {
           <CustomDropdown
             options={['전체 프로젝트', '중앙해커톤', '아이디어톤', '자체프로젝트']}
             defaultOption='전체 프로젝트'
-            onSelect={(type) => handleTypeSelect(type)}
+            onSelect={handleTypeSelect}
           />
         </div>
       </div>
@@ -129,7 +145,7 @@ function ProjectPageLayout({ isAdmin }) {
                 key={project.id}
                 className={styles.card}
               >
-                <div onClick={() => navigate(`/project/${project.id}`)}>
+                <div onClick={() => handleProjectCardClick(project.id)}>
                   <img
                     src={project.thumbnailUrl}
                     alt={project.title || 'No Project image'}
@@ -154,7 +170,7 @@ function ProjectPageLayout({ isAdmin }) {
                     <div className={styles.menuContainer}>
                       <button
                         className={styles.menuButton}
-                        onClick={() => setMenuVisible((prev) => (prev === project.id ? null : project.id))}
+                        onClick={() => toggleMenu(project.id)}
                       >
                         &#x22EE;
                       </button>
@@ -163,9 +179,7 @@ function ProjectPageLayout({ isAdmin }) {
                           ref={(ref) => (menuRefs.current[project.id] = ref)}
                           className={styles.menu}
                         >
-                          <button onClick={() => navigate('/admin/project/edit', { state: { project } })}>
-                            수정하기
-                          </button>
+                          <button onClick={() => handleEditProjectClick(project)}>수정하기</button>
                           <button onClick={() => handleDelete(project.id)}>삭제하기</button>
                         </div>
                       ) : null}
