@@ -94,7 +94,11 @@ function EditImagePreview({ images, onDeleteClick, onImageUpload }) {
                 src={imageLeft}
                 alt='Previous'
                 className={styles.arrowLeft}
-                onClick={() => setCurrentImage((prev) => Math.max(prev - 1, 0))} // 이전 이미지로 이동
+                onClick={function () {
+                  setCurrentImage(function (prev) {
+                    return Math.max(prev - 1, 0);
+                  });
+                }}
               />
             ) : null}
             <div className={styles.imageWrapper}>
@@ -119,10 +123,12 @@ function EditImagePreview({ images, onDeleteClick, onImageUpload }) {
                 src={deleteIcon}
                 alt='Delete'
                 className={styles.deleteIconOnImage}
-                onClick={() => {
+                onClick={function () {
                   onDeleteClick(currentImage);
                   images.splice(currentImage, 1); // 삭제 후 배열 업데이트
-                  setCurrentImage((prev) => Math.max(prev - 1, 0)); // 삭제 후 이전 이미지로 이동
+                  setCurrentImage(function (prev) {
+                    return Math.max(prev - 1, 0);
+                  }); // 삭제 후 이전 이미지로 이동
                 }}
               />
             </div>
@@ -131,7 +137,11 @@ function EditImagePreview({ images, onDeleteClick, onImageUpload }) {
                 src={imageRight}
                 alt='Next'
                 className={styles.arrowRight}
-                onClick={() => setCurrentImage((prev) => Math.min(prev + 1, images.length - 1))} // 다음 이미지로 이동
+                onClick={function () {
+                  setCurrentImage(function (prev) {
+                    return Math.min(prev + 1, images.length - 1);
+                  });
+                }} // 다음 이미지로 이동
               />
             ) : null}
           </>
