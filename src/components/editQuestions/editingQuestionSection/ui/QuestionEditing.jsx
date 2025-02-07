@@ -1,6 +1,5 @@
-import { FaRegTrashAlt } from 'react-icons/fa';
-
 import styles from './QuestionEditing.module.css';
+import ButtonsContainer from '@/components/editQuestions/editingQuestionSection/ButtonsContainer';
 
 export default function QuestionEditing({ content }) {
   return (
@@ -9,9 +8,7 @@ export default function QuestionEditing({ content }) {
         className={styles['question-input']}
         value={content}
       />
-      <button className={styles['question-input-btn']}>
-        <FaRegTrashAlt className={styles['question-input-btn__trashicon']} />
-      </button>
+      <ButtonsContainer />
     </div>
   );
 }
