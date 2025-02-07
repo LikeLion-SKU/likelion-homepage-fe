@@ -1,4 +1,4 @@
-import LionImage from '@/assets/recruitPage/lionImg.svg';
+import LionImage from '@assets/homepage/lion.webp';
 import styles from './recruitMain.module.css';
 import { useNavigate } from 'react-router-dom';
 
