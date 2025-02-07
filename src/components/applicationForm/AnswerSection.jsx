@@ -9,7 +9,6 @@ export default function AnswerSection({ step }) {
   const { track, setTrack, setAnswers, questions, setQuestions } = useStore();
   const [userInfo, setUserInfo] = useState([]);
   const [charCounts, setCharCounts] = useState([]); // 글자 수 상태
-  console.log(track);
 
   useCheckApproach(step, track); // 잘못된 사용자 접근 방지
   // 질문 데이터 및 임시저장 데이터 가져오기
