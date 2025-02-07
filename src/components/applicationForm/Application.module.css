@@ -18,15 +18,15 @@
   }
 }
 
+.userInfo > span {
+  font-size: 1.6rem;
+  color: rgba(169, 169, 169, 1);
+}
+
 .question {
   display: flex;
   flex-direction: column;
   gap: 20px 0;
-
-  .userInfo > span {
-    font-size: 1.6rem;
-    color: rgba(169, 169, 169, 1);
-  }
 }
 
 .inputWrapper {
@@ -44,6 +44,15 @@
     padding: 20px 2.5%;
     box-sizing: border-box;
     resize: none;
+  }
+}
+
+.charCount {
+  margin-top: 5px;
+  text-align: right;
+
+  span {
+    font-size: 1rem;
   }
 }
 
@@ -84,20 +93,10 @@
   }
 }
 
-.charCount {
-  margin-top: 5px;
-  text-align: right;
-
-  span {
-    font-size: 1rem;
-  }
-}
-
 @media screen and (max-width: 767px) {
   .buttonWrapper button {
     width: 100px;
   }
-
   .sectionWrapper {
     padding: 0;
     width: auto;
