@@ -7,9 +7,8 @@ import { putProfile, putImage, deleteProfile } from '@api/aboutAdminAPI';
 
 export default function Registration({ users }) {
   const [rows, setRows] = useState([]);
-
   const roleOrder = ['LEAD', 'COLEAD', 'COREMEMBER', 'BABYLION', 'GUEST'];
-  const partOrder = ['기획/디자인', '기획', '디자인', '프론트엔드', '백엔드'];
+  const partOrder = ['기획디자인', '기획', '디자인', '프론트엔드', '백엔드'];
 
   useEffect(() => {
     if (users && Array.isArray(users)) {
@@ -30,15 +29,6 @@ export default function Registration({ users }) {
     return <p>데이터를 불러오는 중입니다...</p>;
   }
 
-  function sortRows(rows) {
-    return [...rows].sort((a, b) => {
-      const roleComparison = roleOrder.indexOf(a.role) - roleOrder.indexOf(b.role);
-      if (roleComparison !== 0) {
-        return roleComparison;
-      }
-      return partOrder.indexOf(a.part) - partOrder.indexOf(b.part); // partOrder로 추가 정렬
-    });
-  }
   function toggleStorage(index) {
     const updatedRows = [...rows];
     updatedRows[index].isStorage = !updatedRows[index].isStorage;
@@ -48,31 +38,40 @@ export default function Registration({ users }) {
   function handleCellChange(index, field, value) {
     const updatedRows = [...rows];
     updatedRows[index][field] = value;
-    setRows(sortRows(updatedRows));
+    setRows(updatedRows);
   }
 
-  function handleDeleteRow(index) {
+  async function handleDeleteRow(index) {
     const originalUser = users[index];
-    setRows(sortRows(rows.filter((_, rowIndex) => rowIndex !== index)));
-    try {
-      deleteProfile(originalUser.semester, originalUser.studentId);
 
-      alert('삭제되었습니다.');
-    } catch (error) {
-      console.error('삭제 중 오류 발생:', error);
+    try {
+      const isDeleted = await deleteProfile(originalUser.semester, originalUser.studentId);
+
+      if (isDeleted) {
+        setRows(rows.filter((_, rowIndex) => rowIndex !== index));
+        alert('삭제되었습니다.');
+      } else {
+        alert('게스트만 삭제 가능합니다.');
+      }
+    } catch {
       alert('삭제에 실패했습니다.');
     }
   }
 
-  function handleImageUpload(index, url) {
+  function handleImageUpload(file, index) {
     const updatedRows = [...rows];
-    updatedRows[index].image = url;
+    updatedRows[index].image = file === '' ? null : file;
     setRows(updatedRows);
   }
 
   async function handleSave(index) {
-    const originalUser = users[index];
     const updatedRow = rows[index];
+    const originalUser = users[index];
+
+    if (!originalUser) {
+      alert('원본 데이터를 찾을 수 없습니다.');
+      return;
+    }
 
     const updatedData = {
       role: updatedRow.role,
@@ -83,15 +82,21 @@ export default function Registration({ users }) {
     };
 
     try {
-      await putProfile(originalUser.semester, originalUser.studentId, updatedData);
+      if (updatedRow.image || updatedRow.image == null) {
+        const formData = new FormData();
+        formData.append('image', updatedRow.image);
 
-      const updatedImage = updatedRow.image ? { url: updatedRow.image } : null;
-      await putImage(originalUser.semester, originalUser.studentId, updatedImage);
+        const response = await putImage(originalUser.semester, originalUser.studentId, formData);
 
+        if (!response.success) {
+          alert(`${response.message} 이미지로 다시 저장해주세요`);
+        }
+        await putProfile(originalUser.semester, originalUser.studentId, updatedData);
+      }
+      originalUser.studentId = updatedRow.studentId;
       alert('저장되었습니다.');
-      toggleStorage(index); // 저장 후 편집 모드로 전환
-    } catch (error) {
-      console.error('저장 중 오류 발생:', error);
+      toggleStorage(index);
+    } catch {
       alert('저장에 실패했습니다.');
     }
   }
@@ -112,7 +117,7 @@ export default function Registration({ users }) {
                 <th>파트</th>
                 <th>학과</th>
                 <th>학번</th>
-                <th></th>
+                <th>수정/삭제</th>
                 <th>이미지</th>
               </tr>
             </thead>
@@ -136,7 +141,6 @@ export default function Registration({ users }) {
                       ))}
                     </select>
                   </td>
-
                   <td>
                     <input
                       className={styles.tableInput}
@@ -146,7 +150,6 @@ export default function Registration({ users }) {
                       disabled={row.isStorage}
                     />
                   </td>
-
                   <td>
                     <select
                       className={styles.tableInput}
@@ -164,7 +167,6 @@ export default function Registration({ users }) {
                       ))}
                     </select>
                   </td>
-
                   <td>
                     <input
                       className={styles.tableInput}
@@ -174,7 +176,6 @@ export default function Registration({ users }) {
                       disabled={row.isStorage}
                     />
                   </td>
-
                   <td>
                     <input
                       className={styles.tableInput}
@@ -184,7 +185,6 @@ export default function Registration({ users }) {
                       disabled={row.isStorage}
                     />
                   </td>
-
                   <td>
                     <div>
                       {row.isStorage ? (
@@ -199,27 +199,22 @@ export default function Registration({ users }) {
                           />
                         </div>
                       ) : (
-                        <div className={styles.submitButtonContainer}>
-                          <button
-                            className={styles.submitButton}
-                            onClick={() => handleSave(index)}
-                          >
-                            저장하기
-                          </button>
-                        </div>
+                        <button
+                          className={styles.submitButton}
+                          onClick={() => handleSave(index)}
+                        >
+                          저장하기
+                        </button>
                       )}
                     </div>
                   </td>
-
                   <td>
-                    <div className={styles.container}>
-                      <AddImage
-                        index={index}
-                        onImageUpload={(url, idx) => handleImageUpload(idx, url)}
-                        isStorage={row.isStorage}
-                        initialImage={row.image} // row.image를 전달
-                      />
-                    </div>
+                    <AddImage
+                      index={index}
+                      onImageUpload={handleImageUpload}
+                      isStorage={row.isStorage}
+                      initialImage={row.image}
+                    />
                   </td>
                 </tr>
               ))}

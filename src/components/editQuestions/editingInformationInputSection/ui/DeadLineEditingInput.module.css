@@ -1,0 +1,17 @@
+.dead-line-container {
+  display: flex;
+  justify-content: space-between;
+  width: 192px;
+  height: 40px;
+}
+
+.dead-line-input {
+  border: 1px solid var(--grey-da-color);
+  color: var(--grey-a9-color);
+  height: 40px;
+}
+
+.dead-line-label {
+  font-weight: 700;
+  font-size: 16px;
+}

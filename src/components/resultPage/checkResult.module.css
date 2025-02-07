@@ -1,120 +1,132 @@
-.allContainer{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 70vh;
+.allContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 70vh;
 }
 
-.titleContainer{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 5%;
-    margin-top: 5%;
+.titleContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5%;
+  margin-top: 5%;
 }
 
-.mainTitle{
-    color: var(--main-text-color);
-    font-size: 48px;
-    font-weight: 700;
+.mainTitle {
+  color: var(--main-text-color);
+  font-size: 48px;
+  font-weight: 700;
 }
 
-.contentContainer{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 4%;
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 4%;
 }
 
-.content{
-    color: var(--main-text-color);
-    font-size: 20px;
-    font-weight: 500;
-    margin-bottom: 3%;
+.content {
+  color: var(--main-text-color);
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 3%;
 }
 
-.inputContainer{
-    display: flex;
-    align-items: center;
-    gap: 2%;
-    padding: 3%;
-    height: 50px;
-    width: 100%;
-    justify-content: center;
+.inputContainer {
+  display: flex;
+  align-items: center;
+  gap: 2%;
+  padding: 3%;
+  height: 50px;
+  width: 100%;
+  justify-content: center;
 }
 
-.input{
-    border-radius: 10px;
-    border-color: #9F9C98;
-    width: 40%;
-    height: 4rem;
-    margin-left: 3%;
-    margin-bottom: 0;
+.input {
+  border-radius: 10px;
+  border: 1px solid #9f9c98;
+  width: 40%;
+  height: 4rem;
+  margin-left: 3%;
+  margin-bottom: 0;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6rem;
 }
 
-.checkButton{
-    background-color: var(--accent-color);
-    color: #fff;
-    width: 10%;
-    height: 4.6rem;
-    font-size: 1.6rem;
-    font-weight: 600;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+.input span {
+    color: var(--accent-color);
+}
+
+.checkButton {
+  background-color: var(--accent-color);
+  color: #fff;
+  width: 10%;
+  height: 4.5rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
 }
 
 .checkButton:hover {
-    background-color: var(--main-text-color);
-    transform: scale(1.05);
+  background-color: var(--main-text-color);
+  transform: scale(1.05);
+}
+
+@media (max-width: 767px) {
+  .mainTitle {
+    font-size: 4rem;
   }
 
-  @media (max-width: 767px){
-    .mainTitle{
-        font-size: 4rem;
-    }
+  .content {
+    font-size: 2rem;
+  }
 
-    .content{
-        font-size: 2rem;
-    }
+  .checkButton {
+    font-size: 1.6rem;
+    width: 15%;
+  }
 
-    .checkButton{
-        font-size: 1.6rem;
-        width: 15%;
-    }
-
-    .input{
-        font-size: 1.6rem;
-    }
+  .input {
+    font-size: 1.6rem;
+    width: auto;
+  }
 }
 
-@media (max-width: 600px){
-    .mainTitle{
-        font-size: 3rem;
-    }
+@media (max-width: 600px) {
+  .mainTitle {
+    font-size: 3rem;
+  }
 
-    .content{
-        font-size: 1.5rem;
-    }
+  .content {
+    font-size: 1.5rem;
+  }
 
-    .checkButton{
-        font-size: 1.4rem;
-        width: 15%;
-    }
+  .checkButton {
+    font-size: 1.4rem;
+    width: 15%;
+  }
 
-    .input{
-        font-size: 1.4rem;
-    }
+  .input {
+    font-size: 1.4rem;
+  }
 }
 
-@media (max-width: 500px){
-    .checkButton{
-        font-size: 1.2rem;
-        width: 15%;
-    }
+@media (max-width: 500px) {
+  .checkButton {
+    font-size: 1.2rem;
+    width: 15%;
+  }
 
-    .input{
-        font-size: 1.2rem;
-    }
+  .input {
+    font-size: 1.2rem;
+  }
 }

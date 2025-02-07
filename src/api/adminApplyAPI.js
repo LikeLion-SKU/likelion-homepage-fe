@@ -2,7 +2,7 @@ import { APIService } from './axios';
 
 export async function assignPassed(formAnswerId, isPassed, setApplicants, semester, sort) {
   try {
-    const baseUrl = import.meta.env.VITE_APP_POST_ANSWER + `/${formAnswerId}/passed`;
+    const baseUrl = `/api/admin/applications/answers/${formAnswerId}/passed`;
     await APIService.private.put(baseUrl, {
       isPassed: isPassed.value,
     });
@@ -12,12 +12,13 @@ export async function assignPassed(formAnswerId, isPassed, setApplicants, semest
   }
 }
 
-export async function getApplicants(setApplicants, semester, trackType) {
+export async function getApplicants(setApplicants, semester, part) {
   try {
-    const baseUrl = `${import.meta.env.VITE_APP_POST_ANSWER}/semester/${semester}`;
+    const baseUrl = `/api/admin/applications/answers`;
     const res = await APIService.private.get(baseUrl, {
       params: {
-        trackType,
+        semester,
+        part,
       },
     });
     setApplicants(res);
@@ -26,11 +27,9 @@ export async function getApplicants(setApplicants, semester, trackType) {
   }
 }
 
-export async function getAnswers(studentId) {
+export async function getAnswers(id) {
   try {
-    const baseUrl = studentId
-      ? `${import.meta.env.VITE_APP_POST_ANSWER}/semester/${14}/studentId/${studentId}`
-      : `${import.meta.env.VITE_APP_POST_ANSWER}/my-submits`;
+    const baseUrl = id ? `/api/admin/applications/answers/${id}` : `${import.meta.env.VITE_APP_POST_ANSWER}/my-submits`;
     const res = await APIService.private.get(baseUrl);
     return res;
   } catch {
@@ -45,6 +44,17 @@ export async function getUserInfos(studentId) {
       : `${import.meta.env.VITE_APP_GET_USERINFO}`;
     const res = await APIService.private.get(baseUrl);
     return res;
+  } catch {
+    location.href = '/error';
+  }
+}
+
+export async function getSemesters() {
+  try {
+    const baseUrl = '/api/admin/applications/forms';
+    const res = await APIService.private.get(baseUrl);
+    const data = res.sort((a, b) => a.semester - b.semester).map((item) => item.semester);
+    return data;
   } catch {
     location.href = '/error';
   }

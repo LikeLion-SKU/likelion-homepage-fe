@@ -1,0 +1,12 @@
+.create-question-btn {
+  width: 30px;
+  height: 30px;
+  background-color: var(--main-bg-color);
+  cursor: pointer;
+  margin: 0 auto;
+}
+
+.create-question-btn__plus {
+  width: 30px;
+  height: 30px;
+}

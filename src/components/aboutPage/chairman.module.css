@@ -30,6 +30,12 @@
     margin-top: 10px;
 }
 
+.cardSkeleton{
+    height: 250px;
+    width: 200px;
+    border-radius: 1.4rem !important;
+}
+
 @media (max-width: 1300px) {
     .chairmanCardGrid {
         grid-template-columns: repeat(4, 1fr);
@@ -45,5 +51,11 @@
 @media (max-width: 700px) {
     .chairmanCardGrid {
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 500px) {
+    .cardSkeleton{
+        width: 160px;
     }
 }
