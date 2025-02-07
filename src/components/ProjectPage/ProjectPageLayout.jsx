@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { TailSpin } from 'react-loader-spinner';
 import styles from './ProjectPageLayout.module.css';
 import CustomDropdown from './CustomDropdown.jsx';
 import plusbtn from '@assets/projectPage/plusbtn.webp';
@@ -12,6 +13,7 @@ function ProjectPageLayout({ isAdmin }) {
   const [totalPages, setTotalPages] = useState(0);
   const [menuVisible, setMenuVisible] = useState(null); // 메뉴 표시 상태 관리
   const [selectedType, setSelectedType] = useState('ALL');
+  const [loading, setLoading] = useState(false);
   const menuRefs = useRef({}); // 각 프로젝트 메뉴별 참조 객체
   const navigate = useNavigate();
 
@@ -26,6 +28,7 @@ function ProjectPageLayout({ isAdmin }) {
   useEffect(() => {
     // API 호출: 프로젝트 목록 조회
     async function fetchProjects() {
+      setLoading(true); // API 호출 전 로딩 상태 활성화
       try {
         const response = await projectAPI.fetchProjects(selectedType.toUpperCase(), currentPage - 1);
         const { content = [], totalPages = 0 } = response || {}; // content와 totalPages 추출
@@ -35,6 +38,8 @@ function ProjectPageLayout({ isAdmin }) {
         alert('Failed to fetch projects');
         setProjects([]); // 오류 발생 시 빈 목록으로 초기화
         setTotalPages(0); // 페이지 수 초기화
+      } finally {
+        setLoading(false); // API 호출 후 로딩 상태 비활성화
       }
     }
 
@@ -105,62 +110,75 @@ function ProjectPageLayout({ isAdmin }) {
           />
         </div>
       </div>
-      <div className={styles.grid}>
-        {projects.length > 0 ? (
-          projects.map((project) => (
-            <div
-              key={project.id}
-              className={styles.card}
-            >
-              <div onClick={() => navigate(`/project/${project.id}`)}>
-                <img
-                  src={project.thumbnailUrl}
-                  alt={project.title || 'No Project image'}
-                  className={styles.image}
-                />
 
-                <p className={styles.name}>{project.title || 'Untitled Project'}</p>
-                <p className={styles.description}>
-                  {project.content?.length > 50
-                    ? `${project.content.slice(0, 50)}...`
-                    : project.content || 'No description'}
-                </p>
-              </div>
+      {loading ? (
+        <div className={styles.loaderContainer}>
+          <TailSpin
+            height='60'
+            color='#4fa94d'
+            ariaLabel='tail-spin-loading'
+            radius='1'
+            visible={true}
+          />
+        </div>
+      ) : (
+        <div className={styles.grid}>
+          {projects.length > 0 ? (
+            projects.map((project) => (
+              <div
+                key={project.id}
+                className={styles.card}
+              >
+                <div onClick={() => navigate(`/project/${project.id}`)}>
+                  <img
+                    src={project.thumbnailUrl}
+                    alt={project.title || 'No Project image'}
+                    className={styles.image}
+                  />
 
-              <div className={styles.cardFooter}>
-                <div className={styles.tags}>
-                  <span className={`${styles.tag} ${styles[typeMap[project.type] || 'default']}`}>
-                    {typeMap[project.type] || 'Uncategorized'}
-                  </span>
+                  <p className={styles.name}>{project.title || 'Untitled Project'}</p>
+                  <p className={styles.description}>
+                    {project.content?.length > 50
+                      ? `${project.content.slice(0, 50)}...`
+                      : project.content || 'No description'}
+                  </p>
                 </div>
-                {isAdmin ? (
-                  <div className={styles.menuContainer}>
-                    <button
-                      className={styles.menuButton}
-                      onClick={() => setMenuVisible((prev) => (prev === project.id ? null : project.id))}
-                    >
-                      &#x22EE;
-                    </button>
-                    {menuVisible === project.id ? (
-                      <div
-                        ref={(ref) => (menuRefs.current[project.id] = ref)}
-                        className={styles.menu}
-                      >
-                        <button onClick={() => navigate('/admin/project/edit', { state: { project } })}>
-                          수정하기
-                        </button>
-                        <button onClick={() => handleDelete(project.id)}>삭제하기</button>
-                      </div>
-                    ) : null}
+
+                <div className={styles.cardFooter}>
+                  <div className={styles.tags}>
+                    <span className={`${styles.tag} ${styles[typeMap[project.type] || 'default']}`}>
+                      {typeMap[project.type] || 'Uncategorized'}
+                    </span>
                   </div>
-                ) : null}
+                  {isAdmin ? (
+                    <div className={styles.menuContainer}>
+                      <button
+                        className={styles.menuButton}
+                        onClick={() => setMenuVisible((prev) => (prev === project.id ? null : project.id))}
+                      >
+                        &#x22EE;
+                      </button>
+                      {menuVisible === project.id ? (
+                        <div
+                          ref={(ref) => (menuRefs.current[project.id] = ref)}
+                          className={styles.menu}
+                        >
+                          <button onClick={() => navigate('/admin/project/edit', { state: { project } })}>
+                            수정하기
+                          </button>
+                          <button onClick={() => handleDelete(project.id)}>삭제하기</button>
+                        </div>
+                      ) : null}
+                    </div>
+                  ) : null}
+                </div>
               </div>
-            </div>
-          ))
-        ) : (
-          <p className={styles.noProjects}>프로젝트가 없습니다.</p>
-        )}
-      </div>
+            ))
+          ) : (
+            <p className={styles.noProjects}>프로젝트가 없습니다.</p>
+          )}
+        </div>
+      )}
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
