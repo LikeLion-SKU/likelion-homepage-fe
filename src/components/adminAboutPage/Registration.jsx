@@ -41,12 +41,18 @@ export default function Registration({ users }) {
     setRows(updatedRows);
   }
 
-  function handleDeleteRow(index) {
+  async function handleDeleteRow(index) {
     const originalUser = users[index];
-    setRows(rows.filter((_, rowIndex) => rowIndex !== index));
+
     try {
-      deleteProfile(originalUser.semester, originalUser.studentId);
-      alert('삭제되었습니다.');
+      const isDeleted = await deleteProfile(originalUser.semester, originalUser.studentId);
+
+      if (isDeleted) {
+        setRows(rows.filter((_, rowIndex) => rowIndex !== index));
+        alert('삭제되었습니다.');
+      } else {
+        alert('게스트만 삭제 가능합니다.');
+      }
     } catch {
       alert('삭제에 실패했습니다.');
     }
@@ -60,7 +66,7 @@ export default function Registration({ users }) {
 
   async function handleSave(index) {
     const updatedRow = rows[index];
-    const originalUser = users.find((user) => user.studentId === updatedRow.studentId) || users[index];
+    const originalUser = users[index];
 
     if (!originalUser) {
       alert('원본 데이터를 찾을 수 없습니다.');
@@ -76,14 +82,19 @@ export default function Registration({ users }) {
     };
 
     try {
-      await putProfile(originalUser.semester, originalUser.studentId, updatedData);
-
-      if (updatedRow.image || updatedRow.image == null) {
+      if (updatedRow.image instanceof File || updatedRow.image == null) {
         const formData = new FormData();
         formData.append('image', updatedRow.image);
-        await putImage(originalUser.semester, originalUser.studentId, formData);
-      }
 
+        const response = await putImage(originalUser.semester, originalUser.studentId, formData);
+
+        if (!response.success) {
+          alert(`${response.message} 이미지는 다시 저장해주세요`);
+        }
+      }
+      await putProfile(originalUser.semester, originalUser.studentId, updatedData);
+
+      originalUser.studentId = updatedRow.studentId;
       alert('저장되었습니다.');
       toggleStorage(index);
     } catch {
@@ -107,7 +118,7 @@ export default function Registration({ users }) {
                 <th>파트</th>
                 <th>학과</th>
                 <th>학번</th>
-                <th></th>
+                <th>수정/삭제</th>
                 <th>이미지</th>
               </tr>
             </thead>

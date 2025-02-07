@@ -35,6 +35,7 @@
 
 .navbarButton {
   border: 1px solid rgba(0, 0, 0, 1);
+  color: var(--main-text-color);
   font-size: 1.6rem;
   line-height: 1.936rem;
   font-weight: 700;

@@ -25,12 +25,8 @@ export default function PrivateRoute({ children }) {
     fetchUserRole();
   }, []);
 
-  if (userRole === null) {
-    return null;
-  }
-
   if (userRole !== 'ADMIN') {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/error" replace />;
   }
 
   return children ? children : <Outlet />;
