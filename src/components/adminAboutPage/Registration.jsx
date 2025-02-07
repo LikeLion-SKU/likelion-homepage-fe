@@ -82,17 +82,18 @@ export default function Registration({ users }) {
     };
 
     try {
-      if (updatedRow.image || updatedRow.image == null) {
+      if (updatedRow.image instanceof File || updatedRow.image == null) {
         const formData = new FormData();
         formData.append('image', updatedRow.image);
 
         const response = await putImage(originalUser.semester, originalUser.studentId, formData);
 
         if (!response.success) {
-          alert(`${response.message} 이미지로 다시 저장해주세요`);
+          alert(`${response.message} 이미지는 다시 저장해주세요`);
         }
-        await putProfile(originalUser.semester, originalUser.studentId, updatedData);
       }
+      await putProfile(originalUser.semester, originalUser.studentId, updatedData);
+
       originalUser.studentId = updatedRow.studentId;
       alert('저장되었습니다.');
       toggleStorage(index);
