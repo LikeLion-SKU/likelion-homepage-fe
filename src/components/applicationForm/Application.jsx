@@ -28,6 +28,10 @@ function SelectTrack() {
   );
 }
 
+function TrackInfo({ track }) {
+  return <div className={styles.trackInfo}>{track} 트랙 질문입니다.</div>;
+}
+
 function ApplicantInfo({ userInfo }) {
   return (
     <div className={styles.userInfo}>
@@ -130,6 +134,7 @@ function SubmitBtn() {
 }
 
 Application.SelectTrack = SelectTrack;
+Application.TrackInfo = TrackInfo;
 Application.ApplicantInfo = ApplicantInfo;
 Application.QWrapper = QWrapper;
 Application.BtnWrapper = BtnWrapper;

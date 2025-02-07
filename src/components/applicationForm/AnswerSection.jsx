@@ -9,6 +9,7 @@ export default function AnswerSection({ step }) {
   const { track, setTrack, setAnswers, questions, setQuestions } = useStore();
   const [userInfo, setUserInfo] = useState([]);
   const [charCounts, setCharCounts] = useState([]); // 글자 수 상태
+  console.log(track);
 
   useCheckApproach(step, track); // 잘못된 사용자 접근 방지
   // 질문 데이터 및 임시저장 데이터 가져오기
@@ -20,6 +21,7 @@ export default function AnswerSection({ step }) {
 
   return (
     <Application>
+      {step === 3 ? <Application.TrackInfo track={track.label} /> : null}
       {/* 공통 질문 페이지에서만 트랙 선택 */}
       {step === 2 ? <Application.SelectTrack /> : null}
       {questions && questions.length > 0
