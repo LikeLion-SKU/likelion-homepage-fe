@@ -228,3 +228,31 @@ export function useGetQuestionByType(semester, type) {
     questions,
   };
 }
+
+export function useUpdateQuestionByType(questionId, data, semester, type) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const updateQuestionByType = useCallback(
+    async function () {
+      setIsLoading(true);
+      try {
+        const res = await APIService.private.put(`${import.meta.env.VITE_APP_QUESTIONS}/${questionId}`, data);
+        if (res) {
+          alert('질문을 성공적으로 업데이트 했습니다');
+          window.location.href = `/admin/edit/application/${semester}?type=${type}`;
+        }
+      } catch {
+        alert('질문을 업데이트 하는데 실패했습니다');
+        return;
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [questionId, data, semester, type],
+  );
+
+  return {
+    isLoading,
+    updateQuestionByType,
+  };
+}

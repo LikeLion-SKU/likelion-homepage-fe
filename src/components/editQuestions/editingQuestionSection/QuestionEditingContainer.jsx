@@ -16,6 +16,7 @@ export default function QuestionEditingContainer() {
         ? questions.map((q) => (
             <QuestionEditing
               key={q.id}
+              questionId={q.id}
               content={q.content}
             />
           ))
