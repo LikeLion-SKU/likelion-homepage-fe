@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import styles from '@components/adminAboutPage/generation.module.css';
 
 export default function Generation({ selectedYear, setSelectedYear }) {
-  const years = [12, 13, 14];
+  const years = [11, 12, 13];
 
   // 컴포넌트 로드 시 가장 최근 연도로 초기화
   useEffect(() => {
