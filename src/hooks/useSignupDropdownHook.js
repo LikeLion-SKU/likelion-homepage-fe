@@ -18,12 +18,12 @@ export function handlePart(event, form, setForm, setSelectPart) {
     setSelectPart('파트 선택');
   } else {
     setForm({ ...form, part: event.target.id });
-    if (event.target.id === 'PM/design') {
+    if (event.target.id === '기획/디자인') {
       setSelectPart('기획/디자인');
-    } else if (event.target.id === 'front') {
-      setSelectPart('프론트앤드');
-    } else if (event.target.id === 'back') {
-      setSelectPart('백앤드');
+    } else if (event.target.id === '프론트엔드') {
+      setSelectPart('프론트엔드');
+    } else if (event.target.id === '백엔드') {
+      setSelectPart('백엔드');
     }
   }
 }

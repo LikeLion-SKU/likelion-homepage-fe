@@ -253,12 +253,12 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 className={styles['signup-form__selectMenu']}
               >
                 <li
+                  id='기획/디자인'
                   className={
                     selcetPart === '기획/디자인'
                       ? styles['signup-form__selectionSelected']
                       : styles['signup-form__selection']
                   }
-                  id='PM/design'
                   onClick={function (event) {
                     handlePart(event, form, setForm, setSelectPart);
                   }}
@@ -266,9 +266,9 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                   기획/디자인
                 </li>
                 <li
-                  id='front'
+                  id='프론트엔드'
                   className={
-                    selcetPart === '프론트앤드'
+                    selcetPart === '프론트엔드'
                       ? styles['signup-form__selectionSelected']
                       : styles['signup-form__selection']
                   }
@@ -276,12 +276,12 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                     handlePart(event, form, setForm, setSelectPart);
                   }}
                 >
-                  프론트앤드
+                  프론트엔드
                 </li>
                 <li
-                  id='back'
+                  id='백엔드'
                   className={
-                    selcetPart === '백앤드'
+                    selcetPart === '백엔드'
                       ? styles['signup-form__selectionSelected']
                       : styles['signup-form__selection']
                   }
@@ -289,7 +289,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                     handlePart(event, form, setForm, setSelectPart);
                   }}
                 >
-                  백앤드
+                  백엔드
                 </li>
               </ul>
             ) : null}
@@ -337,6 +337,13 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
               }}
             >
               로그인
+            </button>
+            <button
+              onClick={function () {
+                console.log(form);
+              }}
+            >
+              출력 출력 출력 출력
             </button>
           </div>
         </div>
