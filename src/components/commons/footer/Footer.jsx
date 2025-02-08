@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import styles from './Footer.module.css';
@@ -8,20 +8,16 @@ import instagram from '@assets/footer/instagram.webp';
 import github from '@assets/footer/github.webp';
 
 export default function Footer() {
-  const [clickCount, setClickCount] = useState(0);
+  const clickCount = useRef(0);
   const navigate = useNavigate();
 
   function handleClick() {
-    setClickCount((prevCount) => {
-      const newCount = prevCount + 1;
+    clickCount.current += 1;
 
-      if (newCount === 3) {
-        navigate('/admin');
-        return 0;
-      }
-
-      return newCount;
-    });
+    if (clickCount.current === 3) {
+      navigate('/admin');
+      clickCount.current = 0;
+    }
   }
 
   return (

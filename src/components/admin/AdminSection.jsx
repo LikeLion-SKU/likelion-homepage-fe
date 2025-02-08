@@ -4,7 +4,6 @@ export default function AdminSection() {
   return (
     <Admin>
       <Admin.Title />
-      <Admin.Text />
       <Admin.ItemBox>
         <Admin.Button
           label='지원서 생성하기'

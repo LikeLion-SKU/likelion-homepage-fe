@@ -14,10 +14,6 @@ function AdminTitle() {
   );
 }
 
-function AdminText() {
-  return <p className={styles.text}>admin1234@skuniv.ac.kr</p>;
-}
-
 function AdminItemBox({ children }) {
   return <div className={styles.itembox}>{children}</div>;
 }
@@ -36,6 +32,5 @@ function AdminButton({ label, path }) {
 }
 
 Admin.Title = AdminTitle;
-Admin.Text = AdminText;
 Admin.ItemBox = AdminItemBox;
 Admin.Button = AdminButton;
