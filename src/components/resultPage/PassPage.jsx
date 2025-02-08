@@ -23,18 +23,30 @@ export default function PassPage() {
 
   // 날짜 클릭 후 시간 표시
   function handleDateClick(date) {
-    setSelectedDate((prevDate) => (prevDate === date ? null : date));
+    setSelectedDate(function (prevDate) {
+      return prevDate === date ? null : date;
+    });
     setSelectedSlot(null); // 날짜 변경 시 slot 초기화화
   }
 
   function handleSlotClick(date, slot) {
-    setSelectedSlot(
-      (prevSlot) =>
-        prevSlot && prevSlot.date === date && prevSlot.slot === slot
-          ? null // 같은 슬롯을 다시 클릭하면 선택 취소
-          : { date, slot }, // 새로운 슬롯을 선택하면 업데이트
-    );
+    setSelectedSlot(function (prevSlot) {
+      return prevSlot && prevSlot.date === date && prevSlot.slot === slot
+        ? null // 같은 슬롯을 다시 클릭하면 선택 취소
+        : { date, slot }; // 새로운 슬롯을 선택하면 업데이트
+    });
     setSelectedDate(date); // 슬롯을 클릭하면 해당 날짜도 선택되게 설정
+  }
+
+  // 날짜 클릭 처리 함수
+  function handleDateItemClick(item) {
+    handleDateClick(item.date);
+  }
+
+  // 슬롯 클릭 처리 함수
+  function handleSlotItemClick(e, item, slot) {
+    e.stopPropagation(); // 부모의 onClick 이벤트가 발생하지 않도록
+    handleSlotClick(item.date, slot);
   }
 
   return (
@@ -57,30 +69,35 @@ export default function PassPage() {
       <div className={styles.subTitle}>면접 날짜 선택</div>
 
       <div className={styles.datePickerContainer}>
-        {interviewDates.map((item, index) => (
-          <div
-            key={index}
-            className={styles.dateItem}
-            onClick={() => handleDateClick(item.date)}
-          >
-            <p className={`${styles.date} ${selectedDate === item.date ? styles.selected : ''}`}>{item.date}</p>
-            <div className={styles.slotsContainer}>
-              {item.slots.map((slot, slotIndex) => (
-                <p
-                  key={slotIndex}
-                  className={`${styles.slot} 
-            ${selectedSlot && selectedSlot.date === item.date && selectedSlot.slot === slot ? styles.selectedSlot : ''}`}
-                  onClick={(e) => {
-                    e.stopPropagation(); // 부모의 onClick 이벤트가 발생하지 않도록
-                    handleSlotClick(item.date, slot);
-                  }}
-                >
-                  {slot}
-                </p>
-              ))}
+        {interviewDates.map(function (item, index) {
+          return (
+            <div
+              key={index}
+              className={styles.dateItem}
+              onClick={function () {
+                handleDateItemClick(item);
+              }}
+            >
+              <p className={`${styles.date} ${selectedDate === item.date ? styles.selected : ''}`}>{item.date}</p>
+              <div className={styles.slotsContainer}>
+                {item.slots.map(function (slot, slotIndex) {
+                  return (
+                    <p
+                      key={slotIndex}
+                      className={`${styles.slot} 
+                        ${selectedSlot && selectedSlot.date === item.date && selectedSlot.slot === slot ? styles.selectedSlot : ''}`}
+                      onClick={function (e) {
+                        handleSlotItemClick(e, item, slot);
+                      }}
+                    >
+                      {slot}
+                    </p>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
