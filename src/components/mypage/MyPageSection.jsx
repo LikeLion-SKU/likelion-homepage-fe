@@ -29,7 +29,6 @@ export default function MyPageSection() {
     const token = localStorage.getItem('token');
     if (!token) {
       navigate('/error');
-      console.log('success');
       return;
     }
     fetchUserData();
