@@ -4,9 +4,9 @@ import { useLocation, useSearchParams } from 'react-router-dom';
 import styles from './QuestionEditing.module.css';
 import ButtonsContainer from '@/components/editQuestions/editingQuestionSection/ButtonsContainer';
 import CompleteBtn from '@/components/editQuestions/editingQuestionSection/ui/CompleteBtn';
-import { useUpdateQuestionByType } from '@/hooks/useApplication';
+import { useDeleteQuestionByType, useUpdateQuestionByType } from '@/hooks/useApplication';
 
-export default function QuestionEditing({ content, questionId }) {
+export default function QuestionEditing({ content, questionId, questionsLength }) {
   const [isEditing, setIsEditing] = useState(false);
   const [updatedQuestion, setUpdatedQuestion] = useState(content);
   const location = useLocation();
@@ -21,6 +21,12 @@ export default function QuestionEditing({ content, questionId }) {
     location.pathname.split('/')[4],
     searchParam.get('type'),
   );
+  const { deleteQuestionByType } = useDeleteQuestionByType(
+    questionId,
+    location.pathname.split('/')[4],
+    searchParam.get('type'),
+  );
+
   return (
     <div className={styles['question-editing-container']}>
       {isEditing ? (
@@ -48,6 +54,13 @@ export default function QuestionEditing({ content, questionId }) {
         <ButtonsContainer
           setIsEditing={function () {
             setIsEditing((prev) => !prev);
+          }}
+          deleteQuestionByType={function () {
+            if (questionsLength === 1) {
+              alert('질문이 1개인 경우 삭제가 불가능합니다');
+              return;
+            }
+            deleteQuestionByType();
           }}
         />
       )}

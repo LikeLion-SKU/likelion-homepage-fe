@@ -18,6 +18,7 @@ export default function QuestionEditingContainer() {
               key={q.id}
               questionId={q.id}
               content={q.content}
+              questionsLength={questions.length}
             />
           ))
         : null}
