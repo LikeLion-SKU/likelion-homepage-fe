@@ -256,3 +256,31 @@ export function useUpdateQuestionByType(questionId, data, semester, type) {
     updateQuestionByType,
   };
 }
+
+export function useDeleteQuestionByType(questionId, semester, type) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const deleteQuestionByType = useCallback(
+    async function () {
+      setIsLoading(true);
+      try {
+        const res = await APIService.private.delete(`${import.meta.env.VITE_APP_QUESTIONS}/${questionId}`);
+        if (res) {
+          alert('질문을 성공적으로 삭제했습니다');
+          window.location.href = `/admin/edit/application/${semester}?type=${type}`;
+        }
+      } catch {
+        alert('질문을 삭제 하는데 실패했습니다');
+        return;
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [questionId, semester, type],
+  );
+
+  return {
+    isLoading,
+    deleteQuestionByType,
+  };
+}
