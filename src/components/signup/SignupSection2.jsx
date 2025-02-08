@@ -196,14 +196,15 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
 
         <div className={styles['signup-form__inputbox']}>
           <div className={styles['signup-form__labelsection']}>
-            <label htmlFor='semester'>기수 (기존 동아리원만 선택)</label>
+            <label htmlFor='semester'>기수</label>
+            <p>*</p>
           </div>
           <div className={styles['signup-form__inputsection']}>
             <div className={styles['signup-form__input']}>
               <input
                 type='text'
                 maxLength={2}
-                placeholder='숫자만 입력해주세요'
+                placeholder='숫자 2자만 입력해주세요'
                 id='semester'
                 value={form.semester}
                 className={errors.semester ? styles['invalid'] : form.semester ? styles['valid'] : ''}
@@ -215,9 +216,10 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
           </div>
         </div>
 
-        <div className={styles['signup-form__inputbox']}>
+        <div className={styles['signup-form__inputbox_part']}>
           <div className={styles['signup-form__labelsection']}>
-            <label htmlFor='part'>파트 (기존 동아리원만 선택)</label>
+            <label htmlFor='part'>파트</label>
+            <p>*</p>
           </div>
           <div
             className={styles['signup-form__inputsection']}
@@ -236,9 +238,11 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                   id='part'
                   style={{ cursor: 'pointer' }}
                   className={
-                    selcetPart !== '파트 선택'
-                      ? styles['signup-form__selectbutton-valid']
-                      : styles['signup-form__selectbutton']
+                    errors.part
+                      ? styles['signup-form__selectbutton-invalid']
+                      : selcetPart !== '파트 선택'
+                        ? styles['signup-form__selectbutton-valid']
+                        : styles['signup-form__selectbutton']
                   }
                   value={selcetPart}
                 >
@@ -246,12 +250,37 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                   <p>{isDropdownView ? '▲' : '▼'}</p>
                 </button>
               </label>
+              {errors.part && !isDropdownView ? <p className={styles.error_message}>{errors.part}</p> : null}
             </div>
             {isDropdownView ? (
               <ul
                 style={{ cursor: 'pointer' }}
                 className={styles['signup-form__selectMenu']}
               >
+                <li
+                  id='기획'
+                  className={
+                    selcetPart === '기획' ? styles['signup-form__selectionSelected'] : styles['signup-form__selection']
+                  }
+                  onClick={function (event) {
+                    handlePart(event, form, setForm, setSelectPart);
+                  }}
+                >
+                  기획
+                </li>
+                <li
+                  id='디자인'
+                  className={
+                    selcetPart === '디자인'
+                      ? styles['signup-form__selectionSelected']
+                      : styles['signup-form__selection']
+                  }
+                  onClick={function (event) {
+                    handlePart(event, form, setForm, setSelectPart);
+                  }}
+                >
+                  디자인
+                </li>
                 <li
                   id='기획/디자인'
                   className={
@@ -293,7 +322,6 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 </li>
               </ul>
             ) : null}
-            {errors.part ? <p className={styles.error_message}>{errors.part}</p> : null}
           </div>
         </div>
 
@@ -337,13 +365,6 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
               }}
             >
               로그인
-            </button>
-            <button
-              onClick={function () {
-                console.log(form);
-              }}
-            >
-              출력 출력 출력 출력
             </button>
           </div>
         </div>

@@ -24,6 +24,10 @@ export function handlePart(event, form, setForm, setSelectPart) {
       setSelectPart('프론트엔드');
     } else if (event.target.id === '백엔드') {
       setSelectPart('백엔드');
+    } else if (event.target.id === '기획') {
+      setSelectPart('기획');
+    } else if (event.target.id === '디자인') {
+      setSelectPart('디자인');
     }
   }
 }

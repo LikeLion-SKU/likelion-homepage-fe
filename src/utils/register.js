@@ -4,7 +4,7 @@ const inputRegexs = {
   idRegex: /^[a-zA-Z0-9._-]+@skuniv\.ac\.kr$/,
   pwRegex: /^(?=.*\d)(?=.*[a-z])(?=.*[@#$%^&+=!])(?!.*\s).{8,}$/,
   nameRegex: /^[가-힣]{2,6}$/,
-  departRegex: /^[가-힣0-9&]{15}$/,
+  departRegex: /^[가-힣0-9&]{1,15}$/,
   student_numRegex: /^[0-9]{10}$/,
   phoneNumberRegex: /^[0-9]{8,12}$/,
   emailRegex: /^[a-zA-Z0-9._-]+$/,
@@ -169,8 +169,14 @@ export function validateInput_signup(form) {
     errors.phone_num = '연락처는 숫자로만 8~12자로 입력해야 합니다.';
   }
 
-  if (form.semester !== '' && !inputRegexs.semesterRegex.test(form.semester)) {
+  if (form.semester === '') {
+    errors.semester = '기수는 필수 입력 항목입니다.';
+  } else if (form.semester !== '' && !inputRegexs.semesterRegex.test(form.semester)) {
     errors.semester = '기수는 숫자 2자리로 입력해야 합니다.';
+  }
+
+  if (form.part === '') {
+    errors.part = '파트는 필수 입력 항목입니다.';
   }
 
   if (!form.consent) {
@@ -192,6 +198,7 @@ export function handleSignup(setErrors, form) {
     errors.strudent_num ||
     errors.phone_num ||
     errors.semester ||
+    errors.part ||
     errors.consent
   ) {
     return false;

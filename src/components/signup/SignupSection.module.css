@@ -33,6 +33,15 @@
   width: 100%;
   margin-bottom: 2rem;
 }
+.signup-form__inputbox_part {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  height: 11rem;
+  width: 100%;
+  margin-bottom: 2rem;
+  z-index: 3;
+}
 
 /* label 관련 */
 .signup-form__labelsection {
@@ -163,6 +172,8 @@ input.invalid {
 }
 
 /* Signup2 - 파트(signup-form__selection) 드롭아웃 메뉴 */
+
+
 .signup-form__selectLabel{
   display: block;
   margin:0;
@@ -182,6 +193,20 @@ input.invalid {
   background-color: white;
   font-size: 1.5rem;
   color: #808080;
+}
+.signup-form__selectbutton-invalid{
+  width: 20rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #E42938;
+  border-radius: 10px;
+  height: 5rem;
+  padding: 1rem;
+  background-color: white;
+  font-size: 1.5rem;
+  color: black;
 }
 .signup-form__selectbutton-valid {
   width: 20rem;
@@ -229,9 +254,9 @@ input.invalid {
   display: flex;
   flex-direction: column;
   text-align: left;
-  height: 11rem;
+  height: max-content;
   width: 100%;
-  margin-top: 12rem;
+  margin-top: 2rem;
 }
 .signup-form__consentsection{
   display: flex;
@@ -279,7 +304,7 @@ input.invalid {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin-top: 16rem;
+  margin-top: 1.5rem;
 }
 
 .signup-form__button--submitting {
