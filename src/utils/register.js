@@ -129,7 +129,7 @@ export function validateInput_signup(form) {
   } else if (inputRegexs.spaceRegex.test(form.department)) {
     errors.department = '학과/학부는 띄어쓰기를 포함할 수 없습니다.';
   } else if (!inputRegexs.departRegex.test(form.department)) {
-    errors.department = '학과/학부는 한글로 입력해야 합니다.';
+    errors.department = '학과/학부는 한글, 숫자, &만 들어갈 수 있습니다.';
   }
 
   if (form.strudent_num === '') {
