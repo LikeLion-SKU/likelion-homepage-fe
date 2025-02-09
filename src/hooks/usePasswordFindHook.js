@@ -1,8 +1,9 @@
 import { APIService } from '@api/axios';
 
 // 임시 비밀번호 발급 //
-export async function subPasswordGet(form, setEmail, setNow, setSubPassword) {
+export async function subPasswordGet(form, setEmail, setNow, setSubPassword, setIsLoading) {
   try {
+    setIsLoading(true);
     const fullEmail = `${form.sendemail}@skuniv.ac.kr`;
 
     const requestData = {
@@ -10,6 +11,7 @@ export async function subPasswordGet(form, setEmail, setNow, setSubPassword) {
     };
 
     const response = await APIService.private.post(import.meta.env.VITE_APP_FIND_PASSWORD, requestData);
+    setIsLoading(false);
 
     // message에서 임시 비밀번호만 얻어서 pw에 저장.
     const message = response.message;
@@ -26,6 +28,7 @@ export async function subPasswordGet(form, setEmail, setNow, setSubPassword) {
     }
   } catch {
     // 서버 응답 자체가 실패한 경우
+    setIsLoading(false);
     alert('서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
   }
 }

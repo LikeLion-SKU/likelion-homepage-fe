@@ -14,9 +14,7 @@ export async function login(userData, errors, navigate, setIsLoading) {
       };
 
       const response = await APIService.public.post(import.meta.env.VITE_APP_LOGIN, requestData);
-      if (response) {
-        setIsLoading(false);
-      }
+      setIsLoading(false);
 
       if (response.success === true) {
         // localStorage에 토큰 저장
@@ -28,6 +26,7 @@ export async function login(userData, errors, navigate, setIsLoading) {
         alert('잘못된 이메일 또는 비밀번호를 입력하셨습니다.');
       }
     } catch {
+      setIsLoading(false);
       alert('잘못된 이메일 또는 비밀번호를 입력하셨습니다.');
     }
   }
