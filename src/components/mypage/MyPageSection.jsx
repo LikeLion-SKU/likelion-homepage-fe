@@ -20,11 +20,11 @@ export default function MyPageSection() {
       setUserimage(`${import.meta.env.VITE_APP_API_URL}${response.profileImageUrl}`);
       setSemester(response.semester);
       setStudentId(response.studentId);
-    } catch (error) {
-      console.error('사용자 정보를 불러오는데 실패했습니다:', error);
-      navigate('/error');
+    } catch {
+      alert('사용자 정보를 불러오는데 실패했습니다.');
     }
   }
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
