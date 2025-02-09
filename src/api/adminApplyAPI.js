@@ -27,12 +27,25 @@ export async function getApplicants(setApplicants, semester, part) {
   }
 }
 
-export async function getAnswers(id) {
+export async function getAnswers(id, navigate) {
   try {
     const baseUrl = id ? `/api/admin/applications/answers/${id}` : `${import.meta.env.VITE_APP_POST_ANSWER}/my-submits`;
     const res = await APIService.private.get(baseUrl);
     return res;
-  } catch {
+  } catch (error) {
+    const status = error.response?.status || error.status;
+    if (status === 404) {
+      navigate('/error', {
+        state: {
+          msg: '제출된 지원서가 없습니다.',
+          msg2: '지원서를 작성해주세요.',
+          msg3: '함께 활동하기를 기대하겠습니다.',
+          btnMsg: '지원하러 가기',
+          url: '/apply',
+        },
+      });
+      return;
+    }
     location.href = '/error';
   }
 }
