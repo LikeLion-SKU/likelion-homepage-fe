@@ -114,6 +114,7 @@
   align-items: center;
   white-space: nowrap; /* 텍스트 줄바꿈 방지 */
   gap: 0.7rem;
+  margin-top: 1rem;
   margin-left: auto;
   padding: 2rem 1rem;
   width: 12rem;
