@@ -1,12 +1,12 @@
 import { useForm } from 'react-hook-form';
-
 import { yupResolver } from '@hookform/resolvers/yup';
-
 import { loginSchema } from '@/constants/validationSchema';
 
 import classNames from 'classnames/bind';
 import styles from './LoginForm.module.css';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { TailSpin } from 'react-loader-spinner';
 
 import { login } from '@hooks/useLoginHook.js';
 
@@ -22,9 +22,10 @@ export default function LoginForm() {
     resolver: yupResolver(loginSchema),
   });
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   function onSubmit(userData) {
-    login(userData, errors, navigate);
+    login(userData, errors, navigate, setIsLoading);
   }
 
   return (
@@ -100,9 +101,23 @@ export default function LoginForm() {
       <button
         className={cn('button', isSubmitting && 'button--submitting')}
         type='submit'
-        disabled={isSubmitting}
+        disabled={isSubmitting || isLoading ? true : false}
+        style={{ cursor: isLoading ? 'default' : 'pointer' }}
       >
-        로그인
+        {isLoading ? (
+          <TailSpin
+            visible={true}
+            height='3rem'
+            width='3rem'
+            color='#ffffff'
+            ariaLabel='tail-spin-loading'
+            radius='1'
+            wrapperStyle={{}}
+            wrapperClass=''
+          />
+        ) : (
+          '로그인'
+        )}
       </button>
     </form>
   );
