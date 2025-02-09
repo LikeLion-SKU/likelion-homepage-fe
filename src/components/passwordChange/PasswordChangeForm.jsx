@@ -5,6 +5,8 @@ import { passwordChangeSchema } from '@/constants/validationSchema';
 import classNames from 'classnames/bind';
 import styles from './PasswordChangeForm.module.css';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { TailSpin } from 'react-loader-spinner';
 
 import { handlePasswordChangeClick } from '@hooks/usePasswordChangeHook';
 
@@ -21,10 +23,11 @@ export default function PasswordChangeForm() {
     resolver: yupResolver(passwordChangeSchema),
   });
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const token = localStorage.getItem('token');
 
   function onSubmit(userData) {
-    handlePasswordChangeClick(userData, errors, setError, navigate, token);
+    handlePasswordChangeClick(userData, errors, setError, navigate, setIsLoading, token);
   }
 
   return (
@@ -121,12 +124,25 @@ export default function PasswordChangeForm() {
       </fieldset>
 
       <button
-        style={{ cursor: 'pointer' }}
         className={cn('button', isSubmitting && 'button--submitting')}
         type='submit'
-        disabled={isSubmitting}
+        disabled={isSubmitting || isLoading ? true : false}
+        style={{ cursor: isLoading ? 'default' : 'pointer' }}
       >
-        비밀번호 변경
+        {isLoading ? (
+          <TailSpin
+            visible={true}
+            height='3rem'
+            width='3rem'
+            color='#ffffff'
+            ariaLabel='tail-spin-loading'
+            radius='1'
+            wrapperStyle={{}}
+            wrapperClass=''
+          />
+        ) : (
+          '비밀번호 변경'
+        )}
       </button>
     </form>
   );
