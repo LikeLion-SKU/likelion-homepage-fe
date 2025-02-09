@@ -145,7 +145,11 @@ function ProjectPageLayout({ isAdmin }) {
                 key={project.id}
                 className={styles.card}
               >
-                <div onClick={() => handleProjectCardClick(project.id)}>
+                <div
+                  onClick={function () {
+                    handleProjectCardClick(project.id);
+                  }}
+                >
                   <img
                     src={project.thumbnailUrl}
                     alt={project.title || 'No Project image'}
@@ -154,8 +158,8 @@ function ProjectPageLayout({ isAdmin }) {
 
                   <p className={styles.name}>{project.title || 'Untitled Project'}</p>
                   <p className={styles.description}>
-                    {project.content?.length > 50
-                      ? `${project.content.slice(0, 50)}...`
+                    {project.content?.length > 55
+                      ? `${project.content.slice(0, 55)}...`
                       : project.content || 'No description'}
                   </p>
                 </div>
@@ -170,7 +174,9 @@ function ProjectPageLayout({ isAdmin }) {
                     <div className={styles.menuContainer}>
                       <button
                         className={styles.menuButton}
-                        onClick={() => toggleMenu(project.id)}
+                        onClick={function () {
+                          toggleMenu(project.id);
+                        }}
                       >
                         &#x22EE;
                       </button>
@@ -179,8 +185,20 @@ function ProjectPageLayout({ isAdmin }) {
                           ref={(ref) => (menuRefs.current[project.id] = ref)}
                           className={styles.menu}
                         >
-                          <button onClick={() => handleEditProjectClick(project)}>수정하기</button>
-                          <button onClick={() => handleDelete(project.id)}>삭제하기</button>
+                          <button
+                            onClick={function () {
+                              handleEditProjectClick(project);
+                            }}
+                          >
+                            수정하기
+                          </button>
+                          <button
+                            onClick={function () {
+                              handleDelete(project.id);
+                            }}
+                          >
+                            삭제하기
+                          </button>
                         </div>
                       ) : null}
                     </div>
