@@ -92,7 +92,7 @@ export function useDeleteApplication(formId) {
   };
 }
 
-export default function useApplication() {
+export function useCreateApplication() {
   const nav = useNavigate();
 
   function extractQuestionsContent(questions) {
@@ -200,28 +200,87 @@ export function useGetQuestionByType(semester, type) {
   const [isLoading, setIsLoading] = useState(false);
   const [questions, setQuestions] = useState([]);
 
-  const getQuestionByType = useCallback(async function () {
-    setIsLoading(true);
-    try {
-      const res = await APIService.private.get(
-        `${import.meta.env.VITE_APP_QUESTIONS}?semester=${semester}&type=${type}`,
-      );
-      if (res) {
-        setQuestions(res);
+  const getQuestionByType = useCallback(
+    async function () {
+      setIsLoading(true);
+      try {
+        const res = await APIService.private.get(
+          `${import.meta.env.VITE_APP_QUESTIONS}?semester=${semester}&type=${type}`,
+        );
+        if (res) {
+          setQuestions(res);
+        }
+      } catch {
+        alert('질문을 불러오는데 실패했습니다');
+      } finally {
+        setIsLoading(false);
       }
-    } catch {
-      alert('질문을 불러오는데 실패했습니다');
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+    },
+    [semester, type],
+  );
 
   useEffect(() => {
     getQuestionByType();
-  }, []);
+  }, [getQuestionByType]);
 
   return {
     isLoading,
     questions,
+  };
+}
+
+export function useUpdateQuestionByType(questionId, data, semester, type) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const updateQuestionByType = useCallback(
+    async function () {
+      setIsLoading(true);
+      try {
+        const res = await APIService.private.put(`${import.meta.env.VITE_APP_QUESTIONS}/${questionId}`, data);
+        if (res) {
+          alert('질문을 성공적으로 업데이트 했습니다');
+          window.location.href = `/admin/edit/application/${semester}?type=${type}`;
+        }
+      } catch {
+        alert('질문을 업데이트 하는데 실패했습니다');
+        return;
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [questionId, data, semester, type],
+  );
+
+  return {
+    isLoading,
+    updateQuestionByType,
+  };
+}
+
+export function useDeleteQuestionByType(questionId, semester, type) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const deleteQuestionByType = useCallback(
+    async function () {
+      setIsLoading(true);
+      try {
+        const res = await APIService.private.delete(`${import.meta.env.VITE_APP_QUESTIONS}/${questionId}`);
+        if (res) {
+          alert('질문을 성공적으로 삭제했습니다');
+          window.location.href = `/admin/edit/application/${semester}?type=${type}`;
+        }
+      } catch {
+        alert('질문을 삭제 하는데 실패했습니다');
+        return;
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [questionId, semester, type],
+  );
+
+  return {
+    isLoading,
+    deleteQuestionByType,
   };
 }

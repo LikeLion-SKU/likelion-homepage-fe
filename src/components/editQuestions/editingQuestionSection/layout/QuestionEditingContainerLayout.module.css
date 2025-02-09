@@ -1,0 +1,8 @@
+.question-editing-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  margin-top: 4vh;
+  width: 100%;
+  max-width: 640px;
+}

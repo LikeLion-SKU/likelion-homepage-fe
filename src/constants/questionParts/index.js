@@ -6,6 +6,14 @@ const PARTS = {
   DESIGN: 'designQuestions',
 };
 
+const EDITPARTS = {
+  COMMON: 'COMMON',
+  FRONT: 'FRONT_END',
+  BACK: 'BACK_END',
+  PM: 'PM',
+  DESIGN: 'DESIGN',
+};
+
 export const questionParts = [
   {
     part: PARTS.COMMON,
@@ -21,5 +29,23 @@ export const questionParts = [
   },
   {
     part: PARTS.DESIGN,
+  },
+];
+
+export const editParts = [
+  {
+    part: EDITPARTS.COMMON,
+  },
+  {
+    part: EDITPARTS.BACK,
+  },
+  {
+    part: EDITPARTS.FRONT,
+  },
+  {
+    part: EDITPARTS.PM,
+  },
+  {
+    part: EDITPARTS.DESIGN,
   },
 ];
