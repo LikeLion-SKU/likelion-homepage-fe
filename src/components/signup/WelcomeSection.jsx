@@ -1,6 +1,6 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import './WelcomeSection.css';
 import logo from '@assets/homepage/lion.webp';
+import styles from './WelcomeSection.module.css';
 
 export default function WelcomeSection() {
   const [searchParams] = useSearchParams();
@@ -16,19 +16,22 @@ export default function WelcomeSection() {
   }
 
   return (
-    <div className='WelcomePage_layout'>
-      <div className='welcome_img_box'>
+    <div className={styles['WelcomePage_layout']}>
+      <div className={styles['welcome_img_box']}>
         <img
           src={logo}
-          className='welcomeImg'
+          className={styles['welcomeImg']}
           alt='Logo'
         />
       </div>
-      <div className='welcomePage_message'>
-        <p className='userName'>{name}님</p>
-        <p>서경대학교 멋쟁이사자처럼 홈페이지 가입을 환영합니다!</p>
+      <div className={styles['welcomePage_messageBox']}>
+        <p className={styles['userName']}>{name}님</p>
+        <div className={styles['welcomePage_welcomeMessage']}>
+          <p>서경대학교 멋쟁이사자처럼 홈페이지 </p>
+          <p>가입을 환영합니다!</p>
+        </div>
       </div>
-      <div className='welcomePage_Btn'>
+      <div className={styles['welcomePage_Btn']}>
         <button
           style={{ cursor: 'pointer' }}
           onClick={toHomeClick}

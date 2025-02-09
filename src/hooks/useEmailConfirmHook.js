@@ -2,7 +2,18 @@ import { APIService } from '@api/axios';
 import { useEffect } from 'react';
 
 // 타이머 관련 함수 //
-export function useTimerEmailConfirm(form, setForm, setErrors, count, setCount, setM, setS) {
+export function useTimerEmailConfirm(
+  form,
+  setForm,
+  setErrors,
+  setConfirms,
+  setSendSuccess,
+  setConfirmSuccess,
+  count,
+  setCount,
+  setM,
+  setS,
+) {
   useEffect(() => {
     const timer = setInterval(() => {
       setCount((count) => count - 1);
@@ -21,6 +32,9 @@ export function useTimerEmailConfirm(form, setForm, setErrors, count, setCount, 
 
     if (count === 0 || count < 0) {
       setForm({ ...form, timing: false, confirmCode: '' });
+      setSendSuccess(2);
+      setConfirmSuccess(1);
+      setConfirms({});
       setErrors({
         ...form,
         confirmCode: '입력 시간이 만료되었습니다. 다시 인증번호를 전송해주세요.',
@@ -54,9 +68,9 @@ export async function handleSendingClick(
 
       // 인증번호 이메일일 전송 성공시
       if (response.success === true) {
-        setSendSuccess(2);
+        setSendSuccess(4);
         setConfirms({ ...form, email: '인증번호가 전송되었습니다.' });
-        setCount(300); // 5분
+        setCount(300); // 5분 300
         setForm({ ...form, email_valid: true, sendemail: form.email, timing: true });
       } else {
         setErrors({
@@ -82,6 +96,7 @@ export async function handleCheckingClick(
   setErrors,
   setConfirms,
   setEmailSuccess,
+  setConfirmSuccess,
   handleConfirmCodechecking,
 ) {
   event.preventDefault();
@@ -112,6 +127,7 @@ export async function handleCheckingClick(
         confirmCode_valid: true,
         timing: false,
       }));
+      setConfirmSuccess(1);
     } else {
       // 인증번호가 틀린 경우 (verified가 false인 경우)
       setErrors((prev) => {

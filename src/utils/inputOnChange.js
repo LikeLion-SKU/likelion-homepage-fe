@@ -12,6 +12,21 @@ export function handleInputChange(setState) {
   };
 }
 
+// 숫자만 입력받기
+export function handleInputChangeNumber(setState) {
+  return function (event) {
+    const filteredValue = event.target.value.replace(/[^0-9]/g, '');
+    const { id } = event.target;
+
+    setState(function (prev) {
+      return {
+        ...prev,
+        [id]: filteredValue,
+      };
+    });
+  };
+}
+
 export function inputChange(event, setForm, setSetting) {
   event.preventDefault();
   const { id, value } = event.target;

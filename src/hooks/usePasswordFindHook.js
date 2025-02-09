@@ -22,8 +22,6 @@ export async function subPasswordGet(form, setEmail, setNow, setSubPassword) {
       setEmail(form.sendemail);
       setNow(2); // 2번째 페이지 보여줌.
     } else {
-      console.log(requestData);
-      console.log(response);
       alert(response.message);
     }
   } catch {

@@ -8,6 +8,7 @@ import ProjectPage from '@pages/ProjectPage';
 import RecruitPage from '@pages/RecruitPage';
 import LoginPage from '@pages/LoginPage';
 import PasswordFindPage from '@pages/PasswordFindPage';
+import PasswordChangePage from '@pages/PasswordChangePage';
 import SignupPage from '@pages/SignupPage';
 import MyPage from '@pages/MyPage';
 import WelcomePage from '@pages/WelcomePage';
@@ -106,6 +107,7 @@ export default function Routes() {
 
         {/* User Routes */}
         <Route path="mypage" element={<MyPage />} />
+        <Route path="passwordChange" element={<PasswordChangePage />} />
 
         {/* Development Routes */}
         <Route path="apitest" element={<ApiTestPage />} />

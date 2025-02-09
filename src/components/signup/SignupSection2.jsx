@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SignupSection.module.css';
-import { handleSignup } from '../../utils/register.js';
-import { handleInputChange } from '../../utils/inputOnChange.js';
-import { APIService } from '@api/axios';
+import { handleInputChange, handleInputChangeNumber } from '@utils/inputOnChange.js';
+import { handleSignup } from '@utils/register.js';
 import ConsentTable from './ConsentTable';
+
+import { handleSelectBox, handleBlurSelcetBox, handlePart } from '@hooks/useSignupDropdownHook.js';
+import { handleCheckboxChange, signUp } from '@hooks/useSignupHook.js';
 
 export default function SignupSection({ email, setSignupSuccess, setNow }) {
   const fullEmail = `${email}@skuniv.ac.kr`;
@@ -27,80 +29,12 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
   const [selcetPart, setSelectPart] = useState('파트 선택');
   const navigate = useNavigate();
 
-  // email이 변경될 때마다 form의 id 업데이트
-  useEffect(() => {
-    setForm((prev) => ({ ...prev, id: `${email}@skuniv.ac.kr` }));
-  }, [email]);
-
-  function handleCheckboxChange(event) {
-    setForm({ ...form, consent: event.target.checked });
-  }
-
-  // 파트(part) 드롭아웃 메뉴 관련 함수
-  function handleSelectBox(event) {
-    event.preventDefault;
-    setIsDropdownView(!isDropdownView);
-  }
-
-  function handleBlurSelcetBox() {
-    setTimeout(() => {
-      setIsDropdownView(false);
-    }, 100);
-  }
-
-  function handlePart(event) {
-    if (form.part === event.target.id) {
-      setForm({ ...form, part: '' });
-      setSelectPart('파트 선택');
-    } else {
-      setForm({ ...form, part: event.target.id });
-      if (event.target.id === 'PM/design') {
-        setSelectPart('기획/디자인');
-      } else if (event.target.id === 'front') {
-        setSelectPart('프론트앤드');
-      } else if (event.target.id === 'back') {
-        setSelectPart('백앤드');
-      }
-    }
-  }
-
-  // 회원가입 버튼 클릭 //
-  function handleSignupClick(event) {
+  function handleSignupClick(event, form, setErrors, setSignupSuccess, setNow) {
     event.preventDefault();
 
     const isValid = handleSignup(setErrors, form);
     if (isValid === true && form.id_valid === true && form.consent === true) {
-      signUp();
-    }
-  }
-
-  async function signUp() {
-    try {
-      const requestData = {
-        loginId: form.id,
-        password: form.password,
-        userName: form.name,
-        department: form.department,
-        studentId: form.strudent_num,
-        semester: form.semester === '' ? 0 : Number(form.semester),
-        phoneNumber: form.phone_num,
-        parts: form.part,
-      };
-
-      const response = await APIService.public.post(import.meta.env.VITE_APP_SIGN_UP, requestData);
-
-      if (response.success) {
-        setSignupSuccess(true);
-        setNow(1);
-        navigate(`/welcome?name=${encodeURIComponent(form.name)}`);
-      } else {
-        let tologin = confirm(response.message + ' 로그인 페이지로 이동합니다.');
-        if (tologin) {
-          navigate('/login');
-        }
-      }
-    } catch {
-      alert('회원가입 중 서버 오류가 발생했습니다. 나중에 다시 시도해주세요');
+      signUp(form, setSignupSuccess, setNow, navigate);
     }
   }
 
@@ -179,6 +113,8 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             <div className={styles['signup-form__input']}>
               <input
                 type='text'
+                minLength={2}
+                maxLength={6}
                 placeholder='한글로 입력해주세요'
                 id='name'
                 value={form.name}
@@ -200,6 +136,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             <div className={styles['signup-form__input']}>
               <input
                 type='text'
+                maxLength={15}
                 placeholder='한글로 입력해주세요'
                 id='department'
                 value={form.department}
@@ -226,7 +163,8 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 id='strudent_num'
                 value={form.strudent_num}
                 className={errors.strudent_num ? styles['invalid'] : form.strudent_num ? styles['valid'] : ''}
-                onChange={handleInputChange(setForm)}
+                onChange={handleInputChangeNumber(setForm)}
+                autoComplete='off'
                 required
               ></input>
             </div>
@@ -242,11 +180,12 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             <div className={styles['signup-form__input']}>
               <input
                 type='text'
+                maxLength={12}
                 placeholder='- 빼고 입력 ex) 01012345678'
                 id='phone_num'
                 value={form.phone_num}
                 className={errors.phone_num ? styles['invalid'] : form.phone_num ? styles['valid'] : ''}
-                onChange={handleInputChange(setForm)}
+                onChange={handleInputChangeNumber(setForm)}
                 autoComplete='off'
                 required
               ></input>
@@ -257,44 +196,61 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
 
         <div className={styles['signup-form__inputbox']}>
           <div className={styles['signup-form__labelsection']}>
-            <label htmlFor='semester'>기수 (기존 동아리원만 선택)</label>
+            <label htmlFor='semester'>기수</label>
+            <p>*</p>
           </div>
           <div className={styles['signup-form__inputsection']}>
             <div className={styles['signup-form__input']}>
               <input
                 type='text'
-                placeholder='숫자만 입력해주세요'
+                maxLength={2}
+                placeholder='숫자 2자만 입력해주세요'
                 id='semester'
                 value={form.semester}
                 className={errors.semester ? styles['invalid'] : form.semester ? styles['valid'] : ''}
                 autoComplete='off'
-                onChange={handleInputChange(setForm)}
+                onChange={handleInputChangeNumber(setForm)}
               ></input>
             </div>
             {errors.semester ? <p className={styles.error_message}>{errors.semester}</p> : null}
           </div>
         </div>
 
-        <div className={styles['signup-form__inputbox']}>
+        <div className={styles['signup-form__inputbox_part']}>
           <div className={styles['signup-form__labelsection']}>
-            <label htmlFor='part'>파트 (기존 동아리원만 선택)</label>
+            <label htmlFor='part'>파트</label>
+            <p>*</p>
           </div>
           <div
             className={styles['signup-form__inputsection']}
-            onBlur={handleBlurSelcetBox}
+            onBlur={function () {
+              handleBlurSelcetBox(isDropdownView, setIsDropdownView);
+            }}
           >
             <div className={styles['signup-form__selectsection']}>
-              <label onClick={handleSelectBox}>
+              <label
+                className={styles['signup-form__selectLabel']}
+                onClick={function (event) {
+                  handleSelectBox(event, isDropdownView, setIsDropdownView);
+                }}
+              >
                 <button
                   id='part'
                   style={{ cursor: 'pointer' }}
-                  className={styles['signup-form__selectbutton']}
+                  className={
+                    errors.part
+                      ? styles['signup-form__selectbutton-invalid']
+                      : selcetPart !== '파트 선택'
+                        ? styles['signup-form__selectbutton-valid']
+                        : styles['signup-form__selectbutton']
+                  }
                   value={selcetPart}
                 >
                   <p>{selcetPart}</p>
                   <p>{isDropdownView ? '▲' : '▼'}</p>
                 </button>
               </label>
+              {errors.part && !isDropdownView ? <p className={styles.error_message}>{errors.part}</p> : null}
             </div>
             {isDropdownView ? (
               <ul
@@ -302,41 +258,70 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 className={styles['signup-form__selectMenu']}
               >
                 <li
+                  id='기획'
+                  className={
+                    selcetPart === '기획' ? styles['signup-form__selectionSelected'] : styles['signup-form__selection']
+                  }
+                  onClick={function (event) {
+                    handlePart(event, form, setForm, setSelectPart);
+                  }}
+                >
+                  기획
+                </li>
+                <li
+                  id='디자인'
+                  className={
+                    selcetPart === '디자인'
+                      ? styles['signup-form__selectionSelected']
+                      : styles['signup-form__selection']
+                  }
+                  onClick={function (event) {
+                    handlePart(event, form, setForm, setSelectPart);
+                  }}
+                >
+                  디자인
+                </li>
+                <li
+                  id='기획/디자인'
                   className={
                     selcetPart === '기획/디자인'
                       ? styles['signup-form__selectionSelected']
                       : styles['signup-form__selection']
                   }
-                  id='PM/design'
-                  onClick={handlePart}
+                  onClick={function (event) {
+                    handlePart(event, form, setForm, setSelectPart);
+                  }}
                 >
                   기획/디자인
                 </li>
                 <li
-                  id='front'
+                  id='프론트엔드'
                   className={
-                    selcetPart === '프론트앤드'
+                    selcetPart === '프론트엔드'
                       ? styles['signup-form__selectionSelected']
                       : styles['signup-form__selection']
                   }
-                  onClick={handlePart}
+                  onClick={function (event) {
+                    handlePart(event, form, setForm, setSelectPart);
+                  }}
                 >
-                  프론트앤드
+                  프론트엔드
                 </li>
                 <li
-                  id='back'
+                  id='백엔드'
                   className={
-                    selcetPart === '백앤드'
+                    selcetPart === '백엔드'
                       ? styles['signup-form__selectionSelected']
                       : styles['signup-form__selection']
                   }
-                  onClick={handlePart}
+                  onClick={function (event) {
+                    handlePart(event, form, setForm, setSelectPart);
+                  }}
                 >
-                  백앤드
+                  백엔드
                 </li>
               </ul>
             ) : null}
-            {errors.part ? <p className={styles.error_message}>{errors.part}</p> : null}
           </div>
         </div>
 
@@ -347,7 +332,9 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
               id='consent'
               checked={form.consent}
               className={errors.consent ? styles['invalid'] : form.consent ? styles['valid'] : ''}
-              onChange={handleCheckboxChange}
+              onChange={function (event) {
+                handleCheckboxChange(event, form, setForm);
+              }}
             ></input>
             <label htmlFor='consent'>(필수) 개인정보 수집 및 이용 동의서</label>
             <p>*</p>
@@ -361,7 +348,9 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
           <button
             style={{ cursor: 'pointer' }}
             className={styles['signup-form__button--submitting']}
-            onClick={handleSignupClick}
+            onClick={function (event) {
+              handleSignupClick(event, form, setErrors, form, setSignupSuccess, setNow);
+            }}
           >
             회원가입
           </button>
