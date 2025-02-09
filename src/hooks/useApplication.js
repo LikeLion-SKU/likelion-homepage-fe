@@ -265,7 +265,7 @@ export function useDeleteQuestionByType(questionId, semester, type) {
       setIsLoading(true);
       try {
         const res = await APIService.private.delete(`${import.meta.env.VITE_APP_QUESTIONS}/${questionId}`);
-        if (res) {
+        if (!res) {
           alert('질문을 성공적으로 삭제했습니다');
           window.location.href = `/admin/edit/application/${semester}?type=${type}`;
         }
