@@ -76,7 +76,7 @@ export default function PasswordChangeForm() {
                 errors.newpassword?.message ? 'passwordChange-form__input--invalid' : null,
                 watch('newpassword') && 'passwordChange-form__input--valid',
               )}
-              type='text'
+              type='password'
               id='newpassword'
               placeholder='영문, 숫자, 특수문자를 포함한 최소 8자 이상을 입력해주세요'
               autoComplete='off'
@@ -103,7 +103,7 @@ export default function PasswordChangeForm() {
                 errors.newpassword_valid?.message ? 'passwordChange-form__input--invalid' : null,
                 watch('newpassword_valid') && 'passwordChange-form__input--valid',
               )}
-              type='text'
+              type='password'
               id='newpassword_valid'
               placeholder='새 비밀번호를 다시 입력해주세요'
               autoComplete='off'
