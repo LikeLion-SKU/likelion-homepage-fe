@@ -101,15 +101,23 @@ function NewProjectForm() {
           onPrevClick={() => setCurrentImage((prev) => (prev > 0 ? prev - 1 : formData.imagePreviews.length - 1))}
           onNextClick={() => setCurrentImage((prev) => (prev < formData.imagePreviews.length - 1 ? prev + 1 : 0))}
           isAdmin={true}
-          onDeleteClick={(index) => {
-            const updatedImages = formData.images.filter((_, i) => i !== index);
-            const updatedPreviews = formData.imagePreviews.filter((_, i) => i !== index);
-            setFormData((prevData) => ({
-              ...prevData,
-              images: updatedImages,
-              imagePreviews: updatedPreviews,
-            }));
-            setCurrentImage((prev) => Math.max(prev - 1, 0));
+          onDeleteClick={function (index) {
+            const updatedImages = formData.images.filter(function (_, i) {
+              return i !== index;
+            });
+            const updatedPreviews = formData.imagePreviews.filter(function (_, i) {
+              return i !== index;
+            });
+            setFormData(function (prevData) {
+              return {
+                ...prevData,
+                images: updatedImages,
+                imagePreviews: updatedPreviews,
+              };
+            });
+            setCurrentImage(function (prev) {
+              return Math.max(prev - 1, 0);
+            });
           }}
         />
 
