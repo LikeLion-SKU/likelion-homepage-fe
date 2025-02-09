@@ -1,5 +1,5 @@
-import PasswordChangeContainer from '@/components/PasswordChange/PasswordChangeContainer';
-import PasswordChangeForm from '@/components/PasswordChange/PasswordChangeForm';
+import PasswordChangeContainer from '@/components/passwordChange/PasswordChangeContainer';
+import PasswordChangeForm from '@/components/passwordChange/PasswordChangeForm';
 
 export default function PasswordChangePage() {
   return (
