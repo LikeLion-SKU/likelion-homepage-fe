@@ -27,6 +27,7 @@ export default function PasswordFindForm({ emailSuccess, setEmailSuccess, setEma
   const [sendSuccess, setSendSuccess] = useState(1);
   const [confirmSuccess, setConfirmSuccess] = useState(1);
   const [confirms, setConfirms] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   useTimerEmailConfirm(
     form,
@@ -196,14 +197,28 @@ export default function PasswordFindForm({ emailSuccess, setEmailSuccess, setEma
         >
           {emailSuccess === true ? (
             <button
-              style={{ cursor: 'pointer' }}
+              disabled={isLoading ? true : false}
+              style={{ cursor: isLoading ? 'default' : 'pointer' }}
               className={styles['passwordFind-form__button--submittingSuccess']}
               onClick={function (e) {
                 e.preventDefault();
-                subPasswordGet(form, setEmail, setNow, setSubPassword);
+                subPasswordGet(form, setEmail, setNow, setSubPassword, setIsLoading);
               }}
             >
-              비밀번호 찾기
+              {isLoading ? (
+                <TailSpin
+                  visible={true}
+                  height='3rem'
+                  width='3rem'
+                  color='#ffffff'
+                  ariaLabel='tail-spin-loading'
+                  radius='1'
+                  wrapperStyle={{}}
+                  wrapperClass=''
+                />
+              ) : (
+                '비밀번호 찾기'
+              )}
             </button>
           ) : (
             <button className={styles['passwordFind-form__button--submittingYet']}>비밀번호 찾기</button>
