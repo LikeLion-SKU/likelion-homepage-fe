@@ -14,8 +14,8 @@ export default function ViewForm() {
     <div className={styles.pageWrapper}>
       <ViewFormHeader
         name={userInfos.이름}
-        url='/admin/apply'
-        btnMsg='목록으로'
+        url={id ? '/admin/apply' : -1}
+        btnMsg={id ? '목록으로' : '이전으로'}
       />
       <FormBody
         id={id}
