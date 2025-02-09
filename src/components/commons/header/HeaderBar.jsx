@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import styles from './HeaderBar.module.css';
 import logo from '@assets/commons/logo.webp';
 import login from '@assets/header/login.webp';
@@ -11,39 +11,19 @@ const HeaderBarContext = createContext();
 export default function HeaderBar({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const location = useLocation();
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
 
   // 새로고침 없이 로그인 <-> 마이페이지
   useEffect(() => {
-    const checkLoginStatus = () => {
+    function checkLoginStatus() {
       const token = localStorage.getItem('token');
       setIsLoggedIn(!!token);
-    };
+    }
 
     checkLoginStatus();
-
-    const originalSetItem = localStorage.setItem;
-    localStorage.setItem = function (key) {
-      originalSetItem.apply(this, arguments);
-      if (key === 'token') {
-        checkLoginStatus();
-      }
-    };
-
-    const originalRemoveItem = localStorage.removeItem;
-    localStorage.removeItem = function (key) {
-      originalRemoveItem.apply(this, arguments);
-      if (key === 'token') {
-        checkLoginStatus();
-      }
-    };
-
-    return () => {
-      localStorage.setItem = originalSetItem;
-      localStorage.removeItem = originalRemoveItem;
-    };
-  }, []);
+  }, [location.pathname]);
 
   return (
     <div className={styles.section}>
