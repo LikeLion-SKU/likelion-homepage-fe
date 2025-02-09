@@ -1,10 +1,11 @@
 import { APIService } from '@api/axios';
 
-export async function login(userData, errors, navigate) {
+export async function login(userData, errors, navigate, setIsLoading) {
   if (errors.loginId?.message || errors.password?.message) {
     alert('잘못된 이메일 또는 비밀번호를 입력하셨습니다.');
   } else {
     try {
+      setIsLoading(true);
       const fullEmail = userData.loginId === 'test' ? 'test' : `${userData.loginId}@skuniv.ac.kr`;
 
       const requestData = {
@@ -25,6 +26,8 @@ export async function login(userData, errors, navigate) {
       }
     } catch {
       alert('잘못된 이메일 또는 비밀번호를 입력하셨습니다.');
+    } finally {
+      setIsLoading(false);
     }
   }
 }

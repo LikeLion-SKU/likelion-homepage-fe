@@ -3,7 +3,7 @@
 const inputRegexs = {
   idRegex: /^[a-zA-Z0-9._-]+@skuniv\.ac\.kr$/,
   pwRegex: /^(?=.*\d)(?=.*[a-z])(?=.*[@#$%^&+=!])(?!.*\s).{8,}$/,
-  nameRegex: /^[가-힣]{2,6}$/,
+  nameRegex: /^[가-힣]{2,4}$/,
   departRegex: /^[가-힣0-9&]{1,15}$/,
   student_numRegex: /^[0-9]{10}$/,
   phoneNumberRegex: /^[0-9]{8,12}$/,

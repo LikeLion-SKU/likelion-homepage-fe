@@ -114,7 +114,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
               <input
                 type='text'
                 minLength={2}
-                maxLength={6}
+                maxLength={4}
                 placeholder='한글로 입력해주세요'
                 id='name'
                 value={form.name}
