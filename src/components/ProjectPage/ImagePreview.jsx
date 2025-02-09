@@ -3,8 +3,9 @@ import styles from './ImagePreview.module.css';
 import noImage from '@assets/projectPage/noImage.webp';
 import imageLeft from '@assets/projectPage/imageLeft.webp';
 import imageRight from '@assets/projectPage/imageRight.webp';
+import deleteIcon from '@assets/projectPage/deleteIcon.webp';
 
-function DetailPreview({ images, currentImage, onPrevClick, onNextClick }) {
+function ImagePreview({ images, currentImage, onPrevClick, onNextClick, isAdmin, onDeleteClick }) {
   const isSingleImage = images.length === 1;
   const containerRef = useRef(null);
   const [startX, setStartX] = useState(0);
@@ -45,11 +46,23 @@ function DetailPreview({ images, currentImage, onPrevClick, onNextClick }) {
               onClick={onPrevClick}
             />
           ) : null}
-          <img
-            src={images[currentImage]}
-            alt={`Preview ${currentImage + 1}`}
-            className={styles.imagePreview}
-          />
+          <div className={styles.imageWrapper}>
+            <img
+              src={images[currentImage]}
+              alt={`Preview ${currentImage + 1}`}
+              className={styles.imagePreview}
+            />
+            {isAdmin ? (
+              <img
+                src={deleteIcon}
+                alt='Delete'
+                className={styles.deleteIconOnImage}
+                onClick={function () {
+                  onDeleteClick(currentImage);
+                }}
+              />
+            ) : null}
+          </div>
           {!isSingleImage && currentImage < images.length - 1 ? (
             <img
               src={imageRight}
@@ -72,4 +85,4 @@ function DetailPreview({ images, currentImage, onPrevClick, onNextClick }) {
   );
 }
 
-export default DetailPreview;
+export default ImagePreview;

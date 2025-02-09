@@ -100,6 +100,17 @@ function NewProjectForm() {
           currentImage={currentImage}
           onPrevClick={() => setCurrentImage((prev) => (prev > 0 ? prev - 1 : formData.imagePreviews.length - 1))}
           onNextClick={() => setCurrentImage((prev) => (prev < formData.imagePreviews.length - 1 ? prev + 1 : 0))}
+          isAdmin={true}
+          onDeleteClick={(index) => {
+            const updatedImages = formData.images.filter((_, i) => i !== index);
+            const updatedPreviews = formData.imagePreviews.filter((_, i) => i !== index);
+            setFormData((prevData) => ({
+              ...prevData,
+              images: updatedImages,
+              imagePreviews: updatedPreviews,
+            }));
+            setCurrentImage((prev) => Math.max(prev - 1, 0));
+          }}
         />
 
         <DotsNavigation
