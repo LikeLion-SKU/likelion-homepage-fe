@@ -11,7 +11,6 @@ export async function subPasswordGet(form, setEmail, setNow, setSubPassword, set
     };
 
     const response = await APIService.private.post(import.meta.env.VITE_APP_FIND_PASSWORD, requestData);
-    setIsLoading(false);
 
     // message에서 임시 비밀번호만 얻어서 pw에 저장.
     const message = response.message;
@@ -28,7 +27,8 @@ export async function subPasswordGet(form, setEmail, setNow, setSubPassword, set
     }
   } catch {
     // 서버 응답 자체가 실패한 경우
-    setIsLoading(false);
     alert('서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+  } finally {
+    setIsLoading(false);
   }
 }

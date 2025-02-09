@@ -21,7 +21,6 @@ export async function passwordChanging(userData, setError, navigate, setIsLoadin
     };
 
     const response = await APIService.private.put(import.meta.env.VITE_APP_CHANGE_PASSWORD, requestData, { token });
-    setIsLoading(false);
 
     if (response.success) {
       localStorage.removeItem('token');
@@ -33,7 +32,8 @@ export async function passwordChanging(userData, setError, navigate, setIsLoadin
       });
     }
   } catch {
-    setIsLoading(false);
     alert('비밀번호 변경 중 오류가 발생했습니다.');
+  } finally {
+    setIsLoading(false);
   }
 }
