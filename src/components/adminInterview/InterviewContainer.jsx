@@ -8,7 +8,7 @@ import {
   getInterviewTimes,
   registerInterviewTime,
   deleteInterviewTime,
-} from './services/interviewService';
+} from '@api/interviewAPI';
 
 export default function InterviewContainer() {
   // 상태 관리

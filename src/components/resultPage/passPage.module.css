@@ -8,50 +8,6 @@
   margin: 0 auto; /* 중앙 정렬 */
 }
 
-.titleContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 5%;
-  margin-top: 5%;
-  width: 100%;
-}
-
-.mainTitle {
-  color: var(--main-text-color);
-  font-size: 48px;
-  font-weight: 700;
-}
-
-.contentContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  background-color: var(--lightgrey-color); /* 배경색 추가 */
-  border-radius: 10px; /* 배경의 모서리 둥글게 */
-  width: 95%;
-  max-width: 500px;
-  margin-left: auto; /* 가운데 정렬을 위한 왼쪽 마진 */
-  margin-right: auto; /* 가운데 정렬을 위한 오른쪽 마진 */
-  padding: 20px; /* 텍스트가 배경색과 붙지 않도록 패딩 추가 */
-  box-sizing: border-box; /* padding을 포함하여 요소의 크기를 계산 */
-}
-
-.content {
-  color: var(--black-44-color);
-  font-size: 16px;
-  font-weight: 500;
-  margin: 1%;
-  padding: 1%;
-}
-
-.subTitle {
-  color: var(--main-text-color);
-  font-size: 24px;
-  margin: 3%;
-  font-weight: 600;
-}
-
 .datePickerContainer {
   display: flex;
   flex-wrap: wrap;
@@ -118,32 +74,4 @@
 
 .slot:hover {
   color: var(--accent-color); /* hover 시 글씨색 변경 */
-}
-
-@media (max-width: 767px) {
-  .mainTitle {
-    font-size: 4rem;
-  }
-
-  .subTitle {
-    font-size: 2.4rem;
-  }
-
-  .content {
-    font-size: 2rem;
-  }
-}
-
-@media (max-width: 600px) {
-  .mainTitle {
-    font-size: 3rem;
-  }
-
-  .content {
-    font-size: 1.5rem;
-  }
-
-  .subTitle {
-    font-size: 2rem;
-  }
 }

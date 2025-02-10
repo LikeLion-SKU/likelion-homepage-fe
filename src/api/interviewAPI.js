@@ -10,6 +10,24 @@ const axiosInstance = axios.create({
   },
 });
 
+// 요청 인터셉터
+axiosInstance.interceptors.request.use(
+  function (config) {
+    // 로컬 스토리지에서 토큰 가져오기
+    const token = localStorage.getItem('token');
+
+    // 토큰이 있으면 헤더에 추가
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
+  },
+);
+
 /**
  * 면접 파트 Enum 매핑
  * 서버의 Enum 형식에 맞게 변환
@@ -20,6 +38,14 @@ const PART_MAPPING = {
   Frontend: 'FRONTEND',
   Backend: 'BACKEND',
 };
+
+/**
+ * 사용자의 파트 정보를 가져오는 함수
+ * @returns {Promise} - API 응답
+ */
+function getUserPart() {
+  return axiosInstance.get('/api/users/parts');
+}
 
 /**
  * 면접 날짜를 등록하는 함수
@@ -94,4 +120,5 @@ export {
   getInterviewTimes,
   registerInterviewTime,
   deleteInterviewTime,
+  getUserPart,
 };
