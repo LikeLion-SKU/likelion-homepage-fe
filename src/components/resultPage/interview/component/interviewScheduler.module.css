@@ -1,0 +1,146 @@
+.container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 24px;
+  color: var(--black-44-color);
+}
+
+.dateContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin: 0 auto;
+}
+
+.dateGroup {
+  border: 1px solid var(--grey-da-color);
+  border-radius: 8px;
+  padding: 16px;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+  background-color: var(--main-bg-color);
+}
+
+.dateGroup:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dateTitle {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--black-44-color);
+}
+
+.dateTitleSelected {
+  color: var(--accent-color);
+}
+
+.slotsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.timeSlot {
+  width: 100%;
+  padding: 8px;
+  text-align: center;
+  border: 1px solid var(--grey-da-color);
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: var(--main-bg-color);
+  color: var(--main-text-color);
+}
+
+.timeSlot:hover:not(.unavailable):not(.timeSlotSelected) {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+.timeSlotSelected {
+  background-color: var(--accent-color);
+  color: var(--main-bg-color);
+  border-color: var(--accent-color);
+}
+
+.timeSlotSelected:hover {
+  background-color: var(--accent-color);
+  color: var(--main-bg-color);
+  opacity: 0.9; /* hover 시 약간 투명도만 조절 */
+}
+
+.unavailable {
+  background-color: var(--lightgrey-color);
+  color: var(--grey-a9-color);
+  cursor: not-allowed;
+}
+
+.selectedInfo {
+  margin-top: 24px;
+  padding: 16px;
+  background-color: var(--lightgrey-color);
+  border-radius: 8px;
+  text-align: center;
+  color: var(--accent-color);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 12px;
+  margin-top: 24px;
+  background-color: var(--accent-color);
+  color: var(--main-bg-color);
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.submitButton:hover {
+  opacity: 0.9;
+}
+
+.submitButton:disabled {
+  background-color: var(--grey-da-color);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.error {
+  text-align: center;
+  padding: 20px;
+  color: #ff3b30;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 16px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .dateContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .dateTitle {
+    font-size: 16px;
+  }
+}

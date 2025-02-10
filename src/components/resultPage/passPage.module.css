@@ -1,108 +1,77 @@
-.allContainer{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 70vh;
-}
-
-.titleContainer{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 5%;
-    margin-top: 5%;
-}
-
-.mainTitle{
-    color: var(--main-text-color);
-    font-size: 48px;
-    font-weight: 700;
-}
-
-.contentContainer{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 5%;
-}
-
-.content{
-    color: var(--grey-a9-color);
-    font-size: 20px;
-    font-weight: 500;
-    margin-bottom: 3%;
-}
-
-.spanStyle{
-    color: var(--main-text-color);
-    font-size: 24px;
-    font-weight: 700;
+.allContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 800px; /* 최대 너비 제한 */
+  margin: 0 auto; /* 중앙 정렬 */
 }
 
 .datePickerContainer {
-    margin-top: 20px;
-    padding: 10px;
-    border: 1px solid var(--grey-a9-color);
-    border-radius: 10px;
-    background-color: var(--main-bg-color);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-    max-width: 500px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+  max-width: 500px;
+  justify-content: space-between; /* 각 줄에 2개씩 정렬 */
 }
 
 .dateItem {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-.dateItem:hover {
-    background-color: var(--main-bg-color);
-}
-
-.dateItem.selected {
-    border: 1px solid var(--grey-a9-color);
-    border-radius: 8px;
-    background-color: var(--lightgrey-color);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px;
+  cursor: pointer;
+  width: calc(50% - 10px); /* 2개씩 배치, gap 고려 */
+  border-radius: 10px;
+  box-sizing: border-box;
+  transition: background-color 0.2s ease;
 }
 
 .date {
-    font-size: 1.6rem;
-    font-weight: 500;
-    color: var(--black-44-color);
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--black-44-color);
+  margin-bottom: 8px; /* 시간과 간격 조정 */
 }
 
-@media (max-width: 767px){
-    .mainTitle{
-        font-size: 4rem;
-    }
-
-    .spanStyle{
-        font-size: 2.4rem;
-    }
-
-    .content{
-        font-size: 2rem;
-    }
-
+.date:hover {
+  color: var(--accent-color);
 }
 
-@media (max-width: 600px){
-    .mainTitle{
-        font-size: 3rem;
-    }
+.date.selected {
+  color: var(--accent-color); /* 클릭된 날짜의 텍스트 색 변경 */
+}
 
-    .content{
-        font-size: 1.5rem;
-    }
+.slotsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  border: solid 1px var(--grey-da-color);
+  border-radius: 10px;
+  padding: 10px 0;
+}
 
-    .spanStyle{
-        font-size: 2rem;
-    }
+.slot {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--main-text-color);
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.slot.selectedSlot {
+  color: var(--accent-color); /* 선택된 슬롯 텍스트 색상 */
+  border: 1px solid var(--accent-color); /* 선택된 슬롯 테두리 색상 */
+}
+
+.slot:hover {
+  color: var(--accent-color); /* hover 시 글씨색 변경 */
 }
