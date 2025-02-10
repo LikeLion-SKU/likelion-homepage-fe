@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SignupSection.module.css';
 import { handleInputChange, handleInputChangeNumber } from '@utils/inputOnChange.js';
-import { handleSignup } from '@utils/register.js';
+import { handleSignup, invalidationKey } from '@utils/register.js';
 import ConsentTable from './ConsentTable';
 
 import { handleSelectBox, handleBlurSelcetBox, handlePart } from '@hooks/useSignupDropdownHook.js';
@@ -36,7 +36,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
     if (isValid === true && form.id_valid === true && form.consent === true) {
       signUp(form, setSignupSuccess, setNow, navigate);
     } else {
-      alert('잘못된 형식으로 기입된 란이 있습니다. 다시 확인해주세요.');
+      alert(`잘못된 형식으로 기입된 란이 있습니다:\n${invalidationKey(errors)}을(를) 다시 확인해주세요.`);
     }
   }
 

@@ -184,3 +184,35 @@ export function handleSignup(setErrors, form) {
   }
   return true;
 }
+
+// 회원가입 유효성 검사 통과 못한 부분만 return해주는 함수
+export function invalidationKey(errors) {
+  const errorKeys = Object.keys(errors).filter((key) => errors[key] !== '');
+
+  // key를 한글로 매핑하는 객체 (이 부분을 추가)
+  const keyToKorean = {
+    password: '비밀번호',
+    password_valid: '비밀번호 확인',
+    name: '이름',
+    department: '학과/학부',
+    strudent_num: '학번',
+    phone_num: '연락처',
+    semester: '기수',
+    part: '파트',
+    consent: '개인정보 수집 및 이용 동의서',
+  };
+
+  // 유효성 통과 못한 key들에 해당하는 한글 이름 배열
+  const result = [];
+
+  // errorKeys에 있는 항목들을 한글 이름으로 result에 추가
+  errorKeys.forEach((key) => {
+    if (keyToKorean[key]) {
+      result.push(keyToKorean[key]);
+    }
+  });
+
+  // join으로 ,를 넣어주고 리턴
+  const errorMessage = result.join(', ');
+  return errorMessage;
+}
