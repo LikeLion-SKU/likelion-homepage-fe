@@ -1,6 +1,7 @@
 import { APIService } from '@api/axios';
 
-// 임시 비밀번호 발급 //
+// PasswordFindForm.jsx - 이메일 인증 성공 후, 비밀번호 찾기 버튼 클릭 //
+// 임시 비밀번호 발급
 export async function subPasswordGet(form, setEmail, setNow, setSubPassword, setIsLoading) {
   try {
     setIsLoading(true);

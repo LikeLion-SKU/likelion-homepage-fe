@@ -1,7 +1,8 @@
 import { APIService } from '@api/axios';
 import { useEffect } from 'react';
 
-// 타이머 관련 함수 //
+// SignupSection2, passwordFind - 이메일 인증 과정 //
+// 인증번호 입력 타이머 관련 함수 //
 export function useTimerEmailConfirm(
   form,
   setForm,

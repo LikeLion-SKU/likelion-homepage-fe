@@ -2,6 +2,15 @@ import { APIService } from '@api/axios';
 import { useEffect } from 'react';
 import { invalidationKey } from '@/utils/register';
 
+// SignupSection1.jsx - 이메일 인증 성공 후, 계속 버튼 클릭 //
+// 다음 페이지(SignupSection2.jsx)를 보여줌
+export function next(e, form, setEmail, setNow) {
+  e.preventDefault();
+  setEmail(form.sendemail); // 이메일 값을 상위 컴포넌트로 전달
+  setNow(2); // 2번째 페이지 보여줌.
+}
+
+// SignupSection2.jsx - 회원가입 버튼 클릭 //
 // 유효성 검사 실패시, alert창 띄우기
 export function useInvalidationAlert(errors, isValid) {
   useEffect(() => {
@@ -15,14 +24,7 @@ export function useInvalidationAlert(errors, isValid) {
   }, [errors, isValid]);
 }
 
-// 계속 버튼 클릭 //
-export function next(e, form, setEmail, setNow) {
-  e.preventDefault();
-  setEmail(form.sendemail); // 이메일 값을 상위 컴포넌트로 전달
-  setNow(2); // 2번째 페이지 보여줌.
-}
-
-// 회원가입 버튼 클릭 //
+// 회원가입 진행
 export async function signUp(form, setSignupSuccess, setNow, navigate) {
   try {
     const requestData = {
@@ -53,6 +55,7 @@ export async function signUp(form, setSignupSuccess, setNow, navigate) {
   }
 }
 
+// SignupSection2 - 이용 동의서 체크 박스 //
 export function handleCheckboxChange(event, form, setForm) {
   setForm({ ...form, consent: event.target.checked });
 }

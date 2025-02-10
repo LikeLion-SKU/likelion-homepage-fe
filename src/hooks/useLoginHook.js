@@ -1,5 +1,7 @@
 import { APIService } from '@api/axios';
 
+// LoginForm.jsx - 로그인 버튼 클릭 //
+// 로그인 진행
 export async function login(userData, errors, navigate, setIsLoading) {
   if (errors.loginId?.message || errors.password?.message) {
     alert('잘못된 이메일 또는 비밀번호를 입력하셨습니다.');

@@ -1,5 +1,7 @@
-// 회원가입 유효성 검사
-// 유효성 검사 정규식
+// 유효성 검사 함수 //
+// 각 입력 내용이 유효성 검사를 거침 => 걸리는 에러 메세지들이 errors에 모임 => 그걸 리턴 받아 setForm(errors); //
+
+// 유효성 검사 정규식 //
 const inputRegexs = {
   idRegex: /^[a-zA-Z0-9._-]+@skuniv\.ac\.kr$/,
   pwRegex: /^(?=.*\d)(?=.*[a-z])(?=.*[@#$%^&+=!])(?!.*\s).{8,}$/,
@@ -9,9 +11,10 @@ const inputRegexs = {
   phoneNumberRegex: /^[0-9]{8,12}$/,
   emailRegex: /^[a-zA-Z0-9._-]+$/,
   semesterRegex: /^[0-9]{2}$/,
-  spaceRegex: /\s/,
+  spaceRegex: /\s/, // 공백(띄어쓰기) 유효성 검사용
 };
 
+// 이메일 인증 페이지 //
 // 인증번호 전송 버튼 클릭시
 export function validateInput_email(form) {
   let errors = {
@@ -72,6 +75,7 @@ export function validateInput_confirmCode(form) {
   return errors;
 }
 
+// 인증번호 체크 핸들러
 export function handleConfirmCodechecking(setErrors, form) {
   const errors = validateInput_confirmCode(form);
   setErrors(errors);
@@ -81,6 +85,7 @@ export function handleConfirmCodechecking(setErrors, form) {
   return true;
 }
 
+// 회원가입 페이지 //
 // 회원가입 버튼 클릭시
 export function validateInput_signup(form) {
   let errors = {
