@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SignupSection.module.css';
 import { handleInputChange, handleInputChangeNumber } from '@utils/inputOnChange.js';
-import { handleSignup, invalidationKey } from '@utils/register.js';
+import { handleSignup } from '@utils/register.js';
 import ConsentTable from './ConsentTable';
 
 import { handleSelectBox, handleBlurSelcetBox, handlePart } from '@hooks/useSignupDropdownHook.js';
-import { handleCheckboxChange, signUp } from '@hooks/useSignupHook.js';
+import { handleCheckboxChange, signUp, useInvalidationAlert } from '@hooks/useSignupHook.js';
 
 export default function SignupSection({ email, setSignupSuccess, setNow }) {
   const fullEmail = `${email}@skuniv.ac.kr`;
@@ -27,16 +27,19 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
   const [errors, setErrors] = useState({});
   const [isDropdownView, setIsDropdownView] = useState(false);
   const [selcetPart, setSelectPart] = useState('파트 선택');
+  const [isValid, setIsValid] = useState(false);
   const navigate = useNavigate();
+
+  useInvalidationAlert(errors, isValid);
 
   function handleSignupClick(event, form, setErrors, setSignupSuccess, setNow) {
     event.preventDefault();
 
-    const isValid = handleSignup(setErrors, form);
-    if (isValid === true && form.id_valid === true && form.consent === true) {
+    const valid = handleSignup(setErrors, form);
+    setIsValid(valid);
+
+    if (valid === true) {
       signUp(form, setSignupSuccess, setNow, navigate);
-    } else {
-      alert(`잘못된 형식으로 기입된 란이 있습니다:\n${invalidationKey(errors)}을(를) 다시 확인해주세요.`);
     }
   }
 

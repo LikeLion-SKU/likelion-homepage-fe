@@ -1,4 +1,19 @@
 import { APIService } from '@api/axios';
+import { useEffect } from 'react';
+import { invalidationKey } from '@/utils/register';
+
+// 유효성 검사 실패시, alert창 띄우기
+export function useInvalidationAlert(errors, isValid) {
+  useEffect(() => {
+    if (isValid === false) {
+      const invalidations = invalidationKey(errors);
+
+      if (invalidations) {
+        alert(`잘못된 형식으로 기입된 란이 있습니다:\n${invalidations}을(를) 다시 확인해주세요.`);
+      }
+    }
+  }, [errors, isValid]);
+}
 
 // 계속 버튼 클릭 //
 export function next(e, form, setEmail, setNow) {

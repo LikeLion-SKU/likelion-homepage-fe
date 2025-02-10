@@ -93,7 +93,7 @@ export function validateInput_signup(form) {
     semester: '',
     phone_num: '',
     part: '',
-    consent: false,
+    consent: '',
   };
 
   if (form.id === '') {
@@ -206,8 +206,8 @@ export function invalidationKey(errors) {
   const result = [];
 
   // errorKeys에 있는 항목들을 한글 이름으로 result에 추가
-  errorKeys.forEach((key) => {
-    if (keyToKorean[key]) {
+  Object.keys(keyToKorean).forEach((key) => {
+    if (errorKeys.includes(key)) {
       result.push(keyToKorean[key]);
     }
   });
