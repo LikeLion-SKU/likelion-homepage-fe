@@ -1,4 +1,4 @@
-import styles from './ConsentCheckbox.module.css';
+import styles from './consentCheckboxes.module.css';
 import { useState } from 'react';
 
 export default function ConsentCheckbox() {
