@@ -35,6 +35,8 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
     const isValid = handleSignup(setErrors, form);
     if (isValid === true && form.id_valid === true && form.consent === true) {
       signUp(form, setSignupSuccess, setNow, navigate);
+    } else {
+      alert('잘못된 형식으로 기입된 란이 있습니다. 다시 확인해주세요.');
     }
   }
 
