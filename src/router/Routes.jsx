@@ -12,7 +12,6 @@ import SignupPage from '@pages/SignupPage';
 import MyPage from '@pages/MyPage';
 import WelcomePage from '@pages/WelcomePage';
 import Apply from '@pages/ApplyPage';
-import ApiTestPage from '@/pages/ApiTestPage';
 import AdminPage from '@/pages/AdminPage';
 import AdminApply from '@pages/AdminApplyPage';
 import CreateApplyPage from '@/pages/CreateApplyPage';
@@ -21,7 +20,7 @@ import ResultPage from '@/pages/ResultPage';
 import PassPage from '@/pages/PassPage';
 import FailPage from '@/pages/FailPage';
 import QuestionAdminPage from '@/pages/QuestionAdminPage';
-
+import AdminInterviewPage from '@/pages/AdminInterviewPage';
 
 // Components
 import ProjectPageLayout from '../components/ProjectPage/ProjectPageLayout';
@@ -103,15 +102,14 @@ export default function Routes() {
         </Route>
         </Route>
         
-
         {/* User Routes */}
         <Route path="mypage" element={<MyPage />} />
 
-        {/* Development Routes */}
-        <Route path="apitest" element={<ApiTestPage />} />
-
         {/* Error Routes */}
         <Route path="error" element={<Error />} />
+
+        {/* Test Routes */}
+        <Route path="create-interview" element={<AdminInterviewPage/>}/>
       </Route>
     </ReactRouters>
   );
