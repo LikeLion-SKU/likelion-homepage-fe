@@ -32,13 +32,13 @@
   font-size: 15px;
   font-weight: 500;
   margin: 1%;
-  padding: 1%;
 }
 
 .guidecontent {
   color: red !important;
   font-size: 15px;
   font-weight: 500;
+  margin: 1%;
 }
 
 @media (max-width: 767px) {
