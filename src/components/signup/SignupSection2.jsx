@@ -35,11 +35,11 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
   function handleSignupClick(event, form, setErrors, setSignupSuccess, setNow) {
     event.preventDefault();
 
-    const valid = handleSignup(setErrors, form);
+    const valid = handleSignup(setErrors, form); // 유효성 검사
     setIsValid(valid);
 
     if (valid === true) {
-      signUp(form, setSignupSuccess, setNow, navigate);
+      signUp(form, setSignupSuccess, setNow, navigate); // api request
     }
   }
 
@@ -354,7 +354,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             style={{ cursor: 'pointer' }}
             className={styles['signup-form__button--submitting']}
             onClick={function (event) {
-              handleSignupClick(event, form, setErrors, form, setSignupSuccess, setNow);
+              handleSignupClick(event, form, setErrors, setSignupSuccess, setNow);
             }}
           >
             회원가입
