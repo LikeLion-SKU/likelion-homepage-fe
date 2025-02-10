@@ -1,5 +1,6 @@
 import { getAnswers, getApplicants, getSemesters, getUserInfos } from '@api/adminApplyAPI';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function useGetApplicants(setApplicants, semester) {
   useEffect(() => {
@@ -8,9 +9,10 @@ export function useGetApplicants(setApplicants, semester) {
 }
 
 export function useGetQandA(setCommonQA, setPartQA, id) {
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchUserInfo = async () => {
-      const res = await getAnswers(id, setCommonQA, setPartQA);
+      const res = await getAnswers(id, navigate);
 
       // 배열을 필터링하여 분류
       const commonAnswers = res.commonAnswers;
@@ -21,7 +23,7 @@ export function useGetQandA(setCommonQA, setPartQA, id) {
     };
 
     fetchUserInfo();
-  }, [setCommonQA, setPartQA, id]);
+  }, [setCommonQA, setPartQA, id, navigate]);
 }
 
 export function useGetUserInfo(setUserInfos, studentId) {

@@ -19,7 +19,7 @@
   width: 22.4rem;
 }
 
-.welcomePage_message {
+.welcomePage_messageBox {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,15 +27,24 @@
   max-width: 80vw;
 }
 
-.welcomePage_message > p {
+.userName {
+  color: var(--black-44-color);
+  font-size: 3.2rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+}
+
+.welcomePage_welcomeMessage{
+  display: flex;
+  flex-wrap:  wrap;
+  justify-content: center;
+}
+.welcomePage_welcomeMessage > p {
   color: var(--black-44-color);
   font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 1rem;
-}
-.welcomePage_message > p.userName {
-  font-size: 3.2rem;
-  margin-bottom: 3rem;
+  
+  margin: 0 0.2rem 1rem 0.2rem;
 }
 
 .welcomePage_Btn > button {

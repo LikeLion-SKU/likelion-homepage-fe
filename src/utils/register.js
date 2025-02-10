@@ -3,33 +3,14 @@
 const inputRegexs = {
   idRegex: /^[a-zA-Z0-9._-]+@skuniv\.ac\.kr$/,
   pwRegex: /^(?=.*\d)(?=.*[a-z])(?=.*[@#$%^&+=!])(?!.*\s).{8,}$/,
-  nameRegex: /^[가-힣]+$/,
-  departRegex: /^[가-힣]+$/,
+  nameRegex: /^[가-힣]{2,4}$/,
+  departRegex: /^[가-힣0-9&]{1,15}$/,
   student_numRegex: /^[0-9]{10}$/,
   phoneNumberRegex: /^[0-9]{8,12}$/,
   emailRegex: /^[a-zA-Z0-9._-]+$/,
+  semesterRegex: /^[0-9]{2}$/,
+  spaceRegex: /\s/,
 };
-
-// 아이디 중복 검사 버튼 클릭시
-export function validateInput_idDuplicate(form, es) {
-  let errors = { ...es };
-  errors.id = '';
-  if (form.id === '') {
-    errors.id = '아이디는 필수 입력 항목입니다.';
-  } else if (!inputRegexs.idRegex.test(form.id)) {
-    errors.id = '아이디는 영문, 숫자로 2~100자여야 합니다.';
-  }
-  return errors;
-}
-
-export function handleIdchecking(setErrors, form, es) {
-  const errors = validateInput_idDuplicate(form, es);
-  setErrors(errors);
-  if (errors.id) {
-    return false;
-  }
-  return true;
-}
 
 // 인증번호 전송 버튼 클릭시
 export function validateInput_email(form) {
@@ -137,26 +118,44 @@ export function validateInput_signup(form) {
 
   if (form.name === '') {
     errors.name = '이름은 필수 입력 항목입니다.';
+  } else if (inputRegexs.spaceRegex.test(form.name)) {
+    errors.name = '이름은 띄어쓰기를 포함할 수 없습니다.';
   } else if (!inputRegexs.nameRegex.test(form.name)) {
     errors.name = '이름은 한글로 입력해야 합니다.';
   }
 
   if (form.department === '') {
     errors.department = '학과/학부는 필수 입력 항목입니다.';
+  } else if (inputRegexs.spaceRegex.test(form.department)) {
+    errors.department = '학과/학부는 띄어쓰기를 포함할 수 없습니다.';
   } else if (!inputRegexs.departRegex.test(form.department)) {
-    errors.department = '학과/학부는 한글로 입력해야 합니다.';
+    errors.department = '학과/학부는 한글, 숫자, &만 들어갈 수 있습니다.';
   }
 
   if (form.strudent_num === '') {
     errors.strudent_num = '학번은 필수 입력 항목입니다.';
+  } else if (inputRegexs.spaceRegex.test(form.strudent_num)) {
+    errors.strudent_num = '학번은 띄어쓰기를 포함할 수 없습니다.';
   } else if (!inputRegexs.student_numRegex.test(form.strudent_num)) {
     errors.strudent_num = '학번은 숫자 10자로 입력해야 합니다.';
   }
 
   if (form.phone_num === '') {
     errors.phone_num = '연락처는 필수 입력 항목입니다.';
+  } else if (inputRegexs.spaceRegex.test(form.phone_num)) {
+    errors.phone_num = '연락처는 띄어쓰기를 포함할 수 없습니다.';
   } else if (!inputRegexs.phoneNumberRegex.test(form.phone_num)) {
     errors.phone_num = '연락처는 숫자로만 8~12자로 입력해야 합니다.';
+  }
+
+  if (form.semester === '') {
+    errors.semester = '기수는 필수 입력 항목입니다.';
+  } else if (form.semester !== '' && !inputRegexs.semesterRegex.test(form.semester)) {
+    errors.semester = '기수는 숫자 2자리로 입력해야 합니다.';
+  }
+
+  if (form.part === '') {
+    errors.part = '파트는 필수 입력 항목입니다.';
   }
 
   if (!form.consent) {
@@ -177,6 +176,8 @@ export function handleSignup(setErrors, form) {
     errors.department ||
     errors.strudent_num ||
     errors.phone_num ||
+    errors.semester ||
+    errors.part ||
     errors.consent
   ) {
     return false;

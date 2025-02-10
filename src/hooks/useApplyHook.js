@@ -35,6 +35,7 @@ export const handleSubmit = async (track, questions, answers, navigate) => {
     alert('모든 질문에 답변해주세요.');
     return;
   }
+  if (!window.confirm('정말 제출하시겠어요?')) return;
   if (!(await formSubmit(track.value, questions, answers))) return;
   alert('제출이 완료되었습니다.');
   navigate('/');
@@ -143,14 +144,14 @@ export function useGetQuestions(type, track, setQuestions, setUserInfo, setAnswe
           }
 
           if (data2.partType !== 'NONE' && data2.partType !== null) setTrack(option);
-          if (tmpAnswer.length > 0) {
+          if (tmpAnswer.length >= 0) {
             const updatedCharCounts = tmpAnswer.map((answer) => (answer ? answer.length : 0));
             setCharCounts(updatedCharCounts);
           }
         } else {
           const baseUrl = import.meta.env.VITE_APP_GET_USERINFO;
           const data = await APIService.private.get(baseUrl);
-          const tmp = [data.userName, data.department, data.studentId, data.phoneNumber, data.loginID];
+          const tmp = [data.userName, data.department, data.studentId, data.phoneNumber, data.loginId];
           setUserInfo(tmp);
         }
       } catch {

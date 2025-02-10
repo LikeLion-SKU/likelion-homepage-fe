@@ -1,5 +1,6 @@
 import { APIService } from '@api/axios';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import MyPage from './MyPage';
 
 export default function MyPageSection() {
@@ -8,6 +9,7 @@ export default function MyPageSection() {
   const [userimage, setUserimage] = useState('');
   const [semester, setSemester] = useState('');
   const [studentId, setStudentId] = useState('');
+  const navigate = useNavigate();
 
   async function fetchUserData() {
     try {
@@ -18,14 +20,19 @@ export default function MyPageSection() {
       setUserimage(`${import.meta.env.VITE_APP_API_URL}${response.profileImageUrl}`);
       setSemester(response.semester);
       setStudentId(response.studentId);
-    } catch (error) {
-      console.error('사용자 정보를 불러오는데 실패했습니다:', error);
-      location.href = '/error';
+    } catch {
+      alert('사용자 정보를 불러오는데 실패했습니다.');
     }
   }
+
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/error');
+      return;
+    }
     fetchUserData();
-  }, []);
+  });
 
   return (
     <MyPage>

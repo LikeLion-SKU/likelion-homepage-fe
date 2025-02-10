@@ -3,11 +3,11 @@ import EditingButton from '@/components/editQuestions/editingInformationInputSec
 
 import styles from './ButtonsContainer.module.css';
 
-export default function ButtonsContainer() {
+export default function ButtonsContainer({ setIsEditing, deleteQuestionByType }) {
   return (
     <div className={styles['btns-container']}>
-      <EditingButton />
-      <DeleteButton />
+      <EditingButton onClick={setIsEditing} />
+      <DeleteButton onClick={deleteQuestionByType} />
     </div>
   );
 }

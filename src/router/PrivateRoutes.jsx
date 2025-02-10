@@ -30,7 +30,7 @@ export default function PrivateRoute({ children }) {
   }
 
   if (userRole !== 'ADMIN') {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/error" replace />;
   }
 
   return children ? children : <Outlet />;

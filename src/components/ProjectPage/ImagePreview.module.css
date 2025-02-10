@@ -3,8 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 95%;
-  max-width: 120rem;
+  width: 100%;
   aspect-ratio: 16 / 9;
   background-color: #e5e5e5;
   border-radius: 20px;
@@ -115,10 +114,8 @@
   align-items: center;
   white-space: nowrap; /* 텍스트 줄바꿈 방지 */
   gap: 0.7rem;
-  flex: none; /* 크기 고정 */
-  margin-left: auto; /* 오른쪽 끝으로 정렬 */
-  margin-top: 4rem;
-  margin-right: 6rem;
+  margin-top: 1rem;
+  margin-left: auto;
   padding: 2rem 1rem;
   width: 12rem;
   height: 3rem;
