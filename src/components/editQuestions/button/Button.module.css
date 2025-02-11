@@ -1,0 +1,36 @@
+.btn {
+  cursor: pointer;
+}
+
+.btn--bright {
+  background-color: var(--main-bg-color);
+}
+
+.btn--dark {
+  background-color: var(--black-44-color);
+}
+
+.btn-small {
+  width: 100%;
+  max-width: 50px;
+  height: 100%;
+  max-height: 50px;
+}
+.btn-medium {
+  width: 100%;
+  max-width: 100px;
+}
+
+.btn-large {
+  width: 100%;
+  max-width: 150px;
+}
+
+.btn__icon {
+  width: 50%;
+  height: 50%;
+}
+
+.btn__icon--red {
+  color: red;
+}
