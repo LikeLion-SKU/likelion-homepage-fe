@@ -43,7 +43,7 @@ export async function signUp(form, setSignupSuccess, setNow, navigate) {
     if (response.success) {
       setSignupSuccess(true);
       setNow(1);
-      navigate(`/welcome?name=${encodeURIComponent(form.name)}`, { state: { prevPage: 'AllowAccess' } });
+      navigate(`/welcome?name=${encodeURIComponent(form.name)}`, { state: { prevPage: 'AllowAccess' }, replace: true });
     } else {
       const tologin = confirm(response.message + ' 로그인 페이지로 이동합니다.');
       if (tologin) {

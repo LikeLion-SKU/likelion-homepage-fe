@@ -10,6 +10,8 @@ export default function WelcomeSection() {
   const navigate = useNavigate();
 
   const isAccessSuccess = usePreventDirectAccess();
+  if (isAccessSuccess === null) return null;
+
   if (!isAccessSuccess) {
     return (
       <Navigate
