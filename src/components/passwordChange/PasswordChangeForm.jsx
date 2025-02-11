@@ -33,7 +33,7 @@ export default function PasswordChangeForm() {
   if (!isAccessSuccess) {
     return (
       <Navigate
-        to={'/login'}
+        to={'/mypage'}
         replace
       />
     );

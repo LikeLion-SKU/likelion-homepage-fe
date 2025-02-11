@@ -8,7 +8,7 @@ export function usePreventDirectAccess() {
   const location = useLocation();
 
   useEffect(() => {
-    // 이전 페이지 정보 확인
+    // 이전 페이지 정보 확인(회원가입2 페이지에서 이동한게 정상)
     if (!location.state || location.state.prevPage !== 'AllowAccess') {
       navigate('/', { replace: true }); // 정상적인 접근 아니면 페이지 이동
     } else {
@@ -21,7 +21,7 @@ export function usePreventDirectAccess() {
 
 // 현재 로그인 상태인지 확인하는 함수
 function isAuthenticated() {
-  return !!localStorage.getItem('userToken'); // true면 로그인됨, false면 로그인 안 됨
+  return !!localStorage.getItem('token'); // true면 로그인됨, false면 로그인 안 됨
 }
 
 // PasswordChangeForm.jsx - 로그인한 상태에서 마이페이지에서 이동했을 때만 접근 가능하게 검사
@@ -31,16 +31,16 @@ export function usePreventDirectAccessPWChange() {
   const location = useLocation();
 
   useEffect(() => {
+    // 로그인 상태인지 확인
     const isLoggedIn = isAuthenticated();
-
     if (!isLoggedIn) {
-      navigate('/login', { replace: true });
+      navigate('/login', { replace: true }); // 아니면 로그인 페이지로 이동
       return;
     }
 
-    // 이전 페이지 정보 확인
+    // 이전 페이지 정보 확인(마이페이지에서 이동한게 정상)
     if (!location.state || location.state.prevPage !== 'AllowAccess') {
-      navigate('/login', { replace: true }); // 정상적인 접근 아니면 페이지 이동
+      navigate('/mypage', { replace: true }); // 정상적인 접근 아니면 마이페이지로 이동
     } else {
       setIsAccessSuccess(true);
     }
