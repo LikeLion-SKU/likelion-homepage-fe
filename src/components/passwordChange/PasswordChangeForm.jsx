@@ -4,11 +4,12 @@ import { passwordChangeSchema } from '@/constants/validationSchema';
 
 import classNames from 'classnames/bind';
 import styles from './PasswordChangeForm.module.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { useState } from 'react';
 import { TailSpin } from 'react-loader-spinner';
 
 import { handlePasswordChangeClick } from '@hooks/usePasswordChangeHook';
+import { usePreventDirectAccessPWChange } from '@/hooks/usePreventDirectAccessHook';
 
 const cn = classNames.bind(styles);
 
@@ -25,6 +26,18 @@ export default function PasswordChangeForm() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const token = localStorage.getItem('token');
+
+  const isAccessSuccess = usePreventDirectAccessPWChange();
+  if (isAccessSuccess === null) return null;
+
+  if (!isAccessSuccess) {
+    return (
+      <Navigate
+        to={'/login'}
+        replace
+      />
+    );
+  }
 
   function onSubmit(userData) {
     handlePasswordChangeClick(userData, errors, setError, navigate, setIsLoading, token);
