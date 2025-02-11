@@ -1,6 +1,7 @@
 import { APIService } from '@api/axios';
 
-// 비밀번호 변경 버튼 클릭 //
+// PasswordChagngeForm.jsx - 비밀번호 변경 버튼 클릭 //
+// 전체 공백인지 확인
 export function handlePasswordChangeClick(userData, errors, setError, navigate, setIsLoading, token) {
   if (userData.password === '' && userData.newpassword === '' && userData.newpassword_valid === '') {
     alert('변경사항이 없습니다.');
@@ -11,7 +12,7 @@ export function handlePasswordChangeClick(userData, errors, setError, navigate, 
   }
 }
 
-// 비밀번호 변경
+// 비밀번호 변경 진행
 export async function passwordChanging(userData, setError, navigate, setIsLoading, token) {
   try {
     setIsLoading(true);
