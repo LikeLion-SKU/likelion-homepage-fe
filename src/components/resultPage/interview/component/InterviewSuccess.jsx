@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import styles from './interviewSuccess.module.css';
+import styles from './InterviewSuccess.module.css';
 
 function InterviewSuccess() {
   const location = useLocation();
