@@ -18,15 +18,12 @@ export default function InterviewContainer() {
   const [endTime, setEndTime] = useState('');
   const [interviewDates, setInterviewDates] = useState([]);
   const [interviewTimes, setInterviewTimes] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   /**
    * 날짜와 시간 데이터를 서버에서 가져오는 함수
    */
   function fetchInterviewData() {
-    setLoading(true);
-
     Promise.all([getInterviewDates(), getInterviewTimes()])
       .then(function ([datesResponse, timesResponse]) {
         setInterviewDates(datesResponse.data);
@@ -35,9 +32,6 @@ export default function InterviewContainer() {
       })
       .catch(function () {
         setError('데이터를 불러오는데 실패했습니다.');
-      })
-      .finally(function () {
-        setLoading(false);
       });
   }
 
@@ -73,6 +67,7 @@ export default function InterviewContainer() {
 
     registerInterviewDate(selectedPart, newDate)
       .then(function () {
+        alert(`${selectedPart} ${newDate}면접일이 등록되었습니다.`);
         setNewDate('');
         fetchInterviewData(); // 데이터 새로고침
       })
@@ -94,6 +89,7 @@ export default function InterviewContainer() {
     if (window.confirm('해당 날짜와 모든 면접 시간이 삭제됩니다. 계속하시겠습니까?')) {
       deleteInterviewDate(part, date)
         .then(function () {
+          alert(`${part}의 ${date}, 일정이 삭제되었습니다.`);
           fetchInterviewData(); // 데이터 새로고침
         })
         .catch(function (error) {
@@ -161,6 +157,7 @@ export default function InterviewContainer() {
 
     registerInterviewTime(timeData)
       .then(function () {
+        alert(`${timeData} 시간이 성공적으로 등록되었습니다.`);
         // 입력 필드 초기화
         setStartTime('');
         setEndTime('');
@@ -185,6 +182,7 @@ export default function InterviewContainer() {
     if (window.confirm('해당 면접 시간을 삭제하시겠습니까?')) {
       deleteInterviewTime(part, date, startTime, endTime)
         .then(function () {
+          alert(`${part}의 ${date}일의 ${startTime}~${endTime} 삭제되었습니다.`);
           fetchInterviewData(); // 데이터 새로고침
         })
         .catch(function (error) {
