@@ -50,10 +50,10 @@ export async function getAnswers(id, navigate) {
   }
 }
 
-export async function getUserInfos(studentId) {
+export async function getUserInfos(formId) {
   try {
-    const baseUrl = studentId
-      ? `${import.meta.env.VITE_APP_ADMIN_USER}/details/student-id/${studentId}`
+    const baseUrl = formId
+      ? `/api/admin/applications/answers/${formId}/user-info`
       : `${import.meta.env.VITE_APP_GET_USERINFO}`;
     const res = await APIService.private.get(baseUrl);
     return res;
