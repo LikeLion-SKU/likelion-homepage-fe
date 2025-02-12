@@ -1,18 +1,20 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './interviewScheduler.module.css';
 import { useInterviewSchedule } from '../hooks/useInterviewSchedule';
-import { getUserPart } from '@api/interviewAPI';
+import { getUserPart, bookInterview } from '@api/interviewAPI';
 
-function InterviewScheduler() {
+function InterviewScheduler({ isSubmitEnabled }) {
   const [userPart, setUserPart] = useState(null);
-  const [error, setError] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(function () {
     async function fetchUserPart() {
       try {
         const token = localStorage.getItem('token');
         if (!token) {
-          setError('로그인이 필요합니다.');
+          alert('로그인이 필요합니다.');
           return;
         }
 
@@ -20,7 +22,10 @@ function InterviewScheduler() {
         setUserPart(response.data);
       } catch (err) {
         console.error('Error fetching user part:', err);
-        setError('사용자 정보를 불러오는데 실패했습니다.');
+        alert('사용자 정보를 불러오는데 실패했습니다. 다시 로그인해주세요');
+        localStorage.removeItem('token'); // 토큰 삭제
+        localStorage.removeItem('refreshToken'); // 토큰 삭제
+        navigate('/login');
       }
     }
 
@@ -51,22 +56,63 @@ function InterviewScheduler() {
       if (prevSlot && prevSlot.date === date && prevSlot.time === slot.time) {
         return null;
       }
-      return { date, time: slot.time };
+      const dateItem = scheduleData.find((d) => d.date === date);
+      return {
+        date,
+        rawDate: dateItem.rawDate, // 원본 날짜 추가
+        time: slot.time,
+        startTime: slot.startTime,
+        endTime: slot.endTime,
+      };
     });
     setSelectedDate(date);
   }
 
-  function handleSubmit() {
-    // 여기에 제출 로직 추가
-    // 백엔드 API 만들어야함
-    if (selectedSlot) {
-      console.log('Selected interview time:', selectedSlot);
-      // API 호출 등 추가
-    }
-  }
+  async function handleSubmit() {
+    if (!selectedSlot || isSubmitting) return;
 
-  if (error) {
-    return <div className={styles.error}>{error}</div>;
+    setIsSubmitting(true);
+
+    try {
+      const dateObject = scheduleData.find((d) => d.date === selectedSlot.date);
+      if (!dateObject) throw new Error('선택된 날짜를 찾을 수 없습니다.');
+
+      const bookingData = {
+        part:
+          userPart === '기획'
+            ? 'PM'
+            : userPart === '디자인'
+              ? 'DESIGN'
+              : userPart === '프론트엔드'
+                ? 'FRONTEND'
+                : 'BACKEND',
+        date: dateObject.rawDate,
+        startTime: selectedSlot.startTime,
+        endTime: selectedSlot.endTime,
+      };
+
+      await bookInterview(bookingData);
+      navigate('/interview/success', {
+        state: {
+          date: selectedSlot.date,
+          time: selectedSlot.time,
+        },
+      });
+    } catch (err) {
+      if (err.response?.data?.code === 'ALREADY_BOOKED') {
+        alert('이미 예약된 시간입니다.');
+        navigate(0);
+      }
+      if (err.response?.data?.code === 'DUPLICATE_PART_BOOKING') {
+        alert('이미 면접일정을 선택완료 하였습니다.');
+        navigate('/mypage');
+      } else {
+        alert('면접 시간 예약에 실패했습니다. 다시 시도해주세요.');
+        navigate(0);
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   if (scheduleError) {
@@ -131,7 +177,7 @@ function InterviewScheduler() {
       <button
         className={styles.submitButton}
         onClick={handleSubmit}
-        disabled={!selectedSlot}
+        disabled={!selectedSlot || !isSubmitEnabled || isSubmitting}
       >
         면접 시간 선택 완료
       </button>

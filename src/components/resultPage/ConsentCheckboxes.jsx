@@ -1,9 +1,19 @@
 import styles from './consentCheckboxes.module.css';
-import { useState } from 'react';
 
-export default function ConsentCheckbox() {
-  const [feeConsent, setFeeConsent] = useState(false);
-  const [attendanceConsent, setAttendanceConsent] = useState(false);
+export default function ConsentCheckbox({ consents, onConsentsChange }) {
+  const handleFeeConsentChange = (e) => {
+    onConsentsChange({
+      ...consents,
+      feeConsent: e.target.checked,
+    });
+  };
+
+  const handleAttendanceConsentChange = (e) => {
+    onConsentsChange({
+      ...consents,
+      attendanceConsent: e.target.checked,
+    });
+  };
 
   return (
     <div className={styles.checkboxContainer}>
@@ -22,8 +32,8 @@ export default function ConsentCheckbox() {
             <input
               type='checkbox'
               id='feeConsent'
-              checked={feeConsent}
-              onChange={(e) => setFeeConsent(e.target.checked)}
+              checked={consents.feeConsent}
+              onChange={handleFeeConsentChange}
               className={styles.checkbox}
             />
             <label
@@ -51,8 +61,8 @@ export default function ConsentCheckbox() {
             <input
               type='checkbox'
               id='attendanceConsent'
-              checked={attendanceConsent}
-              onChange={(e) => setAttendanceConsent(e.target.checked)}
+              checked={consents.attendanceConsent}
+              onChange={handleAttendanceConsentChange}
               className={styles.checkbox}
             />
             <label
