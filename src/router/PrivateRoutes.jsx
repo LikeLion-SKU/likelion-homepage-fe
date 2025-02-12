@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { APIService } from '@/api/axios';
 
 export default function PrivateRoute({ children }) {
   const [userRole, setUserRole] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchUserRole() {
@@ -14,8 +15,11 @@ export default function PrivateRoute({ children }) {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
+
         if (response.role === 'ADMIN') {
           setUserRole('ADMIN');
+        } else {
+          navigate('/error')
         }
       } catch (error) {
         console.error('접근 권한이 없습니다', error);
@@ -23,14 +27,10 @@ export default function PrivateRoute({ children }) {
     }
 
     fetchUserRole();
-  }, []);
+  }, [navigate]);
 
   if (userRole === null) {
-    return null;
-  }
-
-  if (userRole !== 'ADMIN') {
-    return <Navigate to="/error" replace />;
+    return null; 
   }
 
   return children ? children : <Outlet />;
