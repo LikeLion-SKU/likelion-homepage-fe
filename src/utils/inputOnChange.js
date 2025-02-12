@@ -27,6 +27,21 @@ export function handleInputChangeNumber(setState) {
   };
 }
 
+// 학과/학부 입력받기
+export function handleInputChangeDepartment(setState) {
+  return function (event) {
+    const filteredValue = event.target.value.replace(/[^가-힣0-9&]/g, '').slice(0, 15);
+    const { id } = event.target;
+
+    setState(function (prev) {
+      return {
+        ...prev,
+        [id]: filteredValue,
+      };
+    });
+  };
+}
+
 export function inputChange(event, setForm, setSetting) {
   event.preventDefault();
   const { id, value } = event.target;

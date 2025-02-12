@@ -6,7 +6,7 @@ import { handleSignup } from '@utils/register.js';
 import ConsentTable from './ConsentTable';
 
 import { handleSelectBox, handleBlurSelcetBox, handlePart } from '@hooks/useSignupDropdownHook.js';
-import { handleCheckboxChange, signUp } from '@hooks/useSignupHook.js';
+import { handleCheckboxChange, signUp, useInvalidationAlert } from '@hooks/useSignupHook.js';
 
 export default function SignupSection({ email, setSignupSuccess, setNow }) {
   const fullEmail = `${email}@skuniv.ac.kr`;
@@ -27,14 +27,19 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
   const [errors, setErrors] = useState({});
   const [isDropdownView, setIsDropdownView] = useState(false);
   const [selcetPart, setSelectPart] = useState('파트 선택');
+  const [isValid, setIsValid] = useState(false);
   const navigate = useNavigate();
+
+  useInvalidationAlert(errors, isValid);
 
   function handleSignupClick(event, form, setErrors, setSignupSuccess, setNow) {
     event.preventDefault();
 
-    const isValid = handleSignup(setErrors, form);
-    if (isValid === true && form.id_valid === true && form.consent === true) {
-      signUp(form, setSignupSuccess, setNow, navigate);
+    const valid = handleSignup(setErrors, form); // 유효성 검사
+    setIsValid(valid);
+
+    if (valid === true) {
+      signUp(form, setSignupSuccess, setNow, navigate); // api request
     }
   }
 
@@ -349,7 +354,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             style={{ cursor: 'pointer' }}
             className={styles['signup-form__button--submitting']}
             onClick={function (event) {
-              handleSignupClick(event, form, setErrors, form, setSignupSuccess, setNow);
+              handleSignupClick(event, form, setErrors, setSignupSuccess, setNow);
             }}
           >
             회원가입

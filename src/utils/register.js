@@ -1,5 +1,7 @@
-// 회원가입 유효성 검사
-// 유효성 검사 정규식
+// 유효성 검사 함수 //
+// 각 입력 내용이 유효성 검사를 거침 => 걸리는 에러 메세지들이 errors에 모임 => 그걸 리턴 받아 setForm(errors); //
+
+// 유효성 검사 정규식 //
 const inputRegexs = {
   idRegex: /^[a-zA-Z0-9._-]+@skuniv\.ac\.kr$/,
   pwRegex: /^(?=.*\d)(?=.*[a-z])(?=.*[@#$%^&+=!])(?!.*\s).{8,}$/,
@@ -9,9 +11,10 @@ const inputRegexs = {
   phoneNumberRegex: /^[0-9]{8,12}$/,
   emailRegex: /^[a-zA-Z0-9._-]+$/,
   semesterRegex: /^[0-9]{2}$/,
-  spaceRegex: /\s/,
+  spaceRegex: /\s/, // 공백(띄어쓰기) 유효성 검사용
 };
 
+// 이메일 인증 페이지 //
 // 인증번호 전송 버튼 클릭시
 export function validateInput_email(form) {
   let errors = {
@@ -72,6 +75,7 @@ export function validateInput_confirmCode(form) {
   return errors;
 }
 
+// 인증번호 체크 핸들러
 export function handleConfirmCodechecking(setErrors, form) {
   const errors = validateInput_confirmCode(form);
   setErrors(errors);
@@ -81,6 +85,7 @@ export function handleConfirmCodechecking(setErrors, form) {
   return true;
 }
 
+// 회원가입 페이지 //
 // 회원가입 버튼 클릭시
 export function validateInput_signup(form) {
   let errors = {
@@ -93,7 +98,7 @@ export function validateInput_signup(form) {
     semester: '',
     phone_num: '',
     part: '',
-    consent: false,
+    consent: '',
   };
 
   if (form.id === '') {
@@ -183,4 +188,36 @@ export function handleSignup(setErrors, form) {
     return false;
   }
   return true;
+}
+
+// 회원가입 유효성 검사 통과 못한 부분만 return해주는 함수
+export function invalidationKey(errors) {
+  const errorKeys = Object.keys(errors).filter((key) => errors[key] !== '');
+
+  // key를 한글로 매핑하는 객체 (이 부분을 추가)
+  const keyToKorean = {
+    password: '비밀번호',
+    password_valid: '비밀번호 확인',
+    name: '이름',
+    department: '학과/학부',
+    strudent_num: '학번',
+    phone_num: '연락처',
+    semester: '기수',
+    part: '파트',
+    consent: '개인정보 수집 및 이용 동의서',
+  };
+
+  // 유효성 통과 못한 key들에 해당하는 한글 이름 배열
+  const result = [];
+
+  // errorKeys에 있는 항목들을 한글 이름으로 result에 추가
+  Object.keys(keyToKorean).forEach((key) => {
+    if (errorKeys.includes(key)) {
+      result.push(keyToKorean[key]);
+    }
+  });
+
+  // join으로 ,를 넣어주고 리턴
+  const errorMessage = result.join(', ');
+  return errorMessage;
 }
