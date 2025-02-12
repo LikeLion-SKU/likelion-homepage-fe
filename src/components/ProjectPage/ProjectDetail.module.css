@@ -1,3 +1,10 @@
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40rem;
+}
+
 .projectDetail {
   padding: 2rem;
   width: 100%;
