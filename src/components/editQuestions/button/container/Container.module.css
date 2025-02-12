@@ -1,0 +1,22 @@
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.container-small {
+  max-width: 60px;
+}
+
+.container-medium {
+  max-width: 110px;
+}
+
+.container-large {
+  max-width: 160px;
+}
+
+.container-superLarge {
+  max-width: 640px;
+}

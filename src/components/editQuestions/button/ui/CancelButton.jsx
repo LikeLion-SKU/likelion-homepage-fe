@@ -4,7 +4,7 @@ import ButtonLayout from '@/components/editQuestions/button/ui/Button.Layout';
 
 import styles from './Button.module.css';
 
-export default function CanelButton({ onClick }) {
+export default function CancelButton({ onClick }) {
   return (
     <ButtonLayout
       color='bright'
