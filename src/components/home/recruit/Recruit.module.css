@@ -53,6 +53,12 @@
   margin-bottom: 15vh;
   padding: 1.5rem 3rem;
   border-radius: 3rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.button:hover{
+    transform: scale(1.05);
 }
 
 .button img {
