@@ -20,9 +20,8 @@ export default function InterviewAdmin() {
       .then((response) => {
         Array.isArray(response.data) ? setBookings(response.data) : setError('데이터 형식이 올바르지 않습니다.');
       })
-      .catch((error) => {
+      .catch(() => {
         setError('데이터를 불러오는데 실패했습니다.');
-        console.error('Error fetching bookings:', error);
       });
   };
 
@@ -32,9 +31,8 @@ export default function InterviewAdmin() {
         .then(() => {
           fetchBookings();
         })
-        .catch((error) => {
+        .catch(() => {
           setError('예약 삭제에 실패했습니다.');
-          console.error('Error deleting booking:', error);
         });
   };
 

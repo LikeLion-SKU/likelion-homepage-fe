@@ -50,8 +50,7 @@ export default function PassPage() {
           navigate('/not-allowed'); // isPassed가 false이면 not-allowed로 리디렉트
         }
       })
-      .catch((error) => {
-        console.error('API 요청 실패:', error);
+      .catch(() => {
         navigate('/error'); // 에러 발생 시 /error 페이지로 리디렉트
       });
   }, [navigate]);
