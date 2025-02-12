@@ -16,6 +16,7 @@
   height: 100%;
   max-height: 50px;
 }
+
 .btn-medium {
   width: 100%;
   max-width: 100px;
@@ -23,7 +24,7 @@
 
 .btn-large {
   width: 100%;
-  max-width: 150px;
+  max-width: 120px;
 }
 
 .btn__icon {
@@ -33,4 +34,12 @@
 
 .btn__icon--red {
   color: red;
+}
+
+.btn--rounded-small {
+  border-radius: 10px;
+}
+
+.btn--rounded-medium {
+  border-radius: 20px;
 }
