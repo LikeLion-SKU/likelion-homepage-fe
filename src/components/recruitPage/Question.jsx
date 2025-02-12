@@ -41,6 +41,10 @@ export default function Question() {
       question: '합격 이후 다른 트랙으로 이동할 수 있나요?',
       answer: '합격 이후 트랙 간 멤버 조정은 없습니다.\n이 점 참고해서 지원 트랙 지원해주세요.',
     },
+    {
+      question: '지원 절차는 어떻게 되나요?',
+      answer: '멋사홈페이지에서  지원서 작성 → 면접(서류 합격자 대상) → 최종 선발의 과정을 거칩니다.',
+    },
   ];
 
   const [openIndexes, setOpenIndexes] = useState([]);
