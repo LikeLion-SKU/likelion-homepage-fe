@@ -1,0 +1,131 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 2rem;
+  background-color: var(--main-bg-color);
+}
+
+.content {
+  background: white;
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
+
+.title {
+  color: var(--main-text-color);
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.scheduleCard {
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease-in-out;
+}
+
+.scheduleCard:hover {
+  transform: translateY(-3px);
+}
+
+.partTitle {
+  color: var(--main-text-color);
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.info {
+  margin: 1rem 0;
+  font-size: 2rem;
+  color: var(--main-text-color);
+}
+
+.info strong {
+  margin-right: 0.5rem;
+  color: var(--black-44-color);
+}
+
+.button {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 6px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  max-width: 300px;
+  margin: 0.5rem auto;
+  display: block;
+}
+
+.button:hover {
+  background-color: #558f61;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.cancelButton {
+  background-color: #dc3545;
+}
+
+.cancelButton:hover {
+  background-color: #c82333;
+}
+
+.loading,
+.error,
+.empty {
+  text-align: center;
+  padding: 2rem;
+  color: var(--black-44-color);
+  font-size: 1.4rem;
+}
+
+.notice {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  border: 2px dashed var(--grey-e5-color);
+  border-radius: 8px;
+  text-align: left;
+}
+
+.notice h3 {
+  color: var(--main-text-color);
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+.notice ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.notice p {
+  color: red;
+  line-height: 1.6;
+  font-size: 1.3rem;
+  margin: 0.5rem 0;
+}
+
+.link {
+  color: var(--accent-color);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.link:hover {
+  color: #558f61;
+}

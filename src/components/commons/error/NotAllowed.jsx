@@ -8,7 +8,7 @@ export default function NotAllowed() {
   const [count, setCount] = useState(3);
   const {
     msg = '접근 권한이 없습니다',
-    msg2 = 'url로 들어오면 안되요',
+    msg2 = 'URL을 통한 페이지 접근은 불가능합니다.',
     msg3 = '',
     msg4 = '',
     btnMsg = '홈으로 돌아가기',
