@@ -1,16 +1,35 @@
+import { useEffect, useState } from 'react';
 import LionImage from '@assets/homepage/lion.webp';
 import styles from './recruitMain.module.css';
 import { useNavigate } from 'react-router-dom';
 
 export default function RecruitMain() {
+  const [isResultTime, setIsResultTime] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkTime = () => {
+      const resultTime = new Date('2025-03-08T12:00:00'); // 3월 8일 오후 12시
+      const now = new Date();
+
+      if (now >= resultTime) {
+        setIsResultTime(true);
+        localStorage.setItem('canAccessResult', 'true');
+      }
+    };
+
+    checkTime();
+    const interval = setInterval(checkTime, 1000 * 60); // 1분마다 체크
+
+    return () => clearInterval(interval);
+  }, []);
+
   function scrollToSection(sectionId) {
     const section = document.getElementById(sectionId);
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' });
     }
   }
-
-  const navigate = useNavigate();
 
   return (
     <div className={styles.allContainer}>
@@ -26,10 +45,10 @@ export default function RecruitMain() {
       <button
         className={styles.recruitButton}
         onClick={function () {
-          navigate('/apply');
+          navigate(isResultTime ? '/result' : '/apply');
         }}
       >
-        멋사 지원하기
+        {isResultTime ? '결과 확인하기' : '멋사 지원하기'}
       </button>
       <div className={styles.pageButtonContainer}>
         <button
