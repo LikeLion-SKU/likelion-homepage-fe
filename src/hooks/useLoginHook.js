@@ -16,9 +16,6 @@ export async function login(userData, errors, navigate, setIsLoading) {
       };
 
       const response = await APIService.public.post(import.meta.env.VITE_APP_LOGIN, requestData);
-      if (response) {
-        setIsLoading(false);
-      }
 
       if (response.success === true) {
         // localStorage에 토큰 저장
