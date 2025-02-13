@@ -89,10 +89,10 @@
 }
 
 .mainText {
-    font-size: 4rem;
+    font-size: 3rem;
     font-weight: 700;
     color: var(--main-text-color);
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     margin-top: 10px;
 }
 
