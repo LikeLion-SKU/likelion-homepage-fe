@@ -44,7 +44,7 @@ function InterviewSuccess() {
             <strong>면접 날짜:</strong> {date}
           </p>
           <p className={styles.datetime}>
-            <strong>면접 시간:</strong> {time?.substring(0, 5) || time}
+            <strong>면접 시간:</strong> {time}
           </p>
         </div>
 
