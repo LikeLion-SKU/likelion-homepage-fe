@@ -26,10 +26,10 @@ export function useGetQandA(setCommonQA, setPartQA, id) {
   }, [setCommonQA, setPartQA, id, navigate]);
 }
 
-export function useGetUserInfo(setUserInfos, studentId) {
+export function useGetUserInfo(setUserInfos, formId) {
   useEffect(() => {
     const fetchUserInfo = async () => {
-      const userInfo = await getUserInfos(studentId);
+      const userInfo = await getUserInfos(formId);
       const newUserInfo = {
         이름: userInfo.userName,
         학과: userInfo.department,
@@ -40,7 +40,7 @@ export function useGetUserInfo(setUserInfos, studentId) {
       setUserInfos(newUserInfo);
     };
     fetchUserInfo();
-  }, [setUserInfos, studentId]);
+  }, [setUserInfos, formId]);
 }
 
 export function useGetSemesters(setYears) {

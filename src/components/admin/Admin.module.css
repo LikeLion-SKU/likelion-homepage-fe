@@ -1,10 +1,9 @@
 .section {
   display: flex;
   max-width: 40rem;
-  flex-direction: column; 
-  margin: 0 auto; 
+  flex-direction: column;
+  margin: 0 auto;
   padding: 2rem;
-  height: 70vh; 
 }
 
 .title {
@@ -23,7 +22,7 @@
 }
 
 .itembox {
-  margin-top: 5vh
+  margin-top: 5vh;
 }
 
 .itembox__button {

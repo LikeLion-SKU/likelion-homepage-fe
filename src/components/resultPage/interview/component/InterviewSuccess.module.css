@@ -1,0 +1,122 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 2rem;
+  background-color: var(--main-bg-color);
+}
+
+.content {
+  background: white;
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.content:hover {
+  transform: translateY(-3px);
+}
+
+.title {
+  color: var(--main-text-color);
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.info {
+  background-color: var(--lightgrey-color);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.datetime {
+  margin: 0.5rem 0;
+  font-size: 1.5rem;
+  color: var(--main-text-color);
+  font-weight: 500;
+}
+
+.datetime strong {
+  margin-right: 0.5rem;
+  color: var(--black-44-color);
+}
+
+.notice {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  border: 2px dashed var(--grey-e5-color);
+  border-radius: 8px;
+}
+
+.notice h3 {
+  color: var(--main-text-color);
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+}
+
+.notice ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.notice p {
+  color: var(--black-44-color);
+  line-height: 1.6;
+  font-size: 1.3rem;
+}
+
+.error {
+  text-align: center;
+  background-color: white;
+  padding: 3rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  max-width: 500px;
+  width: 100%;
+}
+
+.error h1 {
+  color: var(--main-text-color);
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+
+.button {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 6px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  display: block;
+}
+
+.button:hover {
+  background-color: #558f61;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+.button:disabled {
+  background-color: var(--grey-da-color);
+  cursor: not-allowed;
+}

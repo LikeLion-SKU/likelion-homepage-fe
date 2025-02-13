@@ -1,0 +1,170 @@
+.container {
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.filters {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.select {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  min-width: 150px;
+  font-size: 15px;
+}
+
+.dateSection {
+  margin-bottom: 40px;
+}
+
+.partSection {
+  margin-bottom: 30px;
+}
+
+.partTitle {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+/* 파트별 색상 */
+.partTitle[data-part='FRONTEND'] {
+  border-left: 4px solid #339af0; /* 파란색 */
+}
+
+.partTitle[data-part='BACKEND'] {
+  border-left: 4px solid #51cf66; /* 초록색 */
+}
+
+.partTitle[data-part='PM'] {
+  border-left: 4px solid #ff922b; /* 주황색 */
+}
+
+/* 파트별 예약된 슬롯 배경색 */
+.bookedSlot[data-part='FRONTEND'] {
+  background-color: #e7f5ff;
+}
+
+.bookedSlot[data-part='BACKEND'] {
+  background-color: #ebfbee;
+}
+
+.bookedSlot[data-part='PM'] {
+  background-color: #fff4e6;
+}
+
+.scheduleTable {
+  overflow-x: auto;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.scheduleTable table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+.userInfoHeader {
+  width: 200px;
+  padding: 15px;
+  text-align: left;
+  border-bottom: 2px solid #e9ecef;
+  background-color: #f8f9fa;
+  font-weight: 600;
+}
+
+.timeSlotHeader {
+  padding: 15px 10px;
+  text-align: center;
+  border-bottom: 2px solid #e9ecef;
+  background-color: #f8f9fa;
+  font-weight: 600;
+}
+
+.timeSlot {
+  white-space: pre-wrap;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.userInfo {
+  padding: 15px;
+  border-bottom: 1px solid #e9ecef;
+  background-color: #f8f9fa;
+}
+
+.userName {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.userDetails {
+  font-size: 14px;
+  color: #495057;
+  line-height: 1.4;
+}
+
+.userDetails div {
+  margin-bottom: 4px;
+}
+
+.bookingCell {
+  padding: 15px 10px;
+  text-align: center;
+  border-bottom: 1px solid #e9ecef;
+  min-width: 120px;
+  height: 100%;
+}
+
+.bookedSlot {
+  border-radius: 4px;
+  padding: 8px;
+  height: 100%;
+}
+
+.emptySlot {
+  color: #adb5bd;
+  font-size: 16px;
+}
+
+.deleteButton {
+  padding: 4px 8px;
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 13px;
+}
+
+.deleteButton:hover {
+  background-color: #fa5252;
+}
+
+.error {
+  background-color: #fff5f5;
+  color: #e03131;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  border: 1px solid #ffc9c9;
+}

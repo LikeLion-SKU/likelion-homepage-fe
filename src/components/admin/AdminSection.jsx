@@ -21,6 +21,14 @@ export default function AdminSection() {
           label='멋사인 편집하기'
           path='about'
         />
+        <Admin.Button
+          label='면접일정 등록하기'
+          path='create-interview'
+        />
+        <Admin.Button
+          label='면접일정 조회하기'
+          path='interview-scedule'
+        />
       </Admin.ItemBox>
     </Admin>
   );

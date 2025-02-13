@@ -164,7 +164,7 @@ function MypageChangePW() {
   return (
     <button
       className={styles.itembox__button}
-      onClick={() => navigate('/passwordChange')}
+      onClick={() => navigate('/passwordChange', { state: { prevPage: 'AllowAccess' }, replace: true })}
     >
       비밀번호 변경
     </button>

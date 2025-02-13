@@ -7,8 +7,8 @@ export async function assignPassed(formAnswerId, isPassed, setApplicants, semest
       isPassed: isPassed.value,
     });
     getApplicants(setApplicants, semester, sort);
-  } catch {
-    location.href = '/error';
+  } catch (error) {
+    alert(error.response?.data?.message || '알 수 없는 오류가 발생했습니다.');
   }
 }
 
@@ -22,8 +22,8 @@ export async function getApplicants(setApplicants, semester, part) {
       },
     });
     setApplicants(res);
-  } catch {
-    location.href = '/error';
+  } catch (error) {
+    alert(error.response?.data?.message || '알 수 없는 오류가 발생했습니다.');
   }
 }
 
@@ -46,19 +46,19 @@ export async function getAnswers(id, navigate) {
       });
       return;
     }
-    location.href = '/error';
+    alert(error.response?.data?.message || '알 수 없는 오류가 발생했습니다.');
   }
 }
 
-export async function getUserInfos(studentId) {
+export async function getUserInfos(formId) {
   try {
-    const baseUrl = studentId
-      ? `${import.meta.env.VITE_APP_ADMIN_USER}/details/student-id/${studentId}`
+    const baseUrl = formId
+      ? `/api/admin/applications/answers/${formId}/user-info`
       : `${import.meta.env.VITE_APP_GET_USERINFO}`;
     const res = await APIService.private.get(baseUrl);
     return res;
-  } catch {
-    location.href = '/error';
+  } catch (error) {
+    alert(error.response?.data?.message || '알 수 없는 오류가 발생했습니다.');
   }
 }
 
@@ -68,7 +68,7 @@ export async function getSemesters() {
     const res = await APIService.private.get(baseUrl);
     const data = res.sort((a, b) => a.semester - b.semester).map((item) => item.semester);
     return data;
-  } catch {
-    location.href = '/error';
+  } catch (error) {
+    alert(error.response?.data?.message || '알 수 없는 오류가 발생했습니다.');
   }
 }

@@ -22,6 +22,9 @@ import PassPage from '@/pages/PassPage';
 import FailPage from '@/pages/FailPage';
 import QuestionAdminPage from '@/pages/QuestionAdminPage';
 import AdminInterviewPage from '@/pages/AdminInterviewPage';
+import AdminBookedInterviewPage from '@pages/AdminBookedInterviewPage';
+import InterviewSuccess from '@/components/resultPage/interview/component/InterviewSuccess';
+import NotAllowed from '@/components/commons/error/NotAllowed';
 
 // Components
 import ProjectPageLayout from '../components/ProjectPage/ProjectPageLayout';
@@ -69,6 +72,7 @@ export default function Routes() {
         <Route path="result" element={<ResultPage /> } />
         <Route path="pass" element={<PassPage /> } />
         <Route path="fail" element={<FailPage /> } />
+        <Route path="interview/success" element={<InterviewSuccess /> } />
 
 
         {/* Admin Routes */}
@@ -100,6 +104,10 @@ export default function Routes() {
           </Route>
           {/* 멋사인 편집하기 */}
           <Route path="about" element={<AdminAbout />} />
+
+          {/* 면접 일정 관리 */}
+          <Route path="create-interview" element={<AdminInterviewPage/>}/>
+          <Route path="interview-scedule" element={<AdminBookedInterviewPage/>}/>
         </Route>
         </Route>
         
@@ -109,9 +117,8 @@ export default function Routes() {
 
         {/* Error Routes */}
         <Route path="error" element={<Error />} />
+        <Route path="notallowed" element={<NotAllowed />} />
 
-        {/* Test Routes */}
-        <Route path="create-interview" element={<AdminInterviewPage/>}/>
       </Route>
     </ReactRouters>
   );

@@ -113,6 +113,11 @@ function deleteInterviewTime(part, date, startTime, endTime) {
   return axiosInstance.delete(`/api/interview/times/part/${transformedPart}/date/${date}/time?${queryParams}`);
 }
 
+// 면접 시간 예약 함수 추가
+function bookInterview(bookingData) {
+  return axiosInstance.post('/api/interview/bookings', bookingData);
+}
+
 export {
   registerInterviewDate,
   getInterviewDates,
@@ -121,4 +126,5 @@ export {
   registerInterviewTime,
   deleteInterviewTime,
   getUserPart,
+  bookInterview,
 };

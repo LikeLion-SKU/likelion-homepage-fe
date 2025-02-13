@@ -1,4 +1,5 @@
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams, Navigate } from 'react-router-dom';
+import { usePreventDirectAccess } from '@/hooks/usePreventDirectAccessHook';
 import logo from '@assets/homepage/lion.webp';
 import styles from './WelcomeSection.module.css';
 
@@ -7,6 +8,18 @@ export default function WelcomeSection() {
   // 파라미터에서 name 읽기
   const name = searchParams.get('name') || 'GUEST';
   const navigate = useNavigate();
+
+  const isAccessSuccess = usePreventDirectAccess();
+  if (isAccessSuccess === null) return null;
+
+  if (!isAccessSuccess) {
+    return (
+      <Navigate
+        to={'/'}
+        replace
+      />
+    );
+  }
 
   // 홈으로 버튼 클릭 //
   function toHomeClick(e) {
