@@ -44,7 +44,7 @@ function InterviewSuccess() {
             <strong>면접 날짜:</strong> {date}
           </p>
           <p className={styles.datetime}>
-            <strong>면접 시간:</strong> {time}
+            <strong>면접 시간:</strong> {time?.substring(0, 5) || time}
           </p>
         </div>
 
@@ -54,7 +54,7 @@ function InterviewSuccess() {
             <p>면접 일정은 마이페이지에서 한번 더 확인 하실 수 있습니다.</p>
             <p>면접 시작 10분 전까지 와주시기 바랍니다.</p>
             <p>면접 불참 시 향후 지원에 불이익이 있을 수 있습니다.</p>
-            <p>면접 시간 변경이 필요한 경우 관리자에게 문의해 주세요.</p>
+            <p>면접 시간 조회, 재등록은 마이페이지에서 하실 수 있습니다.</p>
           </ul>
         </div>
 
