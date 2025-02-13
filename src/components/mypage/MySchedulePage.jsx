@@ -48,12 +48,14 @@ export default function MySchedulePage() {
             <h2 className={styles.partTitle}>PART : {interview.part}</h2>
             <p className={styles.partTitle}>날짜: {interview.date}</p>
             <p className={styles.partTitle}>
-              시간: {interview.startTime} - {interview.endTime}
+              시간: {interview.startTime?.substring(0, 5) || interview.startTime} -{' '}
+              {interview.endTime?.substring(0, 5) || interview.endTime}{' '}
             </p>
 
             <div className={styles.notice}>
               <h3>안내사항</h3>
               <ul>
+                <p>*면접 일정 변경은 2월 20일 까지 가능합니다.*</p>
                 <p>1. 면접 일정 취소 시 복구가 불가능하며, 다시 면접 일정을 예약하셔야합니다.</p>
                 <p>2. 원하는 일정이 없을시 예약이 불가합니다.</p>
                 <p>3. 면접 취소 후 다시 일정 예약을 안하실 경우 면접을 보실 수 없습니다.</p>
