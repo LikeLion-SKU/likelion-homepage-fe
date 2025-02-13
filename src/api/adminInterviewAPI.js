@@ -16,8 +16,13 @@ function getAllUserBookings() {
 }
 
 // 예약 삭제
-function deleteBooking(timeId) {
-  return axiosInstance.delete(`/api/interview/bookings/${timeId}`);
+function deleteBooking(bookingId) {
+  return axiosInstance.delete(`/api/interview/bookings/admin/${bookingId}`);
 }
 
-export { getAllUserBookings, deleteBooking };
+//user 지원서 조회
+function getUserApplication(userId) {
+  return axiosInstance.get(`/api/admin/applications/answers/user/${userId}`);
+}
+
+export { getAllUserBookings, deleteBooking, getUserApplication };
