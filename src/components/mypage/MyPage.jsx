@@ -191,6 +191,12 @@ function MyPageLogout() {
   );
 }
 
+function MyPageEditInterviewSchdule() {
+  const navigate = useNavigate();
+
+  return <button className={styles.itembox__button}>면접일정 확인하기</button>;
+}
+
 MyPage.Profile = MyPageProfile;
 MyPage.Text = MyPageText;
 MyPage.Image = MyPageImage;
@@ -198,3 +204,4 @@ MyPage.ItemBox = MyPageItemBox;
 MyPage.Apply = MyPageApply;
 MyPage.ChangePW = MypageChangePW;
 MyPage.Logout = MyPageLogout;
+MyPage.MyPageEditInterviewSchdule = MyPageEditInterviewSchdule;
