@@ -20,4 +20,9 @@ function deleteBooking(bookingId) {
   return axiosInstance.delete(`/api/interview/bookings/admin/${bookingId}`);
 }
 
-export { getAllUserBookings, deleteBooking };
+//user 지원서 조회
+function getUserApplication(userId) {
+  return axiosInstance.get(`/api/admin/applications/answers/user/${userId}`);
+}
+
+export { getAllUserBookings, deleteBooking, getUserApplication };
