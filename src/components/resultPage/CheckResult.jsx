@@ -8,6 +8,17 @@ export default function CheckResult() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const checkAccess = () => {
+      const canAccessResult = localStorage.getItem('canAccessResult');
+      if (!canAccessResult || canAccessResult !== 'true') {
+        navigate('/notallowed');
+        return false;
+      }
+      return true;
+    };
+
+    if (!checkAccess()) return;
+
     const fetchDate = async () => {
       try {
         const token = localStorage.getItem('token');

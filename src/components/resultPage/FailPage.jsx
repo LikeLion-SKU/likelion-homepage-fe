@@ -21,10 +21,10 @@ export default function FailPage() {
         });
 
         if (response.isPassed) {
-          navigate('/result');
+          navigate('/notallowed');
         }
       } catch {
-        navigate('/result');
+        navigate('/error');
       }
     };
 
