@@ -1,6 +1,7 @@
 .scheduleImg {
-  width: 70%;
+  width: 50vh;
   height: auto;
+  object-fit: cover;
   margin: 3vh;
   margin-bottom: 10vh;
 }

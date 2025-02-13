@@ -42,6 +42,7 @@ export function handleInputChangeDepartment(setState) {
   };
 }
 
+// 이메일 인증 페이지-이메일
 export function inputChange(event, setForm, setSetting) {
   event.preventDefault();
   const { id, value } = event.target;
@@ -56,4 +57,25 @@ export function inputChange(event, setForm, setSetting) {
     ...prev,
     [id]: value,
   }));
+}
+
+// 이메일 인증 페이지-인증번호(숫자만)
+export function inputChangeNumber(setForm, setSetting) {
+  return function (event) {
+    const filteredValue = event.target.value.replace(/[^0-9]/g, '');
+    const { id } = event.target;
+
+    if (filteredValue === '') {
+      setSetting(1);
+    } else {
+      setSetting(2);
+    }
+
+    setForm(function (prev) {
+      return {
+        ...prev,
+        [id]: filteredValue,
+      };
+    });
+  };
 }
