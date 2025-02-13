@@ -16,8 +16,8 @@ function getAllUserBookings() {
 }
 
 // 예약 삭제
-function deleteBooking(timeId) {
-  return axiosInstance.delete(`/api/interview/bookings/${timeId}`);
+function deleteBooking(bookingId) {
+  return axiosInstance.delete(`/api/interview/bookings/admin/${bookingId}`);
 }
 
 export { getAllUserBookings, deleteBooking };

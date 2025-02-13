@@ -30,6 +30,7 @@ export default function InterviewAdmin() {
       deleteBooking(timeId)
         .then(() => {
           fetchBookings();
+          alert('삭제 되었습니다');
         })
         .catch(() => {
           setError('예약 삭제에 실패했습니다.');
@@ -177,7 +178,7 @@ export default function InterviewAdmin() {
                                   data-part={part}
                                 >
                                   <button
-                                    onClick={() => handleDeleteBooking(booking.timeId)}
+                                    onClick={() => handleDeleteBooking(booking.bookingId)}
                                     className={styles.deleteButton}
                                   >
                                     면접일정
