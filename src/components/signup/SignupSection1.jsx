@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { handleEmailchecking, handleConfirmCodechecking } from '@utils/register.js';
-import { inputChange } from '@utils/inputOnChange.js';
+import { inputChange, inputChangeNumber } from '@utils/inputOnChange.js';
 import styles from './SignupSection.module.css';
 import { TailSpin } from 'react-loader-spinner';
 
@@ -133,6 +133,7 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
                   <input
                     type='text'
                     id='confirmCode'
+                    maxLength={6}
                     value={form.confirmCode}
                     className={
                       form.confirmCode_valid
@@ -143,9 +144,7 @@ export default function SignupSection({ emailSuccess, setEmailSuccess, setEmail,
                             ? styles['valid']
                             : ''
                     }
-                    onChange={function (e) {
-                      inputChange(e, setForm, setConfirmSuccess);
-                    }}
+                    onChange={inputChangeNumber(setForm, setConfirmSuccess)}
                     disabled={!form.timing}
                     autoComplete='off'
                     required
