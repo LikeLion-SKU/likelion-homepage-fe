@@ -54,8 +54,8 @@ function ProjectDetail() {
     );
   }
 
-  if (!project) {
-    return null;
+  if (!project || (Array.isArray(project) && project.length === 0)) {
+    return <p className={styles.noProject}>등록된 프로젝트가 없습니다.</p>;
   }
 
   // 한글로 변환된 타입
