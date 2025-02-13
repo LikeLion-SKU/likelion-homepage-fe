@@ -118,6 +118,14 @@ function bookInterview(bookingData) {
   return axiosInstance.post('/api/interview/bookings', bookingData);
 }
 
+function getMyInterviewSchedule() {
+  return axiosInstance.get('/api/interview/bookings/my');
+}
+
+function deleteInterviewBooking(bookingId) {
+  return axiosInstance.delete(`/api/interview/bookings/${bookingId}`);
+}
+
 export {
   registerInterviewDate,
   getInterviewDates,
@@ -127,4 +135,6 @@ export {
   deleteInterviewTime,
   getUserPart,
   bookInterview,
+  getMyInterviewSchedule,
+  deleteInterviewBooking,
 };

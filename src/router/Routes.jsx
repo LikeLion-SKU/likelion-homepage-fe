@@ -34,6 +34,7 @@ import EditProjectForm from '../components/ProjectPage/EditProjectForm';
 import ViewForm from '@components/adminApply/ViewForm';
 import { Error } from '@components/commons';
 import EditApplicationPage from '@/pages/EditApplicationPage';
+import MySchedulePage from '@/components/mypage/MySchedulePage';
 
 // Layouts
 import { MainLayout } from '@layouts';
@@ -73,7 +74,7 @@ export default function Routes() {
         <Route path="pass" element={<PassPage /> } />
         <Route path="fail" element={<FailPage /> } />
         <Route path="interview/success" element={<InterviewSuccess /> } />
-
+        <Route path="my-schedule" element={<MySchedulePage/>}/>
 
         {/* Admin Routes */}
         <Route>
