@@ -18,10 +18,12 @@ export default function PrivateRoute({ children }) {
 
         if (response.role === 'ADMIN') {
           setUserRole('ADMIN');
-        } else {
-          navigate('/error')
+        }
+        else {
+          navigate('/notallowed')
         }
       } catch (error) {
+        navigate('/error')
         console.error('접근 권한이 없습니다', error);
       }
     }

@@ -65,7 +65,7 @@ export default function PasswordChangeForm() {
                 errors.password?.message ? 'passwordChange-form__input--invalid' : null,
                 watch('password') && 'passwordChange-form__input--valid',
               )}
-              type='text'
+              type='password'
               id='password'
               placeholder='현재 비밀번호를 입력해주세요'
               autoComplete='off'

@@ -2,11 +2,11 @@ import styles from './schedule.module.css';
 
 export default function Schedule() {
   const steps = [
-    { label: '1차 서류 모집', date: '25.00.00 - 25.00.00' },
-    { label: '1차 합격자 발표', date: '25.00.00' },
-    { label: '2차 면접', date: '25.00.00 - 25.00.00' },
-    { label: '2차 합격자 발표', date: '25.00.00' },
-    { label: '서경대 멋사 OT', date: '25.00.00' },
+    { label: '1차 서류 모집', date: '02.17 - 03.07' },
+    { label: '1차 합격자 발표', date: '03.08 [12:00]' },
+    { label: '2차 면접', date: '03.10 - 03.14' },
+    { label: '2차 합격자 발표', date: '03.15' },
+    { label: '서경대 멋사 OT', date: '03.17 [18:30]' },
   ];
 
   return (

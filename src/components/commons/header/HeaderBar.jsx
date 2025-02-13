@@ -1,5 +1,6 @@
 import { useState, useEffect, createContext, useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { APIService } from '@api/axios';
 import styles from './HeaderBar.module.css';
 import logo from '@assets/commons/logo.webp';
 import login from '@assets/header/login.webp';
@@ -17,9 +18,27 @@ export default function HeaderBar({ children }) {
 
   // 새로고침 없이 로그인 <-> 마이페이지
   useEffect(() => {
-    function checkLoginStatus() {
+    async function checkLoginStatus() {
       const token = localStorage.getItem('token');
-      setIsLoggedIn(!!token);
+      if (!token) {
+        setIsLoggedIn(false);
+        return;
+      }
+
+      try {
+        const baseUrl = import.meta.env.VITE_APP_GET_USERINFO;
+        const response = await APIService.private.get(baseUrl);
+
+        if (!response.loginId) {
+          // 사용자의 email이 null이면(탈퇴 시) 로그아웃 처리
+          localStorage.removeItem('token');
+          setIsLoggedIn(false);
+          return;
+        }
+        setIsLoggedIn(true);
+      } catch {
+        alert('사용자 정보를 불러오는데 실패했습니다.');
+      }
     }
 
     checkLoginStatus();
