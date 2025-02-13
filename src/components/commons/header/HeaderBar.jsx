@@ -34,10 +34,13 @@ export default function HeaderBar({ children }) {
           localStorage.removeItem('token');
           setIsLoggedIn(false);
           return;
+        } else {
+          setIsLoggedIn(true);
         }
-        setIsLoggedIn(true);
       } catch {
-        alert('사용자 정보를 불러오는데 실패했습니다.');
+        // 요청 실패 시에도 로그아웃 처리
+        localStorage.removeItem('token');
+        setIsLoggedIn(false);
       }
     }
 
