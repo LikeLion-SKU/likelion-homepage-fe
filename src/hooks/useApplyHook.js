@@ -170,7 +170,7 @@ export function useGetQuestions(
         navigate('/error', {
           state: {
             msg: '지원 기간이 종료되었습니다.',
-            msg2: '이용에 불편을 드려 죄송합니다.',
+            msg2: '내년에 지원해주시기 바랍니다.',
             btnMsg: '홈으로 돌아가기',
             Url: '/',
           },
