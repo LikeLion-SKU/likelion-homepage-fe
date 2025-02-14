@@ -84,35 +84,15 @@ function RecruitButton() {
   const navigate = useNavigate();
   const now = new Date();
   const targetDate = new Date('2025-03-07T23:59:59');
-  const resultDate = new Date('2025-03-08T12:00:00');
-  const token = localStorage.getItem('token');
 
   return (
     <button
       className={styles.button}
       onClick={() => {
-        if (now < targetDate) {
-          navigate('recruit');
-        } else if (now >= targetDate && now < resultDate) {
-          alert('지원이 마감되었습니다.');
-        } else {
-          if (!token) {
-            navigate('/error', {
-              state: {
-                msg: '로그인이 필요한 서비스입니다.',
-                msg2: '로그인 후 다시 이용해주세요.',
-                msg3: '이용에 불편을 드려 죄송합니다.',
-                btnMsg: '로그인',
-                url: '/login',
-              },
-            });
-          } else {
-            navigate('result');
-          }
-        }
+        navigate('recruit');
       }}
     >
-      {now < resultDate ? '지원하러 가기' : '결과보러 가기'}
+      {now < targetDate ? '지원하러 가기' : '결과보러 가기'}
       <img
         src={arrow}
         alt='arrow'
