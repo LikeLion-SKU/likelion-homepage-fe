@@ -65,3 +65,8 @@
 .btn__text-color--black {
   color: black;
 }
+
+.btn--center {
+  display: block;
+  margin: 0 auto;
+}

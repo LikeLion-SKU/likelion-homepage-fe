@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-export default function ButtonLayout({ children, onClick, color, size, rounded, textSize, textColor }) {
+export default function ButtonLayout({ children, onClick, color, size, rounded, textSize, textColor, center }) {
   if (typeof onClick !== 'function') throw new Error('onClick의 값은 함수이어야 합니다');
 
   if (React.Children.count(children) === 0) throw new Error('children 값을 입력하지 않으셨습니다');
@@ -35,6 +35,9 @@ export default function ButtonLayout({ children, onClick, color, size, rounded, 
     },
     {
       [`btn__text-color--${textColor}`]: textColor,
+    },
+    {
+      [`btn--center`]: center,
     },
   );
 
