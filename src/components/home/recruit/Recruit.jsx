@@ -29,10 +29,10 @@ function RecruitTimerTitle() {
 
 function RecruitTimer() {
   const [timeLeft, setTimeLeft] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
+    days: '00',
+    hours: '00',
+    minutes: '00',
+    seconds: '00',
   });
 
   // 서류 마감 날짜
@@ -45,12 +45,20 @@ function RecruitTimer() {
 
       if (difference <= 0) {
         clearInterval(intervalId);
-        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        setTimeLeft({ days: '00', hours: '00', minutes: '00', seconds: '00' });
       } else {
-        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((difference / (1000 * 60)) % 60);
-        const seconds = Math.floor((difference / 1000) % 60);
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+          .toString()
+          .padStart(2, '0');
+        const hours = Math.floor((difference / (1000 * 60 * 60)) % 24)
+          .toString()
+          .padStart(2, '0');
+        const minutes = Math.floor((difference / (1000 * 60)) % 60)
+          .toString()
+          .padStart(2, '0');
+        const seconds = Math.floor((difference / 1000) % 60)
+          .toString()
+          .padStart(2, '0');
 
         setTimeLeft({ days, hours, minutes, seconds });
       }
@@ -74,12 +82,37 @@ function RecruitTimer() {
 
 function RecruitButton() {
   const navigate = useNavigate();
+  const now = new Date();
+  const targetDate = new Date('2025-03-07T23:59:59');
+  const resultDate = new Date('2025-03-08T12:00:00');
+  const token = localStorage.getItem('token');
+
   return (
     <button
       className={styles.button}
-      onClick={() => navigate('recruit')}
+      onClick={() => {
+        if (now < targetDate) {
+          navigate('recruit');
+        } else if (now >= targetDate && now < resultDate) {
+          alert('지원이 마감되었습니다.');
+        } else {
+          if (!token) {
+            navigate('/error', {
+              state: {
+                msg: '로그인이 필요한 서비스입니다.',
+                msg2: '로그인 후 다시 이용해주세요.',
+                msg3: '이용에 불편을 드려 죄송합니다.',
+                btnMsg: '로그인',
+                url: '/login',
+              },
+            });
+          } else {
+            navigate('result');
+          }
+        }
+      }}
     >
-      지원하러 가기
+      {now < resultDate ? '지원하러 가기' : '결과보러 가기'}
       <img
         src={arrow}
         alt='arrow'
