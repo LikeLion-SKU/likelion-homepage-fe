@@ -38,7 +38,7 @@ export function handleAnswerChange(
   updatedCharCounts[index] = value.length;
   setCharCounts(updatedCharCounts);
 
-  setIsAllAnswer(updatedCharCounts.every((count) => count >= 1));
+  setIsAllAnswer(!updatedAnswers.some((answer) => !answer));
 }
 
 export const handleSubmit = async (track, questions, answers, navigate) => {
@@ -58,7 +58,7 @@ export const handleSubmit = async (track, questions, answers, navigate) => {
     navigate('/error');
   }
 
-  if (isBeforeDeadLine()) {
+  if (await isAfterDeadLine()) {
     alert('지원 기간이 종료되었습니다.');
     return;
   }
@@ -74,12 +74,12 @@ export const handleSubmit = async (track, questions, answers, navigate) => {
   window.scrollTo(0, 0);
 };
 
-async function isBeforeDeadLine() {
+async function isAfterDeadLine() {
   const deadLine = await getDeadLine(); // "2025-01-01" 형식
   const deadLineDate = new Date(`${deadLine}T23:59:59Z`); // 마감 23:59:59
   const now = new Date();
 
-  return now <= deadLineDate;
+  return now > deadLineDate;
 }
 
 export async function handleNextPage(step, track, questions, answers, setAnswers, navigate) {
@@ -166,7 +166,7 @@ export function useGetQuestions(
         return;
       }
 
-      if (isBeforeDeadLine()) {
+      if (await isAfterDeadLine()) {
         navigate('/error', {
           state: {
             msg: '지원 기간이 종료되었습니다.',
@@ -193,7 +193,8 @@ export function useGetQuestions(
               type: fetchType,
             },
           });
-          const tmpAnswer = data2.answers?.map((item) => item.content) || [];
+          //임시저장 답변이 null일 때, 질문과 답변의 배열 길이를 맞춤
+          const tmpAnswer = data2.answers?.map((item) => item.content) || new Array(data.length).fill(undefined);
           setAnswers(tmpAnswer);
           let option = {};
           switch (data2.partType) {
@@ -215,7 +216,7 @@ export function useGetQuestions(
           const updatedCharCounts = tmpAnswer.map((answer) => (answer ? answer.length : 0));
           setCharCounts(updatedCharCounts);
 
-          if (updatedCharCounts.length > 0 && updatedCharCounts.every((count) => count >= 1)) setIsAllAnswer(true);
+          if (updatedCharCounts.length > 0 && tmpAnswer.every((answer) => answer)) setIsAllAnswer(true);
           else setIsAllAnswer(false);
         } else {
           const baseUrl = import.meta.env.VITE_APP_GET_USERINFO;

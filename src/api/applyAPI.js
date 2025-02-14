@@ -48,9 +48,13 @@ export async function checkDidApply() {
 
 export async function getDeadLine() {
   try {
-    const baseUrl = `/api/applications/forms`;
-    const deadLine = await APIService.public.get(baseUrl);
-    return deadLine;
+    const baseUrl = `/api/admin/applications/forms/date`;
+    const data = await APIService.public.get(baseUrl, {
+      params: {
+        isActive: true,
+      },
+    });
+    return data.deadline;
   } catch {
     location.href = '/error';
   }
