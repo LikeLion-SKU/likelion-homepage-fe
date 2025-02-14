@@ -62,6 +62,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             {errors.id ? <p className={styles.error_message}>{errors.id}</p> : null}
           </div>
         </div>
+
         <div className={styles['signup-form__inputbox']}>
           <div className={styles['signup-form__labelsection']}>
             <label htmlFor='password'>비밀번호</label>
@@ -83,6 +84,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             {errors.password ? <p className={styles.error_message}>{errors.password}</p> : null}
           </div>
         </div>
+
         <div className={styles['signup-form__inputbox']}>
           <div className={styles['signup-form__labelsection']}>
             <label htmlFor='password_valid'>비밀번호 확인</label>
@@ -104,6 +106,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             {errors.password_valid ? <p className={styles.error_message}>{errors.password_valid}</p> : null}
           </div>
         </div>
+
         <div className={styles['signup-form__inputbox']}>
           <div className={styles['signup-form__labelsection']}>
             <label htmlFor='name'>이름</label>
@@ -127,6 +130,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             {errors.name ? <p className={styles.error_message}>{errors.name}</p> : null}
           </div>
         </div>
+
         <div className={styles['signup-form__inputbox']}>
           <div className={styles['signup-form__labelsection']}>
             <label htmlFor='department'>학과/학부</label>
@@ -149,6 +153,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             {errors.department ? <p className={styles.error_message}>{errors.department}</p> : null}
           </div>
         </div>
+
         <div className={styles['signup-form__inputbox']}>
           <div className={styles['signup-form__labelsection']}>
             <label htmlFor='strudent_num'>학번</label>
@@ -171,6 +176,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             {errors.strudent_num ? <p className={styles.error_message}>{errors.strudent_num}</p> : null}
           </div>
         </div>
+
         <div className={styles['signup-form__inputbox']}>
           <div className={styles['signup-form__labelsection']}>
             <label htmlFor='phone_num'>연락처</label>
@@ -213,6 +219,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
             {errors.consent ? <p className={styles.error_message}>{errors.consent}</p> : null}
           </div>
         </div>
+
         <div className={styles['signup-form__progressBox2']}>
           <button
             style={{ cursor: 'pointer' }}
