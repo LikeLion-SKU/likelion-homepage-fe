@@ -13,6 +13,18 @@ export default function FailPage() {
       return;
     }
 
+    //결과 확인 가능한 시간인지 검사
+    const checkAccess = () => {
+      const canAccessResult = localStorage.getItem('canAccessResult');
+      if (!canAccessResult || canAccessResult !== 'true') {
+        navigate('/notallowed');
+        return false;
+      }
+      return true;
+    };
+
+    if (!checkAccess()) return;
+
     // isPassed가 false여야만 fail 페이지에 접근할 수 있음
     const fetchResult = async function () {
       try {
