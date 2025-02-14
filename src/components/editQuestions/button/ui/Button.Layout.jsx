@@ -6,13 +6,13 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-export default function ButtonLayout({ children, onClick, color, size, rounded }) {
+export default function ButtonLayout({ children, onClick, color, size, rounded, textSize, textColor }) {
   if (typeof onClick !== 'function') throw new Error('onClick의 값은 함수이어야 합니다');
 
   if (React.Children.count(children) === 0) throw new Error('children 값을 입력하지 않으셨습니다');
 
-  if (typeof color !== 'string' || !['bright', 'dark'].includes(color)) {
-    throw new Error('color의 값은 bringt 또는 dark이어야 합니다');
+  if (typeof color !== 'string' || !['bright', 'dark', 'grey', 'lightgrey'].includes(color)) {
+    throw new Error('color의 값은 bright 또는 dark, grey, lightgrey이어야 합니다');
   }
 
   if (typeof size !== 'string' || !['small', 'medium', 'large'].includes(size))
@@ -29,6 +29,12 @@ export default function ButtonLayout({ children, onClick, color, size, rounded }
     },
     {
       [`btn--rounded-${rounded}`]: rounded !== 'none',
+    },
+    {
+      [`btn__text-${textSize}`]: textSize,
+    },
+    {
+      [`btn__text-color--${textColor}`]: textColor,
     },
   );
 

@@ -10,6 +10,14 @@
   background-color: var(--black-44-color);
 }
 
+.btn--grey {
+  background-color: #9f9fb2;
+}
+
+.btn--lightgrey {
+  background-color: var(--lightgrey-color);
+}
+
 .btn-small {
   width: 100%;
   max-width: 50px;
@@ -25,6 +33,7 @@
 .btn-large {
   width: 100%;
   max-width: 120px;
+  height: 40px;
 }
 
 .btn__icon {
@@ -42,4 +51,17 @@
 
 .btn--rounded-medium {
   border-radius: 20px;
+}
+
+.btn__text-small {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.btn__text-color--bright {
+  color: var(--main-bg-color);
+}
+
+.btn__text-color--black {
+  color: black;
 }
