@@ -10,8 +10,8 @@
   border: 0;
   border-bottom: 2px solid;
   text-align: center;
-  font-size: 36px;
   font-weight: 700;
+  font-size: 36px;
 }
 
 .input-medium {
@@ -25,4 +25,23 @@
 .input--rounded {
   border: 1px solid var(--grey-da-color);
   border-radius: 10px;
+}
+
+.input--date {
+  border: 1px solid var(--grey-da-color);
+  color: var(--grey-a9-color);
+  height: 40px;
+  max-width: 100px;
+}
+
+.input__date-container {
+  display: flex;
+  justify-content: space-between;
+  width: 192px;
+  height: 40px;
+}
+
+.input__date-label {
+  font-weight: 700;
+  font-size: 16px;
 }

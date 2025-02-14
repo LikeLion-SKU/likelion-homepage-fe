@@ -17,8 +17,9 @@ export default function Input({ readOnly, type, value, id, onChange, min, size, 
   if (typeof rounded !== 'boolean') throw new Error('rounded는 true, false 중 하나이어야 합니다');
 
   const inputClass = cx('input', {
-    [`input-${size}`]: size,
+    [`input-${size}`]: type !== 'date' ? size : undefined,
     'input--rounded': rounded,
+    'input--date': type === 'date',
   });
 
   return (
@@ -34,12 +35,34 @@ export default function Input({ readOnly, type, value, id, onChange, min, size, 
   );
 }
 
-export function withLabel(Component) {
+function withLabel(Component) {
   return function ({ children, id, ...props }) {
-    <label htmlFor={id}>{children}</label>;
-    <Component
-      id={id}
-      {...props}
-    />;
+    if (props.type === 'date') {
+      return (
+        <div className={styles['input__date-container']}>
+          <label
+            className={styles['input__date-label']}
+            htmlFor={id}
+          >
+            {children}
+          </label>
+          <Component
+            id={id}
+            {...props}
+          />
+        </div>
+      );
+    }
+    return (
+      <>
+        <label htmlFor={id}>{children}</label>
+        <Component
+          id={id}
+          {...props}
+        />
+      </>
+    );
   };
 }
+
+export const InputWithLabel = withLabel(Input);
