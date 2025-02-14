@@ -167,7 +167,7 @@ export function useUpdateApplicationActivation(formId) {
   };
 }
 
-export function useUpdateApplicationInformation(semester, information, type) {
+export function useUpdateApplicationInformation(semester, type, information) {
   const [isLoading, setIsLoading] = useState(false);
 
   const updateApplicationInformation = useCallback(
@@ -225,6 +225,34 @@ export function useGetQuestionByType(semester, type) {
   return {
     isLoading,
     questions,
+  };
+}
+
+export function useCreateQuestionByType(semester, type, data) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const createQuestionByType = useCallback(
+    async function () {
+      setIsLoading(true);
+      try {
+        const res = await APIService.private.post(`${import.meta.env.VITE_APP_QUESTIONS}?semester=${semester}`, data);
+        if (res) {
+          alert('새 질문을 성공적으로 생성 했습니다');
+          window.location.href = `/admin/edit/application/${semester}?type=${type}`;
+        }
+      } catch {
+        alert('새 질문을 생성하는데 실패했습니다');
+        return;
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [data, semester, type],
+  );
+
+  return {
+    isLoading,
+    createQuestionByType,
   };
 }
 
