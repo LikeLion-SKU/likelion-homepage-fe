@@ -16,7 +16,7 @@ export default function Navigation() {
       } catch (error) {
         // 400 이외의 에러만 alert 표시
         if (!error.response || error.response.status !== 400) {
-          alert('합격 여부 확인 중 오류 발생: 관리자에게 제보해주세요!');
+          alert('다시 로그인 해주세요!');
         }
         setIsPassed(false);
       }
