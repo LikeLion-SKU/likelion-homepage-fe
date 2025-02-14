@@ -1,18 +1,17 @@
-import { useNavigate } from 'react-router-dom';
 import { useStore } from '@store/useStore';
 import { useCheckApproach, useGetQuestions } from '@hooks/useApplyHook';
 import { useState } from 'react';
 import Application from './Application';
 
 export default function AnswerSection({ step }) {
-  const navigate = useNavigate();
   const { track, setTrack, setAnswers, questions, setQuestions } = useStore();
   const [userInfo, setUserInfo] = useState([]);
   const [charCounts, setCharCounts] = useState([]); // 글자 수 상태
+  const [isAllAnswers, setIsAllAnswers] = useState(false);
 
   useCheckApproach(step, track); // 잘못된 사용자 접근 방지
   // 질문 데이터 및 임시저장 데이터 가져오기
-  useGetQuestions(step, track, setQuestions, setUserInfo, setAnswers, setCharCounts, setTrack, navigate);
+  useGetQuestions(step, track, setQuestions, setUserInfo, setAnswers, setCharCounts, setTrack, setIsAllAnswers);
 
   if (![1, 2, 3].includes(step)) {
     return null;
@@ -33,12 +32,20 @@ export default function AnswerSection({ step }) {
               userInfo={userInfo}
               charCounts={charCounts}
               setCharCounts={setCharCounts}
+              setIsAllAnswers={setIsAllAnswers}
             />
           ))
         : null}
       <Application.BtnWrapper>
         <Application.PrevBtn step={step} />
-        {step !== 3 ? <Application.NextBtn step={step} /> : <Application.SubmitBtn />}
+        {step !== 3 ? (
+          <Application.NextBtn
+            step={step}
+            isAllAnswers={isAllAnswers}
+          />
+        ) : (
+          <Application.SubmitBtn isAllAnswers={isAllAnswers} />
+        )}
       </Application.BtnWrapper>
     </Application>
   );
