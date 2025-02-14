@@ -1,9 +1,15 @@
 .scheduleImg {
-  width: 50vh;
+  width: 80vh;
   height: auto;
   object-fit: cover;
   margin: 3vh;
   margin-bottom: 10vh;
+}
+
+@media (max-width: 820px) {
+  .scheduleImg {
+    width: 90vw;
+  }
 }
 
 .title {

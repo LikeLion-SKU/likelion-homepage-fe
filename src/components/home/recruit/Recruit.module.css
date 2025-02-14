@@ -31,7 +31,7 @@
   margin-top: 5vh;
   display: flex;
   justify-content: center;
-  gap: 8.3vh;
+  gap: 7rem;
 }
 
 .timer {
@@ -54,11 +54,13 @@
   padding: 1.5rem 3rem;
   border-radius: 3rem;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
 }
 
-.button:hover{
-    transform: scale(1.05);
+.button:hover {
+  transform: scale(1.05);
 }
 
 .button img {
