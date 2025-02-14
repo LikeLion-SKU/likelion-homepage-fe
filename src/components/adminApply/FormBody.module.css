@@ -15,11 +15,15 @@
 
 .question {
   font-size: 1.6rem;
+  line-height: 130%;
+  font-weight: bold;
 }
 
 .answer {
   font-size: 1.6rem;
   color: rgba(169, 169, 169, 1);
+  line-height: 130%;
+  font-weight: 500;
 }
 
 .divider {
