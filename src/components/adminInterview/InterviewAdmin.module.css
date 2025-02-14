@@ -168,3 +168,61 @@
   margin-bottom: 20px;
   border: 1px solid #ffc9c9;
 }
+
+.viewApplicationButton {
+  margin-top: 8px;
+  padding: 4px 8px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.viewApplicationButton:hover {
+  background-color: #357abd;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.closeButton:hover {
+  opacity: 0.7;
+}
+
+.modalContent > div[class*='bodyWrapper'] {
+  margin-top: 0;
+}

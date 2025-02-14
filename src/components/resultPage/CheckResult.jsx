@@ -8,6 +8,17 @@ export default function CheckResult() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const checkAccess = () => {
+      const canAccessResult = localStorage.getItem('canAccessResult');
+      if (!canAccessResult || canAccessResult !== 'true') {
+        navigate('/notallowed');
+        return false;
+      }
+      return true;
+    };
+
+    if (!checkAccess()) return;
+
     const fetchDate = async () => {
       try {
         const token = localStorage.getItem('token');
@@ -26,15 +37,11 @@ export default function CheckResult() {
     };
 
     fetchDate();
-  }, []);
+  }, [navigate]);
 
   const handleCheckResult = async function () {
     try {
       const token = localStorage.getItem('token');
-      if (!token) {
-        navigate('/login');
-        return;
-      }
 
       const response = await getResult({
         headers: { Authorization: `Bearer ${token}` },
@@ -46,7 +53,7 @@ export default function CheckResult() {
         navigate('/fail');
       }
     } catch {
-      alert('결과를 가져오는 중 오류 발생.');
+      alert('결과를 가져오는 중 오류 발생. 관리자에게 문의해주세요.');
     }
   };
 

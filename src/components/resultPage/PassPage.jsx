@@ -47,7 +47,7 @@ export default function PassPage() {
     getSubmissionStatus()
       .then((response) => {
         if (!response.data.isPassed) {
-          navigate('/not-allowed'); // isPassed가 false이면 not-allowed로 리디렉트
+          navigate('/notallowed'); // isPassed가 false이면 not-allowed로 리디렉트
         }
       })
       .catch(() => {

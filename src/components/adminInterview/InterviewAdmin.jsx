@@ -1,12 +1,15 @@
 // InterviewAdmin.jsx
 import { useState, useEffect } from 'react';
 import styles from './InterviewAdmin.module.css';
-import { getAllUserBookings, deleteBooking } from '@api/adminInterviewAPI';
+import FormBody from '@components/adminApply/FormBody';
+import { getAllUserBookings, deleteBooking, getUserApplication } from '@api/adminInterviewAPI';
 
 export default function InterviewAdmin() {
   const [bookings, setBookings] = useState([]);
   const [selectedDate, setSelectedDate] = useState('all');
   const [selectedPart, setSelectedPart] = useState('all');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [applicationData, setApplicationData] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -30,11 +33,57 @@ export default function InterviewAdmin() {
       deleteBooking(timeId)
         .then(() => {
           fetchBookings();
+          alert('삭제 되었습니다');
         })
         .catch(() => {
           setError('예약 삭제에 실패했습니다.');
         });
   };
+
+  const handleViewApplication = (loginId) => {
+    if (!loginId) {
+      alert('지원자 정보가 없습니다.');
+      return;
+    }
+
+    getUserApplication(loginId)
+      .then((response) => {
+        setApplicationData(response.data);
+        setIsModalOpen(true);
+      })
+      .catch(() => {
+        setError('지원서를 불러오는데 실패했습니다.');
+      });
+  };
+
+  // Modal 컴포넌트
+  function ApplicationModal({ isModalOpen, onClose, applicationData }) {
+    if (!isModalOpen || !applicationData) return null;
+
+    return (
+      <div
+        className={styles.modalOverlay}
+        onClick={onClose}
+      >
+        <div
+          className={styles.modalContent}
+          onClick={(e) => e.stopPropagation()} // 이벤트 전파 중단
+        >
+          <h1 className={styles.title}>지원서</h1>
+          <button
+            className={styles.closeButton}
+            onClick={onClose}
+          >
+            ✕
+          </button>
+          <FormBody
+            id={applicationData.applicationFormAnswer.id}
+            userInfos={applicationData.userInfo}
+          />
+        </div>
+      </div>
+    );
+  }
 
   const getUniqueDates = () => [...new Set(bookings.map((booking) => booking.date))].sort();
 
@@ -61,6 +110,7 @@ export default function InterviewAdmin() {
               department: booking.department,
               studentId: booking.studentId,
               phoneNumber: booking.phoneNumber,
+              loginId: booking.loginId,
             }),
           );
         }
@@ -162,6 +212,12 @@ export default function InterviewAdmin() {
                             <div>{user.department}</div>
                             <div>{user.studentId}</div>
                             <div>{user.phoneNumber}</div>
+                            <button
+                              onClick={() => handleViewApplication(user.loginId)}
+                              className={styles.viewApplicationButton}
+                            >
+                              지원서 보기
+                            </button>
                           </div>
                         </td>
                         {getTimeSlots(date, part).map((timeSlot) => {
@@ -177,7 +233,7 @@ export default function InterviewAdmin() {
                                   data-part={part}
                                 >
                                   <button
-                                    onClick={() => handleDeleteBooking(booking.timeId)}
+                                    onClick={() => handleDeleteBooking(booking.bookingId)}
                                     className={styles.deleteButton}
                                   >
                                     면접일정
@@ -200,6 +256,11 @@ export default function InterviewAdmin() {
           ))}
         </div>
       ))}
+      <ApplicationModal
+        isModalOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        applicationData={applicationData}
+      />
     </div>
   );
 }

@@ -1,29 +1,21 @@
-import { APIService } from '@api/axios';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import MyPage from './MyPage';
+import { APIService } from '@api/axios';
+import ProfileImage from './ProfileImage';
+import ProfileText from './ProfileText';
+import Navigation from './Navigation';
+import styles from './MyPage.module.css';
 
 export default function MyPageSection() {
-  const [username, setUsername] = useState('');
-  const [useremail, setUseremail] = useState('');
-  const [userimage, setUserimage] = useState('');
-  const [semester, setSemester] = useState('');
-  const [studentId, setStudentId] = useState('');
-  const navigate = useNavigate();
+  const [userData, setUserData] = useState({
+    username: '',
+    useremail: '',
+    userimage: '',
+    semester: '',
+    studentId: '',
+  });
 
-  async function fetchUserData() {
-    try {
-      const baseUrl = import.meta.env.VITE_APP_GET_USERINFO;
-      const response = await APIService.private.get(baseUrl);
-      setUsername(response.userName);
-      setUseremail(response.loginId);
-      setUserimage(`${import.meta.env.VITE_APP_API_URL}${response.profileImageUrl}`);
-      setSemester(response.semester);
-      setStudentId(response.studentId);
-    } catch {
-      alert('사용자 정보를 불러오는데 실패했습니다.');
-    }
-  }
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -39,27 +31,41 @@ export default function MyPageSection() {
       });
       return;
     }
+
+    const fetchUserData = async () => {
+      try {
+        const baseUrl = import.meta.env.VITE_APP_GET_USERINFO;
+        const response = await APIService.private.get(baseUrl);
+
+        setUserData({
+          username: response.userName,
+          useremail: response.loginId,
+          userimage: `${import.meta.env.VITE_APP_API_URL}${response.profileImageUrl}`,
+          semester: response.semester,
+          studentId: response.studentId,
+        });
+      } catch (error) {
+        alert('사용자 정보를 불러오는데 실패했습니다.');
+      }
+    };
+
     fetchUserData();
-  });
+  }, [navigate]);
 
   return (
-    <MyPage>
-      <MyPage.Profile>
-        <MyPage.Text
-          username={username}
-          useremail={useremail}
+    <section className={styles.section}>
+      <div className={styles.profile}>
+        <ProfileText
+          username={userData.username}
+          useremail={userData.useremail}
         />
-        <MyPage.Image
-          userimage={userimage}
-          semester={semester}
-          studentId={studentId}
+        <ProfileImage
+          userimage={userData.userimage}
+          semester={userData.semester}
+          studentId={userData.studentId}
         />
-      </MyPage.Profile>
-      <MyPage.ItemBox>
-        <MyPage.Apply />
-        <MyPage.ChangePW />
-        <MyPage.Logout />
-      </MyPage.ItemBox>
-    </MyPage>
+      </div>
+      <Navigation />
+    </section>
   );
 }

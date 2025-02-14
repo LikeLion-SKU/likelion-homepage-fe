@@ -1,3 +1,20 @@
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40rem;
+}
+
+.noProject {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40rem;
+  text-align: center;
+  color: #888;
+  font-size: 1.4rem;
+}
+
 .projectDetail {
   padding: 2rem;
   width: 100%;

@@ -3,6 +3,7 @@
   max-width: 500px;
   margin: 0 auto;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .title {
@@ -130,17 +131,44 @@
 @media (max-width: 600px) {
   .container {
     padding: 16px;
+    width: 100%;
+    min-width: 320px;
   }
 
   .title {
     font-size: 20px;
+    padding: 0 10px;
   }
 
   .dateContainer {
     grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 0;
+  }
+
+  .dateGroup {
+    padding: 12px;
+    margin: 0;
   }
 
   .dateTitle {
     font-size: 16px;
+  }
+
+  .timeSlot {
+    padding: 6px;
+    font-size: 13px;
+  }
+
+  .selectedInfo {
+    margin: 20px 0;
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .submitButton {
+    margin: 20px 0;
+    padding: 10px;
+    font-size: 15px;
   }
 }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { TailSpin } from 'react-loader-spinner';
 import projectAPI from '@/api/projectAPI';
 import ImagePreview from './ImagePreview';
 import DotNavigation from './DotNavigation';
@@ -10,11 +11,13 @@ function ProjectDetail() {
   const [project, setProject] = useState(null); // 프로젝트 데이터 상태 관리
   const [error, setError] = useState(null); // 에러 상태 관리
   const [currentImageIndex, setCurrentImageIndex] = useState(0); // 현재 이미지 인덱스
+  const [loading, setLoading] = useState(false);
 
   const baseUrl = import.meta.env.VITE_APP_API_URL; // API base URL 가져오기
 
   useEffect(() => {
     async function fetchProject() {
+      setLoading(true);
       try {
         const projectData = await projectAPI.fetchProjectDetail(projectId);
 
@@ -25,6 +28,8 @@ function ProjectDetail() {
         setProject(projectWithImages);
       } catch {
         setError('프로젝트 데이터를 불러오지 못했습니다.');
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -35,8 +40,22 @@ function ProjectDetail() {
     return <p className={styles.error}>{error}</p>; // 에러 메시지 표시
   }
 
-  if (!project) {
-    return <p className={styles.loading}>로딩 중...</p>; // 로딩 상태 표시
+  if (loading) {
+    return (
+      <div className={styles.loaderContainer}>
+        <TailSpin
+          height='60'
+          color='#4fa94d'
+          ariaLabel='tail-spin-loading'
+          radius='1'
+          visible={true}
+        />
+      </div>
+    );
+  }
+
+  if (!project || (Array.isArray(project) && project.length === 0)) {
+    return <p className={styles.noProject}>등록된 프로젝트가 없습니다.</p>;
   }
 
   // 한글로 변환된 타입

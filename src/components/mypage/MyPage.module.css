@@ -4,7 +4,7 @@
   flex-direction: column;
   margin: 0 auto;
   padding: 2rem;
-  height: 70vh;
+  height: 100%;
 }
 
 .profile {
@@ -37,24 +37,41 @@
 .imageContainer {
   display: flex;
   flex-direction: column;
-  align-items: end;
-  position: relative;
+  align-items: center;
   width: 14rem;
-  height: 16rem;
+  margin-left: auto;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 13rem;
+  height: 13rem;
+  margin-bottom: 0.5rem;
 }
 
 .image {
-  width: 13rem;
-  height: 13rem;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   border: 0.2rem solid var(--grey-da-color);
   border-radius: 4.5rem;
 }
 
 .editButton {
-  background-color: transparent;
   position: absolute;
-  top: 10rem;
+  right: -1rem;
+  bottom: 0;
+  background: transparent;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.editIcon {
+  width: 4rem;
+  height: 4rem;
+  display: block;
 }
 
 .editButton img {
@@ -64,13 +81,14 @@
 
 .submitButton {
   width: 13rem;
-  height: 3rem;
+  height: 2rem;
   background-color: var(--black-44-color);
   color: var(--main-bg-color);
-  margin-top: 0.5rem;
   border-radius: 1rem;
   font-size: 1.3rem;
   font-weight: 500;
+  cursor: pointer;
+  margin-top: 0.5rem;
 }
 
 .itembox {
@@ -87,4 +105,21 @@
   border-radius: 1rem;
   padding: 2rem 6rem;
   margin-top: 1.5rem;
+}
+
+.editButtonWrapper {
+  position: relative;
+}
+
+.hiddenInput {
+  opacity: 0;
+  width: 0.1px;
+  height: 0.1px;
+  position: absolute;
+  overflow: hidden;
+  z-index: -1;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
 }
