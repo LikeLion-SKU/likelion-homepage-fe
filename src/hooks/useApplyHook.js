@@ -75,8 +75,8 @@ export const handleSubmit = async (track, questions, answers, navigate) => {
 };
 
 async function isAfterDeadLine() {
-  const deadLine = await getDeadLine(); // "2025-01-01" 형식
-  const deadLineDate = new Date(`${deadLine}T23:59:59Z`); // 마감 23:59:59
+  const deadLine = await getDeadLine();
+  const deadLineDate = new Date(`${deadLine}T23:59:59`);
   const now = new Date();
 
   return now > deadLineDate;
