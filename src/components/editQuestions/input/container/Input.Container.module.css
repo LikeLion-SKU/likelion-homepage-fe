@@ -2,9 +2,20 @@
   width: 100%;
   height: 100%;
   display: flex;
+  justify-content: space-between;
   margin-bottom: 30px;
+}
+
+.container-small {
 }
 
 .container-large {
   max-width: 640px;
+}
+
+.container__title {
+  display: flex;
+  align-items: center;
+  font-size: 36px;
+  font-weight: 700;
 }

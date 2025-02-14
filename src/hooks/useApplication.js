@@ -167,7 +167,7 @@ export function useUpdateApplicationActivation(formId) {
   };
 }
 
-export function useUpdateApplicationInformation(semester, information, type) {
+export function useUpdateApplicationInformation(semester, type, information) {
   const [isLoading, setIsLoading] = useState(false);
 
   const updateApplicationInformation = useCallback(

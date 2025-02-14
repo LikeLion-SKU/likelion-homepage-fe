@@ -5,6 +5,13 @@
 }
 
 .input-small {
+  max-width: 60px;
+  max-height: 30px;
+  border: 0;
+  border-bottom: 2px solid;
+  text-align: center;
+  font-size: 36px;
+  font-weight: 700;
 }
 
 .input-medium {

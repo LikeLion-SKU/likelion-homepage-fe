@@ -51,6 +51,7 @@ export default function EditingQuestionInputContainer({
       </InputContainer>
     );
   }
+
   return (
     <InputContainer size='large'>
       <Input
