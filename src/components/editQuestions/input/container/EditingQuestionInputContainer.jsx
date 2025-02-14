@@ -4,6 +4,7 @@ import EditDeleteButtonContainer from '@/components/editQuestions/button/contain
 import Input from '@/components/editQuestions/input/ui/Input';
 import InputContainer from '@/components/editQuestions/input/container/Input.Container';
 import CompleteCancelButtonContainer from '@/components/editQuestions/button/container/CompleteCancelButtonContainer';
+import LoadingButtonConatainer from '@/components/editQuestions/button/container/LoadingButtonContainer';
 
 import { useCreateQuestionByType, useDeleteQuestionByType, useUpdateQuestionByType } from '@/hooks/useApplication';
 
@@ -41,13 +42,16 @@ export default function EditingQuestionInputContainer({
           rounded={true}
           onChange={(e) => setContent(e.target.value)}
         />
-
-        <CompleteCancelButtonContainer
-          completeOnClick={() => createQuestionByType()}
-          cancelOnClick={() => {
-            setUpdatedQuestions((prev) => prev.slice(0, -1));
-          }}
-        />
+        {isCreateLoading ? (
+          <LoadingButtonConatainer size='small' />
+        ) : (
+          <CompleteCancelButtonContainer
+            completeOnClick={() => createQuestionByType()}
+            cancelOnClick={() => {
+              setUpdatedQuestions((prev) => prev.slice(0, -1));
+            }}
+          />
+        )}
       </InputContainer>
     );
   }
@@ -63,10 +67,16 @@ export default function EditingQuestionInputContainer({
         onChange={(e) => setContent(e.target.value)}
       />
       {isEditing ? (
-        <CompleteCancelButtonContainer
-          completeOnClick={() => updateQuestionByType()}
-          cancelOnClick={() => setIsEditing(false)}
-        />
+        isUpdateLoading ? (
+          <LoadingButtonConatainer size='small' />
+        ) : (
+          <CompleteCancelButtonContainer
+            completeOnClick={() => updateQuestionByType()}
+            cancelOnClick={() => setIsEditing(false)}
+          />
+        )
+      ) : isDeleteLoading ? (
+        <LoadingButtonConatainer size='small' />
       ) : (
         <EditDeleteButtonContainer
           editOnClick={() => setIsEditing(true)}

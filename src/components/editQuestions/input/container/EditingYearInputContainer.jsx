@@ -7,6 +7,7 @@ import Input from '@/components/editQuestions/input/ui/Input';
 import EditingButton from '@/components/editQuestions/editingQuestionSection/ui/EditingButton';
 import CompleteCancelButtonContainer from '@/components/editQuestions/button/container/CompleteCancelButtonContainer';
 import { useEditQuestions } from '@/components/editQuestions/provider/EditQuestionsProvider';
+import LoadingButtonConatainer from '@/components/editQuestions/button/container/LoadingButtonContainer';
 
 import { useUpdateApplicationInformation } from '@/hooks/useApplication';
 
@@ -41,10 +42,14 @@ export default function EditingYearInputContainer({ information }) {
       </h1>
 
       {isEditing ? (
-        <CompleteCancelButtonContainer
-          completeOnClick={() => updateApplicationInformation()}
-          cancelOnClick={() => setIsEditing(false)}
-        />
+        isUpdateLoading ? (
+          <LoadingButtonConatainer size='small' />
+        ) : (
+          <CompleteCancelButtonContainer
+            completeOnClick={() => updateApplicationInformation()}
+            cancelOnClick={() => setIsEditing(false)}
+          />
+        )
       ) : (
         <EditingButton onClick={() => setIsEditing(true)} />
       )}

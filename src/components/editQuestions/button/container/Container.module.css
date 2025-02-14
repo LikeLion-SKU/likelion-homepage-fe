@@ -21,3 +21,9 @@
 .container-superLarge {
   max-width: 640px;
 }
+
+.container-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

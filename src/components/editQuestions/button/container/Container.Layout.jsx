@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-export default function ContainerLayout({ children, size }) {
+export default function ContainerLayout({ children, size, loading }) {
   if (React.Children.count(children) === 0) throw new Error('children 값을 입력하지 않으셨습니다');
 
   if (typeof size !== 'string' || !['small', 'medium', 'large', 'superLarge'].includes(size))
@@ -14,6 +14,7 @@ export default function ContainerLayout({ children, size }) {
 
   const containerClass = cx('container', {
     [`container-${size}`]: size,
+    'container-loading': loading,
   });
 
   return <div className={containerClass}>{children}</div>;
