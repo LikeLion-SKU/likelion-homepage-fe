@@ -7,7 +7,7 @@ export default function CompleteCancelButtonContainer({ completeOnClick, cancelO
   if (typeof cancelOnClick !== 'function') throw new Error('cancelOnClick은 함수이어야 합니다');
 
   return (
-    <ContainerLayout>
+    <ContainerLayout size='medium'>
       <CompleteButton onClick={() => completeOnClick()} />
       <CancelButton onClick={() => cancelOnClick()} />
     </ContainerLayout>
