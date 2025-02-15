@@ -98,7 +98,7 @@
 
 .submitBtn {
   background-color: rgba(255, 119, 16, 1);
-  color: white;
+  color: white !important;
   cursor: pointer;
   transition: transform 0.2s ease;
 
