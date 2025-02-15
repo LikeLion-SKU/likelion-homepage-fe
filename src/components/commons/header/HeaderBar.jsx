@@ -47,6 +47,11 @@ export default function HeaderBar({ children }) {
     checkLoginStatus();
   }, [location.pathname]);
 
+  // 경로 변경 시 메뉴 닫기
+  useEffect(() => {
+    closeMenu();
+  }, [location.pathname]);
+
   return (
     <div className={styles.section}>
       <HeaderBarContext.Provider value={{ isMenuOpen, toggleMenu, closeMenu, isLoggedIn, setIsLoggedIn }}>
