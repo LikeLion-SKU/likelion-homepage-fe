@@ -224,8 +224,18 @@ export function useGetQuestions(
           const tmp = [data.userName, data.department, data.studentId, data.phoneNumber, data.loginId];
           setUserInfo(tmp);
         }
-      } catch {
-        navigate('/error');
+      } catch (error) {
+        const status = error.response?.status || error.status;
+        if (status === 400) {
+          navigate('/error', {
+            state: {
+              msg: error.response.data.message,
+              msg2: '모집 기간에 유의하여 지원해주세요.',
+              btnMsg: '홈으로 돌아가기',
+              url: '/',
+            },
+          });
+        } else navigate('/error');
       }
     }
 
