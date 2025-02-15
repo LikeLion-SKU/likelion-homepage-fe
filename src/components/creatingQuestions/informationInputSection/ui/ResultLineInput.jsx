@@ -1,8 +1,8 @@
 import { useQuestions } from '@/components/creatingQuestions/provider/QuestionsProvider';
 import styles from './DeadLineInput.module.css';
 
-export default function DeadLineInput() {
-  const { setDeadLine } = useQuestions();
+export default function ResultLineInput() {
+  const { setResultLine } = useQuestions();
 
   return (
     <>
@@ -10,14 +10,14 @@ export default function DeadLineInput() {
         className={styles['dead-line-label']}
         htmlFor='dead-line-input'
       >
-        마감일 날짜
+        발표일 날짜
       </label>
       <input
         className={styles['dead-line-input']}
         type='datetime-local'
         id='dead-line-input'
         onChange={function (e) {
-          setDeadLine(e.target.value);
+          setResultLine(e.target.value);
         }}
       />
     </>
