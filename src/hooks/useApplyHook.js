@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import { checkDidApply, formSubmit, getDeadLine, tempSubmit } from '@api/applyAPI';
+import { checkDidApply, formSubmit, tempSubmit } from '@api/applyAPI';
 import { APIService } from '@api/axios';
 import { options } from '@constants/applicationForm/formConstants.js';
 
@@ -58,29 +58,16 @@ export const handleSubmit = async (track, questions, answers, navigate) => {
     navigate('/error');
   }
 
-  if (await isAfterDeadLine()) {
-    alert('지원 기간이 종료되었습니다.');
-    return;
-  }
-
   if (!areAllQuestionsAnswered(questions, answers)) {
     alert('모든 질문에 답변해주세요.');
     return;
   }
   if (!window.confirm('정말 제출하시겠어요?')) return;
-  if (!(await formSubmit(track.value, track.label, questions, answers))) return;
+  if (!(await formSubmit(track.value, track.label, questions, answers, navigate))) return;
   alert('제출이 완료되었습니다.');
   navigate('/');
   window.scrollTo(0, 0);
 };
-
-async function isAfterDeadLine() {
-  const deadLine = await getDeadLine();
-  const deadLineDate = new Date(`${deadLine}T23:59:59`);
-  const now = new Date();
-
-  return now > deadLineDate;
-}
 
 export async function handleNextPage(step, track, questions, answers, setAnswers, navigate) {
   if (step === 2 && !track) {
@@ -163,18 +150,6 @@ export function useGetQuestions(
         return;
       } else if (check === 'error') {
         navigate('/error');
-        return;
-      }
-
-      if (await isAfterDeadLine()) {
-        navigate('/error', {
-          state: {
-            msg: '지원 기간이 종료되었습니다.',
-            msg2: '내년에 지원해주시기 바랍니다.',
-            btnMsg: '홈으로 돌아가기',
-            Url: '/',
-          },
-        });
         return;
       }
 

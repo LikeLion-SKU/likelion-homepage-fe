@@ -16,7 +16,7 @@ export async function tempSubmit(partType, questions, answers) {
   }
 }
 
-export async function formSubmit(partType, partLabel, questions, answers) {
+export async function formSubmit(partType, partLabel, questions, answers, navigate) {
   const answer = questions.map((item, index) => ({
     questionId: item.id,
     content: answers[index],
@@ -31,8 +31,18 @@ export async function formSubmit(partType, partLabel, questions, answers) {
       answers: answer,
     });
     return res;
-  } catch {
-    return null;
+  } catch (error) {
+    const status = error.response?.status || error.status;
+    if (status === 400) {
+      navigate('/error', {
+        state: {
+          msg: error.response.data.message,
+          msg2: '모집 기간에 유의하여 지원해주세요.',
+          btnMsg: '홈으로 돌아가기',
+          url: '/',
+        },
+      });
+    } else navigate('/error');
   }
 }
 
@@ -43,19 +53,5 @@ export async function checkDidApply() {
     return didApply.createdAt ? false : 'apply';
   } catch {
     return 'error';
-  }
-}
-
-export async function getDeadLine() {
-  try {
-    const baseUrl = `/api/admin/applications/forms/date`;
-    const data = await APIService.public.get(baseUrl, {
-      params: {
-        isActive: true,
-      },
-    });
-    return data.deadline;
-  } catch {
-    location.href = '/error';
   }
 }
