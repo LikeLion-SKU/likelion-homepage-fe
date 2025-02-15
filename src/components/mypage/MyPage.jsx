@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import { APIService } from '@api/axios';
-import { useNavigate } from 'react-router-dom';
 import styles from './MyPage.module.css';
 import editImg from '@assets/mypage/editImg.webp';
 
@@ -141,67 +140,6 @@ function MyPageImage({ userimage, semester, studentId }) {
   );
 }
 
-function MyPageItemBox({ children }) {
-  return <div className={styles.itembox}>{children}</div>;
-}
-
-function MyPageApply() {
-  const navigate = useNavigate();
-
-  return (
-    <button
-      className={styles.itembox__button}
-      onClick={() => navigate('/application')}
-    >
-      내 지원서 보러가기
-    </button>
-  );
-}
-
-function MypageChangePW() {
-  const navigate = useNavigate();
-
-  return (
-    <button
-      className={styles.itembox__button}
-      onClick={() => navigate('/passwordChange', { state: { prevPage: 'AllowAccess' }, replace: true })}
-    >
-      비밀번호 변경
-    </button>
-  );
-}
-
-function MyPageLogout() {
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
-    navigate('/');
-  };
-
-  return (
-    <button
-      className={styles.itembox__button}
-      onClick={handleLogout}
-    >
-      {' '}
-      로그아웃
-    </button>
-  );
-}
-
-function MyPageEditInterviewSchdule() {
-  const navigate = useNavigate();
-
-  return <button className={styles.itembox__button}>면접일정 확인하기</button>;
-}
-
 MyPage.Profile = MyPageProfile;
 MyPage.Text = MyPageText;
 MyPage.Image = MyPageImage;
-MyPage.ItemBox = MyPageItemBox;
-MyPage.Apply = MyPageApply;
-MyPage.ChangePW = MypageChangePW;
-MyPage.Logout = MyPageLogout;
-MyPage.MyPageEditInterviewSchdule = MyPageEditInterviewSchdule;
