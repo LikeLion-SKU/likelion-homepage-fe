@@ -2,35 +2,62 @@ import { useEffect, useState } from 'react';
 import LionImage from '@assets/homepage/lion.webp';
 import styles from './recruitMain.module.css';
 import { useNavigate } from 'react-router-dom';
+import { getScedules } from '@api/recruitAPI';
 
 export default function RecruitMain() {
   const [isResultTime, setIsResultTime] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
+  const [schedule, setSchedule] = useState({
+    openDate: null,
+    deadline: null,
+    resultDate: null,
+  });
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    const checkTime = () => {
-      const now = new Date();
-      const resultTime = new Date('2025-03-08T12:00:00'); // 결과 확인 가능 시간
-      const reviewStartTime = new Date('2025-03-07T00:00:00'); // 모집 마감
-      const reviewEndTime = new Date('2025-03-08T12:00:00'); // 결과 나오기 전
+    async function fetchSchedules() {
+      try {
+        const res = await getScedules();
+        if (res) {
+          const { openDate, deadline, resultDate } = res;
 
-      if (now >= resultTime) {
-        setIsResultTime(true);
-        localStorage.setItem('canAccessResult', 'true');
+          // 상태 업데이트 (openDate, deadline, resultDate)
+          setSchedule({
+            openDate: new Date(openDate),
+            deadline: new Date(deadline),
+            resultDate: new Date(resultDate),
+          });
+
+          checkTime(new Date(openDate), new Date(deadline), new Date(resultDate)); // 모집 상태 체크
+        }
+      } catch (error) {
+        navigate('/error');
+      }
+    }
+
+    function checkTime(start, end, result) {
+      const now = new Date(); // 현재 시간
+
+      if (result && now >= result) {
+        setIsResultTime(true); // 결과 발표 기간이면 결과 확인 버튼 활성화
+        localStorage.setItem('canAccessResult', 'true'); // 로컬스토리지 저장
       }
 
-      if (now >= reviewStartTime && now < reviewEndTime) {
-        setIsDisabled(true);
+      if (end && now >= end && (!result || now < result)) {
+        setIsDisabled(true); // 모집 마감 상태면 버튼 비활성화
       } else {
-        setIsDisabled(false);
+        setIsDisabled(false); // 모집 가능 상태면 버튼 활성화
       }
-    };
+    }
 
-    checkTime();
-    const interval = setInterval(checkTime, 1000 * 60); // 1분마다 체크
+    fetchSchedules(); // API 호출해서 모집 일정 받아옴
 
-    return () => clearInterval(interval);
+    const interval = setInterval(() => {
+      checkTime(schedule.openDate, schedule.deadline, schedule.resultDate);
+    }, 1000 * 60); // 1분마다 모집 일정 확인
+
+    return () => clearInterval(interval); // 언마운트 시 인터벌 제거
   }, []);
 
   function handleRecruitButtonClick() {
