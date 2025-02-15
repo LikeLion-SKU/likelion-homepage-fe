@@ -11,6 +11,7 @@ export default function CreateQuestionButton({ onClick }) {
       onClick={() => onClick()}
       color='bright'
       rounded='none'
+      center={true}
     >
       <FiPlusCircle className={styles['btn__icon']} />
     </ButtonLayout>

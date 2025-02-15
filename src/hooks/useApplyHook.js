@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import { checkDidApply, formSubmit, tempSubmit } from '@api/applyAPI';
+import { checkDidApply, formSubmit, getDeadLine, tempSubmit } from '@api/applyAPI';
 import { APIService } from '@api/axios';
 import { options } from '@constants/applicationForm/formConstants.js';
 
@@ -18,7 +18,16 @@ export function areAllQuestionsAnswered(questions, answers) {
   return questions.every((_, index) => answers[index] && answers[index].trim() !== '');
 }
 
-export function handleAnswerChange(index, value, MAX_LENGTH, answers, charCounts, setAnswers, setCharCounts) {
+export function handleAnswerChange(
+  index,
+  value,
+  MAX_LENGTH,
+  answers,
+  charCounts,
+  setAnswers,
+  setCharCounts,
+  setIsAllAnswer,
+) {
   if (value.length > MAX_LENGTH) return;
 
   const updatedAnswers = [...answers];
@@ -28,19 +37,50 @@ export function handleAnswerChange(index, value, MAX_LENGTH, answers, charCounts
   const updatedCharCounts = [...charCounts];
   updatedCharCounts[index] = value.length;
   setCharCounts(updatedCharCounts);
+
+  setIsAllAnswer(!updatedAnswers.some((answer) => !answer));
 }
 
 export const handleSubmit = async (track, questions, answers, navigate) => {
+  const check = await checkDidApply();
+  if (!check) {
+    navigate('/error', {
+      state: {
+        msg: '이미 응답한 페이지입니다.',
+        msg2: '지원해주셔서 감사합니다.',
+        msg3: '설문지는 한번만 작성할 수 있습니다.',
+        msg4: '함께 활동하기를 기대하겠습니다.',
+        btnMsg: '내 지원서 보러가기',
+        url: '/application',
+      },
+    });
+  } else if (check === 'error') {
+    navigate('/error');
+  }
+
+  if (await isAfterDeadLine()) {
+    alert('지원 기간이 종료되었습니다.');
+    return;
+  }
+
   if (!areAllQuestionsAnswered(questions, answers)) {
     alert('모든 질문에 답변해주세요.');
     return;
   }
   if (!window.confirm('정말 제출하시겠어요?')) return;
-  if (!(await formSubmit(track.value, questions, answers))) return;
+  if (!(await formSubmit(track.value, track.label, questions, answers))) return;
   alert('제출이 완료되었습니다.');
   navigate('/');
   window.scrollTo(0, 0);
 };
+
+async function isAfterDeadLine() {
+  const deadLine = await getDeadLine();
+  const deadLineDate = new Date(`${deadLine}T23:59:59`);
+  const now = new Date();
+
+  return now > deadLineDate;
+}
 
 export async function handleNextPage(step, track, questions, answers, setAnswers, navigate) {
   if (step === 2 && !track) {
@@ -67,7 +107,18 @@ export async function handleTmpRes(answers, answersId, trackType) {
   alert('임시저장이 완료되었습니다.');
 }
 
-export function useGetQuestions(type, track, setQuestions, setUserInfo, setAnswers, setCharCounts, setTrack, navigate) {
+export function useGetQuestions(
+  type,
+  track,
+  setQuestions,
+  setUserInfo,
+  setAnswers,
+  setCharCounts,
+  setTrack,
+  setIsAllAnswer,
+) {
+  const navigate = useNavigate();
+
   let fetchType;
   if (type === 1) {
     fetchType = null; // fetchType을 명시적으로 null로 설정
@@ -96,6 +147,7 @@ export function useGetQuestions(type, track, setQuestions, setUserInfo, setAnswe
         });
         return;
       }
+
       const check = !fetchType ? await checkDidApply() : 'apply';
       if (!check) {
         navigate('/error', {
@@ -108,9 +160,24 @@ export function useGetQuestions(type, track, setQuestions, setUserInfo, setAnswe
             url: '/application',
           },
         });
+        return;
       } else if (check === 'error') {
         navigate('/error');
+        return;
       }
+
+      if (await isAfterDeadLine()) {
+        navigate('/error', {
+          state: {
+            msg: '지원 기간이 종료되었습니다.',
+            msg2: '내년에 지원해주시기 바랍니다.',
+            btnMsg: '홈으로 돌아가기',
+            Url: '/',
+          },
+        });
+        return;
+      }
+
       try {
         if (fetchType) {
           const data = await APIService.private.get(`/api/questions`, {
@@ -126,7 +193,8 @@ export function useGetQuestions(type, track, setQuestions, setUserInfo, setAnswe
               type: fetchType,
             },
           });
-          const tmpAnswer = data2.answers?.map((item) => item.content) || [];
+          //임시저장 답변이 null일 때, 질문과 답변의 배열 길이를 맞춤
+          const tmpAnswer = data2.answers?.map((item) => item.content) || new Array(data.length).fill(undefined);
           setAnswers(tmpAnswer);
           let option = {};
           switch (data2.partType) {
@@ -144,10 +212,12 @@ export function useGetQuestions(type, track, setQuestions, setUserInfo, setAnswe
           }
 
           if (data2.partType !== 'NONE' && data2.partType !== null) setTrack(option);
-          if (tmpAnswer.length >= 0) {
-            const updatedCharCounts = tmpAnswer.map((answer) => (answer ? answer.length : 0));
-            setCharCounts(updatedCharCounts);
-          }
+
+          const updatedCharCounts = tmpAnswer.map((answer) => (answer ? answer.length : 0));
+          setCharCounts(updatedCharCounts);
+
+          if (updatedCharCounts.length > 0 && tmpAnswer.every((answer) => answer)) setIsAllAnswer(true);
+          else setIsAllAnswer(false);
         } else {
           const baseUrl = import.meta.env.VITE_APP_GET_USERINFO;
           const data = await APIService.private.get(baseUrl);

@@ -16,14 +16,17 @@ export async function tempSubmit(partType, questions, answers) {
   }
 }
 
-export async function formSubmit(partType, questions, answers) {
+export async function formSubmit(partType, partLabel, questions, answers) {
   const answer = questions.map((item, index) => ({
     questionId: item.id,
     content: answers[index],
   }));
   try {
+    const semester = new Date().getFullYear() - 2012;
     const baseUrl = '/api/applications/answers';
     const res = await APIService.private.post(baseUrl, {
+      part: partLabel,
+      semester,
       partType,
       answers: answer,
     });
@@ -40,5 +43,19 @@ export async function checkDidApply() {
     return didApply.createdAt ? false : 'apply';
   } catch {
     return 'error';
+  }
+}
+
+export async function getDeadLine() {
+  try {
+    const baseUrl = `/api/admin/applications/forms/date`;
+    const data = await APIService.public.get(baseUrl, {
+      params: {
+        isActive: true,
+      },
+    });
+    return data.deadline;
+  } catch {
+    location.href = '/error';
   }
 }

@@ -4,13 +4,14 @@ import styles from '@components/applicationForm/HeaderSection.module.css';
 import { useSearchParams } from 'react-router-dom';
 
 export default function HeaderSection() {
+  const year = new Date().getFullYear() - 2012;
   const [param] = useSearchParams();
   const step = parseInt(param.get('step'), 10);
   const { answers, questions, track } = useStore();
 
   return (
     <div className={styles.headerContainer}>
-      <span className={styles.header}>멋사 13기 지원서</span>
+      <span className={styles.header}>멋사 {year}기 지원서</span>
       <div className={styles.buttonWrapper}>
         <button
           style={step === 1 ? { display: 'none' } : null}

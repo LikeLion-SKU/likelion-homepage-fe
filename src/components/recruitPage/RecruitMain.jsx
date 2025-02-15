@@ -5,16 +5,25 @@ import { useNavigate } from 'react-router-dom';
 
 export default function RecruitMain() {
   const [isResultTime, setIsResultTime] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const checkTime = () => {
-      const resultTime = new Date('2025-03-08T12:00:00'); // 3월 8일 오후 12시
       const now = new Date();
+      const resultTime = new Date('2025-03-08T12:00:00'); // 결과 확인 가능 시간
+      const reviewStartTime = new Date('2025-03-07T00:00:00'); // 모집 마감
+      const reviewEndTime = new Date('2025-03-08T12:00:00'); // 결과 나오기 전
 
       if (now >= resultTime) {
         setIsResultTime(true);
         localStorage.setItem('canAccessResult', 'true');
+      }
+
+      if (now >= reviewStartTime && now < reviewEndTime) {
+        setIsDisabled(true);
+      } else {
+        setIsDisabled(false);
       }
     };
 
@@ -23,6 +32,14 @@ export default function RecruitMain() {
 
     return () => clearInterval(interval);
   }, []);
+
+  function handleRecruitButtonClick() {
+    if (isDisabled) {
+      alert('모집 기간이 마감되었습니다.');
+      return;
+    }
+    navigate(isResultTime ? '/result' : '/apply');
+  }
 
   function scrollToSection(sectionId) {
     const section = document.getElementById(sectionId);
@@ -44,34 +61,26 @@ export default function RecruitMain() {
       />
       <button
         className={styles.recruitButton}
-        onClick={function () {
-          navigate(isResultTime ? '/result' : '/apply');
-        }}
+        onClick={handleRecruitButtonClick}
       >
         {isResultTime ? '결과 확인하기' : '멋사 지원하기'}
       </button>
       <div className={styles.pageButtonContainer}>
         <button
           className={styles.pageButton}
-          onClick={function () {
-            scrollToSection('scheduleSection');
-          }}
+          onClick={() => scrollToSection('scheduleSection')}
         >
           모집 일정
         </button>
         <button
           className={styles.pageButton}
-          onClick={function () {
-            scrollToSection('requirementSection');
-          }}
+          onClick={() => scrollToSection('requirementSection')}
         >
           모집 대상
         </button>
         <button
           className={styles.pageButton}
-          onClick={function () {
-            scrollToSection('questionSection');
-          }}
+          onClick={() => scrollToSection('questionSection')}
         >
           자주 묻는 질문
         </button>

@@ -4,7 +4,7 @@ import { getProfile } from '@api/aboutAdminAPI';
 import Registration from './Registration';
 
 export default function Generation() {
-  const years = [11, 12, 13];
+  const years = [0, 1, 11, 12, 13];
   const [apiData, setApiData] = useState([]);
   const [selectedYear, setSelectedYear] = useState(null);
 

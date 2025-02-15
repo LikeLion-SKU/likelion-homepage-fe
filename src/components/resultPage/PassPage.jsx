@@ -43,6 +43,18 @@ export default function PassPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    //결과 확인 가능한 시간인지 검사
+    const checkAccess = () => {
+      const canAccessResult = localStorage.getItem('canAccessResult');
+      if (!canAccessResult || canAccessResult !== 'true') {
+        navigate('/notallowed');
+        return false;
+      }
+      return true;
+    };
+
+    if (!checkAccess()) return;
+
     // 제출 상태 확인
     getSubmissionStatus()
       .then((response) => {

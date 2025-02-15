@@ -33,9 +33,7 @@ export async function signUp(form, setSignupSuccess, setNow, navigate) {
       userName: form.name,
       department: form.department,
       studentId: form.strudent_num,
-      semester: form.semester === '' ? 0 : Number(form.semester),
       phoneNumber: form.phone_num,
-      parts: form.part,
     };
 
     const response = await APIService.public.post(import.meta.env.VITE_APP_SIGN_UP, requestData);
