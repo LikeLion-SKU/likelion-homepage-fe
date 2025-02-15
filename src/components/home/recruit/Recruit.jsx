@@ -14,7 +14,7 @@ export default function Recruit({ children, isActive }) {
   useEffect(() => {
     async function fetchTargetDate() {
       try {
-        const baseUrl = import.meta.env.VITE_APP_GET_DEADLINE;
+        const baseUrl = import.meta.env.VITE_APP_GET_SCHEDULE;
         const response = await APIService.public.get(baseUrl, {
           params: {
             isActive: true,
