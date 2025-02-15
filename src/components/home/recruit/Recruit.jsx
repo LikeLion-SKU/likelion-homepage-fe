@@ -9,29 +9,28 @@ const RecruitContext = createContext();
 
 export default function Recruit({ children, isActive }) {
   const [targetDate, setTargetDate] = useState(null);
-  const navigate = useNavigate();
+  const [targetSemester, setTargetSemester] = useState(null);
 
   useEffect(() => {
-    if (!isActive) {
-      navigate('/error');
-      return;
-    }
-
-    const fetchTargetDate = async () => {
+    async function fetchTargetDate() {
       try {
         const baseUrl = import.meta.env.VITE_APP_GET_DEADLINE;
-        const response = await APIService.private.get(baseUrl);
+        const response = await APIService.public.get(baseUrl, {
+          params: {
+            isActive: true,
+          },
+        });
         setTargetDate(new Date(response.deadline));
-        console.log(response.deadline);
+        setTargetSemester(response.semester);
       } catch {
-        alert('사용자 정보를 불러오는데 실패했습니다.');
+        location.href = '/error';
       }
-    };
-
+    }
     fetchTargetDate();
   }, [isActive]);
+
   return (
-    <RecruitContext.Provider value={targetDate}>
+    <RecruitContext.Provider value={{ targetDate, targetSemester }}>
       <section className={styles.section}>{children}</section>
     </RecruitContext.Provider>
   );
@@ -46,7 +45,8 @@ function RecruitItemBox({ children }) {
 }
 
 function RecruitTitle() {
-  return <p className={styles.title}>13기 아기사자 모집</p>;
+  const { targetSemester } = useRecruitContext();
+  return <p className={styles.title}>{targetSemester}기 아기사자 모집</p>;
 }
 
 function RecruitTimerTitle() {
@@ -61,7 +61,7 @@ function RecruitTimerTitle() {
 }
 
 function RecruitTimer() {
-  const targetDate = useRecruitContext();
+  const { targetDate } = useRecruitContext();
   const [timeLeft, setTimeLeft] = useState({
     days: '00',
     hours: '00',
@@ -114,7 +114,7 @@ function RecruitTimer() {
 }
 
 function RecruitButton() {
-  const targetDate = useRecruitContext();
+  const { targetDate } = useRecruitContext();
   const navigate = useNavigate();
   const now = new Date();
 

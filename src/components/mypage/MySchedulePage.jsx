@@ -13,7 +13,7 @@ export default function MySchedulePage() {
       try {
         const response = await getMyInterviewSchedule();
         setSchedule(response.data);
-      } catch (error) {
+      } catch {
         setError('면접 일정을 불러오는 중 오류가 발생했습니다. 관리자에게 문의해주세요');
       }
     };
@@ -27,7 +27,7 @@ export default function MySchedulePage() {
         await deleteInterviewBooking(bookingId);
         alert('면접 일정이 취소되었습니다. 면접일정을 다시 예약해주세요.');
         navigate('/pass');
-      } catch (error) {
+      } catch {
         alert('면접 일정 취소 중 오류가 발생했습니다. 관리자에게 문의해주세요');
       }
     }
