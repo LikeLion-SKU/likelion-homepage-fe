@@ -34,13 +34,15 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
   return (
     <div className={styles.pagination}>
       {/* 이전 페이지 버튼 */}
-      <button
-        onClick={handlePrevClick}
-        disabled={currentPage === 1}
-        className={styles.paginationButton}
-      >
-        &lt;
-      </button>
+      {currentPage > 1 ? (
+        <button
+          onClick={handlePrevClick}
+          disabled={currentPage === 1}
+          className={styles.paginationButton}
+        >
+          &lt;
+        </button>
+      ) : null}
 
       {/* 페이지 번호 버튼 */}
       {getPageNumbers().map((pageNumber) => (
@@ -54,13 +56,15 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
       ))}
 
       {/* 다음 페이지 버튼 */}
-      <button
-        onClick={handleNextClick}
-        disabled={currentPage === totalPages}
-        className={styles.paginationButton}
-      >
-        &gt;
-      </button>
+      {currentPage < totalPages ? (
+        <button
+          onClick={handleNextClick}
+          disabled={currentPage === totalPages}
+          className={styles.paginationButton}
+        >
+          &gt;
+        </button>
+      ) : null}
     </div>
   );
 }
