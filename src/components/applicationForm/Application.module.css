@@ -88,6 +88,7 @@
     border-radius: inherit;
     font-weight: 600;
     transition: transform 0.2s ease;
+    color: black;
 
     &:hover {
       transform: scale(1.05);
