@@ -1,11 +1,44 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { APIService } from '@api/axios';
 import styles from './Recruit.module.css';
 import ParallaxText from './ParallaxText/ParallaxText';
 import arrow from '@assets/homepage/arrow.webp';
 
-export default function Recruit({ children }) {
-  return <section className={styles.section}>{children}</section>;
+const RecruitContext = createContext();
+
+export default function Recruit({ children, isActive }) {
+  const [targetDate, setTargetDate] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isActive) {
+      navigate('/error');
+      return;
+    }
+
+    const fetchTargetDate = async () => {
+      try {
+        const baseUrl = import.meta.env.VITE_APP_GET_DEADLINE;
+        const response = await APIService.private.get(baseUrl);
+        setTargetDate(new Date(response.deadline));
+        console.log(response.deadline);
+      } catch {
+        alert('사용자 정보를 불러오는데 실패했습니다.');
+      }
+    };
+
+    fetchTargetDate();
+  }, [isActive]);
+  return (
+    <RecruitContext.Provider value={targetDate}>
+      <section className={styles.section}>{children}</section>
+    </RecruitContext.Provider>
+  );
+}
+
+function useRecruitContext() {
+  return useContext(RecruitContext);
 }
 
 function RecruitItemBox({ children }) {
@@ -28,6 +61,7 @@ function RecruitTimerTitle() {
 }
 
 function RecruitTimer() {
+  const targetDate = useRecruitContext();
   const [timeLeft, setTimeLeft] = useState({
     days: '00',
     hours: '00',
@@ -35,10 +69,9 @@ function RecruitTimer() {
     seconds: '00',
   });
 
-  // 서류 마감 날짜
-  const targetDate = new Date('2025-03-07T23:59:59');
-
   useEffect(() => {
+    if (!targetDate) return;
+
     const intervalId = setInterval(() => {
       const now = new Date();
       const difference = targetDate - now;
@@ -81,9 +114,9 @@ function RecruitTimer() {
 }
 
 function RecruitButton() {
+  const targetDate = useRecruitContext();
   const navigate = useNavigate();
   const now = new Date();
-  const targetDate = new Date('2025-03-07T23:59:59');
 
   return (
     <button
