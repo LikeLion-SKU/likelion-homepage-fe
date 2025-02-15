@@ -120,6 +120,14 @@ export function useCreateApplication() {
 
     const extractedQuestions = extractQuestionsContent(questions);
 
+    const updatedDateKeys = ['deadline', 'openDate', 'resultDate'];
+
+    for (const key of updatedDateKeys) {
+      if (applicationInformation[key] && applicationInformation[key].endsWith(':00')) {
+        applicationInformation[key] = applicationInformation[key].slice(0, -3);
+      }
+    }
+
     try {
       const res = await APIService.private.post(import.meta.env.VITE_APP_APPLICATIONS, {
         ...applicationInformation,
@@ -130,8 +138,17 @@ export function useCreateApplication() {
         alert('지원서가 성공적으로 생성되었습니다');
         nav('/admin/create');
       }
-    } catch {
-      alert('지원서 생성에 실패했습니다');
+    } catch (error) {
+      if (error.response.data.message.startsWith('이미')) {
+        alert(error.response.data.message);
+        return;
+      }
+      if (error.response.data.message.includes(':')) {
+        const updatedError = error.response.data.message.slice(14);
+        alert(updatedError);
+        return;
+      }
+
       return;
     }
   }

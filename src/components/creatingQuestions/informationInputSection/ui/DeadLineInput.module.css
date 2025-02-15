@@ -1,6 +1,7 @@
 .dead-line-input {
   border: 1px solid var(--grey-da-color);
   color: var(--grey-a9-color);
+  height: 40px;
 }
 
 .dead-line-label {
