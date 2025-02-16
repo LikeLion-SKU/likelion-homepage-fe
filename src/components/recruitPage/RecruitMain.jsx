@@ -48,9 +48,7 @@ export default function RecruitMain() {
         localStorage.setItem('canAccessResult', 'true'); // 로컬스토리지 저장
       }
 
-      if (end && now >= end && (!result || now < result)) {
-        setIsDisabled(true); // 모집 마감 상태면 버튼 비활성화
-      } else if (result && now >= end && now < result) {
+      if (result && now >= end && now < result) {
         setIsDisabled(true); // 결과 산정 중 상태면 버튼 비활성화
       } else {
         setIsDisabled(false); // 모집 가능 상태면 버튼 활성화
@@ -68,6 +66,7 @@ export default function RecruitMain() {
 
   function handleRecruitButtonClick() {
     if (!schedule.openDate || !schedule.deadline || !schedule.resultDate) {
+      // 활성화된 지원서가 없을경우
       alert('모집 기간이 아닙니다.');
       return;
     }
