@@ -26,8 +26,8 @@ export default function InterviewContainer() {
   function fetchInterviewData() {
     Promise.all([getInterviewDates(), getInterviewTimes()])
       .then(function ([datesResponse, timesResponse]) {
-        setInterviewDates(datesResponse.data);
-        setInterviewTimes(timesResponse.data);
+        setInterviewDates(datesResponse.data || []);
+        setInterviewTimes(timesResponse.data || []);
         setError(null);
       })
       .catch(function () {
