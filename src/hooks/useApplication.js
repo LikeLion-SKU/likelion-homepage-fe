@@ -196,9 +196,16 @@ export function useUpdateApplicationInformation(semester, type, information) {
           alert('지원서 정보를 성공적으로 업데이트 했습니다');
           window.location.href = `/admin/edit/application/${res.semester}?type=${type}`;
         }
-      } catch {
-        alert('지원서를 활성화 상태를 업데이트 하는데 실패했습니다');
-        return;
+      } catch (error) {
+        if (error.response.data.message.startsWith('이미')) {
+          alert(error.response.data.message);
+          return;
+        }
+        if (error.response.data.message.includes(':')) {
+          const updatedError = error.response.data.message.slice(14);
+          alert(updatedError);
+          return;
+        }
       } finally {
         setIsLoading(false);
       }
@@ -284,6 +291,7 @@ export function useUpdateQuestionByType(questionId, data, semester, type) {
         if (res) {
           alert('질문을 성공적으로 업데이트 했습니다');
           window.location.href = `/admin/edit/application/${semester}?type=${type}`;
+          return;
         }
       } catch {
         alert('질문을 업데이트 하는데 실패했습니다');
