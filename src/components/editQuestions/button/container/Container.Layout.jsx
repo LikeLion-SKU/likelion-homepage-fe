@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-export default function ContainerLayout({ children, size, loading }) {
+export default function ContainerLayout({ children, size = 'large', loading }) {
   if (React.Children.count(children) === 0) throw new Error('children 값을 입력하지 않으셨습니다');
 
   if (typeof size !== 'string' || !['small', 'medium', 'large', 'superLarge'].includes(size))
