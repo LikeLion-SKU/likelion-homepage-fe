@@ -195,7 +195,7 @@ export function useGetQuestions(
           else setIsAllAnswer(false);
         } else {
           const baseUrl = import.meta.env.VITE_APP_GET_USERINFO;
-          const data = await APIService.private.get(baseUrl);
+          const data = await APIService.private.get(`${baseUrl}?apply=true`);
           const tmp = [data.userName, data.department, data.studentId, data.phoneNumber, data.loginId];
           setUserInfo(tmp);
         }
