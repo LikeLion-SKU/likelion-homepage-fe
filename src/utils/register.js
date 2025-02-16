@@ -25,9 +25,7 @@ export function validateInput_email(form) {
     password_valid: '',
     name: '',
     department: '',
-    semester: '',
     phone_num: '',
-    part: '',
     consent: false,
   };
 
@@ -57,9 +55,7 @@ export function validateInput_confirmCode(form) {
     password_valid: '',
     name: '',
     department: '',
-    semester: '',
     phone_num: '',
-    part: '',
     consent: false,
   };
 
@@ -95,9 +91,7 @@ export function validateInput_signup(form) {
     password_valid: '',
     name: '',
     department: '',
-    semester: '',
     phone_num: '',
-    part: '',
     consent: '',
   };
 
@@ -153,16 +147,6 @@ export function validateInput_signup(form) {
     errors.phone_num = '연락처는 숫자로만 8~12자로 입력해야 합니다.';
   }
 
-  if (form.semester === '') {
-    errors.semester = '기수는 필수 입력 항목입니다.';
-  } else if (form.semester !== '' && !inputRegexs.semesterRegex.test(form.semester)) {
-    errors.semester = '기수는 숫자 2자리로 입력해야 합니다.';
-  }
-
-  if (form.part === '') {
-    errors.part = '파트는 필수 입력 항목입니다.';
-  }
-
   if (!form.consent) {
     errors.consent = '개인정보 수집 및 이용에 동의해야 합니다.';
   }
@@ -181,8 +165,6 @@ export function handleSignup(setErrors, form) {
     errors.department ||
     errors.strudent_num ||
     errors.phone_num ||
-    errors.semester ||
-    errors.part ||
     errors.consent
   ) {
     return false;
@@ -202,8 +184,6 @@ export function invalidationKey(errors) {
     department: '학과/학부',
     strudent_num: '학번',
     phone_num: '연락처',
-    semester: '기수',
-    part: '파트',
     consent: '개인정보 수집 및 이용 동의서',
   };
 

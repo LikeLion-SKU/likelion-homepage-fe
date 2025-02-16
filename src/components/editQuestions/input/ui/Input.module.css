@@ -1,0 +1,47 @@
+.input {
+  width: 100%;
+  height: 100%;
+  background-color: var(--main-bg-color);
+}
+
+.input-small {
+  max-width: 60px;
+  max-height: 30px;
+  border: 0;
+  border-bottom: 2px solid;
+  text-align: center;
+  font-weight: 700;
+  font-size: 36px;
+}
+
+.input-medium {
+}
+
+.input-large {
+  max-width: 530px;
+  height: 50px;
+}
+
+.input--rounded {
+  border: 1px solid var(--grey-da-color);
+  border-radius: 10px;
+}
+
+.input--date {
+  border: 1px solid var(--grey-da-color);
+  color: var(--grey-a9-color);
+  height: 40px;
+  max-width: 100px;
+}
+
+.input__date-container {
+  display: flex;
+  justify-content: space-between;
+  width: 192px;
+  height: 40px;
+}
+
+.input__date-label {
+  font-weight: 700;
+  font-size: 16px;
+}

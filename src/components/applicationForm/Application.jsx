@@ -40,7 +40,7 @@ function ApplicantInfo({ userInfo }) {
   );
 }
 
-function QWrapper({ question, index, charCounts, setCharCounts, step, userInfo }) {
+function QWrapper({ question, index, charCounts, setCharCounts, step, userInfo, setIsAllAnswers }) {
   return (
     <div
       key={question.id || index}
@@ -55,6 +55,7 @@ function QWrapper({ question, index, charCounts, setCharCounts, step, userInfo }
           index={index}
           charCounts={charCounts}
           setCharCounts={setCharCounts}
+          setIsAllAnswers={setIsAllAnswers}
         />
       ) : (
         <ApplicantInfo userInfo={userInfo[index]} />
@@ -63,7 +64,7 @@ function QWrapper({ question, index, charCounts, setCharCounts, step, userInfo }
   );
 }
 
-function AnswerWrapper({ index, charCounts, setCharCounts }) {
+function AnswerWrapper({ index, charCounts, setCharCounts, setIsAllAnswers }) {
   const { answers, setAnswers } = useStore();
 
   return (
@@ -72,7 +73,16 @@ function AnswerWrapper({ index, charCounts, setCharCounts }) {
         placeholder='답변을 입력해주세요'
         value={answers[index] || ''}
         onChange={(e) =>
-          handleAnswerChange(index, e.target.value, MAX_LENGTH, answers, charCounts, setAnswers, setCharCounts)
+          handleAnswerChange(
+            index,
+            e.target.value,
+            MAX_LENGTH,
+            answers,
+            charCounts,
+            setAnswers,
+            setCharCounts,
+            setIsAllAnswers,
+          )
         }
       />
       <div className={styles.charCount}>
@@ -112,21 +122,28 @@ function PrevBtn({ step }) {
   );
 }
 
-function NextBtn({ step }) {
+function NextBtn({ step, isAllAnswers }) {
   const { track, questions, answers, setAnswers } = useStore();
   const navigate = useNavigate();
 
-  return <button onClick={() => handleNextPage(step, track, questions, answers, setAnswers, navigate)}>다음</button>;
+  return (
+    <button
+      className={step === 1 ? styles.submitBtn : isAllAnswers ? styles.submitBtn : ''}
+      onClick={() => handleNextPage(step, track, questions, answers, setAnswers, navigate)}
+    >
+      다음
+    </button>
+  );
 }
 
-function SubmitBtn() {
+function SubmitBtn({ isAllAnswers }) {
   const { track, questions, answers } = useStore();
   const navigate = useNavigate();
 
   return (
     <button
       onClick={() => handleSubmit(track, questions, answers, navigate)}
-      className={styles.submitBtn}
+      className={isAllAnswers ? styles.submitBtn : ''}
     >
       제출하기
     </button>

@@ -1,11 +1,43 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { APIService } from '@api/axios';
 import styles from './Recruit.module.css';
 import ParallaxText from './ParallaxText/ParallaxText';
 import arrow from '@assets/homepage/arrow.webp';
 
-export default function Recruit({ children }) {
-  return <section className={styles.section}>{children}</section>;
+const RecruitContext = createContext();
+
+export default function Recruit({ children, isActive }) {
+  const [targetDate, setTargetDate] = useState(null);
+  const [targetSemester, setTargetSemester] = useState(null);
+
+  useEffect(() => {
+    async function fetchTargetDate() {
+      try {
+        const baseUrl = import.meta.env.VITE_APP_GET_SCHEDULE;
+        const response = await APIService.public.get(baseUrl, {
+          params: {
+            isActive: true,
+          },
+        });
+        setTargetDate(new Date(response.deadline));
+        setTargetSemester(response.semester);
+      } catch {
+        location.href = '/error';
+      }
+    }
+    fetchTargetDate();
+  }, [isActive]);
+
+  return (
+    <RecruitContext.Provider value={{ targetDate, targetSemester }}>
+      <section className={styles.section}>{children}</section>
+    </RecruitContext.Provider>
+  );
+}
+
+function useRecruitContext() {
+  return useContext(RecruitContext);
 }
 
 function RecruitItemBox({ children }) {
@@ -13,7 +45,8 @@ function RecruitItemBox({ children }) {
 }
 
 function RecruitTitle() {
-  return <p className={styles.title}>13기 아기사자 모집</p>;
+  const { targetSemester } = useRecruitContext();
+  return <p className={styles.title}>{targetSemester}기 아기사자 모집</p>;
 }
 
 function RecruitTimerTitle() {
@@ -28,6 +61,7 @@ function RecruitTimerTitle() {
 }
 
 function RecruitTimer() {
+  const { targetDate } = useRecruitContext();
   const [timeLeft, setTimeLeft] = useState({
     days: '00',
     hours: '00',
@@ -35,10 +69,9 @@ function RecruitTimer() {
     seconds: '00',
   });
 
-  // 서류 마감 날짜
-  const targetDate = new Date('2025-03-07T23:59:59');
-
   useEffect(() => {
+    if (!targetDate) return;
+
     const intervalId = setInterval(() => {
       const now = new Date();
       const difference = targetDate - now;
@@ -81,38 +114,18 @@ function RecruitTimer() {
 }
 
 function RecruitButton() {
+  const { targetDate } = useRecruitContext();
   const navigate = useNavigate();
   const now = new Date();
-  const targetDate = new Date('2025-03-07T23:59:59');
-  const resultDate = new Date('2025-03-08T12:00:00');
-  const token = localStorage.getItem('token');
 
   return (
     <button
       className={styles.button}
       onClick={() => {
-        if (now < targetDate) {
-          navigate('recruit');
-        } else if (now >= targetDate && now < resultDate) {
-          alert('지원이 마감되었습니다.');
-        } else {
-          if (!token) {
-            navigate('/error', {
-              state: {
-                msg: '로그인이 필요한 서비스입니다.',
-                msg2: '로그인 후 다시 이용해주세요.',
-                msg3: '이용에 불편을 드려 죄송합니다.',
-                btnMsg: '로그인',
-                url: '/login',
-              },
-            });
-          } else {
-            navigate('result');
-          }
-        }
+        navigate('recruit');
       }}
     >
-      {now < resultDate ? '지원하러 가기' : '결과보러 가기'}
+      {now < targetDate ? '지원하러 가기' : '결과보러 가기'}
       <img
         src={arrow}
         alt='arrow'

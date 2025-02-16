@@ -8,7 +8,9 @@ export default function QuestionsProvider({ children }) {
   const [selectedPart, setSelectedPart] = useState(questionParts[0].part);
   const [applicationInformation, setApplicationInformation] = useState({
     semester: null,
+    openDate: null,
     deadline: null,
+    resultDate: null,
     activation: false,
   });
   const [questions, setQuestions] = useState({
@@ -51,10 +53,24 @@ export default function QuestionsProvider({ children }) {
     }));
   }
 
+  function setStartLine(value) {
+    setApplicationInformation((prev) => ({
+      ...prev,
+      openDate: value,
+    }));
+  }
+
   function setDeadLine(value) {
     setApplicationInformation((prev) => ({
       ...prev,
       deadline: value,
+    }));
+  }
+
+  function setResultLine(value) {
+    setApplicationInformation((prev) => ({
+      ...prev,
+      resultDate: value,
     }));
   }
 
@@ -110,6 +126,8 @@ export default function QuestionsProvider({ children }) {
         applicationInformation,
         setSemester,
         setDeadLine,
+        setResultLine,
+        setStartLine,
         setActivation,
       }}
     >

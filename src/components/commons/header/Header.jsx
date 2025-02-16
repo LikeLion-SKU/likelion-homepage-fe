@@ -6,7 +6,7 @@ export default function Header() {
       <HeaderBar.Logo />
       <HeaderBar.Navbar>
         <HeaderBar.NavItem
-          label='알아보기'
+          label='구성원'
           path='about'
         />
         <HeaderBar.NavItem

@@ -35,7 +35,7 @@ export function useGetUserInfo(setUserInfos, formId) {
         학과: userInfo.department,
         학번: userInfo.studentId,
         전화번호: userInfo.phoneNumber,
-        이메일: userInfo.loginId + '@skuniv.ac.kr',
+        이메일: userInfo.loginId,
       };
       setUserInfos(newUserInfo);
     };

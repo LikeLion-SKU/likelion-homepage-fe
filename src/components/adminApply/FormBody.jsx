@@ -10,6 +10,7 @@ export default function FormBody({ id, userInfos }) {
 
   return (
     <div className={styles.bodyWrapper}>
+      <div className={styles.divider}>인적 사항</div>
       {Object.entries(userInfos).map(([key, value]) => (
         <div
           key={key}
