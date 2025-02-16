@@ -22,6 +22,8 @@
   font-size: 5.4rem;
   font-weight: 700;
   color: var(--main-bg-color);
+  padding: 0 10rem;
+  line-height: 7rem;
 }
 
 .timertitle {
