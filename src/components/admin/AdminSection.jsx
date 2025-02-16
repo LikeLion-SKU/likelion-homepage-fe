@@ -18,7 +18,7 @@ export default function AdminSection() {
           path='project'
         />
         <Admin.Button
-          label='멋사인 편집하기'
+          label='구성원 편집하기'
           path='about'
         />
         <Admin.Button

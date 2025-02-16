@@ -7,17 +7,22 @@ import { putProfile, putImage, deleteProfile } from '@api/aboutAdminAPI';
 
 export default function Registration({ users }) {
   const [rows, setRows] = useState([]);
-  const roleOrder = ['LEAD', 'COLEAD', 'COREMEMBER', 'BABYLION', 'GUEST'];
-  const partOrder = ['기획디자인', '기획', '디자인', '프론트엔드', '백엔드'];
+  const [filterRole, setFilterRole] = useState('전체');
+
+  const roleOrder = ['전체', 'LEAD', 'COLEAD', 'COREMEMBER', 'BABYLION', 'GUEST'];
+  const partOrder = ['지원자', '기획디자인', '기획', '디자인', '백엔드', '프론트엔드'];
 
   useEffect(() => {
     if (users && Array.isArray(users)) {
       const initialRows = users.map((user) => ({
+        loginId: user.loginId,
         role: user.role || 'GUEST',
         name: user.userName || '',
         part: user.parts || '',
         department: user.department || '',
         studentId: user.studentId || '',
+        semester: user.semester || null,
+        originalStudentId: user.studentId || '',
         image: user.profileImageUrl || '',
         isStorage: true,
       }));
@@ -29,26 +34,23 @@ export default function Registration({ users }) {
     return <p>데이터를 불러오는 중입니다...</p>;
   }
 
-  function toggleStorage(index) {
-    const updatedRows = [...rows];
-    updatedRows[index].isStorage = !updatedRows[index].isStorage;
-    setRows(updatedRows);
+  const filteredRows = filterRole === '전체' ? rows : rows.filter((row) => row.role === filterRole);
+
+  function toggleStorage(loginId) {
+    setRows(rows.map((row) => (row.loginId === loginId ? { ...row, isStorage: !row.isStorage } : row)));
   }
 
-  function handleCellChange(index, field, value) {
-    const updatedRows = [...rows];
-    updatedRows[index][field] = value;
-    setRows(updatedRows);
+  function handleCellChange(loginId, field, value) {
+    setRows(rows.map((row) => (row.loginId === loginId ? { ...row, [field]: value } : row)));
   }
 
-  async function handleDeleteRow(index) {
-    const originalUser = users[index];
-
+  async function handleDeleteRow(loginId) {
+    const originalUser = users.find((user) => user.loginId === loginId);
+    if (!originalUser) return;
     try {
       const isDeleted = await deleteProfile(originalUser.semester, originalUser.studentId);
-
       if (isDeleted) {
-        setRows(rows.filter((_, rowIndex) => rowIndex !== index));
+        setRows(rows.filter((row) => row.loginId !== loginId));
         alert('삭제되었습니다.');
       } else {
         alert('게스트만 삭제 가능합니다.');
@@ -58,16 +60,13 @@ export default function Registration({ users }) {
     }
   }
 
-  function handleImageUpload(file, index) {
-    const updatedRows = [...rows];
-    updatedRows[index].image = file === '' ? null : file;
-    setRows(updatedRows);
+  function handleImageUpload(file, loginId) {
+    setRows(rows.map((row) => (row.loginId === loginId ? { ...row, image: file === '' ? null : file } : row)));
   }
 
-  async function handleSave(index) {
-    const updatedRow = rows[index];
-    const originalUser = users[index];
-
+  async function handleSave(loginId) {
+    const updatedRow = rows.find((row) => row.loginId === loginId);
+    const originalUser = users.find((user) => user.loginId === loginId);
     if (!originalUser) {
       alert('원본 데이터를 찾을 수 없습니다.');
       return;
@@ -79,26 +78,38 @@ export default function Registration({ users }) {
       parts: updatedRow.part,
       department: updatedRow.department,
       studentId: updatedRow.studentId,
+      semester: updatedRow.semester,
     };
 
     try {
+      let imageSuccess = true;
+      let profileSuccess = true;
+
       if (updatedRow.image instanceof File || updatedRow.image == null) {
         const formData = new FormData();
         formData.append('image', updatedRow.image);
-
-        const response = await putImage(originalUser.semester, originalUser.studentId, formData);
-
-        if (!response.success) {
+        const response = await putImage(updatedRow.semester, updatedRow.originalStudentId, formData);
+        imageSuccess = response.success;
+        if (!imageSuccess) {
           alert(`${response.message} 이미지는 다시 저장해주세요`);
         }
       }
-      await putProfile(originalUser.semester, originalUser.studentId, updatedData);
 
-      originalUser.studentId = updatedRow.studentId;
-      alert('저장되었습니다.');
-      toggleStorage(index);
-    } catch {
-      alert('저장에 실패했습니다.');
+      const profileResponse = await putProfile(updatedRow.semester, updatedRow.originalStudentId, updatedData);
+      profileSuccess = profileResponse.success;
+
+      if (profileSuccess) {
+        setRows((prevRows) =>
+          prevRows.map((row) =>
+            row.loginId === loginId ? { ...row, originalStudentId: updatedRow.studentId, isStorage: true } : row,
+          ),
+        );
+
+        alert('저장되었습니다.');
+        toggleStorage(loginId);
+      }
+    } catch (error) {
+      alert(error);
     }
   }
 
@@ -106,6 +117,20 @@ export default function Registration({ users }) {
     <div className={styles.allContainer}>
       <div className={styles.titleContainer}>
         <p className={styles.titleText}>LIKELION SKU 관리</p>
+        <select
+          className={styles.filterDropdown}
+          value={filterRole}
+          onChange={(e) => setFilterRole(e.target.value)}
+        >
+          {roleOrder.map((role) => (
+            <option
+              key={role}
+              value={role}
+            >
+              {role}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div className={styles.newCategoryContainer}>
@@ -123,16 +148,16 @@ export default function Registration({ users }) {
               </tr>
             </thead>
             <tbody>
-              {rows.map((row, index) => (
-                <tr key={index}>
+              {filteredRows.map((row) => (
+                <tr key={row.loginId}>
                   <td>
                     <select
                       className={styles.tableInput}
                       value={row.role}
-                      onChange={(e) => handleCellChange(index, 'role', e.target.value)}
+                      onChange={(e) => handleCellChange(row.loginId, 'role', e.target.value)}
                       disabled={row.isStorage}
                     >
-                      {roleOrder.map((role) => (
+                      {roleOrder.slice(1).map((role) => (
                         <option
                           key={role}
                           value={role}
@@ -147,7 +172,7 @@ export default function Registration({ users }) {
                       className={styles.tableInput}
                       type='text'
                       value={row.name}
-                      onChange={(e) => handleCellChange(index, 'name', e.target.value)}
+                      onChange={(e) => handleCellChange(row.loginId, 'name', e.target.value)}
                       disabled={row.isStorage}
                     />
                   </td>
@@ -155,7 +180,7 @@ export default function Registration({ users }) {
                     <select
                       className={styles.tableInput}
                       value={row.part}
-                      onChange={(e) => handleCellChange(index, 'part', e.target.value)}
+                      onChange={(e) => handleCellChange(row.loginId, 'part', e.target.value)}
                       disabled={row.isStorage}
                     >
                       {partOrder.map((part) => (
@@ -173,7 +198,7 @@ export default function Registration({ users }) {
                       className={styles.tableInput}
                       type='text'
                       value={row.department}
-                      onChange={(e) => handleCellChange(index, 'department', e.target.value)}
+                      onChange={(e) => handleCellChange(row.loginId, 'department', e.target.value)}
                       disabled={row.isStorage}
                     />
                   </td>
@@ -182,7 +207,7 @@ export default function Registration({ users }) {
                       className={styles.tableInput}
                       type='text'
                       value={row.studentId}
-                      onChange={(e) => handleCellChange(index, 'studentId', e.target.value)}
+                      onChange={(e) => handleCellChange(row.loginId, 'studentId', e.target.value)}
                       disabled={row.isStorage}
                     />
                   </td>
@@ -192,17 +217,17 @@ export default function Registration({ users }) {
                         <div className={styles.deleteButtonContainer}>
                           <MdEdit
                             style={{ color: 'black', fontSize: '2rem', cursor: 'pointer' }}
-                            onClick={() => toggleStorage(index)}
+                            onClick={() => toggleStorage(row.loginId)}
                           />
                           <FaTrashAlt
                             style={{ color: 'red', fontSize: '2rem', cursor: 'pointer' }}
-                            onClick={() => handleDeleteRow(index)}
+                            onClick={() => handleDeleteRow(row.loginId)}
                           />
                         </div>
                       ) : (
                         <button
                           className={styles.submitButton}
-                          onClick={() => handleSave(index)}
+                          onClick={() => handleSave(row.loginId)}
                         >
                           저장하기
                         </button>
@@ -211,7 +236,7 @@ export default function Registration({ users }) {
                   </td>
                   <td>
                     <AddImage
-                      index={index}
+                      index={row.loginId}
                       onImageUpload={handleImageUpload}
                       isStorage={row.isStorage}
                       initialImage={row.image}

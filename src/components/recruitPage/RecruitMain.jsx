@@ -11,6 +11,7 @@ export default function RecruitMain() {
     openDate: null,
     deadline: null,
     resultDate: null,
+    semester: '',
   });
 
   const navigate = useNavigate();
@@ -20,13 +21,14 @@ export default function RecruitMain() {
       try {
         const res = await getScedules();
         if (res) {
-          const { openDate, deadline, resultDate } = res;
+          const { openDate, deadline, resultDate, semester } = res;
 
-          // 상태 업데이트 (openDate, deadline, resultDate)
+          // 상태 업데이트 (openDate, deadline, resultDate, semester)
           setSchedule({
             openDate: openDate ? new Date(openDate) : null,
             deadline: deadline ? new Date(deadline) : null,
             resultDate: resultDate ? new Date(resultDate) : null,
+            semester: semester || '',
           });
 
           checkTime(
@@ -66,7 +68,7 @@ export default function RecruitMain() {
 
   function handleRecruitButtonClick() {
     if (!schedule.openDate || !schedule.deadline || !schedule.resultDate) {
-      // 활성화된 지원서가 없을경우
+      //활성화된 지원서가 없을 경우
       alert('모집 기간이 아닙니다.');
       return;
     }
@@ -84,7 +86,7 @@ export default function RecruitMain() {
     <div className={styles.allContainer}>
       <div className={styles.D_dayContainer}>
         <p className={styles.dayText}>LIKELION SKU</p>
-        <p className={styles.mainText}>13기 아기사자 모집</p>
+        <p className={styles.mainText}>{schedule.semester}기 아기사자 모집</p>
       </div>
       <img
         src={LionImage}
