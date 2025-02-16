@@ -6,7 +6,7 @@ export default function Schedule() {
     { label: '1차 합격자 발표', date: '03.08 [12:00]' },
     { label: '2차 면접', date: '03.10 - 03.14' },
     { label: '2차 합격자 발표', date: '03.15' },
-    { label: '서경대 멋사 OT', date: '03.17 [18:30]' },
+    { label: '멋사 OT', date: '03.17 [18:30]' },
   ];
 
   return (

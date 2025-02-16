@@ -7,12 +7,6 @@ export default function FailPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      navigate('/login');
-      return;
-    }
-
     //결과 확인 가능한 시간인지 검사
     const checkAccess = () => {
       const canAccessResult = localStorage.getItem('canAccessResult');
@@ -24,6 +18,11 @@ export default function FailPage() {
     };
 
     if (!checkAccess()) return;
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/notallowed');
+      return;
+    }
 
     // isPassed가 false여야만 fail 페이지에 접근할 수 있음
     const fetchResult = async function () {

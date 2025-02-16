@@ -67,8 +67,10 @@ export default function RecruitMain() {
   }, []);
 
   function handleRecruitButtonClick() {
-    if (!schedule.openDate || !schedule.deadline || !schedule.resultDate) {
-      //활성화된 지원서가 없을 경우
+    const now = new Date();
+
+    if (!schedule.openDate || !schedule.deadline || !schedule.resultDate || now < schedule.openDate) {
+      // openDate 이전이거나 활성화된 지원서가 없으면 알림 표시 후 함수 종료
       alert('모집 기간이 아닙니다.');
       return;
     }
