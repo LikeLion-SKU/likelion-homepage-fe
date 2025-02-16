@@ -24,12 +24,16 @@ export default function RecruitMain() {
 
           // 상태 업데이트 (openDate, deadline, resultDate)
           setSchedule({
-            openDate: new Date(openDate),
-            deadline: new Date(deadline),
-            resultDate: new Date(resultDate),
+            openDate: openDate ? new Date(openDate) : null,
+            deadline: deadline ? new Date(deadline) : null,
+            resultDate: resultDate ? new Date(resultDate) : null,
           });
 
-          checkTime(new Date(openDate), new Date(deadline), new Date(resultDate)); // 모집 상태 체크
+          checkTime(
+            openDate ? new Date(openDate) : null,
+            deadline ? new Date(deadline) : null,
+            resultDate ? new Date(resultDate) : null,
+          ); // 모집 상태 체크
         }
       } catch (error) {
         navigate('/error');
@@ -46,6 +50,8 @@ export default function RecruitMain() {
 
       if (end && now >= end && (!result || now < result)) {
         setIsDisabled(true); // 모집 마감 상태면 버튼 비활성화
+      } else if (result && now >= end && now < result) {
+        setIsDisabled(true); // 결과 산정 중 상태면 버튼 비활성화
       } else {
         setIsDisabled(false); // 모집 가능 상태면 버튼 활성화
       }
@@ -61,8 +67,8 @@ export default function RecruitMain() {
   }, []);
 
   function handleRecruitButtonClick() {
-    if (isDisabled) {
-      alert('모집 기간이 마감되었습니다.');
+    if (!schedule.openDate || !schedule.deadline || !schedule.resultDate) {
+      alert('모집 기간이 아닙니다.');
       return;
     }
     navigate(isResultTime ? '/result' : '/apply');
@@ -89,8 +95,9 @@ export default function RecruitMain() {
       <button
         className={styles.recruitButton}
         onClick={handleRecruitButtonClick}
+        disabled={isDisabled}
       >
-        {isResultTime ? '결과 확인하기' : '멋사 지원하기'}
+        {isResultTime ? '결과 확인하기' : isDisabled ? '결과 산정 중' : '멋사 지원하기'}
       </button>
       <div className={styles.pageButtonContainer}>
         <button
