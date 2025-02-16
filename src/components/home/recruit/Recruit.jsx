@@ -7,9 +7,11 @@ import arrow from '@assets/homepage/arrow.webp';
 
 const RecruitContext = createContext();
 
-export default function Recruit({ children, isActive }) {
+export default function Recruit({ children }) {
   const [targetDate, setTargetDate] = useState(null);
+  const [resultDate, setResultDate] = useState(null);
   const [targetSemester, setTargetSemester] = useState(null);
+  const [isRecruiting, setIsRecruiting] = useState(true);
 
   useEffect(() => {
     async function fetchTargetDate() {
@@ -21,16 +23,18 @@ export default function Recruit({ children, isActive }) {
           },
         });
         setTargetDate(new Date(response.deadline));
+        setResultDate(new Date(response.resultDate));
         setTargetSemester(response.semester);
+        setIsRecruiting(new Date() < new Date(response.deadline));
       } catch {
         location.href = '/error';
       }
     }
     fetchTargetDate();
-  }, [isActive]);
+  }, []);
 
   return (
-    <RecruitContext.Provider value={{ targetDate, targetSemester }}>
+    <RecruitContext.Provider value={{ targetDate, resultDate, targetSemester, isRecruiting }}>
       <section className={styles.section}>{children}</section>
     </RecruitContext.Provider>
   );
@@ -45,8 +49,12 @@ function RecruitItemBox({ children }) {
 }
 
 function RecruitTitle() {
-  const { targetSemester } = useRecruitContext();
-  return <p className={styles.title}>{targetSemester}기 아기사자 모집</p>;
+  const { targetSemester, isRecruiting } = useRecruitContext();
+  return (
+    <p className={styles.title}>
+      {isRecruiting ? `${targetSemester}기 아기사자 모집` : `${targetSemester}기 아기사자 서류 합격 발표`}
+    </p>
+  );
 }
 
 function RecruitTimerTitle() {
@@ -61,20 +69,21 @@ function RecruitTimerTitle() {
 }
 
 function RecruitTimer() {
-  const { targetDate } = useRecruitContext();
+  const { targetDate, resultDate, isRecruiting } = useRecruitContext();
   const [timeLeft, setTimeLeft] = useState({
     days: '00',
     hours: '00',
     minutes: '00',
     seconds: '00',
   });
+  const target = isRecruiting ? targetDate : resultDate;
 
   useEffect(() => {
-    if (!targetDate) return;
+    if (!target) return;
 
     const intervalId = setInterval(() => {
       const now = new Date();
-      const difference = targetDate - now;
+      const difference = target - now;
 
       if (difference <= 0) {
         clearInterval(intervalId);
@@ -98,7 +107,7 @@ function RecruitTimer() {
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [targetDate]);
+  }, [target]);
 
   return (
     <div className={styles.timer}>
@@ -114,18 +123,19 @@ function RecruitTimer() {
 }
 
 function RecruitButton() {
-  const { targetDate } = useRecruitContext();
+  const { resultDate, isRecruiting } = useRecruitContext();
   const navigate = useNavigate();
   const now = new Date();
+  const isResultTime = resultDate ? now >= resultDate : false;
+  const isDisabled = !isRecruiting && !isResultTime;
 
   return (
     <button
       className={styles.button}
-      onClick={() => {
-        navigate('recruit');
-      }}
+      onClick={() => navigate('recruit')}
+      disabled={isDisabled}
     >
-      {now < targetDate ? '지원하러 가기' : '결과보러 가기'}
+      {isRecruiting ? '지원하러 가기' : isResultTime ? '결과 보러 가기' : '결과 산정 중'}
       <img
         src={arrow}
         alt='arrow'
