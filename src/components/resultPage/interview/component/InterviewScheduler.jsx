@@ -14,7 +14,7 @@ function InterviewScheduler({ isSubmitEnabled }) {
       try {
         const token = localStorage.getItem('token');
         if (!token) {
-          navigate('/login');
+          alert('로그인이 필요합니다.');
           return;
         }
 
