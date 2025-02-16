@@ -51,7 +51,7 @@ function RecruitItemBox({ children }) {
 function RecruitTitle() {
   const { targetSemester, isRecruiting } = useRecruitContext();
   if (targetSemester === null) {
-    return <PulseLoader color='#64a772' />;
+    return <PulseLoader color='#36D7B7' />;
   }
 
   return (
