@@ -30,9 +30,21 @@ export default function CheckResult() {
         const response = await getDate({
           headers: { Authorization: `Bearer ${token}` },
         });
-        setCreatedAt(response.createdAt.replace('T', ' '));
+
+        if (!response.createdAt) {
+          navigate('/error', {
+            state: {
+              msg: '제출된 지원서가 없습니다.',
+              msg2: '지원서 상태에 이상이 있다면 문의 바랍니다.',
+              btnMsg: '홈으로 돌아가기',
+              url: '/',
+            },
+          });
+        } else {
+          setCreatedAt(response.createdAt.replace('T', ' '));
+        }
       } catch {
-        location.href = '/error';
+        navigate('/error');
       }
     };
 
