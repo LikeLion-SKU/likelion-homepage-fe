@@ -17,7 +17,7 @@ export default function Generation({ selectedYear, setSelectedYear }) {
   return (
     <div className={styles.allContainer}>
       <div className={styles.titleContainer}>
-        <p className={styles.title}>멋사인</p>
+        <p className={styles.title}>구성원</p>
         <div className={styles.buttonContainer}>
           <div className={styles.navbar}>
             {years.map((year) => (
