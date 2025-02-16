@@ -43,12 +43,12 @@ export function useInterviewSchedule(koreanPart) {
 
           const [datesResponse, timesResponse] = await Promise.all([getInterviewDates(), getInterviewTimes()]);
 
-          const filteredDates = datesResponse.data.filter(function (date) {
+          const filteredDates = datesResponse.filter(function (date) {
             return date.part === englishPart;
           });
 
           const formattedData = filteredDates.map(function (date) {
-            const dateSlots = timesResponse.data.filter(function (time) {
+            const dateSlots = timesResponse.filter(function (time) {
               return time.date === date.date && time.part === englishPart;
             });
 

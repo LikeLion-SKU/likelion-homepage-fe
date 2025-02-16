@@ -1,32 +1,4 @@
-import axios from 'axios';
-
-const API_URL = import.meta.env.VITE_APP_API_URL;
-
-// axios 인스턴스 생성 및 기본 설정
-const axiosInstance = axios.create({
-  baseURL: API_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
-
-// 요청 인터셉터
-axiosInstance.interceptors.request.use(
-  function (config) {
-    // 로컬 스토리지에서 토큰 가져오기
-    const token = localStorage.getItem('token');
-
-    // 토큰이 있으면 헤더에 추가
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-
-    return config;
-  },
-  function (error) {
-    return Promise.reject(error);
-  },
-);
+import { APIService } from '@api/axios';
 
 /**
  * 면접 파트 Enum 매핑
@@ -43,8 +15,8 @@ const PART_MAPPING = {
  * 사용자의 파트 정보를 가져오는 함수
  * @returns {Promise} - API 응답
  */
-function getUserPart() {
-  return axiosInstance.get('/api/users/parts');
+export async function getUserPart() {
+  return await APIService.private.get('/api/users/parts');
 }
 
 /**
@@ -53,14 +25,12 @@ function getUserPart() {
  * @param {string} date - 면접 날짜 (YYYY-MM-DD 형식)
  * @returns {Promise} - API 응답
  */
-function registerInterviewDate(part, date) {
-  // 파트 이름을 서버 형식에 맞게 변환
+export async function registerInterviewDate(part, date) {
   const transformedData = {
     part: PART_MAPPING[part],
     date: date,
   };
-
-  return axiosInstance.post('/api/interview/dates', transformedData);
+  return await APIService.private.post('/api/interview/dates', transformedData);
 }
 
 /**
@@ -68,7 +38,7 @@ function registerInterviewDate(part, date) {
  * @param {Object} timeData - 면접 시간 데이터
  * @returns {Promise} - API 응답
  */
-function registerInterviewTime(timeData) {
+export async function registerInterviewTime(timeData) {
   // 서버 형식에 맞게 데이터 변환
   const transformedData = {
     part: PART_MAPPING[timeData.part],
@@ -76,11 +46,15 @@ function registerInterviewTime(timeData) {
     startTime: timeData.startTime,
     endTime: timeData.endTime,
   };
-  return axiosInstance.post('/api/interview/times', transformedData);
+  return await APIService.private.post('/api/interview/times', transformedData);
 }
 
-function getInterviewDates() {
-  return axiosInstance.get('/api/interview/dates');
+/**
+ * 면접 날짜 목록을 가져오는 함수
+ * @returns {Promise} - API 응답
+ */
+export async function getInterviewDates() {
+  return await APIService.private.get('/api/interview/dates');
 }
 
 /**
@@ -89,13 +63,17 @@ function getInterviewDates() {
  * @param {string} date - 면접 날짜
  * @returns {Promise} - API 응답
  */
-function deleteInterviewDate(part, date) {
+export async function deleteInterviewDate(part, date) {
   const transformedPart = PART_MAPPING[part];
-  return axiosInstance.delete(`/api/interview/dates/part/${transformedPart}/date/${date}`);
+  return await APIService.private.delete(`/api/interview/dates/part/${transformedPart}/date/${date}`);
 }
 
-function getInterviewTimes() {
-  return axiosInstance.get('/api/interview/times');
+/**
+ * 면접 시간 목록을 가져오는 함수
+ * @returns {Promise} - API 응답
+ */
+export async function getInterviewTimes() {
+  return await APIService.private.get('/api/interview/times');
 }
 
 /**
@@ -106,35 +84,37 @@ function getInterviewTimes() {
  * @param {string} endTime - 종료 시간
  * @returns {Promise} - API 응답
  */
-function deleteInterviewTime(part, date, startTime, endTime) {
+export async function deleteInterviewTime(part, date, startTime, endTime) {
   const transformedPart = PART_MAPPING[part];
   const queryParams = `startTime=${startTime}&endTime=${endTime}`;
 
-  return axiosInstance.delete(`/api/interview/times/part/${transformedPart}/date/${date}/time?${queryParams}`);
+  return await APIService.private.delete(
+    `/api/interview/times/part/${transformedPart}/date/${date}/time?${queryParams}`,
+  );
 }
 
-// 면접 시간 예약 함수 추가
-function bookInterview(bookingData) {
-  return axiosInstance.post('/api/interview/bookings', bookingData);
+/**
+ * 면접 시간 예약 함수
+ * @param {Object} bookingData - 예약 데이터
+ * @returns {Promise} - API 응답
+ */
+export async function bookInterview(bookingData) {
+  return await APIService.private.post('/api/interview/bookings', bookingData);
 }
 
-function getMyInterviewSchedule() {
-  return axiosInstance.get('/api/interview/bookings/my');
+/**
+ * 내 면접 일정을 조회하는 함수
+ * @returns {Promise} - API 응답
+ */
+export async function getMyInterviewSchedule() {
+  return await APIService.private.get('/api/interview/bookings/my');
 }
 
-function deleteInterviewBooking(bookingId) {
-  return axiosInstance.delete(`/api/interview/bookings/${bookingId}`);
+/**
+ * 면접 예약을 취소하는 함수
+ * @param {string} bookingId - 예약 ID
+ * @returns {Promise} - API 응답
+ */
+export async function deleteInterviewBooking(bookingId) {
+  return await APIService.private.delete(`/api/interview/bookings/${bookingId}`);
 }
-
-export {
-  registerInterviewDate,
-  getInterviewDates,
-  deleteInterviewDate,
-  getInterviewTimes,
-  registerInterviewTime,
-  deleteInterviewTime,
-  getUserPart,
-  bookInterview,
-  getMyInterviewSchedule,
-  deleteInterviewBooking,
-};
