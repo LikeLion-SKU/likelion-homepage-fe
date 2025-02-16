@@ -25,7 +25,7 @@ export default function ConsentCheckbox({ consents, onConsentsChange }) {
               멋쟁이사자처럼 13기 부원들께서는 장소 대관, 행사 운영 등을 위해 5만원(회비 45000원 + 보증금 5000원)의
               운영비를 납부하셔야 합니다.
             </p>
-            <p>운영비 사용 내역을 투명하게 공개됩니다.</p>
+            <p>운영비 사용 내역은 투명하게 공개됩니다.</p>
             <p>보증금은 1년이 지난 후 돌려드리며 (세션 참석 장려용) 세션 3회 불참 시 보증금은 돌려드리지 않습니다.</p>
           </div>
           <div className={styles.consentRow}>
