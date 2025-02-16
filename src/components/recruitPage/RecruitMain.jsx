@@ -3,6 +3,7 @@ import LionImage from '@assets/homepage/lion.webp';
 import styles from './recruitMain.module.css';
 import { useNavigate } from 'react-router-dom';
 import { getScedules } from '@api/recruitAPI';
+import { PulseLoader } from 'react-spinners';
 
 export default function RecruitMain() {
   const [isResultTime, setIsResultTime] = useState(false);
@@ -88,7 +89,9 @@ export default function RecruitMain() {
     <div className={styles.allContainer}>
       <div className={styles.D_dayContainer}>
         <p className={styles.dayText}>LIKELION SKU</p>
-        <p className={styles.mainText}>{schedule.semester}기 아기사자 모집</p>
+        <p className={styles.mainText}>
+          {schedule.semester === '' ? <PulseLoader color='#64a772' /> : `${schedule.semester}기 아기사자 모집`}
+        </p>
       </div>
       <img
         src={LionImage}

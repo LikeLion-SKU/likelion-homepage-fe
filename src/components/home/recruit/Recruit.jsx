@@ -4,7 +4,7 @@ import { APIService } from '@api/axios';
 import styles from './Recruit.module.css';
 import ParallaxText from './ParallaxText/ParallaxText';
 import arrow from '@assets/homepage/arrow.webp';
-
+import { PulseLoader } from 'react-spinners';
 const RecruitContext = createContext();
 
 export default function Recruit({ children }) {
@@ -50,9 +50,21 @@ function RecruitItemBox({ children }) {
 
 function RecruitTitle() {
   const { targetSemester, isRecruiting } = useRecruitContext();
+  if (targetSemester === null) {
+    return <PulseLoader color='#64a772' />;
+  }
+
   return (
     <p className={styles.title}>
-      {isRecruiting ? `${targetSemester}기 아기사자 모집` : `${targetSemester}기 아기사자 서류 합격 발표`}
+      {isRecruiting ? (
+        `${targetSemester}기 아기사자 모집`
+      ) : (
+        <>
+          {targetSemester}기 아기사자
+          <br />
+          서류 합격 발표
+        </>
+      )}
     </p>
   );
 }
