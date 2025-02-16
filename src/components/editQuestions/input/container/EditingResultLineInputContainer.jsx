@@ -8,14 +8,14 @@ import { useUpdateApplicationInformation } from '@/hooks/useApplication';
 import { useEditQuestions } from '@/components/editQuestions/provider/EditQuestionsProvider';
 import LoadingButtonConatainer from '@/components/editQuestions/button/container/LoadingButtonContainer';
 
-export default function EditingDeadLineInputContainer({ information }) {
+export default function EditingResultLineInputContainer({ information }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [content, setContent] = useState(information.deadline);
+  const [content, setContent] = useState(information.resultDate);
 
   const { semester, type } = useEditQuestions();
   const { isLoading: isUpdateLoading, updateApplicationInformation } = useUpdateApplicationInformation(semester, type, {
     ...information,
-    deadline: content,
+    resultDate: content,
   });
 
   return (
@@ -28,7 +28,7 @@ export default function EditingDeadLineInputContainer({ information }) {
         rounded={false}
         onChange={(e) => setContent(e.target.value)}
       >
-        마감일 날짜
+        발표일 날짜
       </InputWithLabel>
 
       {isEditing ? (

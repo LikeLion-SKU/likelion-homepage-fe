@@ -17,9 +17,8 @@ function InterviewScheduler({ isSubmitEnabled }) {
           alert('로그인이 필요합니다.');
           return;
         }
-
         const response = await getUserPart();
-        setUserPart(response.data);
+        setUserPart(response);
       } catch (err) {
         console.error('Error fetching user part:', err);
         alert('사용자 정보를 불러오는데 실패했습니다. 다시 로그인해주세요');

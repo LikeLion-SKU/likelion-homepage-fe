@@ -37,7 +37,7 @@ export default function Input({ readOnly, type, value, id, onChange, min, size, 
 
 function withLabel(Component) {
   return function ({ children, id, ...props }) {
-    if (props.type === 'date') {
+    if (props.type === 'date' || props.type === 'datetime-local') {
       return (
         <div className={styles['input__date-container']}>
           <label
