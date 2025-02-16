@@ -19,7 +19,7 @@ export default function WelcomeSection() {
 
         <p className={styles.guidecontent}>* 면접 시간은 선착순 입니다.</p>
         <p className={styles.guidecontent}>
-          * 선택한 면접 시간은 마이페이지에서 2월 20일까지 취소 후 재등록 할 수 있습니다.
+          * 선택한 면접 시간은 마이페이지에서 3월 9일까지 취소 후 재등록 할 수 있습니다.
         </p>
         <p className={styles.guidecontent}>* 선택 후 회비 및 활동 여부에 동의하셔야합니다.</p>
       </div>
