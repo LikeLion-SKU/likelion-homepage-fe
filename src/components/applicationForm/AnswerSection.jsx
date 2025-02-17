@@ -2,19 +2,39 @@ import { useStore } from '@store/useStore';
 import { useCheckApproach, useGetQuestions } from '@hooks/useApplyHook';
 import { useState } from 'react';
 import Application from './Application';
+import Loading from '../createApply/applicationSection/ui/Loading';
 
 export default function AnswerSection({ step }) {
   const { track, setTrack, setAnswers, questions, setQuestions } = useStore();
   const [userInfo, setUserInfo] = useState([]);
   const [charCounts, setCharCounts] = useState([]); // 글자 수 상태
   const [isAllAnswers, setIsAllAnswers] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useCheckApproach(step, track); // 잘못된 사용자 접근 방지
   // 질문 데이터 및 임시저장 데이터 가져오기
-  useGetQuestions(step, track, setQuestions, setUserInfo, setAnswers, setCharCounts, setTrack, setIsAllAnswers);
+  useGetQuestions(
+    step,
+    track,
+    setQuestions,
+    setUserInfo,
+    setAnswers,
+    setCharCounts,
+    setTrack,
+    setIsAllAnswers,
+    setIsLoading,
+  );
 
   if (![1, 2, 3].includes(step)) {
     return null;
+  }
+
+  if (isLoading) {
+    return (
+      <Application>
+        <Loading />
+      </Application>
+    );
   }
 
   return (
