@@ -103,6 +103,7 @@ export function useGetQuestions(
   setCharCounts,
   setTrack,
   setIsAllAnswer,
+  setIsLoading,
 ) {
   const navigate = useNavigate();
 
@@ -119,6 +120,7 @@ export function useGetQuestions(
     if (!fetchType) {
       setQuestions(['이름', '학과', '학번', '전화번호', '이메일']);
     }
+    setIsLoading(true);
 
     async function fetchQuestions() {
       const token = localStorage.getItem('token');
@@ -199,6 +201,7 @@ export function useGetQuestions(
           const tmp = [data.userName, data.department, data.studentId, data.phoneNumber, data.loginId];
           setUserInfo(tmp);
         }
+        setIsLoading(false);
       } catch (error) {
         const status = error.response?.status || error.status;
         if (status === 400) {
