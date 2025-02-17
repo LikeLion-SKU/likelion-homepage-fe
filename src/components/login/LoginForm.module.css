@@ -48,6 +48,7 @@ fieldset{
   width: 95%;
   height: 3rem;
   padding: 1rem;
+  font-size: 1.8rem;
 }
 
 .login-form__input:focus {

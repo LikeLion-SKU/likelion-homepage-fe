@@ -4,7 +4,7 @@
 // 유효성 검사 정규식 //
 const inputRegexs = {
   idRegex: /^[a-zA-Z0-9._-]+@skuniv\.ac\.kr$/,
-  pwRegex: /^(?=.*\d)(?=.*[a-z])(?=.*[@#$%^&+=!*])(?!.*\s).{8,}$/,
+  pwRegex: /^(?=.*\d)(?=.*[a-z])(?=.*[!@#$%^&*()_+])(?!.*\s).{8,}$/,
   nameRegex: /^[가-힣]{2,4}$/,
   departRegex: /^[가-힣0-9&]{1,15}$/,
   student_numRegex: /^[0-9]{10}$/,
@@ -105,8 +105,10 @@ export function validateInput_signup(form) {
 
   if (form.password === '') {
     errors.password = '비밀번호는 필수 입력 항목입니다.';
+  } else if (inputRegexs.spaceRegex.test(form.password)) {
+    errors.password = '비밀번호는 띄어쓰기를 포함할 수 없습니다.';
   } else if (!inputRegexs.pwRegex.test(form.password)) {
-    errors.password = '비밀번호는 최소 8자 이상의 영문, 숫자, 특수문자를 포함해야 합니다.';
+    errors.password = '8자 이상의 영문, 숫자, 특수문자(!@#$%^&*()_+)를 포함해야 합니다.';
   }
 
   if (form.password_valid === '') {
