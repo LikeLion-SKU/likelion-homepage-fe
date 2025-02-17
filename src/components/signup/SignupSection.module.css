@@ -119,6 +119,9 @@ input.invalid {
   min-width: 12.3rem;
   cursor: pointer;
 }
+.signup-form__inputbutton:hover {
+  background-color: #2c2c2c;
+}
 .signup-form__inputbuttonYet {
   font-size: 1.6rem;
   font-weight: 500;
@@ -225,6 +228,7 @@ input.invalid {
   margin-top: 1.5rem;
 }
 
+/* Signup2 회원가입 버튼 */
 .signup-form__button--submitting {
   color: var(--main-bg-color);
   font-size: 1.6rem;
@@ -238,7 +242,11 @@ input.invalid {
   background-color: var(--accent-color);
   border-radius: 10px;
 }
+.signup-form__button--submitting:hover {
+  background-color: #438b53;
+}
 
+/* Signup1 진행버튼 */
 .signup-form__button--submittingSuccess {
   color: var(--main-bg-color);
   font-size: 1.6rem;
@@ -251,7 +259,11 @@ input.invalid {
   background-color: var(--accent-color);
   border-radius: 10px;
 }
+.signup-form__button--submittingSuccess:hover {
+  background-color: #438b53;
+}
 
+/* Signup1 진행버튼 막힘 */
 .signup-form__button--submittingYet {
   color: var(--grey-e5-color);
   font-size: 1.6rem;
@@ -280,4 +292,7 @@ input.invalid {
   color: var(--accent-color);
   background-color: var(--main-bg-color);
   margin-left: 1rem;
+}
+.login-button:hover {
+  color: #438b53;
 }

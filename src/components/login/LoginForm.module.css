@@ -83,13 +83,16 @@ fieldset{
   font-size: 1.2rem;
   color: red;
 }
-.passwordFind-button{
+.passwordFind-button {
   cursor: pointer;
   margin-left: auto;
   font-size: 1.6rem;
   background-color: var(--main-bg-color);
   color: var(--grey-a9-color);
   border-bottom: 1px solid var(--grey-a9-color);
+}
+.passwordFind-button:hover {
+  color: #8b8b8b;
 }
 
 /* 로그인 버튼 */
@@ -108,6 +111,9 @@ fieldset{
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.button:hover {
+  background-color: #438b53;
 }
 
 .button--submitting {
