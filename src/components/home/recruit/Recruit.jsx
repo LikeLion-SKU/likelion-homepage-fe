@@ -56,15 +56,11 @@ function RecruitTitle() {
 
   return (
     <p className={styles.title}>
-      {isRecruiting ? (
-        `${targetSemester}기 아기사자 모집`
-      ) : (
-        <>
-          {targetSemester}기 아기사자
-          <br />
-          서류 합격 발표
-        </>
-      )}
+      {isRecruiting
+        ? `${targetSemester}기 아기사자 모집`
+        : `
+          ${targetSemester}기 아기사자 서류 합격 발표
+        `}
     </p>
   );
 }
