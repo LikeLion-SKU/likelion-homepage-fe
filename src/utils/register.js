@@ -4,7 +4,7 @@
 // 유효성 검사 정규식 //
 const inputRegexs = {
   idRegex: /^[a-zA-Z0-9._-]+@skuniv\.ac\.kr$/,
-  pwRegex: /^(?=.*\d)(?=.*[a-z])(?=.*[@#$%^&+=!*])(?!.*\s).{8,}$/,
+  pwRegex: /^(?=.*\d)(?=.*[a-z])(?=.*[!@#$%^&*()_+])(?!.*\s).{8,}$/,
   nameRegex: /^[가-힣]{2,4}$/,
   departRegex: /^[가-힣0-9&]{1,15}$/,
   student_numRegex: /^[0-9]{10}$/,

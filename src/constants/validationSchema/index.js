@@ -12,7 +12,7 @@ export const passwordChangeSchema = yup.object().shape({
     .required('새 비밀번호를 입력해주세요')
     .matches(
       /^(?=.*\d)(?=.*[a-z])(?=.*[@#$%^&+=!])(?!.*\s).{8,}$/,
-      '띄어쓰기를 제외하고 최소 8자 이상의 영문, 숫자, 특수문자를 포함해야 합니다.',
+      '띄어쓰기를 제외하고 최소 8자 이상의 영문, 숫자, 특수문자!@#$%^&*()_+를 포함해야 합니다.',
     ),
   newpassword_valid: yup
     .string()
