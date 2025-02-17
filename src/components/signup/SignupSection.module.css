@@ -172,7 +172,7 @@ input.invalid {
   display: flex;
   flex-direction: column;
   text-align: left;
-  height: max-content;
+  height: 27rem;
   width: 100%;
   margin-top: 2rem;
 }
