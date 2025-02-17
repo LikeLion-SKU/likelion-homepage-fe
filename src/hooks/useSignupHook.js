@@ -1,6 +1,7 @@
 import { APIService } from '@api/axios';
 import { useEffect } from 'react';
 import { invalidationKey } from '@/utils/register';
+import { validateInput_signup } from '@utils/register.js';
 
 // SignupSection1.jsx - 이메일 인증 성공 후, 계속 버튼 클릭 //
 // 다음 페이지(SignupSection2.jsx)를 보여줌
@@ -12,16 +13,17 @@ export function next(e, form, setEmail, setNow) {
 
 // SignupSection2.jsx - 회원가입 버튼 클릭 //
 // 유효성 검사 실패시, alert창 띄우기
-export function useInvalidationAlert(errors, isValid) {
+export function useInvalidationAlert(errors, isValid, isSubmitting, setIsSubmitting) {
   useEffect(() => {
-    if (isValid === false) {
+    if (isSubmitting && isValid === false) {
       const invalidations = invalidationKey(errors);
 
       if (invalidations) {
         alert(`잘못된 형식으로 기입된 란이 있습니다:\n${invalidations}을(를) 다시 확인해주세요.`);
       }
+      setIsSubmitting(false);
     }
-  }, [errors, isValid]);
+  }, [errors, isValid, isSubmitting, setIsSubmitting]);
 }
 
 // 회원가입 진행
@@ -54,6 +56,16 @@ export async function signUp(form, setSignupSuccess, setNow, navigate) {
 }
 
 // SignupSection2 - 이용 동의서 체크 박스 //
-export function handleCheckboxChange(event, form, setForm) {
+export function handleCheckboxChange(event, form, setForm, setErrors) {
   setForm({ ...form, consent: event.target.checked });
+
+  setErrors((prevErrors) => {
+    // 기존 errors 상태를 유지하면서 현재 입력된 필드만 검사
+    const newErrors = validateInput_signup({ ...prevErrors, consent: event.target.checked });
+
+    return {
+      ...prevErrors, // 기존 에러 메시지 유지
+      consent: newErrors.consent, // 현재 입력 필드의 에러 메시지만 업데이트
+    };
+  });
 }

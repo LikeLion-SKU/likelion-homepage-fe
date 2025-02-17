@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SignupSection.module.css';
-import { handleInputChange, handleInputChangeNumber } from '@utils/inputOnChange.js';
+import { handleInputChangeNumber, handleInputChangeSignup, handleInputChangePW_valid } from '@utils/inputOnChange.js';
 import { handleSignup } from '@utils/register.js';
 import ConsentTable from './ConsentTable';
 
@@ -23,12 +23,15 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
   });
   const [errors, setErrors] = useState({});
   const [isValid, setIsValid] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
-  useInvalidationAlert(errors, isValid);
+  useInvalidationAlert(errors, isValid, isSubmitting, setIsSubmitting);
 
   function handleSignupClick(event, form, setErrors, setSignupSuccess, setNow) {
     event.preventDefault();
+
+    setIsSubmitting(true);
 
     const valid = handleSignup(setErrors, form); // 유효성 검사
     setIsValid(valid);
@@ -76,7 +79,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 id='password'
                 value={form.password}
                 className={errors.password ? styles['invalid'] : form.password ? styles['valid'] : ''}
-                onChange={handleInputChange(setForm)}
+                onChange={handleInputChangeSignup(setForm, setErrors)}
                 autoComplete='off'
                 required
               ></input>
@@ -98,7 +101,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 id='password_valid'
                 value={form.password_valid}
                 className={errors.password_valid ? styles['invalid'] : form.password_valid ? styles['valid'] : ''}
-                onChange={handleInputChange(setForm)}
+                onChange={handleInputChangePW_valid(setForm, setErrors, form)}
                 autoComplete='off'
                 required
               ></input>
@@ -122,7 +125,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 id='name'
                 value={form.name}
                 className={errors.name ? styles['invalid'] : form.name ? styles['valid'] : ''}
-                onChange={handleInputChange(setForm)}
+                onChange={handleInputChangeSignup(setForm, setErrors)}
                 autoComplete='off'
                 required
               ></input>
@@ -145,7 +148,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 id='department'
                 value={form.department}
                 className={errors.department ? styles['invalid'] : form.department ? styles['valid'] : ''}
-                onChange={handleInputChange(setForm)}
+                onChange={handleInputChangeSignup(setForm, setErrors)}
                 autoComplete='off'
                 required
               ></input>
@@ -168,7 +171,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 id='strudent_num'
                 value={form.strudent_num}
                 className={errors.strudent_num ? styles['invalid'] : form.strudent_num ? styles['valid'] : ''}
-                onChange={handleInputChangeNumber(setForm)}
+                onChange={handleInputChangeNumber(setForm, setErrors)}
                 autoComplete='off'
                 required
               ></input>
@@ -191,7 +194,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 id='phone_num'
                 value={form.phone_num}
                 className={errors.phone_num ? styles['invalid'] : form.phone_num ? styles['valid'] : ''}
-                onChange={handleInputChangeNumber(setForm)}
+                onChange={handleInputChangeNumber(setForm, setErrors)}
                 autoComplete='off'
                 required
               ></input>
@@ -208,7 +211,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
               checked={form.consent}
               className={errors.consent ? styles['invalid'] : form.consent ? styles['valid'] : ''}
               onChange={function (event) {
-                handleCheckboxChange(event, form, setForm);
+                handleCheckboxChange(event, form, setForm, setErrors);
               }}
             ></input>
             <label htmlFor='consent'>(필수) 개인정보 수집 및 이용 동의서</label>

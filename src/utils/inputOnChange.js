@@ -1,3 +1,5 @@
+import { validateInput_signup } from '@utils/register.js';
+
 // input창 onChange()에서 setForm() 해주는 함수 //
 export function handleInputChange(setState) {
   return function (event) {
@@ -12,16 +14,70 @@ export function handleInputChange(setState) {
   };
 }
 
+export function handleInputChangeSignup(setState, setErrors) {
+  return function (event) {
+    const { id, value } = event.target; // 입력 필드의 id과 value 추출
+
+    // 입력값 업데이트
+    setState((prev) => ({
+      ...prev,
+      [id]: value,
+    }));
+
+    setErrors((prevErrors) => {
+      // 기존 errors 상태를 유지하면서 현재 입력된 필드만 검사
+      const newErrors = validateInput_signup({ ...prevErrors, [id]: value });
+
+      return {
+        ...prevErrors, // 기존 에러 메시지 유지
+        [id]: newErrors[id], // 현재 입력 필드의 에러 메시지만 업데이트
+      };
+    });
+  };
+}
+
 // 숫자만 입력받기
-export function handleInputChangeNumber(setState) {
+export function handleInputChangeNumber(setState, setErrors) {
   return function (event) {
     const filteredValue = event.target.value.replace(/[^0-9]/g, '');
     const { id } = event.target;
 
-    setState(function (prev) {
+    // 입력값 업데이트
+    setState((prev) => ({
+      ...prev,
+      [id]: filteredValue,
+    }));
+
+    setErrors((prevErrors) => {
+      // 기존 errors 상태를 유지하면서 현재 입력된 필드만 검사
+      const newErrors = validateInput_signup({ ...prevErrors, [id]: filteredValue });
+
       return {
-        ...prev,
-        [id]: filteredValue,
+        ...prevErrors, // 기존 에러 메시지 유지
+        [id]: newErrors[id], // 현재 입력 필드의 에러 메시지만 업데이트
+      };
+    });
+  };
+}
+
+// 비밀번호 확인 입력받기
+export function handleInputChangePW_valid(setState, setErrors, form) {
+  return function (event) {
+    const { id, value } = event.target; // 입력 필드의 id과 value 추출
+
+    // 입력값 업데이트
+    setState((prev) => ({
+      ...prev,
+      [id]: value,
+    }));
+
+    setErrors((prevErrors) => {
+      // 기존 errors 상태를 유지하면서 현재 입력된 필드만 검사
+      const newErrors = validateInput_signup({ ...form, [id]: value });
+
+      return {
+        ...prevErrors, // 기존 에러 메시지 유지
+        [id]: newErrors[id], // 현재 입력 필드의 에러 메시지만 업데이트
       };
     });
   };
