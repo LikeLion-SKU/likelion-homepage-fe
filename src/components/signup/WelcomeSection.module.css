@@ -59,3 +59,7 @@
   background-color: var(--accent-color);
   border-radius: 10px;
 }
+
+.welcomePage_Btn > button:hover {
+  background-color: #438b53;
+}
