@@ -106,7 +106,7 @@ export function validateInput_signup(form) {
   if (form.password === '') {
     errors.password = '비밀번호는 필수 입력 항목입니다.';
   } else if (!inputRegexs.pwRegex.test(form.password)) {
-    errors.password = '비밀번호는 최소 8자 이상의 영문, 숫자, 특수문자를 포함해야 합니다.';
+    errors.password = '비밀번호는 최소 8자 이상의 영문, 숫자, 특수문자!@#$%^&*()_+를 포함해야 합니다.';
   }
 
   if (form.password_valid === '') {
