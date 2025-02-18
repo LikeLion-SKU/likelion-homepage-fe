@@ -15,9 +15,20 @@ export default function Footer() {
     clickCount.current += 1;
 
     if (clickCount.current === 3) {
+      window.gtag('event', 'admin_access', {
+        event_category: 'hidden_feature',
+        event_label: 'logo_triple_click',
+      });
       navigate('/admin');
       clickCount.current = 0;
     }
+  }
+
+  function handleSocialClick(platform) {
+    window.gtag('event', 'social_click', {
+      event_category: 'social',
+      event_label: platform,
+    });
   }
 
   return (
@@ -32,6 +43,7 @@ export default function Footer() {
           href='mailto:skuofficial@likelion.org'
           target='_blank'
           rel='noopener noreferrer'
+          onClick={() => handleSocialClick('email')}
         >
           <img
             src={email}
@@ -42,6 +54,7 @@ export default function Footer() {
           href='https://www.instagram.com/likelion_skuniv'
           target='_blank'
           rel='noopener noreferrer'
+          onClick={() => handleSocialClick('instagram')}
         >
           <img
             src={instagram}
@@ -52,6 +65,7 @@ export default function Footer() {
           href='https://github.com/LikeLion-SKU'
           target='_blank'
           rel='noopener noreferrer'
+          onClick={() => handleSocialClick('github')}
         >
           <img
             src={github}
