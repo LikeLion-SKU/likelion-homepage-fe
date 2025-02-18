@@ -12,7 +12,7 @@ export default function MySchedulePage() {
     const fetchSchedule = async () => {
       try {
         const response = await getMyInterviewSchedule();
-        setSchedule(response.data);
+        setSchedule(response);
       } catch {
         setError('면접 일정을 불러오는 중 오류가 발생했습니다. 관리자에게 문의해주세요');
       }
