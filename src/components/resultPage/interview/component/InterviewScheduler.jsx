@@ -7,7 +7,20 @@ import { getUserPart, bookInterview } from '@api/interviewAPI';
 function InterviewScheduler({ isSubmitEnabled }) {
   const [userPart, setUserPart] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isDeadlinePassed, setIsDeadlinePassed] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkDeadline = () => {
+      const deadline = new Date('2025-02-17T00:00:00');
+      const now = new Date();
+      setIsDeadlinePassed(now >= deadline);
+    };
+
+    checkDeadline();
+    const interval = setInterval(checkDeadline, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(function () {
     async function fetchUserPart() {
@@ -68,7 +81,7 @@ function InterviewScheduler({ isSubmitEnabled }) {
   }
 
   async function handleSubmit() {
-    if (!selectedSlot || isSubmitting) return;
+    if (!selectedSlot || isSubmitting || isDeadlinePassed) return;
 
     setIsSubmitting(true);
 
@@ -122,8 +135,12 @@ function InterviewScheduler({ isSubmitEnabled }) {
     return <div className={styles.error}>면접 파트 정보를 찾을 수 없습니다.</div>;
   }
 
+  if (isDeadlinePassed) {
+    return <div className={styles.empty}>면접 신청이 마감되었습니다.</div>;
+  }
+
   if (!scheduleData || scheduleData.length === 0) {
-    return <div className={styles.empty}>현재 등록된 면접 일정이 없습니다.</div>;
+    return <div className={styles.empty}>관리자가 등록한 면접 일정이 없습니다. 관리자에게 문의해주세요.</div>;
   }
 
   return (

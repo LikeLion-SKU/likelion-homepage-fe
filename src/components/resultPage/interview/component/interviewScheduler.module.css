@@ -128,6 +128,14 @@
   color: #ff3b30;
 }
 
+.empty {
+  font-size: 2rem; /* 20px */
+  text-align: center;
+  padding: 2rem;
+  color: #4b5563; /* gray-600 */
+  font-weight: 500; /* medium */
+}
+
 @media (max-width: 600px) {
   .container {
     padding: 16px;
