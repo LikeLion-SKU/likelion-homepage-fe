@@ -1,7 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SignupSection.module.css';
-import { handleInputChangeNumber, handleInputChangeSignup, handleInputChangePW_valid } from '@utils/inputOnChange.js';
+import {
+  handleInputChangeNumber,
+  handleInputChangeSignup,
+  handleInputChangePW,
+  handleInputChangePW_valid,
+} from '@utils/inputOnChange.js';
 import { handleSignup } from '@utils/register.js';
 import ConsentTable from './ConsentTable';
 
@@ -79,7 +84,7 @@ export default function SignupSection({ email, setSignupSuccess, setNow }) {
                 id='password'
                 value={form.password}
                 className={errors.password ? styles['invalid'] : form.password ? styles['valid'] : ''}
-                onChange={handleInputChangeSignup(setForm, setErrors)}
+                onChange={handleInputChangePW(setForm, setErrors, form)}
                 autoComplete='off'
                 required
               ></input>
