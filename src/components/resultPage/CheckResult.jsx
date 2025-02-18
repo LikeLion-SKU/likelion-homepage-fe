@@ -23,7 +23,7 @@ export default function CheckResult() {
       try {
         const token = localStorage.getItem('token');
         if (!token) {
-          navigate('/notallowed');
+          navigate('/login');
           return;
         }
 
