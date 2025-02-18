@@ -12,7 +12,7 @@ function InterviewScheduler({ isSubmitEnabled }) {
 
   useEffect(() => {
     const checkDeadline = () => {
-      const deadline = new Date('2025-02-17T00:00:00');
+      const deadline = new Date('2025-03-10T00:00:00');
       const now = new Date();
       setIsDeadlinePassed(now >= deadline);
     };
