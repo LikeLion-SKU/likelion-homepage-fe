@@ -27,6 +27,12 @@ export default function PassPage() {
 
     if (!checkAccess()) return;
 
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login');
+      return;
+    }
+
     const fetchResult = async () => {
       try {
         const response = await getResult();
