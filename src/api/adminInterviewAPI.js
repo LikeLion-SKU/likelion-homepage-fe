@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_APP_API_URL;
+const API_URL = `${import.meta.env.VITE_APP_API_URL}/api`;
 
 // axios 인스턴스 생성 및 기본 설정
 const axiosInstance = axios.create({

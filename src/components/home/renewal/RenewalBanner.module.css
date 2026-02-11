@@ -1,0 +1,63 @@
+.section {
+  position: absolute;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--accent-color);
+  text-align: center;
+  padding-top: 20vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.badge {
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.4rem;
+  color: var(--main-bg-color);
+  opacity: 0.6;
+  margin-bottom: 2.5rem;
+}
+
+.title {
+  font-size: 5.4rem;
+  font-weight: 800;
+  color: var(--main-bg-color);
+  line-height: 1.3;
+  letter-spacing: -0.05rem;
+}
+
+.divider {
+  width: 6rem;
+  height: 3px;
+  background-color: var(--main-bg-color);
+  opacity: 0.4;
+  margin: 3rem 0;
+  transform-origin: center;
+}
+
+.subtitle {
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--main-bg-color);
+  letter-spacing: 0.1rem;
+}
+
+@media (max-width: 500px) {
+  .badge {
+    font-size: 1.2rem;
+    letter-spacing: 0.3rem;
+  }
+
+  .title {
+    font-size: 3.6rem;
+    padding: 0 2rem;
+  }
+
+  .subtitle {
+    font-size: 1.4rem;
+  }
+}
