@@ -51,7 +51,7 @@ import axios from 'axios';
  * timeout: 30초 (30000ms) 후 요청 자동 취소
  */
 const publicApi = axios.create({
-  baseURL: import.meta.env.VITE_APP_API_URL,
+  baseURL: `${import.meta.env.VITE_APP_API_URL}/api`,
   timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ const publicApi = axios.create({
  * publicApi와 동일한 기본 설정을 가지지만, 토큰 관련 인터셉터가 추가됨
  */
 const privateApi = axios.create({
-  baseURL: import.meta.env.VITE_APP_API_URL,
+  baseURL: `${import.meta.env.VITE_APP_API_URL}/api`,
   timeout: 30000,
   // headers: {
   //   // 'Content-Type': 'application/json',
