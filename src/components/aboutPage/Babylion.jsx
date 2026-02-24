@@ -61,9 +61,9 @@ export default function BabyLion({ selectedYear }) {
                       />
                     ))
                 : babyLions[part] &&
-                  babyLions[part].map((member) => (
+                  babyLions[part].map((member, index) => (
                     <Card
-                      key={member.studentId}
+                      key={`${selectedYear}-${part}-${member.userName}-${member.department}-${member.studentId}-${index}`}
                       name={member.userName}
                       department={member.department}
                       studentId={member.studentId}
