@@ -10,9 +10,9 @@ export async function getAbout(semester, parts, role) {
   }
 }
 
-export async function getChairman(role) {
+export async function getChairman(semester, role) {
   try {
-    const baseUrl = `${import.meta.env.VITE_APP_GET_ABOUT}/admin/role/${role}`;
+    const baseUrl = `${import.meta.env.VITE_APP_GET_ABOUT}/semester/${semester}/role/${role}`;
     const res = await APIService.private.get(baseUrl);
     return res;
   } catch {
