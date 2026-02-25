@@ -11,36 +11,46 @@ export default function Chairman({ year }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (year) {
-      fetchChairmanData('LEAD', setChairman); // 회장 데이터 요청
-      fetchChairmanData('COLEAD', setCoChairman); // 부회장 데이터 요청
-    }
-  }, [year]);
+    if (!year) return;
 
-  async function fetchChairmanData(role, setter) {
-    setIsLoading(true);
-    try {
-      const response = await getChairman(role);
-      const users = response?.users || [];
+    const fetchBoth = async () => {
+      setIsLoading(true);
+      try {
+        const [leadRes, coLeadRes] = await Promise.all([getChairman(year, 'LEAD'), getChairman(year, 'COLEAD')]);
 
-      // year(semester)와 동일한 데이터 필터링
-      const filteredMember = users.find((user) => user.semester == year);
-      if (filteredMember) {
-        setter({
-          name: filteredMember.userName,
-          department: `${filteredMember.department} ${filteredMember.studentId.slice(2, 4)}학번`,
-          profileImage: filteredMember.profileImageUrl,
-          role: role === 'LEAD' ? '회장' : '부회장', // 역할 이름 변환
-        });
-      } else {
-        setter(null);
+        const lead = leadRes?.users?.[0];
+        const coLead = coLeadRes?.users?.[0];
+
+        setChairman(
+          lead
+            ? {
+                name: lead.userName,
+                department: `${lead.department} ${lead.studentId}`,
+                profileImage: lead.profileImageUrl,
+                role: '회장',
+              }
+            : null,
+        );
+
+        setCoChairman(
+          coLead
+            ? {
+                name: coLead.userName,
+                department: `${coLead.department} ${coLead.studentId}`,
+                profileImage: coLead.profileImageUrl,
+                role: '부회장',
+              }
+            : null,
+        );
+      } catch {
+        location.href = '/error';
+      } finally {
+        setIsLoading(false);
       }
-    } catch {
-      location.href = '/error';
-    } finally {
-      setIsLoading(false); // 로딩 종료
-    }
-  }
+    };
+
+    fetchBoth();
+  }, [year]);
 
   return (
     <div className={styles.allContainer}>
