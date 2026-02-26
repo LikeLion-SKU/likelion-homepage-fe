@@ -1,70 +1,30 @@
+import ReactPagination from 'react-js-pagination';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { MdFirstPage, MdLastPage } from 'react-icons/md';
 import styles from './Pagination.module.css';
 
-function Pagination({ currentPage, totalPages, onPageChange }) {
-  // 이전 페이지 버튼 핸들러
-  function handlePrevClick() {
-    if (currentPage > 1) {
-      onPageChange(currentPage - 1);
-    }
-  }
+function Pagination({ currentPage0, totalElements = 0, pageSize = 6, onPageChange0 }) {
+  const activePage = (currentPage0 ?? 0) + 1;
 
-  // 다음 페이지 버튼 핸들러
-  function handleNextClick() {
-    if (currentPage < totalPages) {
-      onPageChange(currentPage + 1);
-    }
-  }
-
-  // 페이지 번호 계산
-  function getPageNumbers() {
-    const maxVisiblePages = 3; // 화면에 보일 최대 페이지 숫자
-    const halfVisible = Math.floor(maxVisiblePages / 2);
-
-    let startPage = Math.max(1, currentPage - halfVisible); // 시작 페이지 계산
-    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1); // 끝 페이지 계산
-
-    // 시작 페이지가 1이 아닌 경우, 끝 페이지 조정
-    if (endPage - startPage + 1 < maxVisiblePages) {
-      startPage = Math.max(1, endPage - maxVisiblePages + 1);
-    }
-
-    return Array.from({ length: endPage - startPage + 1 }, (_, idx) => startPage + idx);
-  }
+  if (!totalElements || totalElements <= pageSize) return null;
 
   return (
     <div className={styles.pagination}>
-      {/* 이전 페이지 버튼 */}
-      {currentPage > 1 ? (
-        <button
-          onClick={handlePrevClick}
-          disabled={currentPage === 1}
-          className={styles.paginationButton}
-        >
-          &lt;
-        </button>
-      ) : null}
-
-      {/* 페이지 번호 버튼 */}
-      {getPageNumbers().map((pageNumber) => (
-        <button
-          key={pageNumber}
-          onClick={() => onPageChange(pageNumber)}
-          className={`${styles.paginationButton} ${pageNumber === currentPage ? styles.activePage : ''}`}
-        >
-          {pageNumber}
-        </button>
-      ))}
-
-      {/* 다음 페이지 버튼 */}
-      {currentPage < totalPages ? (
-        <button
-          onClick={handleNextClick}
-          disabled={currentPage === totalPages}
-          className={styles.paginationButton}
-        >
-          &gt;
-        </button>
-      ) : null}
+      <ReactPagination
+        activePage={activePage}
+        itemsCountPerPage={pageSize}
+        totalItemsCount={totalElements}
+        pageRangeDisplayed={5}
+        onChange={(page1Based) => onPageChange0(page1Based - 1)}
+        prevPageText={<FiChevronLeft />}
+        nextPageText={<FiChevronRight />}
+        firstPageText={<MdFirstPage />}
+        lastPageText={<MdLastPage />}
+        innerClass={styles.paginationList}
+        itemClass={styles.pageItem}
+        linkClass={styles.pageLink}
+        activeLinkClass={styles.activeLink}
+      />
     </div>
   );
 }
