@@ -9,8 +9,9 @@ import projectAPI from '@/api/projectAPI';
 
 function ProjectPageLayout({ isAdmin }) {
   const [projects, setProjects] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태
-  const [totalPages, setTotalPages] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalElements, setTotalElements] = useState(0);
+  const [pageSize, setPageSize] = useState(6);
   const [menuVisible, setMenuVisible] = useState(null); // 메뉴 표시 상태 관리
   const [selectedType, setSelectedType] = useState('ALL');
   const [loading, setLoading] = useState(false);
@@ -26,20 +27,24 @@ function ProjectPageLayout({ isAdmin }) {
   };
 
   useEffect(() => {
-    // API 호출: 프로젝트 목록 조회
     async function fetchProjects() {
-      setLoading(true); // API 호출 전 로딩 상태 활성화
+      setLoading(true);
       try {
-        const response = await projectAPI.fetchProjects(selectedType.toUpperCase(), currentPage - 1);
-        const { content = [], totalPages = 0 } = response || {}; // content와 totalPages 추출
+        const response = await projectAPI.fetchProjects(selectedType.toUpperCase(), currentPage);
+
+        const { content = [], totalElements: serverTotalElements = 0, pageSize: serverPageSize = 6 } = response || {};
+
         setProjects(content);
-        setTotalPages(totalPages);
+        setTotalElements(serverTotalElements);
+        setPageSize(serverPageSize);
       } catch {
         alert('Failed to fetch projects');
-        setProjects([]); // 오류 발생 시 빈 목록으로 초기화
-        setTotalPages(0); // 페이지 수 초기화
+        setProjects([]);
+        setTotalElements(0);
+        setPageSize(6);
+        setCurrentPage(0);
       } finally {
-        setLoading(false); // API 호출 후 로딩 상태 비활성화
+        setLoading(false);
       }
     }
 
@@ -86,7 +91,7 @@ function ProjectPageLayout({ isAdmin }) {
       자체프로젝트: 'SIDE',
     };
     setSelectedType(typeMap[type] || 'ALL'); // 매핑된 값 설정
-    setCurrentPage(1);
+    setCurrentPage(0);
   }
 
   function handleAddProjectClick() {
@@ -212,9 +217,10 @@ function ProjectPageLayout({ isAdmin }) {
         </div>
       )}
       <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={(page) => setCurrentPage(page)}
+        currentPage0={currentPage}
+        totalElements={totalElements}
+        pageSize={pageSize}
+        onPageChange0={setCurrentPage}
       />
     </div>
   );
