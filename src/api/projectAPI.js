@@ -18,14 +18,16 @@ const projectAPI = {
           ? import.meta.env.VITE_APP_PROJECT_LIST_API
           : `${import.meta.env.VITE_APP_PROJECT_BY_TYPE_API}/${type}`;
       const response = await APIService.public.get(endpoint, { params: { page } });
-      const projects = response.content.map((project) => ({
+      const data = response?.data ?? response;
+
+      const projects = (data?.content || []).map((project) => ({
         ...project,
         thumbnailUrl: project.thumbnailUrl
           ? `${import.meta.env.VITE_APP_API_URL}${project.thumbnailUrl}`
           : defaultImage,
       }));
 
-      return { ...response, content: projects };
+      return { ...data, content: projects };
     } catch (error) {
       console.error('프로젝트 목록 조회 실패:', error);
       throw error;
@@ -41,12 +43,11 @@ const projectAPI = {
     try {
       const endpoint = `${import.meta.env.VITE_APP_PROJECT_DETAIL_API}/${projectId}`;
       const response = await APIService.public.get(endpoint);
-      const projectData = response.data || response;
+      const data = response?.data ?? response;
 
-      // 그대로 반환
       return {
-        ...projectData,
-        imageUrls: projectData.imageUrls || [],
+        ...data,
+        imageUrls: data?.imageUrls || [],
       };
     } catch (error) {
       console.error(`프로젝트 상세 조회 실패 (ID: ${projectId}):`, error);
