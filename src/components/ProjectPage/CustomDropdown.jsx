@@ -2,9 +2,9 @@ import { useState } from 'react';
 import styles from './CustomDropdown.module.css';
 import arrow_down from '@assets/projectPage/arrow_down.webp';
 
-function CustomDropdown({ options, defaultOption, onSelect, hideArrow = false }) {
+function CustomDropdown({ options, value, onSelect, hideArrow = false }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(defaultOption);
+  const selectedOption = value;
 
   function toggleDropdown() {
     setIsDropdownOpen(function (prev) {
@@ -13,7 +13,6 @@ function CustomDropdown({ options, defaultOption, onSelect, hideArrow = false })
   }
 
   function handleSelect(option) {
-    setSelectedOption(option);
     setIsDropdownOpen(false);
     onSelect(option);
   }
