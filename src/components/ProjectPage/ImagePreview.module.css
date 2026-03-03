@@ -60,13 +60,22 @@
   z-index: 2;
   opacity: 0.8;
   transition: all 0.3s ease;
+
+  padding: 0.8rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.18);
+  filter: brightness(1.05);
 }
 
 .arrowLeft:hover,
 .arrowRight:hover,
 .deleteIconOnImage:hover {
+  background: rgba(0, 0, 0, 0.32);
   opacity: 1;
-  filter: brightness(1.2);
+  filter: none;
+  transform: translateY(-50%) scale(1.08);
+  filter: brightness(1.4) contrast(1.2);
+  box-shadow: 0 0.6rem 1.5rem rgba(0, 0, 0, 0.2);
 }
 
 .arrowLeft {
